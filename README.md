@@ -10,7 +10,7 @@ The program uses the Pygame module for gameplay and pygbag to export the game to
 
 * Over 64 trainers, each with their own unique deck.
 
-* Two maps: TCG Island and Neo Continent, each containing their own card clubs and each rewarding the player with different cards.
+* Two maps: TCG Island and Neo Continent, each containing their own card clubs and rewarding the player with different cards.
 
 * A villainous organization, the Forbidden Faction, who use powerful forbidden cards.
 
@@ -18,14 +18,19 @@ The program uses the Pygame module for gameplay and pygbag to export the game to
 
 ##Current status:
 
-Cards:0/~1000 done
-Duelling system: 1% done
-Duelling GUI: ~50% done
-NPC sprites and portraits: 2% done
-Overworld player interactions: 0%
-Background images and sprites: 0% done
-GUI and displaying text: 0% done
-NPC duel AI: 0% done
-NPC decks: 0% done
-NPC dialogue: ~75% done
-Music and sounds: ~10% done
+(All percentages are approximate.)
+
+Cards:0/~1000 done  
+Duelling system: 10% done  
+Duelling layout: 50% done  
+NPC sprites and portraits: 2% done  
+NPC/player interactions: 0% done  
+New location designs: 10% done  
+GUI and displaying text: 0% done  
+NPC duel AI: 0% done  
+NPC decks: 0% done  
+NPC dialogue: 75% done  
+Music and sounds: 10% done  
+Save/load: 0% done  
+
+This repo also contains the `obstacle generator.py` Python script, a tool to generate rects for tile collision directly on the loaded image. More information about that can be found at the beginning of that file.
