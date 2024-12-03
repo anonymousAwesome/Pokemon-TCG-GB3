@@ -42,6 +42,21 @@ def pikachu2(player2):
     ) 
     return(pikachu)
 
+@pytest.fixture    
+def raichu1(player1):
+    raichu = Pokemon(
+        name="Raichu",
+        cardset="base",
+        energy_type="electric",
+        evolution_level="stage 1",
+        hp=60,
+        attack_dmg=20,
+        retreat_cost=1,
+        owner=player1,
+        evolves_from="Pikachu"
+    ) 
+    return(raichu)
+
 def test_one_active_pokemon(player1, pikachu1):
     active=CardCollection(player1, pikachu1)
     assert pikachu1 in active
@@ -109,7 +124,7 @@ def test_ko_with_1_prize_remaining_ends_duel(player2,pikachu1,pikachu2):
     assert player2.duel_handler.phase_handler.get_game_phase()=="club"
 
 def test_attach_energy_to_pokemon(player1,pikachu1):
-    water_energy=Energy("water", "any", player1)
+    water_energy=Energy("water", "basic energy", player1)
     pikachu1.attach_energy(water_energy)
     assert water_energy in pikachu1.attached_energy
 
@@ -117,21 +132,22 @@ def test_moving_water_deck_hand_discard(player1):
     deck=Deck(player1)
     hand=Hand(player1)
     discard_pile=DiscardPile(player1)
-    water_energy=Energy("water", "any", player1)
-    move_cards_to_from(water_energy,deck)
+    water_energy=Energy("water", "basic energy", player1)
+    move_cards_to_from(water_energy, deck)
     assert water_energy in deck
-    move_cards_to_from(water_energy,hand, deck)
+    move_cards_to_from(water_energy, hand, deck)
     assert water_energy in hand
-    move_cards_to_from(water_energy,discard_pile, hand)
+    assert water_energy not in deck
+    move_cards_to_from(water_energy, discard_pile, hand)
     assert water_energy in discard_pile
     assert water_energy not in hand
-    assert water_energy not in deck
+    
 
-def test_moving_pikachu_deck_hand_benched_active(pikachu1,player1):
+def test_moving_pikachu_deck_hand_bench_active(pikachu1,player1):
     deck=Deck(player1)
     hand=Hand(player1)
     active=Active(player1)
-    benched=Benched(player1)
+    bench=Bench(player1)
     move_cards_to_from(pikachu1, deck)
     assert pikachu1 in deck
     move_cards_to_from(pikachu1,hand, deck)
@@ -140,24 +156,32 @@ def test_moving_pikachu_deck_hand_benched_active(pikachu1,player1):
     move_cards_to_from(pikachu1,active, hand)
     assert pikachu1 in active
     assert pikachu1 not in hand
-    move_cards_to_from(pikachu1,benched, active)
-    assert pikachu1 in benched
+    move_cards_to_from(pikachu1,bench, active)
+    assert pikachu1 in bench
     assert pikachu1 not in active
 
-def test_evolve_pikachu(player1, pikachu1):
+def test_evolve_pikachu(player1, pikachu1, raichu1):
     active=Active(player1)
     move_cards_to_from(pikachu1,active)
-    raichu = Pokemon(
-        name="Raichu",
-        cardset="base",
-        energy_type="electric",
-        evolution_level="stage 1",
-        hp=60,
-        attack_dmg=20,
-        retreat_cost=1,
-        owner=player1
-    ) 
-    pikachu1.evolve(raichu,active)
-    assert raichu in active
+    pikachu1.evolve(raichu1,active)
+    assert raichu1 in active
     assert pikachu1 not in active
-    assert pikachu1 in raichu.stored_pre_evolution
+    assert pikachu1 in raichu1.stored_pre_evolution
+
+def test_costless_retreat_pikachu(pikachu1, raichu1):
+    active=Active(player1)
+    bench=Bench(player1)
+    move_cards_to_from(pikachu1,active)
+    move_cards_to_from(raichu1,bench)
+    assert pikachu1 in active
+    assert raichu1 in bench
+    move_cards_to_from(pikachu1,bench,active)
+    move_cards_to_from(raichu1,active,bench)
+    assert pikachu1 in bench
+    assert raichu1 in active
+
+def test_add_multiple_cards(pikachu1,raichu1):
+    hand=Hand(player1)
+    move_cards_to_from([pikachu1,raichu1],hand)
+    assert pikachu1 in hand
+    assert raichu1 in hand

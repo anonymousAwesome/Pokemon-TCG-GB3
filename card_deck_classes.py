@@ -1,8 +1,8 @@
+import logging
+
 '''
 Contains the definitions for cards and decks
 '''
-
-
 
 class Card:
     def __init__(self, name,cardset,owner):
@@ -22,7 +22,7 @@ class Energy(Card):
         super().__init__(name, cardset, owner)
 
 class Pokemon(Card):
-    def __init__(self, name, cardset, owner, energy_type, evolution_level, hp, attack_dmg, retreat_cost,evolves_from=None):
+    def __init__(self, name, cardset, owner, energy_type, evolution_level, hp, attack_dmg, retreat_cost, weakness=None, resistance=None,evolves_from=None):
         super().__init__(name,cardset, owner)
         self.energy_type=energy_type
         self.evolution_level=evolution_level
@@ -30,7 +30,9 @@ class Pokemon(Card):
         self.attack_dmg = attack_dmg
         self.retreat_cost = retreat_cost
         self.evolves_from=evolves_from
-
+        self.weakness=weakness
+        self.resistance=resistance
+        
         self.attached_energy=CardCollection(owner)
 
         self.stored_pre_evolution=CardCollection(owner)
@@ -85,7 +87,7 @@ class Active(CardCollection):
     def __init__(self, owner, cards=None):
         super().__init__(cards)
 
-class Benched(CardCollection):
+class Bench(CardCollection):
     def __init__(self, owner, cards=None):
         super().__init__(cards)
 
