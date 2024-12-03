@@ -1,15 +1,9 @@
-profiling=False
-
 import pygame
 pygame.init()
 screen = pygame.display.set_mode((640,576))
 pygame.display.set_caption("club exploration")
 clock = pygame.time.Clock()
 TILE_SIZE=64
-
-#profiling code
-time_limit = 10000 #in milliseconds
-start_time = pygame.time.get_ticks()
 
 
 # List of obstacles
@@ -133,7 +127,4 @@ while running:
     
     pygame.display.flip()
     clock.tick(60)
-    if profiling:
-        if pygame.time.get_ticks()-start_time>time_limit:
-            running=False
 pygame.quit()

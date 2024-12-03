@@ -1,8 +1,10 @@
 """
-This code loads a tile-based background image and lets you click each
-tile, turning it red. When you're ready, press the spacebar and it will 
-print a list of rects generated from those tiles, combining each set of 
-contiguous tiles into a row or column.
+This code loads a tile-based background image and lets you click the 
+obstacle tiles, turning them red. When you're ready, press the spacebar
+and it will print a list of rects generated from those tiles.
+
+The rects are combined into a row or a column where possible to reduce 
+list size, though I admit it wasn't particularly necessary.
 """
 
 import pygame
@@ -12,15 +14,15 @@ import sys
 pygame.init()
 
 # Constants
-TILE_SIZE = 16
+INITIAl_TILE_SIZE = 16
 IMAGE_SCALE=2
 RECT_SCALE=2
-TILE_SIZE=TILE_SIZE*IMAGE_SCALE
+TILE_SIZE=INITIAl_TILE_SIZE*IMAGE_SCALE
 FPS = 60
 SELECTION_COLOR = (255, 0, 0, 128)  # Red with transparency
 
 # Load the tilemap
-TILEMAP_PATH = "./assets/flying club.png"  # Replace with your tilemap image path
+TILEMAP_PATH = "./assets/clubs/flying club.png"  # Replace with your tilemap image path
 tilemap = pygame.image.load(TILEMAP_PATH)
 tilemap=pygame.transform.scale_by(tilemap,2)
 
@@ -98,7 +100,8 @@ def generate_code(merged_rects):
     """Generate Python code for creating merged rects."""
     rects_code = "obstacles=[\n"
     for rect in merged_rects:
-        rects_code += f"    pygame.Rect({rect.x*RECT_SCALE}, {rect.y*RECT_SCALE}, {rect.width*RECT_SCALE}, {rect.height*RECT_SCALE}),\n"
+        #rects_code += f"    pygame.Rect({rect.x*RECT_SCALE}, {rect.y*RECT_SCALE}, {rect.width*RECT_SCALE}, {rect.height*RECT_SCALE}),\n"
+        rects_code += f"    pygame.Rect({rect.x//TILE_SIZE}, {rect.y//TILE_SIZE}, {rect.width//TILE_SIZE}, {rect.height//TILE_SIZE}),\n"
     rects_code += "]"
     return rects_code
 

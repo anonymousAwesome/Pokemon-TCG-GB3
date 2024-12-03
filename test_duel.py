@@ -6,29 +6,49 @@ import main
 
 @pytest.fixture
 def player1():
-    return(duel.Player(duel.Duel(main.phase_handler,True),6))
+    duel_manager=duel.DuelManager(main.phase_handler,user_won_starting_coin=True,prizes=6)
+    return(duel.Player(duel_manager))
 
 @pytest.fixture
 def player2():
-    return(duel.Player(duel.Duel(main.phase_handler,True),6))
+    duel_manager=duel.DuelManager(main.phase_handler,user_won_starting_coin=True,prizes=6)
+    return(duel.Player(duel_manager))
 
 @pytest.fixture
 def pikachu1(player1):
-    player=player1
-    return(Card(name="Pikachu",hp=40,owner=player))
+    pikachu = Pokemon(
+        name="Pikachu",
+        cardset="base",
+        energy_type="electric",
+        evolution_level="basic",
+        hp=40,
+        attack_dmg=10,
+        retreat_cost=0,
+        owner=player1
+    ) 
+    return(pikachu)
 
 @pytest.fixture    
 def pikachu2(player2):
-    player=player2
-    return(Card(name="Pikachu",hp=40,owner=player))
+    pikachu = Pokemon(
+        name="Pikachu",
+        cardset="base",
+        energy_type="electric",
+        evolution_level="basic",
+        hp=40,
+        attack_dmg=10,
+        retreat_cost=0,
+        owner=player2
+    ) 
+    return(pikachu)
 
-def test_one_active_pokemon(pikachu1):
-    active=CardCollection(pikachu1)
+def test_one_active_pokemon(player1, pikachu1):
+    active=CardCollection(player1, pikachu1)
     assert pikachu1 in active
 
-def test_two_active_pokemon(pikachu1,pikachu2):
-    active1=CardCollection(pikachu1)
-    active2=CardCollection(pikachu2)
+def test_two_active_pokemon(player1, player2, pikachu1,pikachu2):
+    active1=CardCollection(player1, pikachu1)
+    active2=CardCollection(player2, pikachu2)
     assert pikachu1 in active1
     assert pikachu2 in active2
 
@@ -39,7 +59,7 @@ def test_one_pokemon_attacking_another(pikachu1,pikachu2):
 def test_hp_past_max_doesnt_go_negative(pikachu1,pikachu2):
     pikachu1.attack(pikachu2,50)
     assert pikachu2.hp==0
-    
+
 def test_negative_damage(pikachu1,pikachu2):
     pikachu1.attack(pikachu2,-20)
     assert pikachu2.hp==40
@@ -49,7 +69,7 @@ def test_KO_removes_one_prize_card(pikachu1,pikachu2):
     assert pikachu1.owner.prizes==5
 
 def test_won_coin_flip_then_two_turns_end():
-    duel_object=duel.Duel(main.PhaseHandler(),True)
+    duel_object=duel.DuelManager(main.PhaseHandler(),user_won_starting_coin=True,prizes=6)
     assert duel_object.turn=="player"
     duel_object.advance_turn()
     assert duel_object.turn=="computer"
@@ -57,25 +77,25 @@ def test_won_coin_flip_then_two_turns_end():
     assert duel_object.turn=="player"
 
 def test_lost_coin_flip_then_two_turns_end():
-    duel_object=duel.Duel(main.PhaseHandler(),False)
+    duel_object=duel.DuelManager(main.PhaseHandler(),user_won_starting_coin=False,prizes=6)
     assert duel_object.turn=="computer"
     duel_object.advance_turn()
     assert duel_object.turn=="player"
     duel_object.advance_turn()
     assert duel_object.turn=="computer"
 
-def test_starting_phase():
+def test_starting_phase_handler():
     phase_handler = main.PhaseHandler()
     assert phase_handler.get_game_phase()=="starting"
 
 def test_starting_duel_phase():
     phase_handler = main.PhaseHandler()
-    new_duel=duel.Duel(phase_handler,True)
+    new_duel=duel.DuelManager(phase_handler,user_won_starting_coin=True,prizes=6)
     assert phase_handler.get_game_phase()=="duelling"
 
 def test_ending_duel_phase():
     phase_handler = main.PhaseHandler()
-    new_duel=duel.Duel(phase_handler,True)
+    new_duel=duel.DuelManager(phase_handler,user_won_starting_coin=True,prizes=6)
     new_duel.end_duel()
     assert phase_handler.get_game_phase()=="club"
 
@@ -83,11 +103,61 @@ def test_new_game_phases_per_test():
     phase_handler = main.PhaseHandler()
     assert phase_handler.get_game_phase()=="starting"
     
-def test_ko_with_1_prize_remaining_ends_duel():
-    phase_handler = main.PhaseHandler()
-    player1=duel.Player(duel.Duel(phase_handler,True),6)
-    player2=duel.Player(duel.Duel(phase_handler,True),1)
-    pikachu1=Card(name="Pikachu",hp=40,owner=player1)
-    pikachu2=Card(name="Pikachu",hp=40,owner=player2)
+def test_ko_with_1_prize_remaining_ends_duel(player2,pikachu1,pikachu2):
+    pikachu2.owner.prizes=1
     pikachu2.attack(pikachu1,50)
-    assert phase_handler.get_game_phase()=="club"
+    assert player2.duel_handler.phase_handler.get_game_phase()=="club"
+
+def test_attach_energy_to_pokemon(player1,pikachu1):
+    water_energy=Energy("water", "any", player1)
+    pikachu1.attach_energy(water_energy)
+    assert water_energy in pikachu1.attached_energy
+
+def test_moving_water_deck_hand_discard(player1):
+    deck=Deck(player1)
+    hand=Hand(player1)
+    discard_pile=DiscardPile(player1)
+    water_energy=Energy("water", "any", player1)
+    move_cards_to_from(water_energy,deck)
+    assert water_energy in deck
+    move_cards_to_from(water_energy,hand, deck)
+    assert water_energy in hand
+    move_cards_to_from(water_energy,discard_pile, hand)
+    assert water_energy in discard_pile
+    assert water_energy not in hand
+    assert water_energy not in deck
+
+def test_moving_pikachu_deck_hand_benched_active(pikachu1,player1):
+    deck=Deck(player1)
+    hand=Hand(player1)
+    active=Active(player1)
+    benched=Benched(player1)
+    move_cards_to_from(pikachu1, deck)
+    assert pikachu1 in deck
+    move_cards_to_from(pikachu1,hand, deck)
+    assert pikachu1 in hand
+    assert pikachu1 not in deck
+    move_cards_to_from(pikachu1,active, hand)
+    assert pikachu1 in active
+    assert pikachu1 not in hand
+    move_cards_to_from(pikachu1,benched, active)
+    assert pikachu1 in benched
+    assert pikachu1 not in active
+
+def test_evolve_pikachu(player1, pikachu1):
+    active=Active(player1)
+    move_cards_to_from(pikachu1,active)
+    raichu = Pokemon(
+        name="Raichu",
+        cardset="base",
+        energy_type="electric",
+        evolution_level="stage 1",
+        hp=60,
+        attack_dmg=20,
+        retreat_cost=1,
+        owner=player1
+    ) 
+    pikachu1.evolve(raichu,active)
+    assert raichu in active
+    assert pikachu1 not in active
+    assert pikachu1 in raichu.stored_pre_evolution

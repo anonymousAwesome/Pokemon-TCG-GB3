@@ -2,8 +2,9 @@ import logging
 
 import main
 
-class Duel:
-    def __init__(self,phase_handler,user_won_starting_coin):
+class DuelManager:
+    def __init__(self,phase_handler,user_won_starting_coin,prizes):
+        self.prizes=prizes
         self.phase_handler=phase_handler
         self.phase_handler.set_game_phase("duelling")
         if user_won_starting_coin is True:
@@ -24,9 +25,9 @@ class Duel:
         self.phase_handler.set_game_phase("club")
 
 class Player:
-    def __init__(self,duel_handler,prizes):
+    def __init__(self,duel_handler):
         self.duel_handler=duel_handler
-        self.prizes=prizes
+        self.prizes=duel_handler.prizes
 
     def lose_prize(self,quantity=1):
         self.prizes-=quantity
