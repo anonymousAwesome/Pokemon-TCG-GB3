@@ -1,12 +1,11 @@
 import pytest
 from card_deck_classes import *
 
-from unittest.mock import patch
-
 import duel
 import main
 
 import cards_data
+
 
 @pytest.fixture
 def player1():
@@ -219,7 +218,7 @@ def test_load_cards_from_file(player1):
     dratini=Pokemon(owner=player1, **cards_data.dratini)
     assert dratini.name=="Dratini"
 
-def test_deck_shuffle():
+def test_deck_shuffle(monkeypatch):
 
     player1=duel_manager=duel.DuelManager(main.phase_handler,user_won_starting_coin=True,prizes=6)
     pkmn_card_1=Pokemon(owner=player1,**cards_data.dratini)
@@ -227,8 +226,8 @@ def test_deck_shuffle():
     pkmn_card_3=Pokemon(owner=player1,**cards_data.machop)
     deck = Deck(owner=player1,cards=[pkmn_card_1, pkmn_card_2, pkmn_card_3])
     original_order = list(deck.cards)
-    with patch('random.shuffle', new=lambda x: x.reverse()):  # Mock shuffle to make it predictable
-        deck.shuffle()
+    monkeypatch.setattr(random, 'shuffle', lambda x: x.reverse())
+    deck.shuffle()
 
     assert deck.cards != original_order
     assert deck.cards == list(reversed(original_order))

@@ -8,6 +8,7 @@ copy-paste template:
         "energy_type":"",
         "evolution_level":"basic",
         "hp":,
+        "attack_cost":,
         "attack_dmg":,
         "retreat_cost":,
         "weakness":"",
@@ -22,7 +23,7 @@ dratini={
         "energy_type":"colorless",
         "evolution_level":"basic",
         "hp":40,
-        "attack_cost":0,
+        "attack_cost":1,
         "attack_dmg":10,
         "retreat_cost":1,
         "resistance":"psychic"}
@@ -33,7 +34,7 @@ seel={
         "energy_type":"water",
         "evolution_level":"basic",
         "hp":60,
-        "attack_cost":0,
+        "attack_cost":1,
         "attack_dmg":10,
         "retreat_cost":1,
         "weakness":"lightning",
@@ -45,8 +46,54 @@ machop={
         "energy_type":"fighting",
         "evolution_level":"basic",
         "hp":50,
-        "attack_cost":0,
+        "attack_cost":1,
         "attack_dmg":20,
         "retreat_cost":1,
         "weakness":"psychic",
         }
+
+rattata={
+        "name":"Rattata",
+        "cardset":"base",
+        "energy_type":"colorless",
+        "evolution_level":"basic",
+        "hp":30,
+        "attack_cost":1,
+        "attack_dmg":20,
+        "retreat_cost":0,
+        "weakness":"fighting",
+        "resistance":"psychic"
+        }
+
+staryu={
+        "name":"Staryu",
+        "cardset":"base",
+        "energy_type":"water",
+        "evolution_level":"basic",
+        "hp":40,
+        "attack_cost":1,
+        "attack_dmg":20,
+        "retreat_cost":1,
+        "weakness":"lightning",
+        }
+        
+voltorb={
+        "name":"Voltorb",
+        "cardset":"base",
+        "energy_type":"lightning",
+        "evolution_level":"basic",
+        "hp":40,
+        "attack_cost":1,
+        "attack_dmg":10,
+        "retreat_cost":1,
+        "weakness":"fighting",
+        }
+
+"""
+Pokemon whose attacks have no special effects, that nonetheless have
+multiple attacks and/or inconsistent energy requirements:
+https://pkmncards.com/card/growlithe-base-set-bs-28/
+https://pkmncards.com/card/hitmonchan-base-set-bs-7/
+https://pkmncards.com/card/diglett-base-set-bs-47/
+https://pkmncards.com/card/ponyta-base-set-bs-60/
+"""
