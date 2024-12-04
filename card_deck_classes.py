@@ -1,4 +1,5 @@
 import logging
+import random
 
 '''
 Contains the definitions for cards and decks
@@ -22,12 +23,13 @@ class Energy(Card):
         super().__init__(name, cardset, owner)
 
 class Pokemon(Card):
-    def __init__(self, name, cardset, owner, energy_type, evolution_level, hp, attack_dmg, retreat_cost, weakness=None, resistance=None,evolves_from=None):
+    def __init__(self, name, cardset, owner, energy_type, evolution_level, hp, attack_cost, attack_dmg, retreat_cost, weakness=None, resistance=None,evolves_from=None):
         super().__init__(name,cardset, owner)
         self.energy_type=energy_type
         self.evolution_level=evolution_level
         self.hp = hp
-        self.attack_dmg = attack_dmg
+        self.attack_cost=attack_cost
+        self.attack_dmg = attack_dmg #this will need to go at some point
         self.retreat_cost = retreat_cost
         self.evolves_from=evolves_from
         self.weakness=weakness
@@ -37,16 +39,21 @@ class Pokemon(Card):
 
         self.stored_pre_evolution=CardCollection(owner)
 
-    def attack(self, opponent, attack_dmg):
-        if attack_dmg<0:
-            attack_dmg=0
-        opponent.hp-=attack_dmg
+    def attack(self, opponent): #this will probably need replacing as well
+        temp_dmg=self.attack_dmg
+        if temp_dmg<0:
+            temp_dmg=0
+        if opponent.weakness==self.energy_type:
+            temp_dmg*=2
+        opponent.hp-=temp_dmg
         if opponent.hp<=0:
             opponent.hp=0
             self.owner.lose_prize()
 
     def attach_energy(self,card):
+        print(card)
         move_cards_to_from(card, self.attached_energy)
+        print(self.attached_energy.cards)
         #may need refactoring when non-energy attachments become a thing
     
     def evolve(self, evolution_card,location):
@@ -55,19 +62,30 @@ class Pokemon(Card):
 
 class CardCollection:
     def __init__(self, owner, cards=None):
+        #print(cards)
         self.owner=owner
         if cards is None:
-            self.cards = []
+            self.cards=[]
         elif isinstance(cards, Card):
-            self.cards = [cards]
+            self.cards=[cards]
+        elif isinstance(cards, list):
+            self.cards=cards
         else:
-            self.cards = cards
+            logging.error(f"Expected card or list of cards, got {cards}")
+
+
+    def __contains__(self, item):
+        return item in self.cards
 
     def __iter__(self):
+        #allows iteration: for card in cardcollection
         return iter(self.cards)
+
 
 '''
 #currently unused
+
+
     def __getitem__(self, key):
         return self.cards[key]
 
@@ -78,26 +96,26 @@ class CardCollection:
 
 class Deck(CardCollection):
     def __init__(self, owner, cards=None):
-        super().__init__(cards)
+        super().__init__(owner, cards)
 
     def shuffle(self):
         random.shuffle(self.cards)
 
 class Active(CardCollection):
     def __init__(self, owner, cards=None):
-        super().__init__(cards)
+        super().__init__(owner,cards)
 
 class Bench(CardCollection):
     def __init__(self, owner, cards=None):
-        super().__init__(cards)
+        super().__init__(owner,cards)
 
 class Hand(CardCollection):
     def __init__(self, owner, cards=None):
-        super().__init__(cards)
+        super().__init__(owner,cards)
 
 class DiscardPile(CardCollection):
     def __init__(self, owner, cards=None):
-        super().__init__(cards)
+        super().__init__(owner,cards)
 
 
 def move_cards_to_from(cardlist, destination_location,prev_location=None):
@@ -108,5 +126,5 @@ def move_cards_to_from(cardlist, destination_location,prev_location=None):
             destination_location.cards.append(card)
             if prev_location:
                 prev_location.cards.remove(card)
-    if not isinstance(cardlist, list):
+    else:
         logging.error(f"Expected card or list of cards, got {cardlist}")

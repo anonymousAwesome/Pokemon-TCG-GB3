@@ -1,8 +1,12 @@
 import pytest
 from card_deck_classes import *
 
+from unittest.mock import patch
+
 import duel
 import main
+
+import cards_data
 
 @pytest.fixture
 def player1():
@@ -22,9 +26,11 @@ def pikachu1(player1):
         energy_type="electric",
         evolution_level="basic",
         hp=40,
+        attack_cost=0,
         attack_dmg=10,
         retreat_cost=0,
-        owner=player1
+        owner=player1,
+        weakness="fighting",
     ) 
     return(pikachu)
 
@@ -36,9 +42,11 @@ def pikachu2(player2):
         energy_type="electric",
         evolution_level="basic",
         hp=40,
+        attack_cost=0,
         attack_dmg=10,
         retreat_cost=0,
-        owner=player2
+        owner=player2,
+        weakness="fighting",
     ) 
     return(pikachu)
 
@@ -50,10 +58,12 @@ def raichu1(player1):
         energy_type="electric",
         evolution_level="stage 1",
         hp=60,
+        attack_cost=0,
         attack_dmg=20,
         retreat_cost=1,
         owner=player1,
-        evolves_from="Pikachu"
+        evolves_from="Pikachu",
+        weakness="fighting",
     ) 
     return(raichu)
 
@@ -68,19 +78,22 @@ def test_two_active_pokemon(player1, player2, pikachu1,pikachu2):
     assert pikachu2 in active2
 
 def test_one_pokemon_attacking_another(pikachu1,pikachu2):
-    pikachu1.attack(pikachu2,10)
+    pikachu1.attack(pikachu2)
     assert pikachu2.hp==30
 
 def test_hp_past_max_doesnt_go_negative(pikachu1,pikachu2):
-    pikachu1.attack(pikachu2,50)
+    pikachu1.attack_dmg=50
+    pikachu1.attack(pikachu2)
     assert pikachu2.hp==0
 
 def test_negative_damage(pikachu1,pikachu2):
-    pikachu1.attack(pikachu2,-20)
+    pikachu1.attack_dmg=-20
+    pikachu1.attack(pikachu2)
     assert pikachu2.hp==40
 
 def test_KO_removes_one_prize_card(pikachu1,pikachu2):
-    pikachu1.attack(pikachu2,50)
+    pikachu1.attack_dmg=50
+    pikachu1.attack(pikachu2)
     assert pikachu1.owner.prizes==5
 
 def test_won_coin_flip_then_two_turns_end():
@@ -119,8 +132,9 @@ def test_new_game_phases_per_test():
     assert phase_handler.get_game_phase()=="starting"
     
 def test_ko_with_1_prize_remaining_ends_duel(player2,pikachu1,pikachu2):
+    pikachu2.attack_dmg=50
     pikachu2.owner.prizes=1
-    pikachu2.attack(pikachu1,50)
+    pikachu2.attack(pikachu1)
     assert player2.duel_handler.phase_handler.get_game_phase()=="club"
 
 def test_attach_energy_to_pokemon(player1,pikachu1):
@@ -185,3 +199,36 @@ def test_add_multiple_cards(pikachu1,raichu1):
     move_cards_to_from([pikachu1,raichu1],hand)
     assert pikachu1 in hand
     assert raichu1 in hand
+    
+def test_weakness(pikachu1,player1):
+    geodude = Pokemon(
+        name="Geodude",
+        cardset="base",
+        energy_type="fighting",
+        evolution_level="basic",
+        hp=40,
+        attack_cost=0,
+        attack_dmg=20,
+        retreat_cost=0,
+        owner=player1,
+    )
+    geodude.attack(pikachu1)
+    assert pikachu1.hp==0
+
+def test_load_cards_from_file(player1):
+    dratini=Pokemon(owner=player1, **cards_data.dratini)
+    assert dratini.name=="Dratini"
+
+def test_deck_shuffle():
+
+    player1=duel_manager=duel.DuelManager(main.phase_handler,user_won_starting_coin=True,prizes=6)
+    pkmn_card_1=Pokemon(owner=player1,**cards_data.dratini)
+    pkmn_card_2=Pokemon(owner=player1,**cards_data.seel)
+    pkmn_card_3=Pokemon(owner=player1,**cards_data.machop)
+    deck = Deck(owner=player1,cards=[pkmn_card_1, pkmn_card_2, pkmn_card_3])
+    original_order = list(deck.cards)
+    with patch('random.shuffle', new=lambda x: x.reverse()):  # Mock shuffle to make it predictable
+        deck.shuffle()
+
+    assert deck.cards != original_order
+    assert deck.cards == list(reversed(original_order))

@@ -11,7 +11,7 @@ class DuelManager:
             self.turn="player"
         elif user_won_starting_coin is False:
             self.turn="computer"
-        else:logging.error(f"Expected boolean, got {user_won_starting_coin}")
+        else:logging.error(f"Unexpected value in DuelManager.__init__() -- expected boolean for user_won_starting_coin, got {user_won_starting_coin}")
             
     def advance_turn(self):
         if self.turn=="player":
@@ -19,7 +19,7 @@ class DuelManager:
         elif self.turn=="computer":
             self.turn="player"
         else:
-            logging.error(f"Unexpected turn value: {self.turn}")
+            logging.error(f"Unexpected value in DuelManager.advance_turn() -- expected \"player\" or \"computer\", got {self.turn}")
 
     def end_duel(self):
         self.phase_handler.set_game_phase("club")
