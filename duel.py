@@ -2,18 +2,25 @@ import logging
 
 import main
 
+from card_deck_classes import *
+
 class DuelManager:
-    def __init__(self,phase_handler,user_won_starting_coin,prizes):
+    def __init__(self,phase_handler,prizes):
         self.prizes=prizes
         self.phase_handler=phase_handler
         self.phase_handler.set_game_phase("duelling")
-        if user_won_starting_coin is True:
+        self.turn=None
+
+    def user_won_starting_coin(self, coin_results:bool):
+        if coin_results is True:
             self.turn="player"
-        elif user_won_starting_coin is False:
+        elif coin_results is False:
             self.turn="computer"
         else:logging.error(f"Unexpected value in DuelManager.__init__() -- expected boolean for user_won_starting_coin, got {user_won_starting_coin}")
-            
+      
     def advance_turn(self):
+        if not self.turn:
+            logging.error(f"Can't advance the turns; haven't run user_won_starting_coin() yet.")
         if self.turn=="player":
             self.turn="computer"
         elif self.turn=="computer":
@@ -28,6 +35,11 @@ class Player:
     def __init__(self,duel_handler):
         self.duel_handler=duel_handler
         self.prizes=duel_handler.prizes
+        self.deck=Deck(self)
+        self.active=Active(self)
+        self.bench=Bench(self)
+        self.hand=Hand(self)
+        self.discard_pile=DiscardPile(self)
 
     def lose_prize(self,quantity=1):
         self.prizes-=quantity

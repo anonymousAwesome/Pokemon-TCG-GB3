@@ -81,18 +81,12 @@ class CardCollection:
         #allows iteration: for card in cardcollection
         return iter(self.cards)
 
-
-'''
-#currently unused
-
+    def __len__(self):
+        return len(self.cards)
 
     def __getitem__(self, key):
         return self.cards[key]
 
-    def __len__(self):
-        return len(self.cards)
-
-'''
 
 class Deck(CardCollection):
     def __init__(self, owner, cards=None):
