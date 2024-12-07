@@ -140,8 +140,8 @@ def test_ko_with_1_prize_remaining_ends_duel(player2,pikachu1,pikachu2):
 
 def test_attach_energy_to_pokemon(player1,pikachu1):
     water_energy=Energy("water", "basic energy", player1)
-    pikachu1.attach_energy(water_energy)
-    assert water_energy in pikachu1.attached_energy
+    pikachu1.attach_card(water_energy)
+    assert water_energy in pikachu1.attached
 
 def test_moving_water_deck_hand_discard(player1):
     deck=Deck(player1)

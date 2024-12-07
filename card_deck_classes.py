@@ -32,29 +32,35 @@ class Pokemon(Card):
         self.attack_dmg = attack_dmg #this will need to go at some point
         self.retreat_cost = retreat_cost
         self.evolves_from=evolves_from
-        self.weakness=weakness
-        self.resistance=resistance
-        
-        self.attached_energy=CardCollection(owner)
+        self.effects=[]
+        if weakness:
+            self.effects.append(weakness_effect(weakness))
+        if resistance:
+            self.effects.append(resistance_effect(resistance))
+        self.attached=CardCollection(owner)
 
         self.stored_pre_evolution=CardCollection(owner)
 
     def attack(self, opponent): #this will probably need replacing as well
         temp_dmg=self.attack_dmg
+        if resistance_effect(self.energy_type) in opponent.effects:
+            temp_dmg-=30
+        if defender() in opponent.effects:
+            temp_dmg-=20
         if temp_dmg<0:
             temp_dmg=0
-        if opponent.weakness==self.energy_type:
+        if weakness_effect(self.energy_type) in opponent.effects:
             temp_dmg*=2
         opponent.hp-=temp_dmg
         if opponent.hp<=0:
             opponent.hp=0
             self.owner.lose_prize()
 
-    def attach_energy(self,card):
+    def attach_card(self,card):
         print(card)
-        move_cards_to_from(card, self.attached_energy)
-        print(self.attached_energy.cards)
-        #may need refactoring when non-energy attachments become a thing
+        move_cards_to_from(card, self.attached)
+        print(self.attached.cards)
+        #may need an extra function to return just the energy cards
     
     def evolve(self, evolution_card,location):
         move_cards_to_from(self,evolution_card.stored_pre_evolution,location)
@@ -62,7 +68,6 @@ class Pokemon(Card):
 
 class CardCollection:
     def __init__(self, owner, cards=None):
-        #print(cards)
         self.owner=owner
         if cards is None:
             self.cards=[]
@@ -110,6 +115,22 @@ class Hand(CardCollection):
 class DiscardPile(CardCollection):
     def __init__(self, owner, cards=None):
         super().__init__(owner,cards)
+
+
+# stubbed effects, replace later
+#
+# "_effect" is redundant and should be removed, but then it might
+# overshadow the weakness/resistance argument in the Pokemon class.
+
+def defender():
+    return("defender")
+
+def weakness_effect(type):
+    return(f"weakness: {type}")
+
+def resistance_effect(type):
+    return(f"resistance: {type}")
+
 
 
 def move_cards_to_from(cardlist, destination_location,prev_location=None):

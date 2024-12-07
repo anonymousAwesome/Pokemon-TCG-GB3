@@ -97,3 +97,8 @@ https://pkmncards.com/card/hitmonchan-base-set-bs-7/
 https://pkmncards.com/card/diglett-base-set-bs-47/
 https://pkmncards.com/card/ponyta-base-set-bs-60/
 """
+
+defender={
+        "name":"Defender",
+        "cardset":"base",
+        }
