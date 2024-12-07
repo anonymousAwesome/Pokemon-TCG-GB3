@@ -286,3 +286,5 @@ def test_integration_testing_from_start_to_coin_flip():
 
 def test_changing_turns_before_coinflip_returns_error():
     pass
+
+#test decking out
