@@ -1,5 +1,3 @@
-from card_deck_classes import *
-
 '''
 copy-paste template:
 ={

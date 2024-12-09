@@ -1,5 +1,7 @@
 import logging
 import random
+import effects
+
 
 '''
 Contains the definitions for cards and decks
@@ -34,22 +36,22 @@ class Pokemon(Card):
         self.evolves_from=evolves_from
         self.effects=[]
         if weakness:
-            self.effects.append(weakness_effect(weakness))
+            self.effects.append(effects.weakness(weakness))
         if resistance:
-            self.effects.append(resistance_effect(resistance))
+            self.effects.append(effects.resistance(resistance))
         self.attached=CardCollection(owner)
 
         self.stored_pre_evolution=CardCollection(owner)
 
     def attack(self, opponent): #this will probably need replacing as well
         temp_dmg=self.attack_dmg
-        if resistance_effect(self.energy_type) in opponent.effects:
+        if effects.resistance(self.energy_type) in opponent.effects:
             temp_dmg-=30
-        if defender() in opponent.effects:
+        if effects.defender() in opponent.effects:
             temp_dmg-=20
         if temp_dmg<0:
             temp_dmg=0
-        if weakness_effect(self.energy_type) in opponent.effects:
+        if effects.weakness(self.energy_type) in opponent.effects:
             temp_dmg*=2
         opponent.hp-=temp_dmg
         if opponent.hp<=0:
@@ -115,21 +117,6 @@ class Hand(CardCollection):
 class DiscardPile(CardCollection):
     def __init__(self, owner, cards=None):
         super().__init__(owner,cards)
-
-
-# stubbed effects, replace later
-#
-# "_effect" is redundant and should be removed, but then it might
-# overshadow the weakness/resistance argument in the Pokemon class.
-
-def defender():
-    return("defender")
-
-def weakness_effect(type):
-    return(f"weakness: {type}")
-
-def resistance_effect(type):
-    return(f"resistance: {type}")
 
 
 

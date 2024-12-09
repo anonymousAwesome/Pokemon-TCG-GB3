@@ -8,6 +8,8 @@ TILE_SIZE=64
 
 # List of obstacles
 
+'''
+#flying club
 obstacles=[
     pygame.Rect(0, 0, 64, 960),
     pygame.Rect(832, 0, 64, 960),
@@ -26,6 +28,32 @@ obstacles=[
     pygame.Rect(576, 320, 64, 128),
     pygame.Rect(704, 320, 64, 128),
 ]
+'''
+
+#neo continent
+obstacles=[
+    pygame.Rect(0, 576, 896, 64),
+    pygame.Rect(0, 0, 64, 576),
+    pygame.Rect(768, 0, 64, 576),
+    pygame.Rect(832, 0, 64, 576),
+    pygame.Rect(256, 320, 448, 64),
+    pygame.Rect(64, 192, 64, 384),
+    pygame.Rect(128, 192, 64, 384),
+    pygame.Rect(512, 256, 256, 64),
+    pygame.Rect(512, 192, 256, 64),
+    pygame.Rect(512, 512, 256, 64),
+    pygame.Rect(256, 448, 192, 64),
+    pygame.Rect(512, 64, 192, 64),
+    pygame.Rect(256, 64, 192, 64),
+    pygame.Rect(256, 128, 192, 64),
+    pygame.Rect(256, 192, 192, 64),
+    pygame.Rect(64, 64, 128, 64),
+    pygame.Rect(64, 0, 128, 64),
+    pygame.Rect(256, 384, 128, 64),
+    pygame.Rect(512, 448, 64, 64),
+]
+
+player_starting_location=(64,128)
 
 
 
@@ -102,9 +130,9 @@ def can_move(rect, obstacles, direction):
     return within_bounds and collision_free
 
 player_image   = pygame.image.load( './assets/player_image.png' ).convert_alpha()
-player_sprite  = Player(384,832,player_image)
+player_sprite  = Player(player_starting_location[0],player_starting_location[1],player_image)
 
-bg_image = pygame.image.load("./assets/clubs/flying club.png")
+bg_image = pygame.image.load("./assets/Neo Continent.png")
 bg_width, bg_height = bg_image.get_width(), bg_image.get_height()
 bg_image = pygame.transform.scale(bg_image, (bg_width * 4, bg_height * 4))
 

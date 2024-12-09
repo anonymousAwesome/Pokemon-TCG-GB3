@@ -1,9 +1,9 @@
 import pytest
-from card_deck_classes import *
+import card_deck_classes as cdc
 
 import duel
 import main
-
+import random
 import cards_data
 
 
@@ -19,7 +19,7 @@ def player2():
 
 @pytest.fixture
 def pikachu1(player1):
-    pikachu = Pokemon(
+    pikachu = cdc.Pokemon(
         name="Pikachu",
         cardset="base",
         energy_type="electric",
@@ -35,7 +35,7 @@ def pikachu1(player1):
 
 @pytest.fixture    
 def pikachu2(player2):
-    pikachu = Pokemon(
+    pikachu = cdc.Pokemon(
         name="Pikachu",
         cardset="base",
         energy_type="electric",
@@ -51,7 +51,7 @@ def pikachu2(player2):
 
 @pytest.fixture    
 def raichu1(player1):
-    raichu = Pokemon(
+    raichu = cdc.Pokemon(
         name="Raichu",
         cardset="base",
         energy_type="electric",
@@ -67,12 +67,12 @@ def raichu1(player1):
     return(raichu)
 
 def test_one_active_pokemon(player1, pikachu1):
-    active=CardCollection(player1, pikachu1)
+    active=cdc.CardCollection(player1, pikachu1)
     assert pikachu1 in active
 
 def test_two_active_pokemon(player1, player2, pikachu1,pikachu2):
-    active1=CardCollection(player1, pikachu1)
-    active2=CardCollection(player2, pikachu2)
+    active1=cdc.CardCollection(player1, pikachu1)
+    active2=cdc.CardCollection(player2, pikachu2)
     assert pikachu1 in active1
     assert pikachu2 in active2
 
@@ -139,70 +139,70 @@ def test_ko_with_1_prize_remaining_ends_duel(player2,pikachu1,pikachu2):
     assert player2.duel_handler.phase_handler.get_game_phase()=="club"
 
 def test_attach_energy_to_pokemon(player1,pikachu1):
-    water_energy=Energy("water", "basic energy", player1)
+    water_energy=cdc.Energy("water", "basic energy", player1)
     pikachu1.attach_card(water_energy)
     assert water_energy in pikachu1.attached
 
 def test_moving_water_deck_hand_discard(player1):
-    deck=Deck(player1)
-    hand=Hand(player1)
-    discard_pile=DiscardPile(player1)
-    water_energy=Energy("water", "basic energy", player1)
-    move_cards_to_from(water_energy, deck)
+    deck=cdc.Deck(player1)
+    hand=cdc.Hand(player1)
+    discard_pile=cdc.DiscardPile(player1)
+    water_energy=cdc.Energy("water", "basic energy", player1)
+    cdc.move_cards_to_from(water_energy, deck)
     assert water_energy in deck
-    move_cards_to_from(water_energy, hand, deck)
+    cdc.move_cards_to_from(water_energy, hand, deck)
     assert water_energy in hand
     assert water_energy not in deck
-    move_cards_to_from(water_energy, discard_pile, hand)
+    cdc.move_cards_to_from(water_energy, discard_pile, hand)
     assert water_energy in discard_pile
     assert water_energy not in hand
     
 
 def test_moving_pikachu_deck_hand_bench_active(pikachu1,player1):
-    deck=Deck(player1)
-    hand=Hand(player1)
-    active=Active(player1)
-    bench=Bench(player1)
-    move_cards_to_from(pikachu1, deck)
+    deck=cdc.Deck(player1)
+    hand=cdc.Hand(player1)
+    active=cdc.Active(player1)
+    bench=cdc.Bench(player1)
+    cdc.move_cards_to_from(pikachu1, deck)
     assert pikachu1 in deck
-    move_cards_to_from(pikachu1,hand, deck)
+    cdc.move_cards_to_from(pikachu1,hand, deck)
     assert pikachu1 in hand
     assert pikachu1 not in deck
-    move_cards_to_from(pikachu1,active, hand)
+    cdc.move_cards_to_from(pikachu1,active, hand)
     assert pikachu1 in active
     assert pikachu1 not in hand
-    move_cards_to_from(pikachu1,bench, active)
+    cdc.move_cards_to_from(pikachu1,bench, active)
     assert pikachu1 in bench
     assert pikachu1 not in active
 
 def test_evolve_pikachu(player1, pikachu1, raichu1):
-    active=Active(player1)
-    move_cards_to_from(pikachu1,active)
+    active=cdc.Active(player1)
+    cdc.move_cards_to_from(pikachu1,active)
     pikachu1.evolve(raichu1,active)
     assert raichu1 in active
     assert pikachu1 not in active
     assert pikachu1 in raichu1.stored_pre_evolution
 
 def test_costless_retreat_pikachu(pikachu1, raichu1):
-    active=Active(player1)
-    bench=Bench(player1)
-    move_cards_to_from(pikachu1,active)
-    move_cards_to_from(raichu1,bench)
+    active=cdc.Active(player1)
+    bench=cdc.Bench(player1)
+    cdc.move_cards_to_from(pikachu1,active)
+    cdc.move_cards_to_from(raichu1,bench)
     assert pikachu1 in active
     assert raichu1 in bench
-    move_cards_to_from(pikachu1,bench,active)
-    move_cards_to_from(raichu1,active,bench)
+    cdc.move_cards_to_from(pikachu1,bench,active)
+    cdc.move_cards_to_from(raichu1,active,bench)
     assert pikachu1 in bench
     assert raichu1 in active
 
 def test_add_multiple_cards(pikachu1,raichu1):
-    hand=Hand(player1)
-    move_cards_to_from([pikachu1,raichu1],hand)
+    hand=cdc.Hand(player1)
+    cdc.move_cards_to_from([pikachu1,raichu1],hand)
     assert pikachu1 in hand
     assert raichu1 in hand
     
 def test_weakness(pikachu1,player1):
-    geodude = Pokemon(
+    geodude = cdc.Pokemon(
         name="Geodude",
         cardset="base",
         energy_type="fighting",
@@ -217,17 +217,17 @@ def test_weakness(pikachu1,player1):
     assert pikachu1.hp==0
 
 def test_load_cards_from_file(player1):
-    dratini=Pokemon(owner=player1, **cards_data.dratini)
+    dratini=cdc.Pokemon(owner=player1, **cards_data.dratini)
     assert dratini.name=="Dratini"
 
 def test_deck_shuffle(monkeypatch):
 
     duel_manager=duel.DuelManager(main.phase_handler,prizes=6)
     player1=duel.Player(duel_manager)
-    pkmn_card_1=Pokemon(owner=player1,**cards_data.dratini)
-    pkmn_card_2=Pokemon(owner=player1,**cards_data.seel)
-    pkmn_card_3=Pokemon(owner=player1,**cards_data.machop)
-    deck = Deck(owner=player1,cards=[pkmn_card_1, pkmn_card_2, pkmn_card_3])
+    pkmn_card_1=cdc.Pokemon(owner=player1,**cards_data.dratini)
+    pkmn_card_2=cdc.Pokemon(owner=player1,**cards_data.seel)
+    pkmn_card_3=cdc.Pokemon(owner=player1,**cards_data.machop)
+    deck = cdc.Deck(owner=player1,cards=[pkmn_card_1, pkmn_card_2, pkmn_card_3])
     original_order = list(deck.cards)
     monkeypatch.setattr(random, 'shuffle', lambda x: x.reverse())
     deck.shuffle()
@@ -248,30 +248,30 @@ def test_integration_testing_from_start_to_coin_flip():
     player1=duel.Player(duel_manager)
     player2=duel.Player(duel_manager)
     for i in range(2):
-        move_cards_to_from(Pokemon(owner=player1,**cards_data.seel),player1.deck)
+        cdc.move_cards_to_from(cdc.Pokemon(owner=player1,**cards_data.seel),player1.deck)
     for i in range(8):
-        move_cards_to_from(Energy("water energy", "base", player1),player1.deck)
+        cdc.move_cards_to_from(cdc.Energy("water energy", "base", player1),player1.deck)
     for i in range(2):
-        move_cards_to_from(Pokemon(owner=player2,**cards_data.voltorb),player2.deck)
+        cdc.move_cards_to_from(cdc.Pokemon(owner=player2,**cards_data.voltorb),player2.deck)
     for i in range(8):
-        move_cards_to_from(Energy("lightning energy", "base", player2),player2.deck)
+        cdc.move_cards_to_from(cdc.Energy("lightning energy", "base", player2),player2.deck)
     
     assert len(player1.deck)==10
     assert len(player2.deck)==10
     assert player1.deck.cards[0].name=="Seel"
     assert player2.deck.cards[0].name=="Voltorb"
-    move_cards_to_from(player1.deck.cards[0:2],player1.hand, player1.deck)
-    move_cards_to_from(player2.deck.cards[0:2],player2.hand, player2.deck)    
+    cdc.move_cards_to_from(player1.deck.cards[0:2],player1.hand, player1.deck)
+    cdc.move_cards_to_from(player2.deck.cards[0:2],player2.hand, player2.deck)    
     assert len(player1.deck)==8
     assert len(player2.deck)==8
     assert player1.deck.cards[0].name=="water energy"
     assert player2.deck.cards[0].name=="lightning energy"
     assert player1.hand.cards[0].name=="Seel"
     assert player2.hand.cards[0].name=="Voltorb"
-    move_cards_to_from(player1.hand[0],player1.active,player1.hand)
-    move_cards_to_from(player1.hand[0],player1.bench,player1.hand)
-    move_cards_to_from(player2.hand[0],player2.active,player1.hand)
-    move_cards_to_from(player2.hand[0],player2.bench,player1.hand)
+    cdc.move_cards_to_from(player1.hand[0],player1.active,player1.hand)
+    cdc.move_cards_to_from(player1.hand[0],player1.bench,player1.hand)
+    cdc.move_cards_to_from(player2.hand[0],player2.active,player1.hand)
+    cdc.move_cards_to_from(player2.hand[0],player2.bench,player1.hand)
     assert len(player1.active.cards)==1
     assert len(player2.active.cards)==1
     assert len(player1.bench.cards)==1

@@ -14,15 +14,15 @@ import sys
 pygame.init()
 
 # Constants
-INITIAl_TILE_SIZE = 16
+INITIAL_TILE_SIZE = 16
 IMAGE_SCALE=2
 RECT_SCALE=2
-TILE_SIZE=INITIAl_TILE_SIZE*IMAGE_SCALE
+TILE_SIZE=INITIAL_TILE_SIZE*IMAGE_SCALE
 FPS = 60
 SELECTION_COLOR = (255, 0, 0, 128)  # Red with transparency
 
 # Load the tilemap
-TILEMAP_PATH = "./assets/clubs/flying club.png"  # Replace with your tilemap image path
+TILEMAP_PATH = "./assets/Neo Continent.png"  # Replace with your tilemap image path
 tilemap = pygame.image.load(TILEMAP_PATH)
 tilemap=pygame.transform.scale_by(tilemap,2)
 
@@ -100,8 +100,8 @@ def generate_code(merged_rects):
     """Generate Python code for creating merged rects."""
     rects_code = "obstacles=[\n"
     for rect in merged_rects:
-        #rects_code += f"    pygame.Rect({rect.x*RECT_SCALE}, {rect.y*RECT_SCALE}, {rect.width*RECT_SCALE}, {rect.height*RECT_SCALE}),\n"
-        rects_code += f"    pygame.Rect({rect.x//TILE_SIZE}, {rect.y//TILE_SIZE}, {rect.width//TILE_SIZE}, {rect.height//TILE_SIZE}),\n"
+        rects_code += f"    pygame.Rect({rect.x*RECT_SCALE}, {rect.y*RECT_SCALE}, {rect.width*RECT_SCALE}, {rect.height*RECT_SCALE}),\n"
+        #rects_code += f"    pygame.Rect({rect.x//TILE_SIZE}, {rect.y//TILE_SIZE}, {rect.width//TILE_SIZE}, {rect.height//TILE_SIZE}),\n"
     rects_code += "]"
     return rects_code
 

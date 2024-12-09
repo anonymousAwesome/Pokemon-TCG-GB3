@@ -2,7 +2,7 @@ import logging
 
 import main
 
-from card_deck_classes import *
+import card_deck_classes as cdc
 
 class DuelManager:
     def __init__(self,phase_handler,prizes):
@@ -35,11 +35,11 @@ class Player:
     def __init__(self,duel_handler):
         self.duel_handler=duel_handler
         self.prizes=duel_handler.prizes
-        self.deck=Deck(self)
-        self.active=Active(self)
-        self.bench=Bench(self)
-        self.hand=Hand(self)
-        self.discard_pile=DiscardPile(self)
+        self.deck=cdc.Deck(self)
+        self.active=cdc.Active(self)
+        self.bench=cdc.Bench(self)
+        self.hand=cdc.Hand(self)
+        self.discard_pile=cdc.DiscardPile(self)
 
     def lose_prize(self,quantity=1):
         self.prizes-=quantity
