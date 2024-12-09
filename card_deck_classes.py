@@ -43,17 +43,21 @@ class Pokemon(Card):
 
         self.stored_pre_evolution=CardCollection(owner)
 
+        self.temp_dmg=attack_dmg
+
     def attack(self, opponent): #this will probably need replacing as well
-        temp_dmg=self.attack_dmg
+        self.temp_dmg=self.attack_dmg
+        if effects.plus_power in self.effects:
+            effects.plus_power(self)
         if effects.resistance(self.energy_type) in opponent.effects:
-            temp_dmg-=30
+            self.temp_dmg-=30
         if effects.defender() in opponent.effects:
-            temp_dmg-=20
-        if temp_dmg<0:
-            temp_dmg=0
+            self.temp_dmg-=20
+        if self.temp_dmg<0:
+            self.temp_dmg=0
         if effects.weakness(self.energy_type) in opponent.effects:
-            temp_dmg*=2
-        opponent.hp-=temp_dmg
+            self.temp_dmg*=2
+        opponent.hp-=self.temp_dmg
         if opponent.hp<=0:
             opponent.hp=0
             self.owner.lose_prize()

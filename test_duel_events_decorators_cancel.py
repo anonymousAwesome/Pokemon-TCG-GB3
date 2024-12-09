@@ -48,6 +48,15 @@ def test_placing_and_triggering_resistance_effect_on_pokemon(setup_duel):
     player2.active.cards[0].attack(player1.active.cards[0])
     assert player1.active.cards[0].hp==60
 
+def test_pluspower_through_rudimentary_event_manager(setup_duel):
+    duel_manager, player1, player2 = setup_duel
+    player1.active[0].effects.append(effects.plus_power)
+    player1.active.cards[0].attack(player2.active.cards[0])
+    assert player2.active.cards[0].hp==40
+
+#test multiple pluspowers
+#replace older code and tests (weakness, resistance, defender)
+#try stacking effects
 
 
 #test a limited-time effect

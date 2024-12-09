@@ -8,3 +8,6 @@ def weakness(type):
 
 def resistance(type):
     return(f"resistance: {type}")
+
+def plus_power(attacking_pokemon):
+    attacking_pokemon.temp_dmg+=10
