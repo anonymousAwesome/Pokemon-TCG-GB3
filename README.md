@@ -20,17 +20,18 @@ The program uses the Pygame module for gameplay and pygbag to export the game to
 
 (All percentages are approximate.)
 
-Cards:0/~1000 done  
+Cards: 5/~1000 done  
 Duelling system: 5% done  
 Duelling layout: 50% done  
 NPC sprites and portraits: 2% done  
 NPC/player interactions: 0% done  
-New location designs: 10% done  
+New location designs: 2/13 done (8 clubs, hidden basement (2 rooms), FF headquarters (2.5 rooms), and 0.5 airport)  
 GUI and displaying text: 0% done  
 NPC duel AI: 0% done  
 NPC decks: 0% done  
 NPC dialogue: 75% done  
 Music and sounds: 10% done  
 Save/load: 0% done  
+Cutscene system: 0% done
 
 This repo also contains the `obstacle generator.py` Python script, a tool to generate rects for tile collision directly on the loaded image. More information about that can be found at the beginning of that file.

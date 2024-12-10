@@ -63,6 +63,16 @@ def raichu1(player1):
     ) 
     return(raichu)
 
+@pytest.fixture
+def setup_duel():
+    duel_manager = duel.DuelManager(main.phase_handler, prizes=1)
+    player1 = duel.Player(duel_manager)
+    player2 = duel.Player(duel_manager)
+    cdc.move_cards_to_from(cdc.Pokemon(owner=player1,**cards_data.seel),player1.active)
+    cdc.move_cards_to_from(cdc.Pokemon(owner=player2,**cards_data.seel),player2.active)
+    return duel_manager, player1, player2
+
+
 def test_one_active_pokemon(player1, pikachu1):
     active=cdc.CardCollection(player1, pikachu1)
     assert pikachu1 in active
@@ -288,3 +298,26 @@ def test_attacking_with_second_attack():
     cdc.move_cards_to_from(cdc.Pokemon(owner=player2,**cards_data.hitmonchan),player2.active)
     player1.active[0].attack(player2.active[0],1)
     assert player2.active[0].hp==30
+
+
+
+def test_starting_player_options(setup_duel):
+    duel_manager, player1, player2 = setup_duel
+    hand=cdc.Hand(player1)
+    cdc.move_cards_to_from(cdc.Pokemon(owner=player1,**cards_data.dratini),player1.active)
+    player1.collect_choices()
+    assert player1.choices=={0: "hand", 1: "check", 2: "retreat", 3: "attack", 4: "pokemon power", 5: "end turn"}
+
+def test_checking_hand_options(setup_duel, monkeypatch):
+    def mock_input():
+        #faking user input
+        return 0
+    monkeypatch.setattr('builtins.input', mock_input)
+    duel_manager, player1, player2 = setup_duel
+    hand=cdc.Hand(player1)
+    cdc.move_cards_to_from(cdc.Pokemon(owner=player1,**cards_data.dratini),player1.hand)
+    player1.collect_choices()
+    assert player1.choices=={0: "hand", 1: "check", 2: "retreat", 3: "attack", 4: "pokemon power", 5: "end turn"}
+    player1.request_decision()
+    player1.collect_choices()
+    assert player1.choices=={0: "Dratini", 1:"cancel"}
