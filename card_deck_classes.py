@@ -25,13 +25,12 @@ class Energy(Card):
         super().__init__(name, cardset, owner)
 
 class Pokemon(Card):
-    def __init__(self, name, cardset, owner, energy_type, evolution_level, hp, attack_cost, attack_dmg, retreat_cost, weakness=None, resistance=None,evolves_from=None):
+    def __init__(self, name, cardset, owner, energy_type, evolution_level, hp, attacks, retreat_cost, weakness=None, resistance=None,evolves_from=None):
         super().__init__(name,cardset, owner)
         self.energy_type=energy_type
         self.evolution_level=evolution_level
         self.hp = hp
-        self.attack_cost=attack_cost
-        self.attack_dmg = attack_dmg #this will need to go at some point
+        self.attacks=attacks
         self.retreat_cost = retreat_cost
         self.evolves_from=evolves_from
         self.add_reduce_dmg_effects=[]
@@ -50,12 +49,12 @@ class Pokemon(Card):
 
 
 
-    def attack(self, opponent): #this will probably need replacing as well
+    def attack(self, opponent, attack_num):
         '''
         Need a better way of ordering the effects. 
         For example, the order should go "weakness, resistance, pluspower".
         '''
-        self.temp_dmg=self.attack_dmg
+        self.temp_dmg=self.attacks[attack_num]["damage"]
         for effect in self.add_reduce_dmg_effects:
             effect(self, opponent)
         for effect in opponent.add_reduce_dmg_effects:

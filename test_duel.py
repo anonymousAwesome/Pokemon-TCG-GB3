@@ -25,8 +25,7 @@ def pikachu1(player1):
         energy_type="electric",
         evolution_level="basic",
         hp=40,
-        attack_cost=0,
-        attack_dmg=10,
+        attacks=[{"name":"Zippyzap","cost":"","damage":10}],
         retreat_cost=0,
         owner=player1,
         weakness="fighting",
@@ -41,8 +40,7 @@ def pikachu2(player2):
         energy_type="electric",
         evolution_level="basic",
         hp=40,
-        attack_cost=0,
-        attack_dmg=10,
+        attacks=[{"name":"Zippyzap","cost":"","damage":10}],
         retreat_cost=0,
         owner=player2,
         weakness="fighting",
@@ -57,8 +55,7 @@ def raichu1(player1):
         energy_type="electric",
         evolution_level="stage 1",
         hp=60,
-        attack_cost=0,
-        attack_dmg=20,
+        attacks=[{"name":"Big Zippyzap","cost":"L","damage":20}],
         retreat_cost=1,
         owner=player1,
         evolves_from="Pikachu",
@@ -77,22 +74,22 @@ def test_two_active_pokemon(player1, player2, pikachu1,pikachu2):
     assert pikachu2 in active2
 
 def test_one_pokemon_attacking_another(pikachu1,pikachu2):
-    pikachu1.attack(pikachu2)
+    pikachu1.attack(pikachu2,0)
     assert pikachu2.hp==30
 
 def test_hp_past_max_doesnt_go_negative(pikachu1,pikachu2):
-    pikachu1.attack_dmg=50
-    pikachu1.attack(pikachu2)
+    pikachu1.attacks[0]["damage"]=50
+    pikachu1.attack(pikachu2,0)
     assert pikachu2.hp==0
 
 def test_negative_damage(pikachu1,pikachu2):
-    pikachu1.attack_dmg=-20
-    pikachu1.attack(pikachu2)
+    pikachu1.attacks[0]["damage"]=-20
+    pikachu1.attack(pikachu2,0)
     assert pikachu2.hp==40
 
 def test_KO_removes_one_prize_card(pikachu1,pikachu2):
-    pikachu1.attack_dmg=50
-    pikachu1.attack(pikachu2)
+    pikachu1.attacks[0]["damage"]=50
+    pikachu1.attack(pikachu2,0)
     assert pikachu1.owner.prizes==5
 
 def test_won_coin_flip_then_two_turns_end():
@@ -133,9 +130,9 @@ def test_new_game_phases_per_test():
     assert phase_handler.get_game_phase()=="starting"
     
 def test_ko_with_1_prize_remaining_ends_duel(player2,pikachu1,pikachu2):
-    pikachu2.attack_dmg=50
+    pikachu2.attacks[0]["damage"]=50
     pikachu2.owner.prizes=1
-    pikachu2.attack(pikachu1)
+    pikachu2.attack(pikachu1,0)
     assert player2.duel_handler.phase_handler.get_game_phase()=="club"
 
 def test_attach_energy_to_pokemon(player1,pikachu1):
@@ -208,12 +205,11 @@ def test_weakness(pikachu1,player1):
         energy_type="fighting",
         evolution_level="basic",
         hp=40,
-        attack_cost=0,
-        attack_dmg=20,
+        attacks=[{"name":"Rock Toss","cost":"","damage":20}],
         retreat_cost=0,
         owner=player1,
     )
-    geodude.attack(pikachu1)
+    geodude.attack(pikachu1,0)
     assert pikachu1.hp==0
 
 def test_load_cards_from_file(player1):
@@ -284,7 +280,11 @@ def test_integration_testing_from_start_to_coin_flip():
     duel_manager.user_won_starting_coin(fake_coin_flip)
     assert duel_manager.turn=="player"
 
-def test_changing_turns_before_coinflip_returns_error():
-    pass
-
-#test decking out
+def test_attacking_with_second_attack():
+    duel_manager = duel.DuelManager(main.phase_handler, prizes=1)
+    player1 = duel.Player(duel_manager)
+    player2 = duel.Player(duel_manager)
+    cdc.move_cards_to_from(cdc.Pokemon(owner=player1,**cards_data.hitmonchan),player1.active)
+    cdc.move_cards_to_from(cdc.Pokemon(owner=player2,**cards_data.hitmonchan),player2.active)
+    player1.active[0].attack(player2.active[0],1)
+    assert player2.active[0].hp==30

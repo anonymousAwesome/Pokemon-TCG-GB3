@@ -1,5 +1,3 @@
-# stubbed effects, replace later
-
 def defender(owning_pokemon, other_pokemon):
     other_pokemon.temp_dmg-=10
 

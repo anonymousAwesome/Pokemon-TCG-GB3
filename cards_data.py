@@ -15,76 +15,70 @@ copy-paste template:
 
 '''
 
+'''
+C = COLORLESS,
+R = FIRE,
+F = FIGHTING,
+G = GRASS,
+W = WATER,
+P = PSYCHIC,
+L = LIGHTNING,
+M = METAL,
+D = DARKNESS,
+'''
+
+
 dratini={
         "name":"Dratini",
         "cardset":"base",
-        "energy_type":"colorless",
+        "energy_type":"c",
         "evolution_level":"basic",
         "hp":40,
-        "attack_cost":1,
-        "attack_dmg":10,
+        "attacks":[{"name":"Pound","cost":"c","damage":10}],
         "retreat_cost":1,
-        "resistance":"psychic"}
+        "resistance":"p"}
 
 seel={
         "name":"Seel",
         "cardset":"base",
-        "energy_type":"water",
+        "energy_type":"w",
         "evolution_level":"basic",
         "hp":60,
-        "attack_cost":1,
-        "attack_dmg":10,
+        "attacks":[{"name":"Headbutt","cost":"w","damage":10}],
         "retreat_cost":1,
-        "weakness":"lightning",
+        "weakness":"l",
         }
 
 machop={
         "name":"Machop",
         "cardset":"base",
-        "energy_type":"fighting",
+        "energy_type":"f",
         "evolution_level":"basic",
         "hp":50,
-        "attack_cost":1,
-        "attack_dmg":20,
+        "attacks":[{"name":"Low Kick","cost":"f","damage":10}],
         "retreat_cost":1,
-        "weakness":"psychic",
+        "weakness":"p",
         }
 
-rattata={
-        "name":"Rattata",
-        "cardset":"base",
-        "energy_type":"colorless",
-        "evolution_level":"basic",
-        "hp":30,
-        "attack_cost":1,
-        "attack_dmg":20,
-        "retreat_cost":0,
-        "weakness":"fighting",
-        "resistance":"psychic"
-        }
-
-staryu={
-        "name":"Staryu",
-        "cardset":"base",
-        "energy_type":"water",
-        "evolution_level":"basic",
-        "hp":40,
-        "attack_cost":1,
-        "attack_dmg":20,
-        "retreat_cost":1,
-        "weakness":"lightning",
-        }
-        
 voltorb={
         "name":"Voltorb",
         "cardset":"base",
-        "energy_type":"lightning",
+        "energy_type":"l",
         "evolution_level":"basic",
         "hp":40,
-        "attack_cost":1,
-        "attack_dmg":10,
+        "attacks":[{"name":"Tackle","cost":"c","damage":10}],
         "retreat_cost":1,
-        "weakness":"fighting",
+        "weakness":"f",
+        }
+hitmonchan={
+        "name":"Hitmonchan",
+        "cardset":"base",
+        "energy_type":"f",
+        "evolution_level":"basic",
+        "hp":70,
+        "attacks":[{"name":"Jab","cost":"f","damage":20},{"name":"Special Punch","cost":"ffc","damage":40}],
+        "retreat_cost":1,
+        "weakness":"p",
         }
 
 """

@@ -22,12 +22,12 @@ def test_attaching_trainer(setup_duel):
 def test_defender_effect(setup_duel):
     duel_manager, player1, player2 = setup_duel
     player1.active[0].add_reduce_dmg_effects.append(effects.defender)
-    player2.active.cards[0].attack(player1.active.cards[0])
+    player2.active.cards[0].attack(player1.active.cards[0],0)
     assert player1.active.cards[0].hp==60
 
 def test_weakness_effect(setup_duel):
     duel_manager, player1, player2 = setup_duel
-    player1.active[0].weakness="water"
+    player1.active[0].weakness="w"
     if effects.weakness not in player1.active[0].other_effects:
         player1.active[0].other_effects.append(effects.weakness)
     '''hack code to bypass an obscure glitch that I didn't fix in the
@@ -36,20 +36,20 @@ def test_weakness_effect(setup_duel):
     The correct solution is to make "add effect(s)" a function that also
     checks for unique effects, but I'll wait until I get a more robust
     event manager set up first.'''
-    player2.active.cards[0].attack(player1.active.cards[0])
+    player2.active.cards[0].attack(player1.active.cards[0],0)
     assert player1.active.cards[0].hp==40
 
 def test_resistance_effect(setup_duel):
     duel_manager, player1, player2 = setup_duel
-    player1.active[0].resistance="water"
+    player1.active[0].resistance="w"
     player1.active[0].add_reduce_dmg_effects.append(effects.resistance)
-    player2.active.cards[0].attack(player1.active.cards[0])
+    player2.active.cards[0].attack(player1.active.cards[0],0)
     assert player1.active.cards[0].hp==60
 
 def test_pluspower_effect(setup_duel):
     duel_manager, player1, player2 = setup_duel
     player1.active[0].add_reduce_dmg_effects.append(effects.plus_power)
-    player1.active.cards[0].attack(player2.active.cards[0])
+    player1.active.cards[0].attack(player2.active.cards[0],0)
     assert player2.active.cards[0].hp==40
 
 def test_multiple_pluspower_effects(setup_duel):
@@ -57,14 +57,14 @@ def test_multiple_pluspower_effects(setup_duel):
     player1.active[0].add_reduce_dmg_effects.append(effects.plus_power)
     player1.active[0].add_reduce_dmg_effects.append(effects.plus_power)
     player1.active[0].add_reduce_dmg_effects.append(effects.plus_power)
-    player1.active.cards[0].attack(player2.active.cards[0])
+    player1.active.cards[0].attack(player2.active.cards[0],0)
     assert player2.active.cards[0].hp==20
 
 '''def test_all_add_reduce_damage_effects(setup_duel):
     duel_manager, player1, player2 = setup_duel
     player1.active[0].effects.append(effects.plus_power)
     player1.active[0].effects.append(effects.plus_power)
-    player1.active.cards[0].attack(player2.active.cards[0])
+    player1.active.cards[0].attack(player2.active.cards[0],0)
     assert player2.active.cards[0].hp==30
 '''
 
