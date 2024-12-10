@@ -19,45 +19,68 @@ def test_attaching_trainer(setup_duel):
     cdc.move_cards_to_from(cdc.Trainer(owner=player1,**cards_data.defender),player1.active.cards[0].attached)
     assert player1.active.cards[0].attached[0].name=="Defender"
 
+def test_defender_effect(setup_duel):
+    duel_manager, player1, player2 = setup_duel
+    player1.active[0].add_reduce_dmg_effects.append(effects.defender)
+    player2.active.cards[0].attack(player1.active.cards[0])
+    assert player1.active.cards[0].hp==60
+
+def test_weakness_effect(setup_duel):
+    duel_manager, player1, player2 = setup_duel
+    player1.active[0].weakness="water"
+    if effects.weakness not in player1.active[0].other_effects:
+        player1.active[0].other_effects.append(effects.weakness)
+    '''hack code to bypass an obscure glitch that I didn't fix in the
+    code, where the pokemon has a weakness, then a weakness gets manually
+    assigned, so it procs twice because the effect is in the list twice.
+    The correct solution is to make "add effect(s)" a function that also
+    checks for unique effects, but I'll wait until I get a more robust
+    event manager set up first.'''
+    player2.active.cards[0].attack(player1.active.cards[0])
+    assert player1.active.cards[0].hp==40
+
+def test_resistance_effect(setup_duel):
+    duel_manager, player1, player2 = setup_duel
+    player1.active[0].resistance="water"
+    player1.active[0].add_reduce_dmg_effects.append(effects.resistance)
+    player2.active.cards[0].attack(player1.active.cards[0])
+    assert player1.active.cards[0].hp==60
+
+def test_pluspower_effect(setup_duel):
+    duel_manager, player1, player2 = setup_duel
+    player1.active[0].add_reduce_dmg_effects.append(effects.plus_power)
+    player1.active.cards[0].attack(player2.active.cards[0])
+    assert player2.active.cards[0].hp==40
+
+def test_multiple_pluspower_effects(setup_duel):
+    duel_manager, player1, player2 = setup_duel
+    player1.active[0].add_reduce_dmg_effects.append(effects.plus_power)
+    player1.active[0].add_reduce_dmg_effects.append(effects.plus_power)
+    player1.active[0].add_reduce_dmg_effects.append(effects.plus_power)
+    player1.active.cards[0].attack(player2.active.cards[0])
+    assert player2.active.cards[0].hp==20
+
+'''def test_all_add_reduce_damage_effects(setup_duel):
+    duel_manager, player1, player2 = setup_duel
+    player1.active[0].effects.append(effects.plus_power)
+    player1.active[0].effects.append(effects.plus_power)
+    player1.active.cards[0].attack(player2.active.cards[0])
+    assert player2.active.cards[0].hp==30
+'''
+
+#try stacking different effects
+#confirm that the effects process in the correct order
+
+#test a limited-time effect
+#test playing a card that places an effect on a card
+
+#test playing a defender card then being attacked
+#test playing a pluspower then attacking
 
 '''
-def test_using_defender_against_an_attack(setup_duel):
+def test_using_defender_card_against_an_attack(setup_duel):
     duel_manager, player1, player2 = setup_duel
     move_cards_to_from(cdc.Trainer(owner=player1,**cards_data.defender),player1.active.cards[0].attached)
     player2.active.cards[0].attack(player1.active.cards[0])
     assert player1.active.cards[0].hp==60
-
-#test multiple defenders
 '''
-
-def test_placing_and_triggering_defender_effect_on_pokemon(setup_duel):
-    duel_manager, player1, player2 = setup_duel
-    player1.active[0].effects.append(effects.defender())
-    player2.active.cards[0].attack(player1.active.cards[0])
-    assert player1.active.cards[0].hp==60
-
-def test_placing_and_triggering_weakness_effect_on_pokemon(setup_duel):
-    duel_manager, player1, player2 = setup_duel
-    player1.active[0].effects.append(effects.weakness("water"))
-    player2.active.cards[0].attack(player1.active.cards[0])
-    assert player1.active.cards[0].hp==40
-
-def test_placing_and_triggering_resistance_effect_on_pokemon(setup_duel):
-    duel_manager, player1, player2 = setup_duel
-    player1.active[0].effects.append(effects.resistance("water"))
-    player2.active.cards[0].attack(player1.active.cards[0])
-    assert player1.active.cards[0].hp==60
-
-def test_pluspower_through_rudimentary_event_manager(setup_duel):
-    duel_manager, player1, player2 = setup_duel
-    player1.active[0].effects.append(effects.plus_power)
-    player1.active.cards[0].attack(player2.active.cards[0])
-    assert player2.active.cards[0].hp==40
-
-#test multiple pluspowers
-#replace older code and tests (weakness, resistance, defender)
-#try stacking effects
-
-
-#test a limited-time effect
-#test an effect that triggers when a card is played

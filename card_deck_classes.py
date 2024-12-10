@@ -34,38 +34,45 @@ class Pokemon(Card):
         self.attack_dmg = attack_dmg #this will need to go at some point
         self.retreat_cost = retreat_cost
         self.evolves_from=evolves_from
-        self.effects=[]
+        self.add_reduce_dmg_effects=[]
+        self.other_effects=[]
+        self.weakness=weakness
+        self.resistance=resistance
         if weakness:
-            self.effects.append(effects.weakness(weakness))
+            self.other_effects.append(effects.weakness)
         if resistance:
-            self.effects.append(effects.resistance(resistance))
+            self.add_reduce_dmg_effects.append(effects.resistance)
         self.attached=CardCollection(owner)
 
         self.stored_pre_evolution=CardCollection(owner)
 
-        self.temp_dmg=attack_dmg
+        self.temp_dmg=None
+
+
 
     def attack(self, opponent): #this will probably need replacing as well
+        '''
+        Need a better way of ordering the effects. 
+        For example, the order should go "weakness, resistance, pluspower".
+        '''
         self.temp_dmg=self.attack_dmg
-        if effects.plus_power in self.effects:
-            effects.plus_power(self)
-        if effects.resistance(self.energy_type) in opponent.effects:
-            self.temp_dmg-=30
-        if effects.defender() in opponent.effects:
-            self.temp_dmg-=20
+        for effect in self.add_reduce_dmg_effects:
+            effect(self, opponent)
+        for effect in opponent.add_reduce_dmg_effects:
+            effect(opponent, self)
         if self.temp_dmg<0:
             self.temp_dmg=0
-        if effects.weakness(self.energy_type) in opponent.effects:
-            self.temp_dmg*=2
+        for effect in self.other_effects:
+            effect(self, opponent)
+        for effect in opponent.other_effects:
+            effect(opponent, self)
         opponent.hp-=self.temp_dmg
         if opponent.hp<=0:
             opponent.hp=0
             self.owner.lose_prize()
 
     def attach_card(self,card):
-        print(card)
         move_cards_to_from(card, self.attached)
-        print(self.attached.cards)
         #may need an extra function to return just the energy cards
     
     def evolve(self, evolution_card,location):
