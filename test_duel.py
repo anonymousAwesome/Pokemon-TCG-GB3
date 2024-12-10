@@ -283,3 +283,8 @@ def test_integration_testing_from_start_to_coin_flip():
     fake_coin_flip=True
     duel_manager.user_won_starting_coin(fake_coin_flip)
     assert duel_manager.turn=="player"
+
+def test_changing_turns_before_coinflip_returns_error():
+    pass
+
+#test decking out
