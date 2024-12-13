@@ -5,6 +5,7 @@ import duel
 import main
 import random
 import cards_data
+import menu
 
 
 @pytest.fixture
@@ -290,7 +291,7 @@ def test_integration_testing_from_start_to_coin_flip():
     duel_manager.user_won_starting_coin(fake_coin_flip)
     assert duel_manager.turn=="player"
 
-def test_attacking_with_second_attack():
+def test_attacking_with_secondary_attack():
     duel_manager = duel.DuelManager(main.phase_handler, prizes=1)
     player1 = duel.Player(duel_manager)
     player2 = duel.Player(duel_manager)
@@ -301,23 +302,80 @@ def test_attacking_with_second_attack():
 
 
 
-def test_starting_player_options(setup_duel):
-    duel_manager, player1, player2 = setup_duel
-    hand=cdc.Hand(player1)
-    cdc.move_cards_to_from(cdc.Pokemon(owner=player1,**cards_data.dratini),player1.active)
-    player1.collect_choices()
-    assert player1.choices=={0: "hand", 1: "check", 2: "retreat", 3: "attack", 4: "pokemon power", 5: "end turn"}
+def test_menu_manager_initialization(player1):
+    manager = menu.MenuManager("Main Menu", player1)
+    assert manager.current_menu() == "Main Menu"
+    assert manager.menu_stack == ["Main Menu"]
+
+def test_go_to_submenu(player1):
+    manager = menu.MenuManager("Main Menu", player1)
+    manager.add_submenu("Options")
+    assert manager.current_menu() == "Options"
+    assert manager.menu_stack == ["Main Menu", "Options"]
+
+def test_back_one_level(player1):
+    manager = menu.MenuManager("Main Menu", player1)
+    manager.add_submenu("Options")
+    manager.back_one_level()
+    assert manager.current_menu() == "Main Menu"
+    assert manager.menu_stack == ["Main Menu"]
+
+    # Ensure we can't go back past the root menu
+    manager.back_one_level()
+    assert manager.current_menu() == "Main Menu"
+    assert manager.menu_stack == ["Main Menu"]
+
+def test_jump_to_index(player1):
+    manager = menu.MenuManager("Main Menu", player1)
+    manager.add_submenu("Options")
+    manager.add_submenu("Graphics Settings")
+    manager.jump_to_index(0)  # Jump back to the root
+    assert manager.current_menu() == "Main Menu"
+    assert manager.menu_stack == ["Main Menu"]
+
+    manager.add_submenu("Options")
+    manager.add_submenu("Graphics Settings")
+    manager.jump_to_index(1)  # Jump back to "Options"
+    assert manager.current_menu() == "Options"
+    assert manager.menu_stack == ["Main Menu", "Options"]
+
+    # Ensure invalid indices do not affect the stack
+    manager.jump_to_index(-1)  # Invalid index
+    assert manager.menu_stack == ["Main Menu", "Options"]
+
+    manager.jump_to_index(100)  # Invalid index
+    assert manager.menu_stack == ["Main Menu", "Options"]
+
+def test_display_menu_path(player1, capsys):
+    manager = menu.MenuManager("Main Menu", player1)
+    manager.add_submenu("Options")
+    manager.add_submenu("Graphics Settings")
+    manager.display_path()
+
+    captured = capsys.readouterr()
+
+    lines = captured.out.strip().split("\n")
+    assert lines[-1] == "Main Menu > Options > Graphics Settings"
+
 
 def test_checking_hand_options(setup_duel, monkeypatch):
-    def mock_input():
-        #faking user input
+    def fake_input():
         return 0
-    monkeypatch.setattr('builtins.input', mock_input)
+    monkeypatch.setattr('builtins.input', fake_input)
     duel_manager, player1, player2 = setup_duel
+    duel_menu=menu.MenuManager("starting", player1)
     hand=cdc.Hand(player1)
     cdc.move_cards_to_from(cdc.Pokemon(owner=player1,**cards_data.dratini),player1.hand)
-    player1.collect_choices()
-    assert player1.choices=={0: "hand", 1: "check", 2: "retreat", 3: "attack", 4: "pokemon power", 5: "end turn"}
-    player1.request_decision()
-    player1.collect_choices()
-    assert player1.choices=={0: "Dratini", 1:"cancel"}
+    duel_menu.collect_choices()
+    assert duel_menu.choices=={0: "Hand", 1: "Game board", 2: "Retreat", 3: "Attack", 4: "Pokemon power", 5: "End turn", 6: "Resign"}
+    duel_menu.request_decision()
+    duel_menu.collect_choices()
+    assert duel_menu.choices=={0: "Dratini", 1:"Cancel"}
+    #player1.request_decision()
+    #player1.collect_choices()
+    #assert player1.choices=={0: "Play it", 1:"Check information"}
+    #player1.request_decision()
+    #assert player1.bench[0].name=="Dratini"
+
+#note: can use capsys to capture text output, check chatgpt logs for more info
+

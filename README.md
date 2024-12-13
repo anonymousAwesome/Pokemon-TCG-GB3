@@ -23,10 +23,10 @@ The program uses the Pygame module for gameplay and pygbag to export the game to
 Cards: 5/~1000 done  
 Duelling system: 5% done  
 Duelling layout: 50% done  
-NPC sprites and portraits: 2% done  
+NPC sprites and portraits: 6% done (each sprite and each portrait is roughly 1%)  
 NPC/player interactions: 0% done  
-New location designs: 2/13 done (8 clubs, hidden basement (2 rooms), FF headquarters (2.5 rooms), and 0.5 airport)  
-GUI and displaying text: 0% done  
+New location designs: 3/15 done (8 clubs, hidden basement (2 rooms), FF headquarters (2.5 rooms), Neo Continent Grand Master Stadium, Neo Continent overworld, and 0.5 airport)  
+Menu, GUI, and displaying text: 5% done  
 NPC duel AI: 0% done  
 NPC decks: 0% done  
 NPC dialogue: 75% done  

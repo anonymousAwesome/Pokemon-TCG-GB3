@@ -11,6 +11,7 @@ class DuelManager:
         self.phase_handler.set_game_phase("duelling")
         self.turn=None
 
+
     def user_won_starting_coin(self, coin_results:bool):
         if coin_results is True:
             self.turn="player"
@@ -41,25 +42,10 @@ class Player:
         self.hand=cdc.Hand(self)
         self.discard_pile=cdc.DiscardPile(self)
         self.choices={}
-        self.location="starting"
 
     def lose_prize(self,quantity=1):
+        #severely outdated, need to refactor
         self.prizes-=quantity
         if self.prizes<=0:
             self.duel_handler.end_duel()
     
-    def collect_choices(self):
-        if self.location=="starting":
-            self.choices={0: "hand", 1: "check", 2: "retreat", 3: "attack", 4: "pokemon power", 5: "end turn"}
-        if self.location=="checking hand":
-            self.choices={}
-            for i,card in enumerate(self.hand):
-                self.choices[i]=card.name
-            self.choices[i+1]="cancel"
-
-    def request_decision(self):
-        for i in range(len(self.choices)):
-            print(f"{i}: {self.choices[i]}")
-        user_choice=int(input())
-        if user_choice==0:
-            self.location="checking hand"

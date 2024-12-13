@@ -9,6 +9,7 @@ TILE_SIZE=64
 # List of obstacles
 
 '''
+bg_image = pygame.image.load("./assets/clubs/Flying Club.png")
 #flying club
 obstacles=[
     pygame.Rect(0, 0, 64, 960),
@@ -30,6 +31,8 @@ obstacles=[
 ]
 '''
 
+'''
+bg_image = pygame.image.load("./assets/Neo Continent.png")
 #neo continent
 obstacles=[
     pygame.Rect(0, 576, 896, 64),
@@ -54,8 +57,12 @@ obstacles=[
 ]
 
 player_starting_location=(64,128)
+'''
 
 
+bg_image = pygame.image.load("./assets/Legendary Club.png")
+obstacles=[]
+player_starting_location=(6*64,14*64)
 
 
 class Player( pygame.sprite.Sprite ):
@@ -66,7 +73,7 @@ class Player( pygame.sprite.Sprite ):
         self.image=pygame.transform.scale_by(self.image,4)
         self.rect  = self.image.get_rect()
         self.rect.x,self.rect.y = x, y
-        self.move  = 4 #must be a factor of 64: 1, 2, 4, 8, 16, 32, or 64.
+        self.move  = 4 #Just to be safe, keep it a factor of 64: 1, 2, 4, 8, 16, 32, or 64.
         self.pixels_remaining=0
         self.moving_direction=None
 
@@ -124,15 +131,31 @@ def can_move(rect, obstacles, direction):
     elif direction == "right":
         next_rect.x += TILE_SIZE
 
-    # Check bounds and collisions
-    within_bounds = 0 <= next_rect.x < bg_image.get_width() and 0 <= next_rect.y < bg_image.get_height()
-    collision_free = not any(next_rect.colliderect(ob) for ob in obstacles)
-    return within_bounds and collision_free
+    # Check horizontal bounds
+    if next_rect.x < 0:
+        return False
+    if next_rect.right > bg_image.get_width():
+        return False
+
+    # Check vertical bounds
+    if next_rect.y < 0:
+        return False
+    if next_rect.bottom > bg_image.get_height():
+        return False
+
+    # Check for collisions with obstacles
+    for obstacle in obstacles:
+        if next_rect.colliderect(obstacle):
+            return False
+
+    # If all checks passed, the movement is valid
+    return True
+
 
 player_image   = pygame.image.load( './assets/player_image.png' ).convert_alpha()
 player_sprite  = Player(player_starting_location[0],player_starting_location[1],player_image)
 
-bg_image = pygame.image.load("./assets/Neo Continent.png")
+
 bg_width, bg_height = bg_image.get_width(), bg_image.get_height()
 bg_image = pygame.transform.scale(bg_image, (bg_width * 4, bg_height * 4))
 
