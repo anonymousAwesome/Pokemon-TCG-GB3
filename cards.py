@@ -3,6 +3,7 @@ copy-paste template:
 ={
         "name":"",
         "cardset":"base",
+        "level_id":,
         "energy_type":"",
         "evolution_level":"basic",
         "hp":,
@@ -31,6 +32,7 @@ D = DARKNESS,
 dratini={
         "name":"Dratini",
         "cardset":"base",
+        "level_id": 10,
         "energy_type":"c",
         "evolution_level":"basic",
         "hp":40,
@@ -41,6 +43,7 @@ dratini={
 seel={
         "name":"Seel",
         "cardset":"base",
+        "level_id": 12,
         "energy_type":"w",
         "evolution_level":"basic",
         "hp":60,
@@ -52,6 +55,7 @@ seel={
 machop={
         "name":"Machop",
         "cardset":"base",
+        "level_id": 20,
         "energy_type":"f",
         "evolution_level":"basic",
         "hp":50,
@@ -63,6 +67,7 @@ machop={
 voltorb={
         "name":"Voltorb",
         "cardset":"base",
+        "level_id": 10,
         "energy_type":"l",
         "evolution_level":"basic",
         "hp":40,
@@ -73,6 +78,7 @@ voltorb={
 hitmonchan={
         "name":"Hitmonchan",
         "cardset":"base",
+        "level_id": 33,
         "energy_type":"f",
         "evolution_level":"basic",
         "hp":70,

@@ -1,7 +1,6 @@
-import card_deck_classes as cdc
 import duel
 import main
-import cards_data
+import cards
 import pytest
 import effects
 
@@ -10,13 +9,13 @@ def setup_duel():
     duel_manager = duel.DuelManager(main.phase_handler, prizes=1)
     player1 = duel.Player(duel_manager)
     player2 = duel.Player(duel_manager)
-    cdc.move_cards_to_from(cdc.Pokemon(owner=player1,**cards_data.seel),player1.active)
-    cdc.move_cards_to_from(cdc.Pokemon(owner=player2,**cards_data.seel),player2.active)
+    duel.move_cards_to_from(duel.Pokemon(owner=player1,**cards.seel),player1.active)
+    duel.move_cards_to_from(duel.Pokemon(owner=player2,**cards.seel),player2.active)
     return duel_manager, player1, player2
 
 def test_attaching_trainer(setup_duel):
     duel_manager, player1, player2 = setup_duel
-    cdc.move_cards_to_from(cdc.Trainer(owner=player1,**cards_data.defender),player1.active.cards[0].attached)
+    duel.move_cards_to_from(duel.Trainer(owner=player1,**cards.defender),player1.active.cards[0].attached)
     assert player1.active.cards[0].attached[0].name=="Defender"
 
 def test_defender_effect(setup_duel):
@@ -80,7 +79,7 @@ def test_multiple_pluspower_effects(setup_duel):
 '''
 def test_using_defender_card_against_an_attack(setup_duel):
     duel_manager, player1, player2 = setup_duel
-    move_cards_to_from(cdc.Trainer(owner=player1,**cards_data.defender),player1.active.cards[0].attached)
+    move_cards_to_from(duel.Trainer(owner=player1,**cards.defender),player1.active.cards[0].attached)
     player2.active.cards[0].attack(player1.active.cards[0])
     assert player1.active.cards[0].hp==60
 '''
