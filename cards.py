@@ -11,7 +11,8 @@ copy-paste template:
         "attack_dmg":,
         "retreat_cost":,
         "weakness":"",
-        "resistance":""
+        "resistance":"",
+        "card_type":"pokemon",
         }
 
 '''
@@ -38,7 +39,8 @@ dratini={
         "hp":40,
         "attacks":[{"name":"Pound","cost":"c","damage":10}],
         "retreat_cost":1,
-        "resistance":"p"}
+        "resistance":"p",
+        "card_type":"pokemon",}
 
 seel={
         "name":"Seel",
@@ -50,6 +52,7 @@ seel={
         "attacks":[{"name":"Headbutt","cost":"w","damage":10}],
         "retreat_cost":1,
         "weakness":"l",
+        "card_type":"pokemon",
         }
 
 machop={
@@ -62,6 +65,7 @@ machop={
         "attacks":[{"name":"Low Kick","cost":"f","damage":10}],
         "retreat_cost":1,
         "weakness":"p",
+        "card_type":"pokemon",
         }
 
 voltorb={
@@ -74,6 +78,7 @@ voltorb={
         "attacks":[{"name":"Tackle","cost":"c","damage":10}],
         "retreat_cost":1,
         "weakness":"f",
+        "card_type":"pokemon",
         }
 hitmonchan={
         "name":"Hitmonchan",
@@ -85,6 +90,7 @@ hitmonchan={
         "attacks":[{"name":"Jab","cost":"f","damage":20},{"name":"Special Punch","cost":"ffc","damage":40}],
         "retreat_cost":1,
         "weakness":"p",
+        "card_type":"pokemon",
         }
 
 """
@@ -99,4 +105,11 @@ https://pkmncards.com/card/ponyta-base-set-bs-60/
 defender={
         "name":"Defender",
         "cardset":"base",
+        "card_type":"trainer",
+        }
+
+water={
+    "name":"water",
+    "cardset":"energy cards",
+    "card_type":"energy",
         }

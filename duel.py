@@ -4,7 +4,7 @@ import random
 import effects
 
 class DuelManager:
-    def __init__(self,phase_handler,prizes):
+    def __init__(self,phase_handler,prizes=6):
         self.prizes=prizes
         self.phase_handler=phase_handler
         self.phase_handler.set_game_phase("duelling")
@@ -33,9 +33,10 @@ class DuelManager:
 
 
 class Card:
-    def __init__(self, name,cardset,owner):
+    def __init__(self, name,cardset,card_type,owner):
         self.name = name
         self.cardset=cardset
+        self.card_type=card_type
         self.owner=owner
 
     def __str__(self):
@@ -45,18 +46,16 @@ class Card:
 to see if a card is in any CardCollections.'''
 
 class Trainer(Card):
-    def __init__(self, name, cardset, owner):
-        super().__init__(name, cardset, owner)
-        self.type="trainer"
+    def __init__(self, name, cardset, card_type, owner):
+        super().__init__(name, cardset, card_type,owner)
 
 class Energy(Card):
-    def __init__(self, name, cardset, owner):
-        super().__init__(name, cardset, owner)
-        self.type="energy"
+    def __init__(self, name, cardset, card_type, owner):
+        super().__init__(name, cardset, card_type, owner)
 
 class Pokemon(Card):
-    def __init__(self, name, cardset, owner, energy_type, evolution_level, hp, attacks, retreat_cost, level_id=None, weakness=None, resistance=None,evolves_from=None):
-        super().__init__(name,cardset, owner)
+    def __init__(self, name, cardset, card_type, owner, energy_type, evolution_level, hp, attacks, retreat_cost, level_id=None, weakness=None, resistance=None,evolves_from=None):
+        super().__init__(name,cardset, card_type, owner)
         self.energy_type=energy_type
         self.evolution_level=evolution_level
         self.hp = hp

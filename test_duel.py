@@ -29,6 +29,7 @@ def pikachu1(player1):
         retreat_cost=0,
         owner=player1,
         weakness="fighting",
+        card_type="pokemon",
     ) 
     return(pikachu)
 
@@ -45,6 +46,7 @@ def pikachu2(player2):
         retreat_cost=0,
         owner=player2,
         weakness="fighting",
+        card_type="pokemon",
     ) 
     return(pikachu)
 
@@ -62,6 +64,7 @@ def raichu1(player1):
         owner=player1,
         evolves_from="Pikachu",
         weakness="fighting",
+        card_type="pokemon",
     ) 
     return(raichu)
 
@@ -148,7 +151,7 @@ def test_ko_with_1_prize_remaining_ends_duel(player2,pikachu1,pikachu2):
     assert player2.duel_handler.phase_handler.get_game_phase()=="club"
 
 def test_attach_energy_to_pokemon(player1,pikachu1):
-    water_energy=duel.Energy("water", "basic energy", player1)
+    water_energy=duel.Energy("water", "basic energy", "energy", player1)
     pikachu1.attach_card(water_energy)
     assert water_energy in pikachu1.attached
 
@@ -156,7 +159,7 @@ def test_moving_water_deck_hand_discard(player1):
     deck=duel.CardCollection(player1)
     hand=duel.CardCollection(player1)
     discard_pile=duel.CardCollection(player1)
-    water_energy=duel.Energy("water", "basic energy", player1)
+    water_energy=duel.Energy("water", "basic energy","energy", player1)
     duel.move_cards_to_from(water_energy, deck)
     assert water_energy in deck
     duel.move_cards_to_from(water_energy, hand, deck)
@@ -221,6 +224,7 @@ def test_weakness(pikachu1,player1):
         attacks=[{"name":"Rock Toss","cost":"","damage":20}],
         retreat_cost=0,
         owner=player1,
+        card_type="pokemon",
     )
     geodude.attack(pikachu1,0)
     assert pikachu1.hp==0
@@ -259,11 +263,11 @@ def test_integration_testing_from_start_to_coin_flip():
     for i in range(2):
         duel.move_cards_to_from(duel.Pokemon(owner=player1,**cards.seel),player1.deck)
     for i in range(8):
-        duel.move_cards_to_from(duel.Energy("water energy", "base", player1),player1.deck)
+        duel.move_cards_to_from(duel.Energy("water energy", "base","energy", player1),player1.deck)
     for i in range(2):
         duel.move_cards_to_from(duel.Pokemon(owner=player2,**cards.voltorb),player2.deck)
     for i in range(8):
-        duel.move_cards_to_from(duel.Energy("lightning energy", "base", player2),player2.deck)
+        duel.move_cards_to_from(duel.Energy("lightning energy", "base","energy", player2),player2.deck)
     
     assert len(player1.deck)==10
     assert len(player2.deck)==10
@@ -301,5 +305,4 @@ def test_attacking_with_secondary_attack():
     duel.move_cards_to_from(duel.Pokemon(owner=player2,**cards.hitmonchan),player2.active)
     player1.active[0].attack(player2.active[0],1)
     assert player2.active[0].hp==30
-
 

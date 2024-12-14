@@ -116,22 +116,17 @@ def test_play_energy_on_dratini(setup_duel, monkeypatch):
     duel_menu=menu.MenuManager("starting", player1)
     hand=duel.CardCollection(player1)
     duel.move_cards_to_from(duel.Pokemon(owner=player1,**cards.dratini),player1.active)
-    duel.move_cards_to_from(duel.Energy("water", cardset="basic energy", owner=player1),player1.hand)
+    duel.move_cards_to_from(duel.Energy("water", cardset="basic energy", card_type="energy", owner=player1),player1.hand)
     duel_menu.user_choice()
-    print(duel_menu.menu_stack)
     duel_menu.user_choice()
-    print(duel_menu.menu_stack)
     def fake_input():
         return 1
     monkeypatch.setattr('builtins.input', fake_input)
     duel_menu.user_choice()
-    print(duel_menu.menu_stack)
     def fake_input():
         return 0
     monkeypatch.setattr('builtins.input', fake_input)
-    print("below me should be zero")
     duel_menu.user_choice()
-    print(duel_menu.menu_stack)
     assert player1.active[0].attached.cards[0].name=="water"
 
 
