@@ -1,5 +1,4 @@
 import logging
-import main
 import random
 import effects
 
@@ -10,12 +9,12 @@ class DuelManager:
         self.phase_handler.set_game_phase("duelling")
         self.turn=None
 
-    def user_won_starting_coin(self, coin_results:bool):
-        if coin_results is True:
+    def starting_coin(self):
+        if random.choice([0,1]):
             self.turn="player"
-        elif coin_results is False:
+        else:
             self.turn="computer"
-        else:logging.error(f"Unexpected value in DuelManager.__init__() -- expected boolean for user_won_starting_coin, got {user_won_starting_coin}")
+        #else:logging.error(f"Unexpected value in DuelManager.__init__() -- expected boolean for user_won_starting_coin, got {user_won_starting_coin}")
       
     def advance_turn(self):
         if not self.turn:
@@ -100,7 +99,7 @@ class Pokemon(Card):
         opponent.hp-=self.temp_dmg
         if opponent.hp<=0:
             opponent.hp=0
-            self.owner.lose_prize()
+            self.owner.take_prize()
 
     def attach_card(self,card):
         move_cards_to_from(card, self.attached)
@@ -122,6 +121,11 @@ class CardCollection:
         else:
             logging.error(f"Expected card or list of cards, got {cards}")
 
+    def __str__(self):
+        temp_list=[]
+        for card in self.cards:
+            temp_list.append(card.name)
+        return (f"{temp_list}")
 
     def __contains__(self, item):
         return item in self.cards
@@ -135,6 +139,13 @@ class CardCollection:
 
     def __getitem__(self, key):
         return self.cards[key]
+
+class Prizes(CardCollection):
+    def __init__(self, owner, cards=None):
+        super().__init__(owner, cards=None)
+
+    def place(self):
+        move_cards_to_from(self.owner.deck[0:self.owner.duel_handler.prizes],self,self.owner.deck)
 
 
 def move_cards_to_from(cardlist, destination_location,prev_location=None):
@@ -152,7 +163,7 @@ def move_cards_to_from(cardlist, destination_location,prev_location=None):
 class Player:
     def __init__(self,duel_handler):
         self.duel_handler=duel_handler
-        self.prizes=duel_handler.prizes
+        self.prizes=Prizes(self)
         self.deck=CardCollection(self)
         self.active=CardCollection(self)
         self.bench=CardCollection(self)
@@ -160,9 +171,22 @@ class Player:
         self.discard_pile=CardCollection(self)
         self.choices={}
 
-    def lose_prize(self,quantity=1):
-        #outdated, need to refactor
-        self.prizes-=quantity
-        if self.prizes<=0:
-            self.duel_handler.end_duel()
+    def initial_draw(self):
+        no_basics=True
+        random.shuffle(self.deck.cards)
+        while no_basics:
+            for card in self.deck[0:6]:
+                if getattr(card, 'evolution_level', False):
+                    if card.evolution_level=="basic":
+                        no_basics=False
+            if no_basics:
+                random.shuffle(self.deck.cards)
+                print("No basics in your hand. Shuffling.")
+        move_cards_to_from(self.deck[0:7],self.hand,self.deck)
+
+    def take_prize(self):
+        if self.prizes:
+            move_cards_to_from(self.prizes[-1],self.hand,self.prizes)
+            if len(self.prizes)<=0:
+                self.duel_handler.end_duel()
     

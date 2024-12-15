@@ -4,6 +4,7 @@ import main
 import random
 import cards
 import menu
+import decks
 
 
 @pytest.fixture
@@ -70,11 +71,17 @@ def raichu1(player1):
 
 @pytest.fixture
 def setup_duel():
-    duel_manager = duel.DuelManager(main.phase_handler, prizes=1)
+    duel_manager = duel.DuelManager(main.phase_handler)
     player1 = duel.Player(duel_manager)
     player2 = duel.Player(duel_manager)
+    deck_objects1=decks.generate([[cards.dratini,1],[cards.hitmonchan,1],[cards.seel,1],[cards.machop,1],[cards.water,7]],player1)
+    deck_objects2=decks.generate([[cards.dratini,1],[cards.hitmonchan,1],[cards.seel,1],[cards.machop,1],[cards.water,7]],player2)
+    duel.move_cards_to_from(deck_objects1,player1.deck)
+    duel.move_cards_to_from(deck_objects2,player2.deck)
     duel.move_cards_to_from(duel.Pokemon(owner=player1,**cards.seel),player1.active)
     duel.move_cards_to_from(duel.Pokemon(owner=player2,**cards.seel),player2.active)
+    player1.prizes.place()
+    player2.prizes.place()
     return duel_manager, player1, player2
 
 
@@ -102,23 +109,27 @@ def test_negative_damage(pikachu1,pikachu2):
     pikachu1.attack(pikachu2,0)
     assert pikachu2.hp==40
 
-def test_KO_removes_one_prize_card(pikachu1,pikachu2):
-    pikachu1.attacks[0]["damage"]=50
-    pikachu1.attack(pikachu2,0)
-    assert pikachu1.owner.prizes==5
+def test_KO_removes_one_prize_card(setup_duel):
+    duel_manager,player1,player2=setup_duel
+    for i in range(6): #6 prizes
+        for i in range(6): #60 health, 10 dmg
+            player2.active[0].attack(player1.active[0],attack_num=0)
+    assert(player2.duel_handler.phase_handler.get_game_phase())=="club"
 
-def test_won_coin_flip_then_two_turns_end():
+def test_won_coin_flip_then_two_turns_end(monkeypatch):
     duel_object=duel.DuelManager(main.PhaseHandler(),prizes=6)
-    duel_object.user_won_starting_coin(True)
+    monkeypatch.setattr(random, 'choice', lambda x: 1)
+    duel_object.starting_coin()
     assert duel_object.turn=="player"
     duel_object.advance_turn()
     assert duel_object.turn=="computer"
     duel_object.advance_turn()
     assert duel_object.turn=="player"
 
-def test_lost_coin_flip_then_two_turns_end():
+def test_lost_coin_flip_then_two_turns_end(monkeypatch):
     duel_object=duel.DuelManager(main.PhaseHandler(),prizes=6)
-    duel_object.user_won_starting_coin(False)
+    monkeypatch.setattr(random, 'choice', lambda x: 0)
+    duel_object.starting_coin()
     assert duel_object.turn=="computer"
     duel_object.advance_turn()
     assert duel_object.turn=="player"
@@ -144,11 +155,12 @@ def test_new_game_phases_per_test():
     phase_handler = main.PhaseHandler()
     assert phase_handler.get_game_phase()=="starting"
     
-def test_ko_with_1_prize_remaining_ends_duel(player2,pikachu1,pikachu2):
-    pikachu2.attacks[0]["damage"]=50
-    pikachu2.owner.prizes=1
-    pikachu2.attack(pikachu1,0)
-    assert player2.duel_handler.phase_handler.get_game_phase()=="club"
+def test_ko_with_1_prize_remaining_ends_duel(setup_duel):
+    duel_manager,player1,player2=setup_duel
+    for i in range(6): #6 prizes
+        for i in range(6): #60 health, 10 dmg
+            player2.active[0].attack(player1.active[0],attack_num=0)
+    assert(player2.duel_handler.phase_handler.get_game_phase())=="club"
 
 def test_attach_energy_to_pokemon(player1,pikachu1):
     water_energy=duel.Energy("water", "basic energy", "energy", player1)
@@ -249,7 +261,7 @@ def test_deck_shuffle(monkeypatch):
     assert deck.cards == list(reversed(original_order))
 
 
-def test_integration_testing_from_start_to_coin_flip():
+def test_integration_testing_from_start_to_coin_flip(monkeypatch):
     '''
     load player1 deck: Seel (60 hp, 10 dmg, weak to lightning) x2, energy x8
     load player2 deck: Voltorb (40 hp, 10 dmg) x2, energy x8
@@ -293,8 +305,8 @@ def test_integration_testing_from_start_to_coin_flip():
     assert player2.active.cards[0].name=="Voltorb"
     assert player1.bench.cards[0].name=="Seel"
     assert player2.bench.cards[0].name=="Voltorb"
-    fake_coin_flip=True
-    duel_manager.user_won_starting_coin(fake_coin_flip)
+    monkeypatch.setattr(random, 'choice', lambda x: 1)
+    duel_manager.starting_coin()
     assert duel_manager.turn=="player"
 
 def test_attacking_with_secondary_attack():
@@ -305,4 +317,19 @@ def test_attacking_with_secondary_attack():
     duel.move_cards_to_from(duel.Pokemon(owner=player2,**cards.hitmonchan),player2.active)
     player1.active[0].attack(player2.active[0],1)
     assert player2.active[0].hp==30
+
+def test_initial_draw(monkeypatch):
+    duel_manager = duel.DuelManager(main.phase_handler, prizes=1)
+    player1 = duel.Player(duel_manager)
+    monkeypatch.setattr(random, 'shuffle', lambda x: x.reverse())
+    player1.deck.cards=decks.generate([[cards.dratini,1],[cards.hitmonchan,1],[cards.seel,1],[cards.machop,1],[cards.water,7]],player1)
+    player1.initial_draw()
+    assert player1.hand[0].name=="Dratini"
+    assert len(player1.deck)==4
+    assert len(player1.hand)==7
+
+def test_prizes_setup(setup_duel):
+    duel_manager, player1, player2=setup_duel
+    assert len(player1.prizes)==6
+
 
