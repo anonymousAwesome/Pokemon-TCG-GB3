@@ -23,6 +23,20 @@ class MenuManager:
         self.selected_card_1=None
         self.selected_card_2=None
 
+    def current_menu(self):
+        #untested, maybe unnecessary.
+        return self.menu_stack[-1]
+    
+    def back_one_level(self):
+        #untested, maybe unnecessary.
+        if len(self.menu_stack) > 1:
+            self.menu_stack.pop()
+    
+    def jump_to_index(self, index):
+        #untested, maybe unnecessary.
+        if 0 <= index < len(self.menu_stack):
+            self.menu_stack = self.menu_stack[:index + 1]
+
     def user_choice(self):
         '''Main method to handle user choices.
         In order:
@@ -43,7 +57,6 @@ class MenuManager:
             self.play_energy_from_hand()
 
     def user_prompt(self):
-        """Prompt user for input and return the selected choice."""
         for key, value in self.choices.items():
             print(f"{key}: {value}")
         while True:
@@ -71,7 +84,9 @@ class MenuManager:
             self.menu_stack.append("checking hand")
 
     def show_hand(self):
-        hand_choices = {i: card for i, card in enumerate(self.player.hand)}
+        hand_choices = {}
+        for i, card in enumerate(self.player.hand):
+            hand_choices[i] = self.player.hand[i]
         hand_choices[len(self.player.hand)] = "Cancel"
         self.set_choices(hand_choices)
 
@@ -102,7 +117,8 @@ class MenuManager:
 
     def play_energy_from_hand(self):
         available_targets = {0: self.player.active[0]}
-        available_targets.update({i: card for i, card in enumerate(self.player.bench, start=1)})
+        for i, card in enumerate(self.player.bench,start=1):
+            available_targets.append(self.player.hand[i])
         available_targets[len(available_targets)] = "Cancel"
         self.set_choices(available_targets)
 
