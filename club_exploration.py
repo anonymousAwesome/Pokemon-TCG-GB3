@@ -6,63 +6,89 @@ clock = pygame.time.Clock()
 TILE_SIZE=64
 
 
-# List of obstacles
+mapname="flying"
+#mapname="neo continent"
+#mapname="neo stadium"
+#mapname="tcg island"
 
-'''
-bg_image = pygame.image.load("./assets/clubs/Flying Club.png")
-#flying club
-obstacles=[
-    pygame.Rect(0, 0, 64, 960),
-    pygame.Rect(832, 0, 64, 960),
+if mapname=="flying":
+    bg_image = pygame.image.load("./assets/maps/flying club.png")
+    #flying club
+    obstacles=[
+        pygame.Rect(0, 0, 64, 960),
+        pygame.Rect(832, 0, 64, 960),
+        pygame.Rect(64, 0, 768, 64),
+        pygame.Rect(512, 896, 320, 64),
+        pygame.Rect(512, 832, 320, 64),
+        pygame.Rect(64, 832, 320, 64),
+        pygame.Rect(64, 896, 320, 64),
+        pygame.Rect(256, 192, 64, 256),
+        pygame.Rect(640, 320, 64, 256),
+        pygame.Rect(64, 640, 192, 64),
+        pygame.Rect(64, 704, 192, 64),
+        pygame.Rect(64, 768, 128, 64),
+        pygame.Rect(192, 192, 64, 128),
+        pygame.Rect(320, 192, 64, 128),
+        pygame.Rect(576, 320, 64, 128),
+        pygame.Rect(704, 320, 64, 128),
+    ]
+    player_starting_location=(6*64,13*64)
+
+elif mapname =="neo continent":
+    bg_image = pygame.image.load("./assets/maps/neo continent.png")
+    obstacles=[
+        pygame.Rect(0, 576, 896, 64),
+        pygame.Rect(0, 0, 64, 576),
+        pygame.Rect(768, 0, 64, 576),
+        pygame.Rect(832, 0, 64, 576),
+        pygame.Rect(256, 320, 448, 64),
+        pygame.Rect(64, 192, 64, 384),
+        pygame.Rect(128, 192, 64, 384),
+        pygame.Rect(512, 256, 256, 64),
+        pygame.Rect(512, 192, 256, 64),
+        pygame.Rect(512, 512, 256, 64),
+        pygame.Rect(256, 448, 192, 64),
+        pygame.Rect(512, 64, 192, 64),
+        pygame.Rect(256, 64, 192, 64),
+        pygame.Rect(256, 128, 192, 64),
+        pygame.Rect(256, 192, 192, 64),
+        pygame.Rect(64, 64, 128, 64),
+        pygame.Rect(64, 0, 128, 64),
+        pygame.Rect(256, 384, 128, 64),
+        pygame.Rect(512, 448, 64, 64),
+    ]
+
+    player_starting_location=(64,128)
+
+elif mapname=="neo stadium":
+    bg_image = pygame.image.load("./assets/maps/neo stadium.png")
+    obstacles=[
+    pygame.Rect(0, 0, 64, 1024),
+    pygame.Rect(832, 0, 64, 1024),
     pygame.Rect(64, 0, 768, 64),
+    pygame.Rect(512, 640, 320, 64),
     pygame.Rect(512, 896, 320, 64),
-    pygame.Rect(512, 832, 320, 64),
-    pygame.Rect(64, 832, 320, 64),
+    pygame.Rect(512, 960, 320, 64),
+    pygame.Rect(64, 960, 320, 64),
     pygame.Rect(64, 896, 320, 64),
-    pygame.Rect(256, 192, 64, 256),
-    pygame.Rect(640, 320, 64, 256),
-    pygame.Rect(64, 640, 192, 64),
-    pygame.Rect(64, 704, 192, 64),
-    pygame.Rect(64, 768, 128, 64),
-    pygame.Rect(192, 192, 64, 128),
-    pygame.Rect(320, 192, 64, 128),
-    pygame.Rect(576, 320, 64, 128),
-    pygame.Rect(704, 320, 64, 128),
-]
-'''
-
-'''
-bg_image = pygame.image.load("./assets/Neo Continent.png")
-#neo continent
-obstacles=[
-    pygame.Rect(0, 576, 896, 64),
-    pygame.Rect(0, 0, 64, 576),
-    pygame.Rect(768, 0, 64, 576),
-    pygame.Rect(832, 0, 64, 576),
-    pygame.Rect(256, 320, 448, 64),
-    pygame.Rect(64, 192, 64, 384),
-    pygame.Rect(128, 192, 64, 384),
-    pygame.Rect(512, 256, 256, 64),
-    pygame.Rect(512, 192, 256, 64),
-    pygame.Rect(512, 512, 256, 64),
-    pygame.Rect(256, 448, 192, 64),
-    pygame.Rect(512, 64, 192, 64),
-    pygame.Rect(256, 64, 192, 64),
-    pygame.Rect(256, 128, 192, 64),
-    pygame.Rect(256, 192, 192, 64),
-    pygame.Rect(64, 64, 128, 64),
-    pygame.Rect(64, 0, 128, 64),
-    pygame.Rect(256, 384, 128, 64),
-    pygame.Rect(512, 448, 64, 64),
+    pygame.Rect(64, 640, 320, 64),
 ]
 
-player_starting_location=(64,128)
-'''
+    player_starting_location=(6*64,14*64)
 
+elif mapname=="tcg island":
+    bg_image = pygame.image.load("./assets/maps/tcg island.png")
+    obstacles=[
+    pygame.Rect(0, 0, 640, 64),
+    pygame.Rect(0, 512, 640, 64),
+    pygame.Rect(0, 64, 64, 448),
+    pygame.Rect(576, 64, 64, 448),
+    pygame.Rect(64, 64, 320, 64),
+    pygame.Rect(64, 384, 64, 64),
+]
 
-bg_image = pygame.image.load("./assets/Legendary Club.png")
-obstacles=[]
-player_starting_location=(6*64,14*64)
+    player_starting_location=(1*64,7*64)
+
 
 
 class Player( pygame.sprite.Sprite ):

@@ -34,4 +34,6 @@ Music and sounds: 10% done
 Save/load: 0% done  
 Cutscene system: 0% done
 
+Game status: very early development build
+
 This repo also contains the `obstacle generator.py` Python script, a tool to generate rects for tile collision directly on the loaded image. More information about that can be found at the beginning of that file.
