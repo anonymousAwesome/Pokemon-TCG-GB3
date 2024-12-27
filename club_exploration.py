@@ -1,4 +1,5 @@
 import pygame
+import ui
 pygame.init()
 screen = pygame.display.set_mode((640,576))
 pygame.display.set_caption("club exploration")
@@ -6,12 +7,50 @@ clock = pygame.time.Clock()
 TILE_SIZE=64
 
 
-mapname="flying"
+#mapname="flying"
 #mapname="neo continent"
 #mapname="neo stadium"
 #mapname="tcg island"
+#mapname="ex card interior"
+mapname="ex card lobby"
 
-if mapname=="flying":
+if mapname=="ex card interior":
+    bg_image = pygame.image.load("./assets/maps/ex cards interior.png")
+    obstacles=[
+    pygame.Rect(0, 0, 832, 64),
+    pygame.Rect(0, 64, 832, 64),
+    pygame.Rect(0, 128, 64, 640),
+    pygame.Rect(768, 128, 64, 640),
+    pygame.Rect(64, 128, 64, 320),
+    pygame.Rect(704, 128, 64, 320),
+    pygame.Rect(64, 704, 256, 64),
+    pygame.Rect(64, 640, 256, 64),
+    pygame.Rect(512, 640, 256, 64),
+    pygame.Rect(512, 704, 256, 64),
+    pygame.Rect(320, 192, 192, 64),
+    pygame.Rect(320, 256, 192, 64),
+    pygame.Rect(512, 448, 192, 64),
+    pygame.Rect(128, 448, 192, 64),
+]
+    player_starting_location=(6*64,10*64)
+
+elif mapname=="ex card lobby":
+    bg_image = pygame.image.load("./assets/maps/ex cards lobby.png")
+    obstacles=[
+    pygame.Rect(0, 0, 64, 576),
+    pygame.Rect(640, 0, 64, 576),
+    pygame.Rect(64, 0, 192, 64),
+    pygame.Rect(64, 448, 192, 64),
+    pygame.Rect(64, 512, 192, 64),
+    pygame.Rect(448, 448, 192, 64),
+    pygame.Rect(448, 512, 192, 64),
+    pygame.Rect(448, 0, 192, 64),
+    pygame.Rect(192, 64, 64, 128),
+    pygame.Rect(448, 64, 64, 128),
+]
+    player_starting_location=(5*64,7*64)
+    
+elif mapname=="flying":
     bg_image = pygame.image.load("./assets/maps/flying club.png")
     #flying club
     obstacles=[
@@ -201,7 +240,14 @@ while running:
     #for ob in obstacles:
     #    pygame.draw.rect(screen, (255,255,0), ob.move(camera_x_offset, camera_y_offset))
     player_sprite.draw(screen, camera_x_offset, camera_y_offset)
-    
+
+    ui.dialogue(screen,"Malinda",
+    '/media/brendanj/Shared Partition/programming/pokemon tcg monte carlo/pokemon_tcg_fangame/assets/duellists/Malinda.png',
+    """Here to stop me, are you? Well,
+you're too late! I have obtained
+the power of the Pokemon-ex""",
+    "/media/brendanj/Shared Partition/programming/pokemon tcg monte carlo/pokemon_tcg_fangame/assets/pokemon-emerald.otf")
+
     pygame.display.flip()
     clock.tick(60)
 pygame.quit()

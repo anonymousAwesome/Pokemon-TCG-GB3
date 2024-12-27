@@ -14,7 +14,7 @@ The program uses the Pygame module for gameplay and pygbag to export the game to
 
 * A villainous organization, the Forbidden Faction, who use powerful forbidden cards.
 
-* Duellists offer optional challenges once you defeat them the first time, adding deck restrictions or altering the rules of the duel, in exchange for an extra booster pack if you win.
+* Extra duel challenges to spice up the gameplay.
 
 ##Current status:
 
@@ -23,10 +23,10 @@ The program uses the Pygame module for gameplay and pygbag to export the game to
 Cards: 5/~1000 done  
 Duelling system: 5% done  
 Duelling layout: 50% done  
-NPC sprites and portraits: 6% done (each sprite and each portrait is roughly 1%)  
+NPC sprites and portraits: 7% done (each sprite and each portrait is roughly 1%)  
 NPC/player interactions: 0% done  
-New location designs: 3/15 done (8 clubs, hidden basement (2 rooms), FF headquarters (2.5 rooms), Neo Continent Grand Master Stadium, Neo Continent overworld, and 0.5 airport)  
-Menu, GUI, and displaying text: 5% done  
+New location designs: 5/15 done (8 clubs, hidden basement (2 rooms), FF headquarters (2.5 rooms), Neo Continent Grand Master Stadium, Neo Continent overworld, and 0.5 airport)  
+Menu, GUI, and displaying text: 10% done  
 NPC duel AI: 0% done  
 NPC decks: 0% done  
 NPC dialogue: 75% done  

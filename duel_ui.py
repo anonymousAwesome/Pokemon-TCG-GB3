@@ -28,8 +28,7 @@ screen_width, screen_height = 640, 576
 
 
 font = pygame.font.Font("./assets/Roboto-Medium.ttf", 33)
-#font = pygame.font.Font(None, 36)
-
+#font = pygame.font.Font("./assets/pokemon-emerald.otf", 38)
 
 large_pkmn_card_dims=252,176
 med_pkmn_card_dims=84,59

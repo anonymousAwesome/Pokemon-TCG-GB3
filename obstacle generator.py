@@ -17,13 +17,13 @@ import sys
 pygame.init()
 
 tile_size = 16
-screen_scale = 2
+screen_scale = 4
 visible_tile_size=tile_size*screen_scale
 rect_scale = 4
 fps = 60
 selection_color = (255, 0, 0, 128)
 
-TILEMAP_PATH = "./assets/maps/neo stadium.png"
+TILEMAP_PATH = "./assets/maps/ex cards lobby.png"
 tilemap = pygame.image.load(TILEMAP_PATH)
 tilemap = pygame.transform.scale(tilemap, (tilemap.get_width() * screen_scale, tilemap.get_height() * screen_scale))
 

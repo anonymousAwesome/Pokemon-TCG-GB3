@@ -9,7 +9,7 @@ RIGHT=pygame.event.Event(pygame.KEYDOWN, key=pygame.K_RIGHT)
 RETURN=pygame.event.Event(pygame.KEYDOWN, key=pygame.K_RETURN)
 
 
-def test_go_down_one_item_and_hit_enter():
+def test_down_and_enter():
     menu = ui.Menu(["status","diary","deck","mini-com","coins"],1)
     events = [DOWN,RETURN]
     
@@ -19,7 +19,7 @@ def test_go_down_one_item_and_hit_enter():
     assert menu.location == "diary"
 
 
-def test_over_and_down_in_3x2():
+def test_down_and_enter_in_3x2():
     menu = ui.Menu(["status","diary","deck","mini-com","coins"],3)
     events = [DOWN, RETURN]
 
@@ -31,5 +31,7 @@ def test_over_and_down_in_3x2():
 '''
 to-do:
 left, right, up and down tests
-block movement onto a "" cell, otherwise wrap around.
+Moving right onto a "" cell, check for anything above it and move into that.
+Moving down onto a "" cell, check for anything to the left of it and move into that
+Otherwise, wrap around.
 '''
