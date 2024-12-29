@@ -1,6 +1,9 @@
 import duel_classdefs as cd
+import duel
 import decks
 import cards
+import pygame
+import overworld
 
 class PhaseHandler:
     def __init__(self):
@@ -32,3 +35,12 @@ if __name__ == "__main__":
 
     #duel_manager.starting_coin()
     duel_manager.turn="player" #manually let the player go first
+    
+    running = True
+    while running:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
+        #overworld.render()
+        duel.render()
+    pygame.quit()

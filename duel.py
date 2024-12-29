@@ -15,20 +15,13 @@ https://www.spriters-resource.com/pc_computer/rpgmaker95/sheet/100509/
 
 '''
 
-
 import pygame
 
 pygame.init()
 
 screen_width, screen_height = 640, 576
 
-#screen_type_options=["checking board", "main screen"]
-
-#screen_type=screen_type_options[0]
-
-
 font = pygame.font.Font("./assets/Roboto-Medium.ttf", 33)
-#font = pygame.font.Font("./assets/pokemon-emerald.otf", 38)
 
 large_pkmn_card_dims=252,176
 med_pkmn_card_dims=84,59
@@ -121,32 +114,24 @@ text1_positions=[
 (452, 402),
 ]
 
-text_surface_2a = font.render(text2a, True,(0,0,0))
-text_surface_2b = font.render(text2b, True,(0,0,0))
-text_surface_2c = font.render(text2c, True,(0,0,0))
-
-text_surface_1a = font.render(text1a, True,(0,0,0))
-text_surface_1b = font.render(text1b, True,(0,0,0))
-text_surface_1c = font.render(text1c, True,(0,0,0))
-
-text_bg=pygame.Surface((184,35),pygame.SRCALPHA)
-
 fillcolor=(255,255,255,191)
 
-text_bg.fill(fillcolor)
+def render():
 
-# Main game loop
-running = True
-while running:
-    # Handle events
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            running = False
+    text_surface_2a = font.render(text2a, True,(0,0,0))
+    text_surface_2b = font.render(text2b, True,(0,0,0))
+    text_surface_2c = font.render(text2c, True,(0,0,0))
 
-    # Clear the screen
-    screen.fill((255, 255, 255))
+    text_surface_1a = font.render(text1a, True,(0,0,0))
+    text_surface_1b = font.render(text1b, True,(0,0,0))
+    text_surface_1c = font.render(text1c, True,(0,0,0))
 
-    # Draw the game components on the screen
+    text_bg=pygame.Surface((184,35),pygame.SRCALPHA)
+
+    text_bg.fill(fillcolor)
+
+    #screen.fill((255, 255, 255))
+
     screen.blit(background,(0,0))
     screen.blit(large_pkmn_card1, player1_active_pokemon_position)
     screen.blit(large_pkmn_card2, player2_active_pokemon_position)
@@ -176,8 +161,5 @@ while running:
     
     screen.blit(stadium_card,(264,256))
 
-    # Update the display
     pygame.display.update()
 
-# Quit Pygame
-pygame.quit()

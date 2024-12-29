@@ -142,7 +142,7 @@ class Player( pygame.sprite.Sprite ):
         self.pixels_remaining=0
         self.moving_direction=None
 
-    def update( self,pressed_keys ):
+    def update( self,keys ):
         move_speed=self.move
         if keys[pygame.K_LALT] or keys[pygame.K_RALT]:
             move_speed=self.move*2
@@ -182,7 +182,6 @@ class Player( pygame.sprite.Sprite ):
             self.pixels_remaining-=move_speed
     
     def draw(self, surface, camera_x_offset, camera_y_offset):
-        # Draw the player adjusted for the clamped camera offsets
         surface.blit(self.image, (self.rect.x + camera_x_offset, self.rect.y + camera_y_offset))
 
 def can_move(rect, obstacles, direction):
@@ -224,12 +223,7 @@ player_sprite  = Player(player_starting_location[0],player_starting_location[1],
 bg_width, bg_height = bg_image.get_width(), bg_image.get_height()
 bg_image = pygame.transform.scale(bg_image, (bg_width * 4, bg_height * 4))
 
-running = True
-while running:
-
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            running = False
+def render():
     keys = pygame.key.get_pressed()    
 
     player_sprite.update(keys)
@@ -250,4 +244,3 @@ the power of the Pokemon-ex""",
 
     pygame.display.flip()
     clock.tick(60)
-pygame.quit()
