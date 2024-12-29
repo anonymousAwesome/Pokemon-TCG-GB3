@@ -2,7 +2,7 @@
 Menu, deckbuilding UI
 '''
 
-import duel
+import duel_classdefs as cd
 
 
 class MenuManager:
@@ -108,7 +108,7 @@ class MenuManager:
                 if len(self.player.bench) >= 5:
                     print("The bench is full")
                 else:
-                    duel.move_cards_to_from(self.selected_card_1, self.player.bench, self.player.hand)
+                    cd.move_cards_to_from(self.selected_card_1, self.player.bench, self.player.hand)
                 self.reset_to_main()
             elif self.selected_card_1.card_type == "energy":
                 self.menu_stack.append("play energy")
@@ -127,5 +127,5 @@ class MenuManager:
             self.reset_to_main()
         else:
             self.selected_card_2 = self.choices[choice]
-            duel.move_cards_to_from(self.selected_card_1, self.selected_card_2.attached, self.player.hand)
+            cd.move_cards_to_from(self.selected_card_1, self.selected_card_2.attached, self.player.hand)
             self.reset_to_main()

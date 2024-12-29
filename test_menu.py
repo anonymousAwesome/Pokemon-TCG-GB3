@@ -1,26 +1,26 @@
 import pytest
-import duel
+import duel_classdefs as cd
 import main
 import menu
 import cards
 
 @pytest.fixture
 def player1():
-    duel_manager = duel.DuelManager(main.phase_handler, prizes=6)
-    player1 = duel.Player(duel_manager)
+    duel_manager = cd.DuelManager(main.phase_handler, prizes=6)
+    player1 = cd.Player(duel_manager)
     return player1
 
 @pytest.fixture
 def player2():
-    duel_manager = duel.DuelManager(main.phase_handler, prizes=6)
-    player2 = duel.Player(duel_manager)
+    duel_manager = cd.DuelManager(main.phase_handler, prizes=6)
+    player2 = cd.Player(duel_manager)
     return player2
 
 @pytest.fixture
 def setup_duel(player1, player2):
-    duel_manager = duel.DuelManager(main.phase_handler, prizes=6)
-    duel.move_cards_to_from(duel.Pokemon(owner=player1,**cards.seel),player1.active)
-    duel.move_cards_to_from(duel.Pokemon(owner=player2,**cards.seel),player2.active)
+    duel_manager = cd.DuelManager(main.phase_handler, prizes=6)
+    cd.move_cards_to_from(cd.Pokemon(owner=player1,**cards.seel),player1.active)
+    cd.move_cards_to_from(cd.Pokemon(owner=player2,**cards.seel),player2.active)
     return duel_manager, player1, player2
 
 def test_menu_manager_initialization(player1):
@@ -56,8 +56,8 @@ def test_check_hand_dratini(setup_duel, monkeypatch,capsys):
     monkeypatch.setattr('builtins.input', fake_input)
     duel_manager, player1, player2 = setup_duel
     duel_menu=menu.MenuManager("starting", player1)
-    hand=duel.CardCollection(player1)
-    duel.move_cards_to_from(duel.Pokemon(owner=player1,**cards.dratini),player1.hand)
+    hand=cd.CardCollection(player1)
+    cd.move_cards_to_from(cd.Pokemon(owner=player1,**cards.dratini),player1.hand)
     duel_menu.user_choice()
     duel_menu.user_choice()
     assert duel_menu.choices[0].name=="Dratini"
@@ -74,8 +74,8 @@ def test_play_dratini(setup_duel, monkeypatch):
     monkeypatch.setattr('builtins.input', fake_input)
     duel_manager, player1, player2 = setup_duel
     duel_menu=menu.MenuManager("starting", player1)
-    hand=duel.CardCollection(player1)
-    duel.move_cards_to_from(duel.Pokemon(owner=player1,**cards.dratini),player1.hand)
+    hand=cd.CardCollection(player1)
+    cd.move_cards_to_from(cd.Pokemon(owner=player1,**cards.dratini),player1.hand)
     duel_menu.user_choice()
     duel_menu.user_choice()
     def fake_input():
@@ -90,13 +90,13 @@ def test_play_dratini_with_full_bench(setup_duel, monkeypatch):
     monkeypatch.setattr('builtins.input', fake_input)
     duel_manager, player1, player2 = setup_duel
     duel_menu=menu.MenuManager("starting", player1)
-    hand=duel.CardCollection(player1)
-    duel.move_cards_to_from(duel.Pokemon(owner=player1,**cards.dratini),player1.hand)
-    duel.move_cards_to_from(duel.Pokemon(owner=player1,**cards.seel),player1.bench)
-    duel.move_cards_to_from(duel.Pokemon(owner=player1,**cards.seel),player1.bench)
-    duel.move_cards_to_from(duel.Pokemon(owner=player1,**cards.seel),player1.bench)
-    duel.move_cards_to_from(duel.Pokemon(owner=player1,**cards.seel),player1.bench)
-    duel.move_cards_to_from(duel.Pokemon(owner=player1,**cards.seel),player1.bench)
+    hand=cd.CardCollection(player1)
+    cd.move_cards_to_from(cd.Pokemon(owner=player1,**cards.dratini),player1.hand)
+    cd.move_cards_to_from(cd.Pokemon(owner=player1,**cards.seel),player1.bench)
+    cd.move_cards_to_from(cd.Pokemon(owner=player1,**cards.seel),player1.bench)
+    cd.move_cards_to_from(cd.Pokemon(owner=player1,**cards.seel),player1.bench)
+    cd.move_cards_to_from(cd.Pokemon(owner=player1,**cards.seel),player1.bench)
+    cd.move_cards_to_from(cd.Pokemon(owner=player1,**cards.seel),player1.bench)
     assert len(player1.bench)==5
     duel_menu.user_choice()
     duel_menu.user_choice()
@@ -114,9 +114,9 @@ def test_play_energy_on_dratini(setup_duel, monkeypatch):
     monkeypatch.setattr('builtins.input', fake_input)
     duel_manager, player1, player2 = setup_duel
     duel_menu=menu.MenuManager("starting", player1)
-    hand=duel.CardCollection(player1)
-    duel.move_cards_to_from(duel.Pokemon(owner=player1,**cards.dratini),player1.active)
-    duel.move_cards_to_from(duel.Energy("water", cardset="basic energy", card_type="energy", owner=player1),player1.hand)
+    hand=cd.CardCollection(player1)
+    cd.move_cards_to_from(cd.Pokemon(owner=player1,**cards.dratini),player1.active)
+    cd.move_cards_to_from(cd.Energy("water", cardset="basic energy", card_type="energy", owner=player1),player1.hand)
     duel_menu.user_choice()
     duel_menu.user_choice()
     def fake_input():

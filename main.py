@@ -1,4 +1,4 @@
-import duel
+import duel_classdefs as cd
 import decks
 import cards
 
@@ -18,13 +18,13 @@ phase_handler = PhaseHandler()
 
 if __name__ == "__main__":
 
-    duel_manager = duel.DuelManager(phase_handler)
-    player1 = duel.Player(duel_manager)
-    player2 = duel.Player(duel_manager)
+    duel_manager = cd.DuelManager(phase_handler)
+    player1 = cd.Player(duel_manager)
+    player2 = cd.Player(duel_manager)
     deck1=decks.generate([[cards.water,17],[cards.dratini,4],[cards.hitmonchan,3],[cards.seel,1],[cards.machop,1]],player1)
     deck2=decks.generate([[cards.water,17],[cards.dratini,4],[cards.hitmonchan,3],[cards.seel,1],[cards.machop,1]],player1)
-    duel.move_cards_to_from(deck1,player1.deck)
-    duel.move_cards_to_from(deck2,player2.deck)
+    cd.move_cards_to_from(deck1,player1.deck)
+    cd.move_cards_to_from(deck2,player2.deck)
     player1.initial_draw()
     player2.initial_draw()
     player1.prizes.place()

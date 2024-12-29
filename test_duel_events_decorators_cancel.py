@@ -1,4 +1,4 @@
-import duel
+import duel_classdefs as cd
 import main
 import cards
 import pytest
@@ -6,16 +6,16 @@ import effects
 
 @pytest.fixture
 def setup_duel():
-    duel_manager = duel.DuelManager(main.phase_handler, prizes=1)
-    player1 = duel.Player(duel_manager)
-    player2 = duel.Player(duel_manager)
-    duel.move_cards_to_from(duel.Pokemon(owner=player1,**cards.seel),player1.active)
-    duel.move_cards_to_from(duel.Pokemon(owner=player2,**cards.seel),player2.active)
+    duel_manager = cd.DuelManager(main.phase_handler, prizes=1)
+    player1 = cd.Player(duel_manager)
+    player2 = cd.Player(duel_manager)
+    cd.move_cards_to_from(cd.Pokemon(owner=player1,**cards.seel),player1.active)
+    cd.move_cards_to_from(cd.Pokemon(owner=player2,**cards.seel),player2.active)
     return duel_manager, player1, player2
 
 def test_attaching_trainer(setup_duel):
     duel_manager, player1, player2 = setup_duel
-    duel.move_cards_to_from(duel.Trainer(owner=player1,**cards.defender),player1.active.cards[0].attached)
+    cd.move_cards_to_from(cd.Trainer(owner=player1,**cards.defender),player1.active.cards[0].attached)
     assert player1.active.cards[0].attached[0].name=="Defender"
 
 def test_defender_effect(setup_duel):
@@ -79,7 +79,7 @@ def test_multiple_pluspower_effects(setup_duel):
 '''
 def test_using_defender_card_against_an_attack(setup_duel):
     duel_manager, player1, player2 = setup_duel
-    move_cards_to_from(duel.Trainer(owner=player1,**cards.defender),player1.active.cards[0].attached)
+    move_cards_to_from(cd.Trainer(owner=player1,**cards.defender),player1.active.cards[0].attached)
     player2.active.cards[0].attack(player1.active.cards[0])
     assert player1.active.cards[0].hp==60
 '''
