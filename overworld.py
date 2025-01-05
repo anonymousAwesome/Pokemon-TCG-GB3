@@ -12,7 +12,9 @@ TILE_SIZE=64
 #mapname="neo stadium"
 #mapname="tcg island"
 #mapname="ex card interior"
-mapname="ex card lobby"
+#mapname="ex card lobby"
+mapname="imakuni"
+#mapname="fhqwhgads"
 
 if mapname=="ex card interior":
     bg_image = pygame.image.load("./assets/maps/ex cards interior.png")
@@ -118,16 +120,29 @@ elif mapname=="neo stadium":
 elif mapname=="tcg island":
     bg_image = pygame.image.load("./assets/maps/tcg island.png")
     obstacles=[
-    pygame.Rect(0, 0, 640, 64),
-    pygame.Rect(0, 512, 640, 64),
-    pygame.Rect(0, 64, 64, 448),
-    pygame.Rect(576, 64, 64, 448),
-    pygame.Rect(64, 64, 320, 64),
-    pygame.Rect(64, 384, 64, 64),
-]
+        pygame.Rect(0, 0, 640, 64),
+        pygame.Rect(0, 64, 64, 512),
+        pygame.Rect(256, 512, 384, 64),
+        pygame.Rect(64, 64, 320, 64),
+        pygame.Rect(576, 384, 64, 128),
+        pygame.Rect(576, 64, 64, 64),
+        pygame.Rect(64, 192, 64, 64),
+        pygame.Rect(64, 384, 64, 64),
+    ]
+
+
 
     player_starting_location=(1*64,7*64)
 
+elif mapname=="imakuni":
+    bg_image = pygame.image.load("./assets/maps/wandering imakuni.png")
+    obstacles=[]
+    player_starting_location=(6*64,6*64)
+
+else:
+    bg_image = pygame.image.load("./assets/maps/map load error.png")
+    obstacles=[]
+    player_starting_location=(0*64,0*64)
 
 
 class Player( pygame.sprite.Sprite ):
@@ -235,12 +250,13 @@ def render():
     #    pygame.draw.rect(screen, (255,255,0), ob.move(camera_x_offset, camera_y_offset))
     player_sprite.draw(screen, camera_x_offset, camera_y_offset)
 
-    ui.dialogue(screen,"Malinda",
-    '/media/brendanj/Shared Partition/programming/pokemon tcg monte carlo/pokemon_tcg_fangame/assets/duellists/Malinda.png',
-    """Here to stop me, are you? Well,
-you're too late! I have obtained
-the power of the Pokemon-ex""",
-    "/media/brendanj/Shared Partition/programming/pokemon tcg monte carlo/pokemon_tcg_fangame/assets/pokemon-emerald.otf")
+    
+    '''ui.dialogue(screen,"Imakuni?",
+    '/media/brendanj/Shared Partition/programming/pokemon tcg monte carlo/pokemon_tcg_fangame/assets/duellists/imakuni portrait.png',
+    """It is I! The magical, mystical,
+Imakuni?! I'm a bit lost, but I
+always have time for a Pokemon""",
+    "/media/brendanj/Shared Partition/programming/pokemon tcg monte carlo/pokemon_tcg_fangame/assets/pokemon-emerald.otf")'''
 
     pygame.display.flip()
     clock.tick(60)

@@ -1,6 +1,6 @@
 #Pokemon TCG GB3: Rise of the Forbidden Faction
 
-This program is a fangame sequel to the Pokemon TCG games for the Game Boy Color. The player explores the game world, defeats duellists in a card game, and collects cards to improve their deck.
+This program is a fangame sequel to the Pokemon TCG games for the Game Boy Color. The player explores the game world, defeats duellists at the Pokemon Trading Card Game, and collects cards to improve their deck.
 
 The program uses the Pygame module for gameplay and pygbag to export the game to HTML5 for browser play.
 
@@ -8,7 +8,7 @@ The program uses the Pygame module for gameplay and pygbag to export the game to
 
 * Every card from Base to Neo expansions, plus Japanese-only cards that never got an official English release. That's roughly a thousand cards.
 
-* Over 64 trainers, each with their own unique deck.
+* Over 64 duellists, each with their own unique deck.
 
 * Two maps: TCG Island and Neo Continent, each containing their own card clubs and rewarding the player with different cards.
 
@@ -25,7 +25,7 @@ Duelling system: 5% done
 Duelling layout: 50% done  
 NPC sprites and portraits: 7% done (each sprite and each portrait is roughly 1%)  
 NPC/player interactions: 0% done  
-New location designs: 5/15 done (8 clubs, hidden basement (2 rooms), FF headquarters (2.5 rooms), Neo Continent Grand Master Stadium, Neo Continent overworld, and 0.5 airport)  
+New location designs: 6/16 done (8 clubs, hidden basement (2 rooms), FF headquarters (2.5 rooms), Neo Continent Grand Master Stadium, Neo Continent overworld, 0.5 airport, and 1 Imakuni desert)  
 Menu, GUI, and displaying text: 10% done  
 NPC duel AI: 0% done  
 NPC decks: 0% done  

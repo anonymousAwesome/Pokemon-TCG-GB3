@@ -16,8 +16,26 @@ https://www.spriters-resource.com/pc_computer/rpgmaker95/sheet/100509/
 '''
 
 import pygame
-
 pygame.init()
+clock = pygame.time.Clock()
+
+
+def setup():
+    duel_manager = cd.DuelManager(phase_handler)
+    player1 = cd.Player(duel_manager)
+    player2 = cd.Player(duel_manager)
+    deck1=decks.generate([[cards.water,17],[cards.dratini,4],[cards.hitmonchan,3],[cards.seel,1],[cards.machop,1]],player1)
+    deck2=decks.generate([[cards.water,17],[cards.dratini,4],[cards.hitmonchan,3],[cards.seel,1],[cards.machop,1]],player1)
+    cd.move_cards_to_from(deck1,player1.deck)
+    cd.move_cards_to_from(deck2,player2.deck)
+    player1.initial_draw()
+    player2.initial_draw()
+    player1.prizes.place()
+    player1.prizes.place()
+
+    #duel_manager.starting_coin()
+    duel_manager.turn="player" #manually let the player go first
+
 
 screen_width, screen_height = 640, 576
 
@@ -162,4 +180,5 @@ def render():
     screen.blit(stadium_card,(264,256))
 
     pygame.display.update()
+    clock.tick(60)
 
