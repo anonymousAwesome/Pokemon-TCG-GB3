@@ -1,7 +1,7 @@
 import cards
 import duel_classdefs as cd
 
-def generate(deck,owner):
+def generate(deck):
     '''
     takes a list of 2-item lists, each containing a card dictionary and
     a quantity, and returns a list of card objects'''
@@ -11,11 +11,11 @@ def generate(deck,owner):
         card=pair_list[0]
         for i in range(pair_list[1]):
             if card["card_type"]=="pokemon":
-                tempdeck.append(cd.Pokemon(owner=owner,**card))
+                tempdeck.append(cd.Pokemon(**card))
             elif card["card_type"]=="trainer":
-                tempdeck.append(cd.Trainer(owner=owner,**card))
+                tempdeck.append(cd.Trainer(**card))
             elif card["card_type"]=="energy":
-                tempdeck.append(cd.Energy(owner=owner,**card))
+                tempdeck.append(cd.Energy(**card))
     return(tempdeck)
     
 

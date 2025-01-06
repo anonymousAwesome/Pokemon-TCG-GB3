@@ -4,7 +4,6 @@ Menu, deckbuilding UI
 
 import duel_classdefs as cd
 
-
 class MenuManager:
     def __init__(self, root_menu, player):
         self.menu_stack = [root_menu]

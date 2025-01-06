@@ -1,12 +1,12 @@
 import logging
 import random
 import effects
+import main
 
 class DuelManager:
-    def __init__(self,phase_handler,prizes=6):
+    def __init__(self,prizes=6):
         self.prizes=prizes
-        self.phase_handler=phase_handler
-        self.phase_handler.set_game_phase("duelling")
+        main.phase_handler.set_game_phase("duelling")
         self.turn=None
 
     def starting_coin(self):
@@ -27,16 +27,15 @@ class DuelManager:
             logging.error(f"Unexpected value in DuelManager.advance_turn() -- expected \"player\" or \"computer\", got {self.turn}")
 
     def end_duel(self):
-        self.phase_handler.set_game_phase("club")
+        main.phase_handler.set_game_phase("club")
 
 
 
 class Card:
-    def __init__(self, name,cardset,card_type,owner):
+    def __init__(self, name,cardset,card_type):
         self.name = name
         self.cardset=cardset
         self.card_type=card_type
-        self.owner=owner
 
     def __str__(self):
         return (f"{self.name}, {self.cardset} set")
@@ -45,16 +44,16 @@ class Card:
 to see if a card is in any CardCollections.'''
 
 class Trainer(Card):
-    def __init__(self, name, cardset, card_type, owner):
-        super().__init__(name, cardset, card_type,owner)
+    def __init__(self, name, cardset, card_type):
+        super().__init__(name, cardset, card_type)
 
 class Energy(Card):
-    def __init__(self, name, cardset, card_type, owner):
-        super().__init__(name, cardset, card_type, owner)
+    def __init__(self, name, cardset, card_type):
+        super().__init__(name, cardset, card_type)
 
 class Pokemon(Card):
-    def __init__(self, name, cardset, card_type, owner, energy_type, evolution_level, hp, attacks, retreat_cost, level_id=None, weakness=None, resistance=None,evolves_from=None):
-        super().__init__(name,cardset, card_type, owner)
+    def __init__(self, name, cardset, card_type, energy_type, evolution_level, hp, attacks, retreat_cost, level_id=None, weakness=None, resistance=None,evolves_from=None):
+        super().__init__(name,cardset, card_type)
         self.energy_type=energy_type
         self.evolution_level=evolution_level
         self.hp = hp
@@ -70,22 +69,22 @@ class Pokemon(Card):
             self.other_effects.append(effects.weakness)
         if resistance:
             self.add_reduce_dmg_effects.append(effects.resistance)
-        self.attached=CardCollection(owner)
+        self.attached=CardCollection()
         self.type="pokemon"
 
-        self.stored_pre_evolution=CardCollection(owner)
+        self.stored_pre_evolution=CardCollection()
 
         self.temp_dmg=None
 
     def __str__(self):
         return (f"{self.name}, {self.cardset} set, lv. {self.level_id}")
 
-    def attack(self, opponent, attack_num):
+    def attack(self, owner, opponent, attack_id):
         '''
         Need a better way of ordering the effects. 
         For example, the order should go "weakness, resistance, pluspower".
         '''
-        self.temp_dmg=self.attacks[attack_num]["damage"]
+        self.temp_dmg=self.attacks[attack_id]["damage"]
         for effect in self.add_reduce_dmg_effects:
             effect(self, opponent)
         for effect in opponent.add_reduce_dmg_effects:
@@ -99,7 +98,7 @@ class Pokemon(Card):
         opponent.hp-=self.temp_dmg
         if opponent.hp<=0:
             opponent.hp=0
-            self.owner.take_prize()
+            owner.take_prize()
 
     def attach_card(self,card):
         move_cards_to_from(card, self.attached)
@@ -110,8 +109,7 @@ class Pokemon(Card):
         move_cards_to_from(evolution_card,location)
 
 class CardCollection:
-    def __init__(self, owner, cards=None):
-        self.owner=owner
+    def __init__(self, cards=None):
         if cards is None:
             self.cards=[]
         elif isinstance(cards, Card):
@@ -141,11 +139,8 @@ class CardCollection:
         return self.cards[key]
 
 class Prizes(CardCollection):
-    def __init__(self, owner, cards=None):
-        super().__init__(owner, cards=None)
-
-    def place(self):
-        move_cards_to_from(self.owner.deck[0:self.owner.duel_handler.prizes],self,self.owner.deck)
+    def __init__(self, cards=None):
+        super().__init__(cards=None)
 
 
 def move_cards_to_from(cardlist, destination_location,prev_location=None):
@@ -163,12 +158,12 @@ def move_cards_to_from(cardlist, destination_location,prev_location=None):
 class Player:
     def __init__(self,duel_handler):
         self.duel_handler=duel_handler
-        self.prizes=Prizes(self)
-        self.deck=CardCollection(self)
-        self.active=CardCollection(self)
-        self.bench=CardCollection(self)
-        self.hand=CardCollection(self)
-        self.discard_pile=CardCollection(self)
+        self.prizes=Prizes()
+        self.deck=CardCollection()
+        self.active=CardCollection()
+        self.bench=CardCollection()
+        self.hand=CardCollection()
+        self.discard_pile=CardCollection()
         self.choices={}
 
     def initial_draw(self):
@@ -183,6 +178,9 @@ class Player:
                 random.shuffle(self.deck.cards)
                 print("No basics in your hand. Shuffling.")
         move_cards_to_from(self.deck[0:7],self.hand,self.deck)
+
+    def place_prizes(self):
+        move_cards_to_from(self.deck[0:self.duel_handler.prizes],self.prizes,self.deck)        
 
     def take_prize(self):
         if self.prizes:

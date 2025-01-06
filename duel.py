@@ -26,8 +26,8 @@ def setup():
     player2 = cd.Player(duel_manager)
     deck1=decks.generate([[cards.water,17],[cards.dratini,4],[cards.hitmonchan,3],[cards.seel,1],[cards.machop,1]],player1)
     deck2=decks.generate([[cards.water,17],[cards.dratini,4],[cards.hitmonchan,3],[cards.seel,1],[cards.machop,1]],player1)
-    cd.move_cards_to_from(deck1,player1.deck)
-    cd.move_cards_to_from(deck2,player2.deck)
+    player1.deck.cards=deck1
+    player2.deck.cards=deck2
     player1.initial_draw()
     player2.initial_draw()
     player1.prizes.place()
