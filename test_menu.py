@@ -24,13 +24,13 @@ def setup_duel(player1, player2):
     return duel_manager, player1, player2
 
 def test_menu_manager_initialization(player1):
-    manager = menu.MenuManager("Main Menu", player1)
-    assert manager.menu_stack == ["Main Menu"]
+    manager = menu.Main("Main Menu", player1)
+    assert manager.navigation.menu_stack == ["Main Menu"]
 
 def test_add_submenu(player1):
-    manager = menu.MenuManager("Main Menu", player1)
-    manager.menu_stack.append("Options")
-    assert manager.menu_stack == ["Main Menu", "Options"]
+    manager = menu.Main("Main Menu", player1)
+    manager.navigation.menu_stack.append("Options")
+    assert manager.navigation.menu_stack == ["Main Menu", "Options"]
 
 
 
@@ -38,7 +38,7 @@ def test_initial_menu_options(player1, monkeypatch,capsys):
     def fake_input():
         return 0
     monkeypatch.setattr('builtins.input', fake_input)
-    duel_menu=menu.MenuManager("starting", player1)
+    duel_menu=menu.Main("starting", player1)
     duel_menu.user_choice()
     captured=capsys.readouterr()
     assert captured.out=="""0: Hand
@@ -55,7 +55,7 @@ def test_check_hand_dratini(setup_duel, player1,monkeypatch,capsys):
         return 0
     monkeypatch.setattr('builtins.input', fake_input)
     duel_manager, player1, player2 = setup_duel
-    duel_menu=menu.MenuManager("starting", player1)
+    duel_menu=menu.Main("starting", player1)
     cd.move_cards_to_from(cd.Pokemon(**cards.dratini),player1.hand)
     duel_menu.user_choice()
     duel_menu.user_choice()
@@ -72,7 +72,7 @@ def test_play_dratini(setup_duel, player1,monkeypatch):
         return 0
     monkeypatch.setattr('builtins.input', fake_input)
     duel_manager, player1, player2 = setup_duel
-    duel_menu=menu.MenuManager("starting", player1)
+    duel_menu=menu.Main("starting", player1)
     cd.move_cards_to_from(cd.Pokemon(**cards.dratini),player1.hand)
     duel_menu.user_choice()
     duel_menu.user_choice()
@@ -87,7 +87,7 @@ def test_play_dratini_with_full_bench(setup_duel, monkeypatch):
         return 0
     monkeypatch.setattr('builtins.input', fake_input)
     duel_manager, player1, player2 = setup_duel
-    duel_menu=menu.MenuManager("starting", player1)
+    duel_menu=menu.Main("starting", player1)
     hand=cd.CardCollection()
     cd.move_cards_to_from(cd.Pokemon(**cards.dratini),player1.hand)
     cd.move_cards_to_from(cd.Pokemon(**cards.seel),player1.bench)
@@ -111,7 +111,7 @@ def test_play_energy_on_dratini(setup_duel, monkeypatch):
         return 0
     monkeypatch.setattr('builtins.input', fake_input)
     duel_manager, player1, player2 = setup_duel
-    duel_menu=menu.MenuManager("starting", player1)
+    duel_menu=menu.Main("starting", player1)
     cd.move_cards_to_from(cd.Pokemon(**cards.dratini),player1.active)
     cd.move_cards_to_from(cd.Energy("water", cardset="basic energy", card_type="energy"),player1.hand)
     duel_menu.user_choice()
