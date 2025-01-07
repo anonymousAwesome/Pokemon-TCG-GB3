@@ -3,10 +3,11 @@ Menu, deckbuilding UI
 '''
 
 import duel_classdefs as cd
+from abc import ABC, abstractmethod
 
 class MenuStackNavigation:
-    def __init__(self, root_menu):
-        self.menu_stack = [root_menu]
+    def __init__(self):
+        self.menu_stack = ["starting"]
 
     def reset_to_main(self):
         self.menu_stack = ["starting"]
@@ -29,26 +30,44 @@ class MenuStackNavigation:
         self.menu_stack.append(menu)
 
 class Main:
-    def __init__(self, root_menu, player):
-        self.navigation = MenuStackNavigation(root_menu)
-        self.helpers = MainHelperFunctions(player)
-        self.choices = {}
+    def __init__(self, player):
+        self.navigation = MenuStackNavigation()
+        self.player = player
+        self.menu_handlers = {
+            ("starting",): InitialMenu(),
+            ("starting", "checking hand"): Hand(player),
+            ("starting", "checking hand", "selected_card"): HandCard(player),
+            ("starting", "checking hand", "selected_card", "play energy"): HandCardEnergy(player),
+        }
+        self.selected_card1=None
+        self.selected_card2=None
 
-    def set_choices(self, choices_dict):
-        self.choices = choices_dict
+    def run_menu(self):
+        current_stack = tuple(self.navigation.menu_stack)
+        handler = self.menu_handlers.get(current_stack)
+        if handler:
+            choices = handler.get_choices()
+            choice = handler.prompt_choice(choices)
+            handler.execute_choice(self,choice)
+        else:
+            print(f"No handler for menu stack: {current_stack}")
 
-    def user_choice(self):
-        if self.navigation.menu_stack==["starting"]:
-            self.starting_menu()
-        elif self.navigation.menu_stack == ["starting","checking hand"]:
-            self.handle_show_hand()
-        elif self.navigation.menu_stack == ["starting","checking hand","selected_card"]:
-            self.handle_card_action()
-        elif self.navigation.menu_stack == ["starting","checking hand","selected_card","play energy"]:
-            self.handle_play_energy()
+class MenuBase(ABC):
+    @abstractmethod
+    def get_choices(self):
+        pass
 
-    def starting_menu(self):
-        self.set_choices({
+    @abstractmethod
+    def prompt_choice(self, choices):
+        pass
+
+    @abstractmethod
+    def execute_choice(self, mainref,choice):
+        pass
+
+class InitialMenu(MenuBase):
+    def get_choices(self):
+        return {
             0: "Hand",
             1: "Game board",
             2: "Retreat",
@@ -56,60 +75,14 @@ class Main:
             4: "Pokemon power",
             5: "End turn",
             6: "Resign"
-        })
-        choice = self.helpers.prompt_choices(self.choices)
-        if choice == 0:
-            self.navigation.add_to_stack("checking hand")
+        }
 
-    def handle_show_hand(self):
-        hand_choices = self.helpers.show_hand()
-        self.set_choices(hand_choices)
-        choice = self.helpers.prompt_choices(self.choices)
-        result = self.helpers.process_card_selection(choice, hand_choices)
-        if result == "cancel":
-            self.navigation.reset_to_main()
-        else:
-            self.navigation.add_to_stack(result)
-
-    def handle_card_action(self):
-        self.set_choices({0: "Check information", 1: "Play it", 2: "Cancel"})
-        choice = self.helpers.prompt_choices(self.choices)
-
-        if choice == 0:
-            print(f"Name: {self.helpers.selected_card_1.name}")
-        elif choice == 1:
-            card = self.helpers.selected_card_1
-            if card.card_type == "pokemon":
-                if len(self.helpers.player.bench) >= 5:
-                    print("The bench is full")
-                else:
-                    cd.move_cards_to_from(card, self.helpers.player.bench, self.helpers.player.hand)
-                self.navigation.reset_to_main()
-            elif card.card_type == "energy":
-                self.navigation.add_to_stack("play energy")
-        elif choice == 2:
-            self.navigation.reset_to_main()
-
-    def handle_play_energy(self):
-        available_targets = self.helpers.play_energy()
-        self.set_choices(available_targets)
-        choice = self.helpers.prompt_choices(self.choices)
-        result = self.helpers.attach_energy(choice, available_targets)
-        if result == "cancel" or result == "done":
-            self.navigation.reset_to_main()
-
-class MainHelperFunctions:
-    def __init__(self, player):
-        self.player = player
-        self.selected_card_1 = None
-        self.selected_card_2 = None
-
-    def prompt_choices(self,choices):
+    def prompt_choice(self, choices):
         for key, value in choices.items():
             print(f"{key}: {value}")
         while True:
             try:
-                choice = int(input())
+                choice = int(input("Choose an option: "))
                 if choice in choices:
                     return choice
                 else:
@@ -117,27 +90,124 @@ class MainHelperFunctions:
             except ValueError:
                 print("Invalid input. Please enter a number.")
 
-    def show_hand(self):
-        hand_choices = {i: card for i, card in enumerate(self.player.hand)}
-        hand_choices[len(self.player.hand)] = "Cancel"
-        return hand_choices
+    def execute_choice(self, mainref,choice):
+        if choice == 0:
+            mainref.navigation.add_to_stack("checking hand")
 
-    def process_card_selection(self, choice, hand_choices):
-        if hand_choices[choice] == "Cancel":
-            return "cancel"
-        self.selected_card_1 = hand_choices[choice]
-        return "selected_card"
 
-    def play_energy(self):
+class Hand(MenuBase):
+    def __init__(self, player):
+        self.player = player
+
+    def get_choices(self):
+        choices = {}
+        for i, card in enumerate(self.player.hand):
+            choices[i] = card
+        choices[len(self.player.hand)] = "Cancel"
+        return choices
+
+    def prompt_choice(self, choices):
+        for key, value in choices.items():
+            print(f"{key}: {value}")
+        while True:
+            try:
+                choice = int(input("Choose a card: "))
+                if choice in choices:
+                    return choice
+                else:
+                    print("Invalid choice. Try again.")
+            except ValueError:
+                print("Invalid input. Please enter a number.")
+
+    def execute_choice(self, mainref,choice):
+        if choice == len(self.player.hand):  # "Cancel"
+            mainref.navigation.reset_to_main()
+        else:
+            mainref.selected_card1 = self.player.hand[choice]
+            mainref.navigation.add_to_stack("selected_card")
+
+
+class HandCard(MenuBase):
+    def __init__(self, player):
+        self.player = player
+
+    def get_choices(self):
+        return {0: "Check information", 1: "Play it", 2: "Cancel"}
+
+    def prompt_choice(self, choices):
+        for key, value in choices.items():
+            print(f"{key}: {value}")
+        while True:
+            try:
+                choice = int(input("Choose an action: "))
+                if choice in choices:
+                    return choice
+                else:
+                    print("Invalid choice. Try again.")
+            except ValueError:
+                print("Invalid input. Please enter a number.")
+
+    def execute_choice(self, mainref,choice):
+        if choice == 0:  # Check information
+            print(f"Name: {mainref.selected_card1.name}")
+        elif choice == 1:  # Play it
+            card = mainref.selected_card1
+            if card.card_type == "pokemon":
+                if len(self.player.bench) >= 5:
+                    print("The bench is full")
+                else:
+                    cd.move_cards_to_from(card, self.player.bench, self.player.hand)
+                mainref.navigation.reset_to_main()
+            elif card.card_type == "energy":
+                mainref.navigation.add_to_stack("play energy")
+        elif choice == 2:  # Cancel
+            mainref.navigation.reset_to_main()
+
+
+class HandCardEnergy(MenuBase):
+    def __init__(self, player):
+        self.player = player
+
+    def get_choices(self):
         available_targets = {0: self.player.active[0]}
         for i, card in enumerate(self.player.bench, start=1):
             available_targets[i] = card
         available_targets[len(available_targets)] = "Cancel"
         return available_targets
 
-    def attach_energy(self, choice, available_targets):
-        if available_targets[choice] == "Cancel":
-            return "cancel"
-        self.selected_card_2 = available_targets[choice]
-        cd.move_cards_to_from(self.selected_card_1, self.selected_card_2.attached, self.player.hand)
-        return "done"
+    def prompt_choice(self, choices):
+        for key, value in choices.items():
+            print(f"{key}: {value}")
+        while True:
+            try:
+                choice = int(input("Choose a target: "))
+                if choice in choices:
+                    return choice
+                else:
+                    print("Invalid choice. Try again.")
+            except ValueError:
+                print("Invalid input. Please enter a number.")
+
+    def execute_choice(self, mainref,choice):
+        if choice == len(self.get_choices()) - 1:  # "Cancel"
+            mainref.navigation.reset_to_main()
+        else:
+            available_targets = {0: self.player.active[0]}
+            for i, card in enumerate(self.player.bench, start=1):
+                available_targets[i] = card
+            target = available_targets[choice]
+            cd.move_cards_to_from(mainref.selected_card1, target.attached, self.player.hand)
+            mainref.navigation.reset_to_main()
+
+'''
+import main
+import cards
+duel_manager = cd.DuelManager(prizes=6)
+player1 = cd.Player(duel_manager)
+test=Main(player1)
+cd.move_cards_to_from(cd.Pokemon(**cards.dratini),player1.active)
+cd.move_cards_to_from(cd.Energy("water", cardset="basic energy", card_type="energy"),player1.hand)
+test.run_menu()
+test.run_menu()
+test.run_menu()
+test.run_menu()'''

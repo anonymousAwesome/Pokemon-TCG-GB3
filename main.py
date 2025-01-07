@@ -23,5 +23,5 @@ if __name__ == "__main__":
             if event.type == pygame.QUIT:
                 running = False
         #overworld.render()
-        duel.render()
+        #duel.render()
     pygame.quit()
