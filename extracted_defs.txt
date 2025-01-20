@@ -134,15 +134,20 @@ start at main. Load the most recent player location (screen and coordinates) fro
 Perpetually check:
  if the player moved onto an event tile, which may trigger a cutscene or move the player to a different screen.  
  if the player pressed the interact button while facing an interactable object.
-Either way, the appropriate event from event_database is triggered. This may involve calling the dialogue function and some sort of player choice function.
-If the event
+Either way, the appropriate event from event_database is triggered. This will usually calling the dialogue function, the player choice function, and/or the cutscene function.
+If the event triggers a duel, change PhaseHandler.game_phase to "duelling". Set up the duel, loading both players' decks, re-drawing if no Basic Pokemon, choosing Basic Pokemon to play, flipping the coin, and then getting into the main game loop. 
+At this point, the program should check the current screen in the duel, print the visible elements (cards, energy, HP, etc) and any text or choices. 
+
+There should be code to connect the visible text and cursor location to the functions that get called if the player presses the appropriate button, but I'm not sure what form that should take.
+
+Once the player wins or loses, the phase shifts back and any post-game events are called.
 
 
 
 
 The single biggest issue right now is getting the UI working. Specifically, the main duel menu. 
 
-I want a general-purpose function that takes dimensions and places the white background rectangle and the blue outline bars around it.
+For the duel menu specifically, I want a function that places the standard options and the cursor on the screen. I'll worry about expanding it to include other menus (if I even do) later.
 
-For the duel menu specifically, I want a function that places the standard options and the cursor on the screen. I'll worry about expanding it to include other menus later.
+Then I'll need to find some way to move the cursor around and connect the cursor location to the function that gets called if the appropriate button is pressed.
 

@@ -57,9 +57,7 @@ def dialogue(screen, name_text, photo_location, dialogue_text,font_location):
     screen.blit(profile_image, (box_x+box_width-profile_image.get_width()-2, box_y-profile_image.get_height()))
 
     # Draw dialogue box
-    pygame.draw.rect(screen, white, (box_x + 4, box_y + 4, box_width - 8, box_height - 8))  # White background
-    pygame.draw.rect(screen, (0,0,200), (box_x, box_y, box_width, box_height), width=6)  # Blue border
-    pygame.draw.rect(screen, (125,125,255), (box_x+2, box_y+2, box_width-4, box_height-4), width=2)  # Blue border
+    bg_box(screen,box_x,box_y,box_width,box_height)
 
     # Render name
     name_surface = name_font.render(name_text, True, white)
@@ -81,6 +79,13 @@ def dialogue(screen, name_text, photo_location, dialogue_text,font_location):
 
     #text_surface = font.render(dialogue_text, True, black)
     #screen.blit(text_surface, (box_x+hor_margin, box_y+vert_margin))
+
+
+def bg_box(screen,box_x,box_y,box_width,box_height):
+    pygame.draw.rect(screen, (255, 255, 255), (box_x + 4, box_y + 4, box_width - 8, box_height - 8))  # White background
+    pygame.draw.rect(screen, (0,0,200), (box_x, box_y, box_width, box_height), width=6)  # Blue border
+    pygame.draw.rect(screen, (125,125,255), (box_x+2, box_y+2, box_width-4, box_height-4), width=2)  # light blue middle
+
 
 
 #themenu=Menu(["status","diary","deck","mini-com","coins"],3)

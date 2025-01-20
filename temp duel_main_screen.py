@@ -1,4 +1,5 @@
 import pygame
+import ui
 
 
 pygame.init()
@@ -40,27 +41,7 @@ def render():
 
     screen.blit(background,(0,0))
 
-    # Drawing the dialogue box
-    # Draw white background
-    pygame.draw.rect(screen, COLOR_WHITE, 
-                     (BOX_X + BOX_BORDER_WIDTH, 
-                      BOX_Y + BOX_BORDER_WIDTH, 
-                      BOX_WIDTH - 2 * BOX_BORDER_WIDTH, 
-                      BOX_HEIGHT - 2 * BOX_BORDER_WIDTH))
-
-    # Draw blue border
-    pygame.draw.rect(screen, COLOR_BLUE, 
-                     (BOX_X, BOX_Y, BOX_WIDTH, BOX_HEIGHT), 
-                     width=BOX_BORDER_WIDTH)
-
-    # Draw highlight in the center of the blue border
-    highlight_offset = (BOX_BORDER_WIDTH - BOX_HIGHLIGHT_WIDTH) // 2
-    pygame.draw.rect(screen, COLOR_HIGHLIGHT, 
-                     (BOX_X + highlight_offset, 
-                      BOX_Y + highlight_offset, 
-                      BOX_WIDTH - 2 * highlight_offset, 
-                      BOX_HEIGHT - 2 * highlight_offset), 
-                     width=BOX_HIGHLIGHT_WIDTH)
+    ui.bg_box(screen,BOX_X,BOX_Y,BOX_WIDTH,BOX_HEIGHT)
 
     # Render dialogue text
 
