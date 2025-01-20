@@ -37,7 +37,6 @@ class Menu:
 def dialogue(screen, name_text, photo_location, dialogue_text,font_location):
     white = (255, 255, 255)
     blue = (0, 0, 255)
-    grey = (123, 123, 123)
     black=(0,0,0)
 
     vert_margin=6
