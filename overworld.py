@@ -2,17 +2,16 @@ import pygame
 import ui
 import character
 
-pygame.init()
-screen = pygame.display.set_mode((640,576))
+screen = character.screen
 pygame.display.set_caption("Overworld Exploration")
 clock = pygame.time.Clock()
 
-#mapname="flying"
+mapname="flying"
 #mapname="neo continent"
 #mapname="neo stadium"
 #mapname="tcg island"
 #mapname="ex card interior"
-mapname="ex card lobby"
+#mapname="ex card lobby"
 #mapname="imakuni"
 #mapname="fhqwhgads"
 
@@ -149,7 +148,7 @@ bg_width, bg_height = bg_image.get_width(), bg_image.get_height()
 bg_image = pygame.transform.scale(bg_image, (bg_width * 4, bg_height * 4))
 
 player_image=pygame.image.load('./assets/player_image.png').convert_alpha()
-player=character.Player(player_starting_location[0],player_starting_location[1],player_image,bg_image)
+player=character.Player(player_starting_location[0],player_starting_location[1],character.sprites,bg_image)
 
 
 
