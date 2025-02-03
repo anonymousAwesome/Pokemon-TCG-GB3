@@ -6,13 +6,14 @@ screen = character.screen
 pygame.display.set_caption("Overworld Exploration")
 clock = pygame.time.Clock()
 
-mapname="flying"
+#mapname="flying"
 #mapname="neo continent"
 #mapname="neo stadium"
 #mapname="tcg island"
 #mapname="ex card interior"
 #mapname="ex card lobby"
 #mapname="imakuni"
+mapname="fighting club"
 #mapname="fhqwhgads"
 
 if mapname=="ex card interior":
@@ -138,6 +139,12 @@ elif mapname=="imakuni":
     obstacles=[]
     player_starting_location=(6*64,6*64)
 
+elif mapname=="fighting club":
+    bg_image = pygame.image.load("./assets/maps/fighting club.png")
+    obstacles=[]
+    player_starting_location=(5*64,10*64)
+
+
 else:
     bg_image = pygame.image.load("./assets/maps/map load error.png")
     obstacles=[]
@@ -166,12 +173,13 @@ def render():
     player.draw(screen, camera_x_offset, camera_y_offset)
 
     
-    '''ui.dialogue(screen,"Pete Abrams",
+    ui.dialogue(screen,"Pete Abrams",
     '/media/brendanj/Shared Partition/programming/pokemon tcg monte carlo/pokemon_tcg_fangame/assets/duellists/pete abrams 3.png',
-    """\"Why do I glow\"? I swallowed a
-light bulb. :(""",
+    '''Test1
+Test2
+Aaaaa aaaa aaaaa aaa aaa aaa 4bbb 3ccc 2ddd 1e 0fffff .''',
     "/media/brendanj/Shared Partition/programming/pokemon tcg monte carlo/pokemon_tcg_fangame/assets/pokemon-emerald.otf")
-    '''
+    
 
     pygame.display.flip()
     clock.tick(60)
