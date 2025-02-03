@@ -173,12 +173,14 @@ def render():
     player.draw(screen, camera_x_offset, camera_y_offset)
 
     
-    ui.dialogue(screen,"Pete Abrams",
+    test_dialogue=ui.Dialogue(screen,"Pete Abrams",
     '/media/brendanj/Shared Partition/programming/pokemon tcg monte carlo/pokemon_tcg_fangame/assets/duellists/pete abrams 3.png',
     '''Test1
 Test2
 Aaaaa aaaa aaaaa aaa aaa aaa 4bbb 3ccc 2ddd 1e 0fffff .''',
     "/media/brendanj/Shared Partition/programming/pokemon tcg monte carlo/pokemon_tcg_fangame/assets/pokemon-emerald.otf")
+    
+    test_dialogue.render()
     
 
     pygame.display.flip()
