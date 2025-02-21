@@ -1,5 +1,4 @@
 .pytest_cache
 __pycache__
-*.png~
-
-*.kra~
+*~
+*.kra-autosave.kra

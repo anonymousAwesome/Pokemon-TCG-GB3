@@ -40,7 +40,7 @@ class Dialogue:
         self.name_text=name_text
         profile_image=pygame.image.load(photo_location).convert()
         self.profile_image = pygame.transform.scale(profile_image, (profile_image.get_width() * 4, profile_image.get_height() * 4))
-        self.current_text=self.preprocess(dialogue_text)
+        self.remaining_text=self.preprocess(dialogue_text)
         self.creation_time = time.time()
         self.font_height=45
         self.font = pygame.font.Font(font_location, self.font_height)
@@ -51,9 +51,11 @@ class Dialogue:
         return time.time() - self.creation_time
 
     def __bool__(self):
-        return len(self.current_text)>0
+        return len(self.remaining_text)>0
 
     def render(self):
+        '''Yes, this function is doing too much. Not worth the effort 
+        to refactor, though.'''
         white = (255, 255, 255)
         blue = (0, 0, 255)
         black=(0,0,0)
@@ -69,10 +71,10 @@ class Dialogue:
         #profile image
         self.screen.blit(self.profile_image, (box_x+box_width-self.profile_image.get_width()-2, box_y-self.profile_image.get_height()))
 
-        # Draw dialogue box
+        #draw dialogue box
         self.bg_box(box_x,box_y,box_width,box_height)
 
-        # Render name
+        #render name
         name_surface = self.name_font.render(self.name_text, True, white)
         name_x = box_x + 15
         name_y = box_y - 46
@@ -80,41 +82,40 @@ class Dialogue:
         pygame.draw.rect(self.screen, black, (name_x - 12, name_y, name_surface.get_width() + 22, 48),width=2,border_top_left_radius=7,border_top_right_radius=7)
         self.screen.blit(name_surface, (name_x, name_y+2))
 
-
-
-        words = self.current_text
+        #process and render dialogue
+        words = self.remaining_text
         lines = []
-        current_line = ""
+        temp_line = ""
         max_lines = (box_height - 2 * vert_margin) // self.font_height
 
         while words:
             word = words.pop(0)
             
             if word == "\n":
-                if current_line:
-                    lines.append(current_line)
-                    current_line = ""
+                if temp_line:
+                    lines.append(temp_line)
+                    temp_line = ""
                 if len(lines) >= max_lines:
                     break
                 continue
 
-            if current_line:
-                test_line=current_line+" "+word
+            if temp_line:
+                test_line=temp_line+" "+word
 
-            if not current_line:
+            if not temp_line:
                 test_line=word 
 
             if self.font.size(test_line)[0] <= (box_width - 2 * hor_margin):
-                current_line = test_line
+                temp_line = test_line
             else:
-                lines.append(current_line)
-                current_line = word
+                lines.append(temp_line)
+                temp_line = word
                 if len(lines) >= max_lines:
                     words.insert(0, word)  # Put the last unprocessed word back
                     break
 
-        if current_line and len(lines) < max_lines:
-            lines.append(current_line)
+        if temp_line and len(lines) < max_lines:
+            lines.append(temp_line)
 
         for i, line in enumerate(lines):
             text_surface = self.font.render(line, True, black)

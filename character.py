@@ -20,10 +20,10 @@ def load_sprites_from_sheet(spritesheet, row):
         sprites.append(sprite)
     return sprites
 
-spritesheet_path = '/media/brendanj/Shared Partition/programming/pokemon tcg monte carlo/pokemon_tcg_fangame/assets/duellists/Pokemon TCG2 sprites.png'
+spritesheet_path = '/media/brendanj/Shared Partition/programming/pokemon tcg monte carlo/pokemon_tcg_fangame/assets/npc sprites/pokemon yellow sprites recolored.png'
 spritesheet = pygame.image.load(spritesheet_path).convert_alpha()
 
-sprites = load_sprites_from_sheet(spritesheet, 1)
+sprites = load_sprites_from_sheet(spritesheet, 0)
 
 class Player(pygame.sprite.Sprite):
 

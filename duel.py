@@ -64,8 +64,8 @@ clock = pygame.time.Clock()
 
 screen_width, screen_height = 640, 576
 
-#font = pygame.font.Font("./assets/pokemon-emerald.otf", 40)
-font = pygame.font.Font("./assets/Roboto-Medium.ttf", 33)
+font = pygame.font.Font("./assets/pokemon-emerald.otf", 40)
+#font = pygame.font.Font("./assets/Roboto-Medium.ttf", 33)
 '''to-do: rework the font area to be more like the other screen: full
 opacity, blue outlines, pokemon-emerald font.
 Also, possibly swap the prizes and font areas to make space for the 
@@ -96,7 +96,7 @@ small_pkmn_card1=pygame.transform.scale(pkmn_card1, small_pkmn_card_dims)
 small_pkmn_card2=pygame.transform.scale(pkmn_card2, small_pkmn_card_dims)
 card_back=pygame.transform.scale(card_back, card_back_dims)
 
-background=pygame.image.load("./assets/bg3.jpg").convert()
+background=pygame.image.load("./assets/duel backgrounds/city skyline.jpg").convert()
 '''
 note: image was exported from png to jpg at ~50% quality. A little blurring,
 but that is good and bad, depending on the location. And it cut the file 

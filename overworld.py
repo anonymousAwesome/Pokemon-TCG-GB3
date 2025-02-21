@@ -7,13 +7,16 @@ pygame.display.set_caption("Overworld Exploration")
 clock = pygame.time.Clock()
 
 #mapname="flying"
-#mapname="neo continent"
+mapname="neo continent"
 #mapname="neo stadium"
 #mapname="tcg island"
 #mapname="ex card interior"
 #mapname="ex card lobby"
 #mapname="imakuni"
-mapname="fighting club"
+#mapname="fighting"
+#mapname="normal"
+#mapname="ground"
+#mapname="temp"
 #mapname="fhqwhgads"
 
 if mapname=="ex card interior":
@@ -122,7 +125,7 @@ elif mapname=="tcg island":
     obstacles=[
         pygame.Rect(0, 0, 640, 64),
         pygame.Rect(0, 64, 64, 512),
-        pygame.Rect(256, 512, 384, 64),
+        pygame.Rect(64, 512, 576, 64),
         pygame.Rect(64, 64, 320, 64),
         pygame.Rect(576, 384, 64, 128),
         pygame.Rect(576, 64, 64, 64),
@@ -139,11 +142,25 @@ elif mapname=="imakuni":
     obstacles=[]
     player_starting_location=(6*64,6*64)
 
-elif mapname=="fighting club":
+elif mapname=="fighting":
     bg_image = pygame.image.load("./assets/maps/fighting club.png")
     obstacles=[]
     player_starting_location=(5*64,10*64)
 
+elif mapname=="normal":
+    bg_image = pygame.image.load("./assets/maps/normal club.png")
+    obstacles=[]
+    player_starting_location=(4*64,12*64)
+
+elif mapname=="ground":
+    bg_image = pygame.image.load("./assets/maps/ground club.png")
+    obstacles=[]
+    player_starting_location=(4*64,12*64)
+
+elif mapname=="temp":
+    bg_image = pygame.image.load("./assets/maps/dark club.png")
+    obstacles=[]
+    player_starting_location=(4*64,4*64)
 
 else:
     bg_image = pygame.image.load("./assets/maps/map load error.png")
@@ -169,10 +186,10 @@ def render():
     camera_y_offset = -max(0, min(bg_height * 4 - 576, (player.rect.centery - 288)))
     screen.blit(bg_image, (camera_x_offset, camera_y_offset))
     #for ob in obstacles:
-    #    pygame.draw.rect(screen, (255,255,0), ob.move(camera_x_offset, camera_y_offset))
+    #    pygame.draw.rect(screen, (255,0,0), ob.move(camera_x_offset, camera_y_offset))
     player.draw(screen, camera_x_offset, camera_y_offset)
 
-    
+    """
     test_dialogue=ui.Dialogue(screen,"Pete Abrams",
     '/media/brendanj/Shared Partition/programming/pokemon tcg monte carlo/pokemon_tcg_fangame/assets/duellists/pete abrams 3.png',
     '''Test1
@@ -181,7 +198,7 @@ Aaaaa aaaa aaaaa aaa aaa aaa 4bbb 3ccc 2ddd 1e 0fffff .''',
     "/media/brendanj/Shared Partition/programming/pokemon tcg monte carlo/pokemon_tcg_fangame/assets/pokemon-emerald.otf")
     
     test_dialogue.render()
-    
+    """
 
     pygame.display.flip()
     clock.tick(60)
