@@ -1,15 +1,8 @@
 import pygame
 import random
-pygame.init()
-screen = pygame.display.set_mode((640,576))
-
 
 TILE_SIZE=64
 anim_speed=32
-
-'''
-Contains player name, player decks, player medals, and event flags triggered. Maybe save/load functionality.
-'''
 
 def load_sprites_from_sheet(spritesheet, row):
     sprites = []
