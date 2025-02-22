@@ -7,7 +7,7 @@ pygame.display.set_caption("Overworld Exploration")
 clock = pygame.time.Clock()
 
 #mapname="flying"
-mapname="neo continent"
+#mapname="neo continent"
 #mapname="neo stadium"
 #mapname="tcg island"
 #mapname="ex card interior"
@@ -16,7 +16,7 @@ mapname="neo continent"
 #mapname="fighting"
 #mapname="normal"
 #mapname="ground"
-#mapname="temp"
+mapname="temp"
 #mapname="fhqwhgads"
 
 if mapname=="ex card interior":
@@ -174,6 +174,7 @@ bg_image = pygame.transform.scale(bg_image, (bg_width * 4, bg_height * 4))
 player_image=pygame.image.load('./assets/player_image.png').convert_alpha()
 player=character.Player(player_starting_location[0],player_starting_location[1],character.sprites,bg_image)
 
+NPC=character.NPC(player_starting_location[0],player_starting_location[1],character.sprites,bg_image)
 
 
 def render():
@@ -181,6 +182,8 @@ def render():
     keys = pygame.key.get_pressed()    
 
     player.update(keys,obstacles)
+    NPC.update(keys,obstacles)
+
     
     camera_x_offset = -max(0, min(bg_width * 4 - 640, (player.rect.centerx - 320)))
     camera_y_offset = -max(0, min(bg_height * 4 - 576, (player.rect.centery - 288)))
@@ -188,6 +191,9 @@ def render():
     #for ob in obstacles:
     #    pygame.draw.rect(screen, (255,0,0), ob.move(camera_x_offset, camera_y_offset))
     player.draw(screen, camera_x_offset, camera_y_offset)
+    
+    NPC.draw(screen, camera_x_offset, camera_y_offset)
+    
 
     """
     test_dialogue=ui.Dialogue(screen,"Pete Abrams",

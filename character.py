@@ -1,4 +1,5 @@
 import pygame
+import random
 pygame.init()
 screen = pygame.display.set_mode((640,576))
 
@@ -25,7 +26,7 @@ spritesheet = pygame.image.load(spritesheet_path).convert_alpha()
 
 sprites = load_sprites_from_sheet(spritesheet, 0)
 
-class Player(pygame.sprite.Sprite):
+class Character(pygame.sprite.Sprite):
 
     def __init__( self, x, y, anim_frames, bg_image):
         self.bg_image=bg_image #remember to update this whenever the map changes
@@ -51,17 +52,27 @@ class Player(pygame.sprite.Sprite):
         
         self.walking_side=True
 
+        self.fast_walking=False
+        self.up_command=False
+        self.down_command=False
+        self.left_command=False
+        self.right_command=False
+
     def flip_walking_side(self):
         self.walking_side=not self.walking_side
 
+    def command_input(self,keys):
+        pass
+
     def update(self,keys,obstacles):
+        self.command_input(keys)
         move_speed=self.move
-        if keys[pygame.K_LALT] or keys[pygame.K_RALT]:
+        if self.fast_walking:
             move_speed=self.move*2
         if self.pixels_remaining<0:
             self.pixels_remaining=0
         if self.pixels_remaining==0:
-            if keys[pygame.K_UP]:
+            if self.up_command:
                 self.flip_walking_side()
                 self.facing_direction="up"
                 self.image=self.facing_up
@@ -76,7 +87,7 @@ class Player(pygame.sprite.Sprite):
                             self.image=self.walking_up_1
                         else:
                             self.image=self.walking_up_2
-            elif keys[pygame.K_DOWN]:
+            elif self.down_command:
                 self.flip_walking_side()
                 self.facing_direction="down"
                 self.image=self.facing_down
@@ -91,7 +102,7 @@ class Player(pygame.sprite.Sprite):
                             self.image=self.walking_down_1
                         else:
                             self.image=self.walking_down_2
-            elif keys[pygame.K_LEFT]:
+            elif self.left_command:
                 self.facing_direction="left"
                 self.image=self.facing_left
                 if self.can_move(obstacles, "left",self.bg_image):
@@ -102,7 +113,7 @@ class Player(pygame.sprite.Sprite):
                         self.image=self.facing_left
                     else:
                         self.image=self.walking_left
-            elif keys[pygame.K_RIGHT]:
+            elif self.right_command:
                 self.facing_direction="right"
                 self.image=self.facing_right
                 if self.can_move(obstacles, "right",self.bg_image):
@@ -153,16 +164,16 @@ class Player(pygame.sprite.Sprite):
     
         if self.pixels_remaining==0:
             if self.facing_direction=="up":
-                if not keys[pygame.K_UP]:
+                if not self.up_command:
                     self.image=self.facing_up
             if self.facing_direction=="down":
-                if not keys[pygame.K_DOWN]:
+                if not self.down_command:
                     self.image=self.facing_down
             if self.facing_direction=="left":
-                if not keys[pygame.K_LEFT]:
+                if not self.left_command:
                     self.image=self.facing_left
             if self.facing_direction=="right":
-                if not keys[pygame.K_RIGHT]:
+                if not self.right_command:
                     self.image=self.facing_right
             
     
@@ -199,3 +210,37 @@ class Player(pygame.sprite.Sprite):
 
         # If all checks passed, the movement is valid
         return True
+
+class Player(Character):
+    def command_input(self,keys):
+        if keys[pygame.K_LALT] or keys[pygame.K_RALT]:
+            self.fast_walking=True
+        else:
+            self.fast_walking=False
+
+        if keys[pygame.K_UP]:
+            self.up_command=True
+        else:
+            self.up_command=False
+
+        if keys[pygame.K_DOWN]:
+            self.down_command=True
+        else:
+            self.down_command=False
+
+        if keys[pygame.K_LEFT]:
+            self.left_command=True
+        else:
+            self.left_command=False
+
+        if keys[pygame.K_RIGHT]:
+            self.right_command=True
+        else:
+            self.right_command=False
+
+class NPC(Character):
+    def update(self,keys,obstacles):
+        movementx=random.choice([-1,1])
+        movementy=random.choice([-1,1])
+        self.rect.y+=movementy
+        self.rect.x+=movementx
