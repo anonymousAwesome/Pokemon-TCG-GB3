@@ -54,8 +54,8 @@ class Dialogue:
         return len(self.remaining_text)>0
 
     def render(self):
-        '''Yes, this function is doing too much. Not worth the effort 
-        to refactor, though.'''
+        '''Yes, this function is probably doing too much. Not worth the
+        effort to refactor it, though.'''
         white = (255, 255, 255)
         blue = (0, 0, 255)
         black=(0,0,0)

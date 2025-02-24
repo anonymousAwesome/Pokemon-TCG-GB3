@@ -1,3 +1,5 @@
+import os
+
 '''
 
 Contains the user interface for Pokemon duels; the cursor, displaying things
@@ -64,8 +66,7 @@ clock = pygame.time.Clock()
 
 screen_width, screen_height = 640, 576
 
-font = pygame.font.Font("./assets/pokemon-emerald.otf", 40)
-#font = pygame.font.Font("./assets/Roboto-Medium.ttf", 33)
+font = pygame.font.Font(os.path.join("assets","pokemon-emerald.otf"), 40)
 '''to-do: rework the font area to be more like the other screen: full
 opacity, blue outlines, pokemon-emerald font.
 Also, possibly swap the prizes and font areas to make space for the 

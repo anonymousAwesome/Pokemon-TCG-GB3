@@ -1,5 +1,6 @@
 import pygame
 import random
+import os
 
 TILE_SIZE=64
 anim_speed=32
@@ -14,10 +15,10 @@ def load_sprites_from_sheet(spritesheet, row):
         sprites.append(sprite)
     return sprites
 
-spritesheet_path = '/media/brendanj/Shared Partition/programming/pokemon tcg monte carlo/pokemon_tcg_fangame/assets/npc sprites/pokemon yellow sprites recolored.png'
+spritesheet_path = os.path.join("assets","npc sprites","pokemon yellow sprites recolored.png")
 spritesheet = pygame.image.load(spritesheet_path).convert_alpha()
 
-sprites = load_sprites_from_sheet(spritesheet, 0)
+sprites = load_sprites_from_sheet(spritesheet, 6)
 
 class Character(pygame.sprite.Sprite):
 

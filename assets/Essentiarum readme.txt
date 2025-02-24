@@ -1,1 +1,0 @@
-https://www.pokemonaaah.net/artsyfartsy/fonts/

@@ -1,7 +1,23 @@
 import pygame
+import os
+
+test={
+    "bg_image": pygame.image.load(os.path.join("assets", "maps", "mason center.png")),
+    "obstacles":[],
+    "player_starting_location":(2*64,2*64)}
+
+airport_neo_side={
+    "bg_image": pygame.image.load(os.path.join("assets", "maps", "airport neo side.png")),
+    "obstacles":[],
+    "player_starting_location":(2*64,2*64)}
+
+airport_tcg_side={
+    "bg_image": pygame.image.load(os.path.join("assets", "maps", "airport tcg side.png")),
+    "obstacles":[],
+    "player_starting_location":(2*64,2*64)}
 
 ex_card_interior={
-    "bg_image": pygame.image.load("./assets/maps/ex cards interior.png"),
+    "bg_image": pygame.image.load(os.path.join("assets", "maps", "ex cards interior.png")),
     "obstacles":[
         pygame.Rect(0, 0, 832, 64),
         pygame.Rect(0, 64, 832, 64),
@@ -20,7 +36,7 @@ ex_card_interior={
     "player_starting_location":(6*64,10*64)}
 
 ex_card_lobby={
-    "bg_image": pygame.image.load("./assets/maps/ex cards lobby.png"),
+    "bg_image": pygame.image.load(os.path.join("assets", "maps", "ex cards lobby.png")),
     "obstacles":[
         pygame.Rect(0, 0, 64, 576),
         pygame.Rect(640, 0, 64, 576),
@@ -35,7 +51,7 @@ ex_card_lobby={
     "player_starting_location":(5*64,7*64)}
     
 flying={
-    "bg_image": pygame.image.load("./assets/maps/flying club.png"),
+    "bg_image": pygame.image.load(os.path.join("assets", "maps", "flying club.png")),
     "obstacles":[
         pygame.Rect(0, 0, 64, 960),
         pygame.Rect(832, 0, 64, 960),
@@ -56,7 +72,7 @@ flying={
     "player_starting_location":(6*64,13*64)}
 
 neo_continent={
-    "bg_image": pygame.image.load("./assets/maps/neo continent.png"),
+    "bg_image": pygame.image.load(os.path.join("assets", "maps", "neo continent.png")),
     "obstacles":[
         pygame.Rect(0, 576, 896, 64),
         pygame.Rect(0, 0, 64, 576),
@@ -81,7 +97,7 @@ neo_continent={
 
 
 neo_stadium={
-    "bg_image": pygame.image.load("./assets/maps/neo stadium.png"),
+    "bg_image": pygame.image.load(os.path.join("assets", "maps", "neo stadium.png")),
     "obstacles":[
         pygame.Rect(0, 0, 64, 1024),
         pygame.Rect(832, 0, 64, 1024),
@@ -93,7 +109,7 @@ neo_stadium={
     "player_starting_location":(6*64,14*64)}
 
 tcg_island={
-    "bg_image": pygame.image.load("./assets/maps/tcg island.png"),
+    "bg_image": pygame.image.load(os.path.join("assets", "maps", "tcg island.png")),
     "obstacles":[
         pygame.Rect(0, 0, 640, 64),
         pygame.Rect(0, 64, 64, 512),
@@ -107,32 +123,32 @@ tcg_island={
 
 '''
 elif mapname=="imakuni":
-    bg_image = pygame.image.load("./assets/maps/wandering imakuni.png")
+    bg_image = pygame.image.load(os.path.join("assets", "maps", "wandering imakuni.png"))
     obstacles=[]
     player_starting_location=(6*64,6*64)
 
 elif mapname=="fighting":
-    bg_image = pygame.image.load("./assets/maps/fighting club.png")
+    bg_image = pygame.image.load(os.path.join("assets", "maps", "fighting club.png"))
     obstacles=[]
     player_starting_location=(5*64,10*64)
 
 elif mapname=="normal":
-    bg_image = pygame.image.load("./assets/maps/normal club.png")
+    bg_image = pygame.image.load(os.path.join("assets", "maps", "normal club.png"))
     obstacles=[]
     player_starting_location=(4*64,12*64)
 
 elif mapname=="ground":
-    bg_image = pygame.image.load("./assets/maps/ground club.png")
+    bg_image = pygame.image.load(os.path.join("assets", "maps", "ground club.png"))
     obstacles=[]
     player_starting_location=(4*64,12*64)
 
 elif mapname=="temp":
-    bg_image = pygame.image.load("./assets/maps/dark club.png")
+    bg_image = pygame.image.load(os.path.join("assets", "maps", "dark club.png"))
     obstacles=[]
     player_starting_location=(4*64,4*64)
 
 else:
-    bg_image = pygame.image.load("./assets/maps/map load error.png")
+    bg_image = pygame.image.load(os.path.join("assets", "maps", "map load error.png"))
     obstacles=[]
     player_starting_location=(0*64,0*64)
 '''
