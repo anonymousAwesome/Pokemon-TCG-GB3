@@ -32,7 +32,8 @@ player_character=character.Player(
     character.sprites,
     current_map.bg_image)
 
-#NPC=character.NPC(player_starting_location[0],player_starting_location[1],character.sprites,bg_image)
+NPC_sprites=character.load_sprites_from_sheet(character.spritesheet, 12)
+NPC=character.NPC(256,256,NPC_sprites)
 
 
 def render():
@@ -52,11 +53,10 @@ def render():
                     player_character.pixels_remaining=0
                     trigger[1](player_character,current_map)
                     player_character.bg_image=current_map.bg_image
-    #player_character.step_trigger(keys)
-    #player_character.interact_self(keys)
+
     #player_character.interact_front(keys)
 
-    #NPC.update(keys,obstacles)
+    NPC.update(keys,current_map.obstacles)
 
     
     camera_x_offset = -max(0, min(current_map.bg_width * 4 - 640, (player_character.rect.centerx - 320)))
@@ -65,6 +65,8 @@ def render():
     #for ob in current_map.obstacles:
     #    pygame.draw.rect(screen, (255,0,0), ob.move(camera_x_offset, camera_y_offset))
     player_character.draw(screen, camera_x_offset, camera_y_offset)
+
+    NPC.draw(screen, camera_x_offset, camera_y_offset)
 
     temp_interact_front_rect=player_character.rect.copy()
     if player_character.facing_direction=="down":
@@ -79,7 +81,6 @@ def render():
     pygame.draw.rect(screen, (255,0,0), temp_interact_front_rect.move(camera_x_offset, camera_y_offset))
 
     
-    #NPC.draw(screen, camera_x_offset, camera_y_offset)
     
 
     """

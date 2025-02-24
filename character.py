@@ -25,8 +25,7 @@ sprites = load_sprites_from_sheet(spritesheet, 6)
 
 class Character(pygame.sprite.Sprite):
 
-    def __init__(self, x, y, anim_frames, bg_image):
-        self.bg_image=bg_image #remember to update this whenever the map changes
+    def __init__(self, x, y, anim_frames):
         pygame.sprite.Sprite.__init__(self)
 
         self.walking_down_1=anim_frames[0]
@@ -177,6 +176,9 @@ class Character(pygame.sprite.Sprite):
     def draw(self, surface, camera_x_offset, camera_y_offset):
         surface.blit(self.image, (self.rect.x + camera_x_offset, self.rect.y + camera_y_offset))
 
+    def check_bg(self):
+        return True
+
     def can_move(self, obstacles, direction):
         next_rect = self.rect.copy()
         if direction == "up":
@@ -210,7 +212,8 @@ class Character(pygame.sprite.Sprite):
 
 class Player(Character):
     def __init__(self, x, y, anim_frames, bg_image):
-        super().__init__(x, y, anim_frames, bg_image)
+        super().__init__(x, y, anim_frames)
+        self.bg_image=bg_image #remember to update this whenever the map changes
         self.overworld_location=(1*64,7*64)
 
     def command_input(self,keys):
@@ -238,6 +241,7 @@ class Player(Character):
             self.right_command=True
         else:
             self.right_command=False
+
 
 class NPC(Character):
     def update(self,keys,obstacles):
