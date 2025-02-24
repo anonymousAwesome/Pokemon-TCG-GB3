@@ -17,7 +17,9 @@ import sys
 pygame.init()
 
 tile_size = 16
-screen_scale = 2 #change this number to 2 if the window extends off screen.
+screen_scale = 4
+#change screen_scale to 2 if the window extends off screen, or to 4 if 
+#the window is too small.
 visible_tile_size=tile_size*screen_scale
 rect_scale = 4
 fps = 60

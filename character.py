@@ -4,6 +4,9 @@ import os
 
 TILE_SIZE=64
 anim_speed=32
+AFFIRM_KEY=pygame.K_LCTRL
+CANCEL_KEY=pygame.K_LALT
+
 
 def load_sprites_from_sheet(spritesheet, row):
     sprites = []
@@ -22,7 +25,7 @@ sprites = load_sprites_from_sheet(spritesheet, 6)
 
 class Character(pygame.sprite.Sprite):
 
-    def __init__( self, x, y, anim_frames, bg_image):
+    def __init__(self, x, y, anim_frames, bg_image):
         self.bg_image=bg_image #remember to update this whenever the map changes
         pygame.sprite.Sprite.__init__(self)
 
@@ -70,7 +73,7 @@ class Character(pygame.sprite.Sprite):
                 self.flip_walking_side()
                 self.facing_direction="up"
                 self.image=self.facing_up
-                if self.can_move(obstacles, "up",self.bg_image):
+                if self.can_move(obstacles, "up"):
                     self.pixels_remaining=TILE_SIZE
                     self.rect.y-=move_speed
                     self.pixels_remaining-=move_speed
@@ -85,7 +88,7 @@ class Character(pygame.sprite.Sprite):
                 self.flip_walking_side()
                 self.facing_direction="down"
                 self.image=self.facing_down
-                if self.can_move(obstacles, "down",self.bg_image):
+                if self.can_move(obstacles, "down"):
                     self.pixels_remaining=TILE_SIZE
                     self.rect.y+=move_speed
                     self.pixels_remaining-=move_speed
@@ -99,7 +102,7 @@ class Character(pygame.sprite.Sprite):
             elif self.left_command:
                 self.facing_direction="left"
                 self.image=self.facing_left
-                if self.can_move(obstacles, "left",self.bg_image):
+                if self.can_move(obstacles, "left"):
                     self.pixels_remaining=TILE_SIZE
                     self.rect.x-=move_speed
                     self.pixels_remaining-=move_speed
@@ -110,7 +113,7 @@ class Character(pygame.sprite.Sprite):
             elif self.right_command:
                 self.facing_direction="right"
                 self.image=self.facing_right
-                if self.can_move(obstacles, "right",self.bg_image):
+                if self.can_move(obstacles, "right"):
                     self.pixels_remaining=TILE_SIZE
                     self.rect.x+=move_speed
                     self.pixels_remaining-=move_speed
@@ -174,7 +177,7 @@ class Character(pygame.sprite.Sprite):
     def draw(self, surface, camera_x_offset, camera_y_offset):
         surface.blit(self.image, (self.rect.x + camera_x_offset, self.rect.y + camera_y_offset))
 
-    def can_move(self, obstacles, direction,bg_image):
+    def can_move(self, obstacles, direction):
         next_rect = self.rect.copy()
         if direction == "up":
             next_rect.y -= TILE_SIZE
@@ -188,13 +191,13 @@ class Character(pygame.sprite.Sprite):
         # Check horizontal bounds
         if next_rect.x < 0:
             return False
-        if next_rect.right > bg_image.get_width():
+        if next_rect.right > self.bg_image.get_width():
             return False
 
         # Check vertical bounds
         if next_rect.y < 0:
             return False
-        if next_rect.bottom > bg_image.get_height():
+        if next_rect.bottom > self.bg_image.get_height():
             return False
 
         # Check for collisions with obstacles
@@ -206,8 +209,12 @@ class Character(pygame.sprite.Sprite):
         return True
 
 class Player(Character):
+    def __init__(self, x, y, anim_frames, bg_image):
+        super().__init__(x, y, anim_frames, bg_image)
+        self.overworld_location=(1*64,7*64)
+
     def command_input(self,keys):
-        if keys[pygame.K_LALT] or keys[pygame.K_RALT]:
+        if keys[CANCEL_KEY]:
             self.fast_walking=True
         else:
             self.fast_walking=False
