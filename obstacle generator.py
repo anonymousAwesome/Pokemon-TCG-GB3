@@ -17,13 +17,13 @@ import sys
 pygame.init()
 
 tile_size = 16
-screen_scale = 4
+screen_scale = 2 #change this number to 2 if the window extends off screen.
 visible_tile_size=tile_size*screen_scale
 rect_scale = 4
 fps = 60
 selection_color = (255, 0, 0, 128)
 
-TILEMAP_PATH = "./assets/maps/tcg island.png"
+TILEMAP_PATH = "./assets/maps/mason center.png"
 tilemap = pygame.image.load(TILEMAP_PATH)
 tilemap = pygame.transform.scale(tilemap, (tilemap.get_width() * screen_scale, tilemap.get_height() * screen_scale))
 
