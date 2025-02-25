@@ -32,8 +32,8 @@ player_character=character.Player(
     character.sprites,
     current_map.bg_image)
 
-NPC_sprites=character.load_sprites_from_sheet(character.spritesheet, 12)
-NPC=character.NPC(256,256,NPC_sprites)
+#NPC_sprites=character.load_sprites_from_sheet(character.spritesheet, 12)
+#NPC=character.NPC(256,256,NPC_sprites)
 
 
 def render():
@@ -56,17 +56,27 @@ def render():
 
     #player_character.interact_front(keys)
 
-    NPC.update(keys,current_map.obstacles)
+    #NPC.update(keys,current_map.obstacles)
 
     
     camera_x_offset = -max(0, min(current_map.bg_width * 4 - 640, (player_character.rect.centerx - 320)))
     camera_y_offset = -max(0, min(current_map.bg_height * 4 - 576, (player_character.rect.centery - 288)))
     screen.blit(current_map.bg_image, (camera_x_offset, camera_y_offset))
-    #for ob in current_map.obstacles:
-    #    pygame.draw.rect(screen, (255,0,0), ob.move(camera_x_offset, camera_y_offset))
+
+
+    show_obstacles=True
+    #show_obstacles=False
+    
+    if show_obstacles:
+        for ob in current_map.obstacles:
+            red_rect = pygame.Surface((ob.width,ob.height))
+            red_rect.set_alpha(200)
+            red_rect.fill((255,0,0))
+            screen.blit(red_rect, ob.move(camera_x_offset, camera_y_offset))
+
     player_character.draw(screen, camera_x_offset, camera_y_offset)
 
-    NPC.draw(screen, camera_x_offset, camera_y_offset)
+    #NPC.draw(screen, camera_x_offset, camera_y_offset)
 
     temp_interact_front_rect=player_character.rect.copy()
     if player_character.facing_direction=="down":
@@ -83,16 +93,14 @@ def render():
     
     
 
-    """
-    test_dialogue=ui.Dialogue(screen,"Pete Abrams",
-    '/media/brendanj/Shared Partition/programming/pokemon tcg monte carlo/pokemon_tcg_fangame/assets/duellists/pete abrams 3.png',
+    test_dialogue=ui.Dialogue(screen, 
     '''Test1
 Test2
 Aaaaa aaaa aaaaa aaa aaa aaa 4bbb 3ccc 2ddd 1e 0fffff .''',
-    "/media/brendanj/Shared Partition/programming/pokemon tcg monte carlo/pokemon_tcg_fangame/assets/pokemon-emerald.otf")
+    "Pete Abrams",
+    './assets/duellists/pete abrams 3.png',)
     
-    test_dialogue.render()
-    """
+    test_dialogue.render_dialogue()
 
     pygame.display.flip()
     clock.tick(60)

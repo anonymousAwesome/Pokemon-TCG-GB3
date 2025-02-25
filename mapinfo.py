@@ -59,7 +59,23 @@ def enter_mason_center_from_overworld(player_character,current_map):
 
 mason_center={
     "bg_image": pygame.image.load(os.path.join("assets", "maps", "mason center.png")),
-    "obstacles":[],
+    "obstacles":[
+        pygame.Rect(0, 0, 896, 64),
+        pygame.Rect(0, 448, 64, 512),
+        pygame.Rect(832, 448, 64, 512),
+        pygame.Rect(64, 832, 384, 64),
+        pygame.Rect(64, 896, 384, 64),
+        pygame.Rect(0, 64, 320, 64),
+        pygame.Rect(576, 64, 320, 64),
+        pygame.Rect(576, 832, 256, 64),
+        pygame.Rect(576, 896, 256, 64),
+        pygame.Rect(640, 448, 192, 64),
+        pygame.Rect(0, 128, 64, 192),
+        pygame.Rect(832, 128, 64, 192),
+        pygame.Rect(192, 448, 128, 64),
+        pygame.Rect(192, 512, 128, 64),
+        pygame.Rect(64, 704, 64, 128),
+    ],
     "step triggers":[
         (pygame.Rect(448, 896, 128, 64), exit_to_tcg_island),
         (pygame.Rect(0, 320, 64, 64),exit_to_mason_left_from_center1),
@@ -73,7 +89,18 @@ mason_center={
 
 mason_left={
     "bg_image": pygame.image.load(os.path.join("assets", "maps", "mason left.png")),
-    "obstacles":[],
+    "obstacles":[
+        pygame.Rect(0, 0, 64, 1024),
+        pygame.Rect(64, 0, 832, 64),
+        pygame.Rect(64, 960, 832, 64),
+        pygame.Rect(64, 896, 832, 64),
+        pygame.Rect(832, 64, 64, 640),
+        pygame.Rect(192, 192, 384, 64),
+        pygame.Rect(192, 256, 384, 64),
+        pygame.Rect(192, 512, 384, 64),
+        pygame.Rect(192, 576, 384, 64),
+        pygame.Rect(832, 832, 64, 64),
+    ],
     "step triggers":[
         (pygame.Rect(832, 704, 64, 64),exit_to_mason_center_from_left1),
         (pygame.Rect(832, 768, 64, 64),exit_to_mason_center_from_left2),
@@ -82,7 +109,21 @@ mason_left={
 
 mason_right={
     "bg_image": pygame.image.load(os.path.join("assets", "maps", "mason right.png")),
-    "obstacles":[],
+    "obstacles":[
+        pygame.Rect(704, 0, 64, 960),
+        pygame.Rect(0, 0, 704, 64),
+        pygame.Rect(0, 64, 704, 64),
+        pygame.Rect(0, 896, 704, 64),
+        pygame.Rect(0, 832, 704, 64),
+        pygame.Rect(0, 448, 64, 384),
+        pygame.Rect(448, 256, 256, 64),
+        pygame.Rect(448, 320, 256, 64),
+        pygame.Rect(448, 512, 256, 64),
+        pygame.Rect(448, 576, 256, 64),
+        pygame.Rect(0, 128, 64, 192),
+        pygame.Rect(64, 512, 128, 64),
+        pygame.Rect(64, 576, 128, 64),
+    ],
     "step triggers":[
         (pygame.Rect(0, 320, 64, 64),exit_to_mason_center_from_right1),
         (pygame.Rect(0, 320+64, 64, 64),exit_to_mason_center_from_right2),

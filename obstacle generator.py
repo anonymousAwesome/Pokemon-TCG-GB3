@@ -17,9 +17,9 @@ import sys
 pygame.init()
 
 tile_size = 16
-screen_scale = 4
-#change screen_scale to 2 if the window extends off screen, or to 4 if 
-#the window is too small.
+screen_scale = 3
+#screen_scale ranges from 2-4, depending on how the window fits onto 
+#the screen.
 visible_tile_size=tile_size*screen_scale
 rect_scale = 4
 fps = 60
@@ -99,7 +99,7 @@ def generate_merged_rects(selected_tiles):
 
 def generate_code(merged_rects):
     """Generate Python code for creating merged rects."""
-    rects_code = "obstacles=[\n"
+    rects_code = "\"obstacles\":[\n"
     for rect in merged_rects:
         rects_code += f"    pygame.Rect({rect.x // screen_scale * rect_scale}, {rect.y // screen_scale * rect_scale}, {rect.width // screen_scale * rect_scale}, {rect.height // screen_scale * rect_scale}),\n"
         #rects_code += f"    pygame.Rect({rect.x//TILE_SIZE}, {rect.y//TILE_SIZE}, {rect.width//TILE_SIZE}, {rect.height//TILE_SIZE}),\n"

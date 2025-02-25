@@ -35,7 +35,7 @@ class Menu:
                 self.location=self.options[self.vert_pos][self.hor_pos]
 
 class Dialogue:
-    def __init__(self, screen, name_text, photo_location,dialogue_text,font_location):
+    def __init__(self, screen, dialogue_text, name_text=None, photo_location=None):
         self.screen=screen
         self.name_text=name_text
         profile_image=pygame.image.load(photo_location).convert()
@@ -43,8 +43,8 @@ class Dialogue:
         self.remaining_text=self.preprocess(dialogue_text)
         self.creation_time = time.time()
         self.font_height=45
-        self.font = pygame.font.Font(font_location, self.font_height)
-        self.name_font = pygame.font.Font(font_location, 45)
+        self.font = pygame.font.Font("./assets/pokemon-emerald.otf", self.font_height)
+        self.name_font = pygame.font.Font("./assets/pokemon-emerald.otf", 45)
 
 
     def elapsed_time(self):
@@ -52,6 +52,35 @@ class Dialogue:
 
     def __bool__(self):
         return len(self.remaining_text)>0
+
+    def render_dialogue(self):
+        self.render()
+
+        white = (255, 255, 255)
+        blue = (0, 0, 255)
+        black=(0,0,0)
+
+        vert_margin=6
+        hor_margin=16
+
+        box_width = 600
+        box_height = 150
+        box_x = (640 - box_width) // 2
+        box_y = 576 - box_height - 20
+
+
+
+        #profile image
+        self.screen.blit(self.profile_image, (box_x+box_width-self.profile_image.get_width()-2, box_y-self.profile_image.get_height()))
+
+        #render name
+        name_surface = self.name_font.render(self.name_text, True, white)
+        name_x = box_x + 15
+        name_y = box_y - 46
+        pygame.draw.rect(self.screen, (30,30,225), (name_x - 10, name_y, name_surface.get_width() + 20, 48),border_top_left_radius=7,border_top_right_radius=7) 
+        pygame.draw.rect(self.screen, black, (name_x - 12, name_y, name_surface.get_width() + 22, 48),width=2,border_top_left_radius=7,border_top_right_radius=7)
+        self.screen.blit(name_surface, (name_x, name_y+2))
+
 
     def render(self):
         '''Yes, this function is probably doing too much. Not worth the
@@ -68,19 +97,9 @@ class Dialogue:
         box_x = (640 - box_width) // 2
         box_y = 576 - box_height - 20
 
-        #profile image
-        self.screen.blit(self.profile_image, (box_x+box_width-self.profile_image.get_width()-2, box_y-self.profile_image.get_height()))
 
         #draw dialogue box
         self.bg_box(box_x,box_y,box_width,box_height)
-
-        #render name
-        name_surface = self.name_font.render(self.name_text, True, white)
-        name_x = box_x + 15
-        name_y = box_y - 46
-        pygame.draw.rect(self.screen, (30,30,225), (name_x - 10, name_y, name_surface.get_width() + 20, 48),border_top_left_radius=7,border_top_right_radius=7) 
-        pygame.draw.rect(self.screen, black, (name_x - 12, name_y, name_surface.get_width() + 22, 48),width=2,border_top_left_radius=7,border_top_right_radius=7)
-        self.screen.blit(name_surface, (name_x, name_y+2))
 
         #process and render dialogue
         words = self.remaining_text
