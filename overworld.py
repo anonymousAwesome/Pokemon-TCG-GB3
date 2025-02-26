@@ -19,16 +19,19 @@ class CurrentMap():
         self.bg_height=self.bg_image.get_height()
         self.bg_image = pygame.transform.scale(self.bg_image, (self.bg_width * 4, self.bg_height * 4))
         self.obstacles=current_map_info["obstacles"]
-        self.player_starting_location=current_map_info["player_starting_location"]
     
-    def change_map(self,new_map_info):
+    def change_map(self,player_character,new_map_info,new_x,new_y,new_facing=None):
         self.__init__(new_map_info)
+        player_character.rect.x=new_x
+        player_character.rect.y=new_y
+        if new_facing:
+            player_character.facing_direction=new_facing
+        
 
 current_map=CurrentMap(mapinfo.mason_center)
 
 player_character=character.Player(
-    current_map.player_starting_location[0],
-    current_map.player_starting_location[1],
+    448,832,
     character.sprites,
     current_map.bg_image)
 
@@ -40,18 +43,24 @@ def render():
     keys = pygame.key.get_pressed()    
     player_character.update(keys,current_map.obstacles)
 
-    if "step triggers" in current_map.current_map_info:
-        for trigger in current_map.current_map_info["step triggers"]:
+    if "step exit triggers" in current_map.current_map_info:
+        for trigger in current_map.current_map_info["step exit triggers"]:
             if trigger[0].contains(player_character.rect):
                 player_character.pixels_remaining=0
-                trigger[1](player_character,current_map)
+                if "direction" in trigger[1]:
+                    current_map.change_map(player_character, getattr(mapinfo,trigger[1]["mapname"]), trigger[1]["x"], trigger[1]["y"],trigger[1]["direction"])
+                else:
+                    current_map.change_map(player_character, getattr(mapinfo,trigger[1]["mapname"]), trigger[1]["x"], trigger[1]["y"])
                 player_character.bg_image=current_map.bg_image
-    if "interact self triggers" in current_map.current_map_info:
-        for trigger in current_map.current_map_info["interact self triggers"]:
+    if "interact self exit triggers" in current_map.current_map_info:
+        for trigger in current_map.current_map_info["interact self exit triggers"]:
             if trigger[0].contains(player_character.rect):
                 if keys[character.AFFIRM_KEY]:
                     player_character.pixels_remaining=0
-                    trigger[1](player_character,current_map)
+                    if "direction" in trigger[1]:
+                        current_map.change_map(player_character, getattr(mapinfo,trigger[1]["mapname"]), trigger[1]["x"], trigger[1]["y"],trigger[1]["direction"])
+                    else:
+                        current_map.change_map(player_character, getattr(mapinfo,trigger[1]["mapname"]), trigger[1]["x"], trigger[1]["y"])
                     player_character.bg_image=current_map.bg_image
 
     #player_character.interact_front(keys)
