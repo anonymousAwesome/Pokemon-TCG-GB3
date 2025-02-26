@@ -1,11 +1,11 @@
 import pygame
-import ui
 import mapinfo
 import os
 
 pygame.init()
 screen = pygame.display.set_mode((640,576))
 
+import ui
 import character
 
 pygame.display.set_caption("Overworld Exploration")
@@ -64,8 +64,8 @@ def render():
     screen.blit(current_map.bg_image, (camera_x_offset, camera_y_offset))
 
 
-    show_obstacles=True
-    #show_obstacles=False
+    #show_obstacles=True
+    show_obstacles=False
     
     if show_obstacles:
         for ob in current_map.obstacles:
@@ -88,11 +88,19 @@ def render():
     if player_character.facing_direction=="right":
         temp_interact_front_rect.x+=character.TILE_SIZE
     
-    pygame.draw.rect(screen, (255,0,0), temp_interact_front_rect.move(camera_x_offset, camera_y_offset))
+    #pygame.draw.rect(screen, (255,0,0), temp_interact_front_rect.move(camera_x_offset, camera_y_offset))
+
+    if "interact triggers" in current_map.current_map_info:
+        pass
+
+    if "tcg club names" in current_map.current_map_info:
+        for trigger in current_map.current_map_info["tcg club names"]:
+            if trigger[0].colliderect(player_character.rect):
+                ui.club_name_render(screen,trigger[1])
 
     
     
-
+    """
     test_dialogue=ui.Dialogue(screen, 
     '''Test1
 Test2
@@ -101,7 +109,7 @@ Aaaaa aaaa aaaaa aaa aaa aaa 4bbb 3ccc 2ddd 1e 0fffff .''',
     './assets/duellists/pete abrams 3.png',)
     
     test_dialogue.render_dialogue()
-
+"""
     pygame.display.flip()
     clock.tick(60)
 

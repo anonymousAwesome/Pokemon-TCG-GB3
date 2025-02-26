@@ -144,6 +144,11 @@ tcg_island={
     "interact self triggers":[
         (pygame.Rect(64, 448, 64, 64),enter_mason_center_from_overworld),
         ],
+    "tcg club names":[
+        (pygame.Rect(64, 448, 64, 64),"Mason's Lab"),
+        (pygame.Rect(192, 448, 64, 64),"Fighting Club"),
+        (pygame.Rect(128, 320, 64, 64),"Lightning Club"),
+        ],
     "player_starting_location":(1*64,7*64)}
 
 

@@ -1,6 +1,10 @@
 import pygame
 import time
 
+font = pygame.font.Font("./assets/pokemon-emerald.otf", 45)
+club_font = pygame.font.Font("./assets/pokemon-emerald.otf", 60)
+
+
 class Menu:
     def __init__(self,options,maxwidth=600):
         self.hor_pos=0
@@ -42,9 +46,6 @@ class Dialogue:
         self.profile_image = pygame.transform.scale(profile_image, (profile_image.get_width() * 4, profile_image.get_height() * 4))
         self.remaining_text=self.preprocess(dialogue_text)
         self.creation_time = time.time()
-        self.font_height=45
-        self.font = pygame.font.Font("./assets/pokemon-emerald.otf", self.font_height)
-        self.name_font = pygame.font.Font("./assets/pokemon-emerald.otf", 45)
 
 
     def elapsed_time(self):
@@ -74,7 +75,7 @@ class Dialogue:
         self.screen.blit(self.profile_image, (box_x+box_width-self.profile_image.get_width()-2, box_y-self.profile_image.get_height()))
 
         #render name
-        name_surface = self.name_font.render(self.name_text, True, white)
+        name_surface = font.render(self.name_text, True, white)
         name_x = box_x + 15
         name_y = box_y - 46
         pygame.draw.rect(self.screen, (30,30,225), (name_x - 10, name_y, name_surface.get_width() + 20, 48),border_top_left_radius=7,border_top_right_radius=7) 
@@ -99,7 +100,7 @@ class Dialogue:
 
 
         #draw dialogue box
-        self.bg_box(box_x,box_y,box_width,box_height)
+        bg_box(self.screen,box_x,box_y,box_width,box_height)
 
         #process and render dialogue
         words = self.remaining_text
@@ -124,7 +125,7 @@ class Dialogue:
             if not temp_line:
                 test_line=word 
 
-            if self.font.size(test_line)[0] <= (box_width - 2 * hor_margin):
+            if font.size(test_line)[0] <= (box_width - 2 * hor_margin):
                 temp_line = test_line
             else:
                 lines.append(temp_line)
@@ -137,7 +138,7 @@ class Dialogue:
             lines.append(temp_line)
 
         for i, line in enumerate(lines):
-            text_surface = self.font.render(line, True, black)
+            text_surface = font.render(line, True, black)
             text_x = box_x + hor_margin
             text_y = box_y + vert_margin + i * self.font_height
             self.screen.blit(text_surface, (text_x, text_y))
@@ -162,12 +163,21 @@ class Dialogue:
         return words
 
 
-    def bg_box(self,box_x,box_y,box_width,box_height):
-        pygame.draw.rect(self.screen, (255, 255, 255), (box_x + 4, box_y + 4, box_width - 8, box_height - 8))  # White background
-        pygame.draw.rect(self.screen, (0,0,200), (box_x, box_y, box_width, box_height), width=6)  # Blue border
-        pygame.draw.rect(self.screen, (125,125,255), (box_x+2, box_y+2, box_width-4, box_height-4), width=2)  # light blue middle
+def bg_box(screen,box_x,box_y,box_width,box_height):
+    pygame.draw.rect(screen, (255, 255, 255), (box_x + 4, box_y + 4, box_width - 8, box_height - 8))  # White background
+    pygame.draw.rect(screen, (0,0,200), (box_x, box_y, box_width, box_height), width=6)  # Blue border
+    pygame.draw.rect(screen, (125,125,255), (box_x+2, box_y+2, box_width-4, box_height-4), width=2)  # light blue middle
 
 
+def club_name_render(screen, text):
+    name_surface = club_font.render(text, True,(0,0,0))
+    w=name_surface.get_width()
+    h=name_surface.get_height()
+    box_x,box_y,box_width,box_height=48,28,w+40,h+20
+    pygame.draw.rect(screen, (255, 255, 255), (box_x + 4, box_y + 4, box_width - 8, box_height - 8))  # White background
+    pygame.draw.rect(screen, (0,0,0), (box_x, box_y, box_width, box_height), width=4)  # Black border
+    screen.blit(name_surface, (68, 40))
+    
 
 #themenu=Menu(["status","diary","deck","mini-com","coins"],3)
 #print(themenu.options)
