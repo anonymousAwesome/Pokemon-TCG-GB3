@@ -176,9 +176,6 @@ class Character(pygame.sprite.Sprite):
     def draw(self, surface, camera_x_offset, camera_y_offset):
         surface.blit(self.image, (self.rect.x + camera_x_offset, self.rect.y + camera_y_offset))
 
-    def check_bg(self):
-        return True
-
     def can_move(self, obstacles, direction):
         next_rect = self.rect.copy()
         if direction == "up":

@@ -26,6 +26,8 @@ class CurrentMap():
         player_character.rect.y=new_y
         if new_facing:
             player_character.facing_direction=new_facing
+        player_character.pixels_remaining=0
+        player_character.bg_image=self.bg_image
         
 
 current_map=CurrentMap(mapinfo.mason_center)
@@ -46,22 +48,19 @@ def render():
     if "step exit triggers" in current_map.current_map_info:
         for trigger in current_map.current_map_info["step exit triggers"]:
             if trigger[0].contains(player_character.rect):
-                player_character.pixels_remaining=0
                 if "direction" in trigger[1]:
                     current_map.change_map(player_character, getattr(mapinfo,trigger[1]["mapname"]), trigger[1]["x"], trigger[1]["y"],trigger[1]["direction"])
                 else:
                     current_map.change_map(player_character, getattr(mapinfo,trigger[1]["mapname"]), trigger[1]["x"], trigger[1]["y"])
-                player_character.bg_image=current_map.bg_image
+
     if "interact self exit triggers" in current_map.current_map_info:
         for trigger in current_map.current_map_info["interact self exit triggers"]:
             if trigger[0].contains(player_character.rect):
                 if keys[character.AFFIRM_KEY]:
-                    player_character.pixels_remaining=0
                     if "direction" in trigger[1]:
                         current_map.change_map(player_character, getattr(mapinfo,trigger[1]["mapname"]), trigger[1]["x"], trigger[1]["y"],trigger[1]["direction"])
                     else:
                         current_map.change_map(player_character, getattr(mapinfo,trigger[1]["mapname"]), trigger[1]["x"], trigger[1]["y"])
-                    player_character.bg_image=current_map.bg_image
 
     #player_character.interact_front(keys)
 
