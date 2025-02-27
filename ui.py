@@ -50,8 +50,11 @@ class Dialogue:
     def __init__(self, screen, dialogue_text, name_text=None, photo_location=None):
         self.screen=screen
         self.name_text=name_text
-        profile_image=pygame.image.load(photo_location).convert()
-        self.profile_image = pygame.transform.scale(profile_image, (profile_image.get_width() * 4, profile_image.get_height() * 4))
+        if photo_location:
+            profile_image=pygame.image.load(photo_location).convert()
+            self.profile_image = pygame.transform.scale(profile_image, (profile_image.get_width() * 4, profile_image.get_height() * 4))
+        else:
+            self.profile_image=None
         self.remaining_text=self.preprocess(dialogue_text)
         self.creation_time = time.time()
 

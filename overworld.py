@@ -1,6 +1,7 @@
 import pygame
 import mapinfo
 import os
+import player
 pygame.init()
 screen = pygame.display.set_mode((640,576))
 
@@ -10,7 +11,7 @@ import character
 pygame.display.set_caption("Overworld Exploration")
 clock = pygame.time.Clock()
 
-displaying_dialogue=False
+input_lock=False
 current_dialogue=None
 
 
@@ -40,14 +41,15 @@ player_character=character.Player(
     character.sprites,
     current_map.bg_image)
 
+
 #NPC_sprites=character.load_sprites_from_sheet(character.spritesheet, 12)
 #NPC=character.NPC(256,256,NPC_sprites)
 
 
-def render(displaying_dialogue, current_dialogue, event_list):
+def render(input_lock, current_dialogue, event_list):
     
     keys = pygame.key.get_pressed()    
-    if not displaying_dialogue:
+    if not input_lock:
 
         player_character.update(keys,current_map.obstacles)
 
@@ -80,8 +82,8 @@ def render(displaying_dialogue, current_dialogue, event_list):
     screen.blit(current_map.bg_image, (camera_x_offset, camera_y_offset))
 
 
-    show_obstacles=True
-    #show_obstacles=False
+    #show_obstacles=True
+    show_obstacles=False
     
     if show_obstacles:
         for ob in current_map.obstacles:
@@ -106,37 +108,37 @@ def render(displaying_dialogue, current_dialogue, event_list):
     
     #pygame.draw.rect(screen, (255,0,0), temp_interact_front_rect.move(camera_x_offset, camera_y_offset))
 
-    if not displaying_dialogue:
+    if not input_lock:
         if "tcg club names" in current_map.current_map_info:
             for trigger in current_map.current_map_info["tcg club names"]:
                 if trigger[0].colliderect(player_character.rect):
                     ui.club_name_render(screen,trigger[1])
 
-        if "interact object trigger" in current_map.current_map_info:
-            for trigger in current_map.current_map_info["interact object trigger"]:
+        if "interact object text" in current_map.current_map_info:
+            for trigger in current_map.current_map_info["interact object text"]:
                 if trigger[0].contains(temp_interact_front_rect):
                     for event in event_list:
                         if event.type==pygame.KEYDOWN:
                             if event.key==character.AFFIRM_KEY:
-                                displaying_dialogue=True
-                                current_dialogue=ui.Dialogue(screen, 
-    '''Test1
-Test2
-Aaaaa aaaa aaaaa aaa aaa aaa 4bbb 3ccc 2ddd 1e 0fffff .''',
-    "Pete Abrams",
-    './assets/duellists/pete abrams 3.png',)
+                                input_lock=True
+                                if len(trigger)>=3:
+                                    if "player_condition" in trigger[2]:
+                                        if getattr("player",trigger[2]["player_condition"]):
+                                            current_dialogue=ui.Dialogue(screen, **trigger[1])
+                                else:
+                                    current_dialogue=ui.Dialogue(screen, **trigger[1])
 
-    elif displaying_dialogue:
+    elif input_lock:
         if current_dialogue:
             current_dialogue.render(event_list)
         else:
-            displaying_dialogue=False
+            input_lock=False
             current_dialogue=None
 
 
     pygame.display.flip()
     clock.tick(60)
-    return displaying_dialogue, current_dialogue
+    return input_lock, current_dialogue
 
 if __name__=="__main__":
     running = True
@@ -145,5 +147,5 @@ if __name__=="__main__":
         for event in event_list:
             if event.type == pygame.QUIT:
                 running = False
-        displaying_dialogue, current_dialogue=render(displaying_dialogue, current_dialogue,event_list)
+        input_lock, current_dialogue=render(input_lock, current_dialogue,event_list)
     pygame.quit()

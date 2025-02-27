@@ -1,6 +1,10 @@
 import pygame
 import os
 
+
+
+
+
 mason_center={
     "bg_image": pygame.image.load(os.path.join("assets", "maps", "mason center.png")),
     "obstacles":[
@@ -27,8 +31,9 @@ mason_center={
         (pygame.Rect(832, 320, 64, 64),{"mapname":"mason_right","x":64,"y":320}),
         (pygame.Rect(832, 320+64, 64, 64),{"mapname":"mason_right","x":64,"y":320+64}),
         ],
-    "interact object trigger":[
-        (pygame.Rect(64, 704, 64, 128),{"func_name":"test","text":"This is a test."}),
+    "interact object text":[
+        (pygame.Rect(64, 704, 64, 128), {"dialogue_text":"It's a tree. I'm not sure what you expected."}),
+        (pygame.Rect(448, 0, 64, 64), {"dialogue_text":"It just says \"butts lol\". :/"}),
     ],
     }
 
