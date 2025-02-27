@@ -1,7 +1,9 @@
 import pygame
 import time
+import character
 
-font = pygame.font.Font("./assets/pokemon-emerald.otf", 45)
+font_height=45
+font = pygame.font.Font("./assets/pokemon-emerald.otf", font_height)
 club_font = pygame.font.Font("./assets/pokemon-emerald.otf", 60)
 
 
@@ -39,6 +41,12 @@ class Menu:
                 self.location=self.options[self.vert_pos][self.hor_pos]
 
 class Dialogue:
+    '''
+    Note: "dialogue" here refers to both dialogue boxes and non-dialogue
+    text boxes that lock the player's input in the same way as a dialogue
+    box does.
+    I couldn't think of a good term that would refer to both of those but
+    wouldn't also include menu text or duel text.'''
     def __init__(self, screen, dialogue_text, name_text=None, photo_location=None):
         self.screen=screen
         self.name_text=name_text
@@ -54,36 +62,7 @@ class Dialogue:
     def __bool__(self):
         return len(self.remaining_text)>0
 
-    def render_dialogue(self):
-        self.render()
-
-        white = (255, 255, 255)
-        blue = (0, 0, 255)
-        black=(0,0,0)
-
-        vert_margin=6
-        hor_margin=16
-
-        box_width = 600
-        box_height = 150
-        box_x = (640 - box_width) // 2
-        box_y = 576 - box_height - 20
-
-
-
-        #profile image
-        self.screen.blit(self.profile_image, (box_x+box_width-self.profile_image.get_width()-2, box_y-self.profile_image.get_height()))
-
-        #render name
-        name_surface = font.render(self.name_text, True, white)
-        name_x = box_x + 15
-        name_y = box_y - 46
-        pygame.draw.rect(self.screen, (30,30,225), (name_x - 10, name_y, name_surface.get_width() + 20, 48),border_top_left_radius=7,border_top_right_radius=7) 
-        pygame.draw.rect(self.screen, black, (name_x - 12, name_y, name_surface.get_width() + 22, 48),width=2,border_top_left_radius=7,border_top_right_radius=7)
-        self.screen.blit(name_surface, (name_x, name_y+2))
-
-
-    def render(self):
+    def render(self,event_list):
         '''Yes, this function is probably doing too much. Not worth the
         effort to refactor it, though.'''
         white = (255, 255, 255)
@@ -102,49 +81,65 @@ class Dialogue:
         #draw dialogue box
         bg_box(self.screen,box_x,box_y,box_width,box_height)
 
+        if self.profile_image:
+            #profile image
+            self.screen.blit(self.profile_image, (box_x+box_width-self.profile_image.get_width()-2, box_y-self.profile_image.get_height()))
+
+        if self.name_text:
+            #render name
+            name_surface = font.render(self.name_text, True, white)
+            name_x = box_x + 15
+            name_y = box_y - 46
+            pygame.draw.rect(self.screen, (30,30,225), (name_x - 10, name_y, name_surface.get_width() + 20, 48),border_top_left_radius=7,border_top_right_radius=7) 
+            pygame.draw.rect(self.screen, black, (name_x - 12, name_y, name_surface.get_width() + 22, 48),width=2,border_top_left_radius=7,border_top_right_radius=7)
+            self.screen.blit(name_surface, (name_x, name_y+2))
+
         #process and render dialogue
-        words = self.remaining_text
+        words = self.remaining_text[:]
         lines = []
-        temp_line = ""
-        max_lines = (box_height - 2 * vert_margin) // self.font_height
+        current_line = ""
+        max_lines = (box_height - 2 * vert_margin) // font_height
 
         while words:
             word = words.pop(0)
             
             if word == "\n":
-                if temp_line:
-                    lines.append(temp_line)
-                    temp_line = ""
+                if current_line:
+                    lines.append(current_line)
+                    current_line = ""
                 if len(lines) >= max_lines:
                     break
                 continue
 
-            if temp_line:
-                test_line=temp_line+" "+word
+            if current_line:
+                box_width_check_line=current_line+" "+word
 
-            if not temp_line:
-                test_line=word 
+            if not current_line:
+                box_width_check_line=word 
 
-            if font.size(test_line)[0] <= (box_width - 2 * hor_margin):
-                temp_line = test_line
+            if font.size(box_width_check_line)[0] <= (box_width - 2 * hor_margin):
+                current_line = box_width_check_line
             else:
-                lines.append(temp_line)
-                temp_line = word
+                lines.append(current_line)
+                current_line = word
                 if len(lines) >= max_lines:
                     words.insert(0, word)  # Put the last unprocessed word back
                     break
 
-        if temp_line and len(lines) < max_lines:
-            lines.append(temp_line)
+        if current_line and len(lines) < max_lines:
+            lines.append(current_line)
 
+        #displays the text
         for i, line in enumerate(lines):
             text_surface = font.render(line, True, black)
             text_x = box_x + hor_margin
-            text_y = box_y + vert_margin + i * self.font_height
+            text_y = box_y + vert_margin + i * font_height
             self.screen.blit(text_surface, (text_x, text_y))
-            
-        return words
 
+        for event in event_list:
+            if event.type==pygame.KEYDOWN:
+                if event.key==character.AFFIRM_KEY or event.key==character.CANCEL_KEY:
+                    self.remaining_text=words
 
     def preprocess(self,dialogue_string):
         # Split by spaces, then by newlines, keeping track of the \n characters

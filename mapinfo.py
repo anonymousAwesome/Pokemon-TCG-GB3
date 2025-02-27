@@ -27,6 +27,9 @@ mason_center={
         (pygame.Rect(832, 320, 64, 64),{"mapname":"mason_right","x":64,"y":320}),
         (pygame.Rect(832, 320+64, 64, 64),{"mapname":"mason_right","x":64,"y":320+64}),
         ],
+    "interact object trigger":[
+        (pygame.Rect(64, 704, 64, 128),{"func_name":"test","text":"This is a test."}),
+    ],
     }
 
 mason_left={
