@@ -164,8 +164,6 @@ class Player(Character):
             self.right_command=True
         else:
             self.right_command=False
-        
-        super().move_character()
 
 class NPC(Character):
     def __init__(self, x, y, anim_frames):
@@ -213,9 +211,9 @@ if __name__=="__main__":
         screen.blit(map_image.current_map.bg_image, (camera_x_offset, camera_y_offset))
         keys = pygame.key.get_pressed()
         
-        npc.process_input()
+        npc.random_input()
         npc.draw(screen, camera_x_offset, camera_y_offset)
-        player_character.random_input(keys)
+        player_character.process_input(keys)
         player_character.draw(screen, camera_x_offset, camera_y_offset)
         pygame.display.flip()
         clock.tick(60)
