@@ -39,24 +39,20 @@ def can_move(obstacles, basic_map, player):
 
     pygame.draw.rect(screen, (255,0,0), next_rect.move(camera_x_offset, camera_y_offset))
 
-    # Check horizontal bounds
     if next_rect.x < 0:
         return False
     if next_rect.right > basic_map.bg_image.get_width():
         return False
 
-    # Check vertical bounds
     if next_rect.y < 0:
         return False
     if next_rect.bottom > basic_map.bg_image.get_height():
         return False
 
-    # Check for collisions with obstacles
     for obstacle in obstacles:
         if obstacle.contains(next_rect):
             return False
 
-    # If all checks passed, the movement is valid
     return True
 
 bg_image=map_image.current_map
@@ -93,8 +89,8 @@ if __name__=="__main__":
         screen.blit(map_image.current_map.bg_image, (camera_x_offset, camera_y_offset))
         keys = pygame.key.get_pressed()
         player_character.process_input(keys)
-        if can_move(obstacles,bg_image,player_character):
-            player_character.move_character()
+        can_move_bool=can_move(obstacles,bg_image,player_character)
+        player_character.move_character(can_move_bool)
         player_character.draw(screen, camera_x_offset, camera_y_offset)
         pygame.display.flip()
         clock.tick(60)

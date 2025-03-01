@@ -1,13 +1,6 @@
 import pygame
-import map_image
-import random
-
-if __name__=="__main__":
-    pygame.init()
-    screen = pygame.display.set_mode((640,576))
-    clock = pygame.time.Clock()
-
 import player_sprite_camera
+import random
 
 TILE_SIZE=64
 anim_speed=32
@@ -42,98 +35,105 @@ class Character(player_sprite_camera.StaticCharacter):
     def flip_walking_side(self):
         self.walking_side=not self.walking_side
 
-    def move_character(self):
+    def start_walking(self,move_speed):
+        if self.up_command:
+            self.flip_walking_side()
+            self.facing_direction="up"
+            self.image=self.facing_up
+            self.pixels_remaining=TILE_SIZE
+            self.rect.y-=move_speed
+            self.pixels_remaining-=move_speed
+            if ((TILE_SIZE - self.pixels_remaining) // anim_speed) %2:
+                self.image=self.facing_up
+            else:
+                if self.walking_side:
+                    self.image=self.walking_up_1
+                else:
+                    self.image=self.walking_up_2
+        elif self.down_command:
+            self.flip_walking_side()
+            self.facing_direction="down"
+            self.image=self.facing_down
+            self.pixels_remaining=TILE_SIZE
+            self.rect.y+=move_speed
+            self.pixels_remaining-=move_speed
+            if ((TILE_SIZE - self.pixels_remaining) // anim_speed) %2:
+                self.image=self.facing_down
+            else:
+                if self.walking_side:
+                    self.image=self.walking_down_1
+                else:
+                    self.image=self.walking_down_2
+        elif self.left_command:
+            self.facing_direction="left"
+            self.image=self.facing_left
+            self.pixels_remaining=TILE_SIZE
+            self.rect.x-=move_speed
+            self.pixels_remaining-=move_speed
+            if ((TILE_SIZE - self.pixels_remaining) // anim_speed) %2:
+                self.image=self.facing_left
+            else:
+                self.image=self.walking_left
+        elif self.right_command:
+            self.facing_direction="right"
+            self.image=self.facing_right
+            self.pixels_remaining=TILE_SIZE
+            self.rect.x+=move_speed
+            self.pixels_remaining-=move_speed
+            if ((TILE_SIZE - self.pixels_remaining) // anim_speed) %2:
+                self.image=self.facing_right
+            else:
+                self.image=self.walking_right
+        
+    def continue_walking(self,move_speed):
+        if self.facing_direction=="up":
+            self.rect.y-=move_speed
+            if ((TILE_SIZE - self.pixels_remaining) // anim_speed) %2:
+                self.image=self.facing_up
+            else:
+                if self.walking_side:
+                    self.image=self.walking_up_1
+                else:
+                    self.image=self.walking_up_2
+
+        if self.facing_direction=="down":
+            self.rect.y+=move_speed
+            if ((TILE_SIZE - self.pixels_remaining) // anim_speed) %2:
+                self.image=self.facing_down
+            else:
+                if self.walking_side:
+                    self.image=self.walking_down_1
+                else:
+                    self.image=self.walking_down_2
+        if self.facing_direction=="left":
+            self.rect.x-=move_speed
+            if ((TILE_SIZE - self.pixels_remaining) // anim_speed) %2:
+                self.image=self.facing_left
+            else:
+                self.image=self.walking_left
+        if self.facing_direction=="right":
+            self.rect.x+=move_speed
+            if ((TILE_SIZE - self.pixels_remaining) // anim_speed) %2:
+                self.image=self.facing_right
+            else:
+                self.image=self.walking_right
+
+        self.pixels_remaining-=move_speed
+
+
+    def move_character(self,can_move):
         move_speed=self.move
         if self.fast_walking:
             move_speed=self.move*2
         if self.pixels_remaining<0:
             self.pixels_remaining=0
         if self.pixels_remaining==0:
-            if self.up_command:
-                self.flip_walking_side()
-                self.facing_direction="up"
-                self.image=self.facing_up
-                self.pixels_remaining=TILE_SIZE
-                self.rect.y-=move_speed
-                self.pixels_remaining-=move_speed
-                if ((TILE_SIZE - self.pixels_remaining) // anim_speed) %2:
-                    self.image=self.facing_up
-                else:
-                    if self.walking_side:
-                        self.image=self.walking_up_1
-                    else:
-                        self.image=self.walking_up_2
-            elif self.down_command:
-                self.flip_walking_side()
-                self.facing_direction="down"
-                self.image=self.facing_down
-                self.pixels_remaining=TILE_SIZE
-                self.rect.y+=move_speed
-                self.pixels_remaining-=move_speed
-                if ((TILE_SIZE - self.pixels_remaining) // anim_speed) %2:
-                    self.image=self.facing_down
-                else:
-                    if self.walking_side:
-                        self.image=self.walking_down_1
-                    else:
-                        self.image=self.walking_down_2
-            elif self.left_command:
-                self.facing_direction="left"
-                self.image=self.facing_left
-                self.pixels_remaining=TILE_SIZE
-                self.rect.x-=move_speed
-                self.pixels_remaining-=move_speed
-                if ((TILE_SIZE - self.pixels_remaining) // anim_speed) %2:
-                    self.image=self.facing_left
-                else:
-                    self.image=self.walking_left
-            elif self.right_command:
-                self.facing_direction="right"
-                self.image=self.facing_right
-                self.pixels_remaining=TILE_SIZE
-                self.rect.x+=move_speed
-                self.pixels_remaining-=move_speed
-                if ((TILE_SIZE - self.pixels_remaining) // anim_speed) %2:
-                    self.image=self.facing_right
-                else:
-                    self.image=self.walking_right
-
             self.rect.x=TILE_SIZE*round(self.rect.x/TILE_SIZE)
             self.rect.y=TILE_SIZE*round(self.rect.y/TILE_SIZE)
+            if can_move:
+                self.start_walking(move_speed)
         elif self.pixels_remaining>0:
-            if self.facing_direction=="up":
-                self.rect.y-=move_speed
-                if ((TILE_SIZE - self.pixels_remaining) // anim_speed) %2:
-                    self.image=self.facing_up
-                else:
-                    if self.walking_side:
-                        self.image=self.walking_up_1
-                    else:
-                        self.image=self.walking_up_2
-
-            if self.facing_direction=="down":
-                self.rect.y+=move_speed
-                if ((TILE_SIZE - self.pixels_remaining) // anim_speed) %2:
-                    self.image=self.facing_down
-                else:
-                    if self.walking_side:
-                        self.image=self.walking_down_1
-                    else:
-                        self.image=self.walking_down_2
-            if self.facing_direction=="left":
-                self.rect.x-=move_speed
-                if ((TILE_SIZE - self.pixels_remaining) // anim_speed) %2:
-                    self.image=self.facing_left
-                else:
-                    self.image=self.walking_left
-            if self.facing_direction=="right":
-                self.rect.x+=move_speed
-                if ((TILE_SIZE - self.pixels_remaining) // anim_speed) %2:
-                    self.image=self.facing_right
-                else:
-                    self.image=self.walking_right
-
-            self.pixels_remaining-=move_speed
+            self.continue_walking(move_speed)
 
 class Player(Character):
     def __init__(self, x, y, anim_frames):
@@ -194,26 +194,3 @@ class NPC(Character):
 
     def walk_in_place(self):
         pass
-
-npc=NPC(448,704, player_sprite_camera.sprites)
-
-player_character=Player(448,832, player_sprite_camera.sprites)
-    
-
-if __name__=="__main__":
-    running = True
-    while running:
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                running = False
-        camera_x_offset = -max(0, min(map_image.current_map.bg_image.get_width() - 640, (player_character.rect.centerx - 320)))
-        camera_y_offset = -max(0, min(map_image.current_map.bg_image.get_height() - 576, (player_character.rect.centery - 288)))
-        screen.blit(map_image.current_map.bg_image, (camera_x_offset, camera_y_offset))
-        keys = pygame.key.get_pressed()
-        
-        npc.random_input()
-        npc.draw(screen, camera_x_offset, camera_y_offset)
-        player_character.process_input(keys)
-        player_character.draw(screen, camera_x_offset, camera_y_offset)
-        pygame.display.flip()
-        clock.tick(60)

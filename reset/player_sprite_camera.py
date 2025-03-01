@@ -1,14 +1,5 @@
 import pygame
-import map_image
 import os
-
-
-
-if __name__=="__main__":
-    pygame.init()
-    screen = pygame.display.set_mode((640,576))
-    clock = pygame.time.Clock()
-
 
 def load_sprites_from_sheet(spritesheet, row):
     sprites = []
@@ -37,18 +28,3 @@ class StaticCharacter(pygame.sprite.Sprite):
         
     def draw(self, surface, camera_x_offset, camera_y_offset):
         surface.blit(self.image, (self.rect.x + camera_x_offset, self.rect.y + camera_y_offset))
-
-player_character=StaticCharacter(448,832, sprites)
-
-if __name__=="__main__":
-    running = True
-    while running:
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                running = False
-        camera_x_offset = -max(0, min(map_image.current_map.bg_image.get_width() - 640, (player_character.rect.centerx - 320)))
-        camera_y_offset = -max(0, min(map_image.current_map.bg_image.get_height() - 576, (player_character.rect.centery - 288)))
-        screen.blit(map_image.current_map.bg_image, (camera_x_offset, camera_y_offset))
-        player_character.draw(screen, camera_x_offset, camera_y_offset)
-        pygame.display.flip()
-        clock.tick(60)
