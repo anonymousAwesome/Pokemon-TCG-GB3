@@ -1,4 +1,5 @@
 import pygame
+import os
 
 if __name__=="__main__":
     pygame.init()
@@ -8,54 +9,47 @@ if __name__=="__main__":
 import map_image
 import player_movement
 
-'''
+def get_bg_image(map_name):
+    bg_image=pygame.image.load(os.path.join("..","assets", "maps", map_name+".png"))
+    bg_image=pygame.transform.scale(bg_image, (bg_image.get_width() * 4, bg_image.get_height() * 4))
+    return bg_image
+
 class Map():
-    def __init__(self,map_bg,obstacles=None):
-        self.map_bg=map_bg
+    def __init__(self,map_name,player,obstacles=None):
+        self.background_image=get_bg_image(map_name)
         self.obstacles=obstacles
+        self.player=player
 
-    def move(self,keys,obstacles):
-        #...
-                if self.can_move(obstacles, "up"):
-                #...
-                if self.can_move(obstacles, "down"):
-                #...
-                if self.can_move(obstacles, "left"):
-                #...
-                if self.can_move(obstacles, "right"):
-'''
+    def can_move(self):
+        next_rect = self.player.rect.copy()
 
-def can_move(obstacles, basic_map, player):
-    next_rect = player.rect.copy()
+        if self.player.up_command:
+            next_rect.y -= player_movement.TILE_SIZE
+        elif self.player.down_command:
+            next_rect.y += player_movement.TILE_SIZE
+        elif self.player.left_command:
+            next_rect.x -= player_movement.TILE_SIZE
+        elif self.player.right_command:
+            next_rect.x += player_movement.TILE_SIZE
 
-    if player.up_command:
-        next_rect.y -= player_movement.TILE_SIZE
-    elif player.down_command:
-        next_rect.y += player_movement.TILE_SIZE
-    elif player.left_command:
-        next_rect.x -= player_movement.TILE_SIZE
-    elif player.right_command:
-        next_rect.x += player_movement.TILE_SIZE
+        pygame.draw.rect(screen, (255,0,0), next_rect.move(camera_x_offset, camera_y_offset))
 
-    pygame.draw.rect(screen, (255,0,0), next_rect.move(camera_x_offset, camera_y_offset))
-
-    if next_rect.x < 0:
-        return False
-    if next_rect.right > basic_map.bg_image.get_width():
-        return False
-
-    if next_rect.y < 0:
-        return False
-    if next_rect.bottom > basic_map.bg_image.get_height():
-        return False
-
-    for obstacle in obstacles:
-        if obstacle.contains(next_rect):
+        if next_rect.x < 0:
+            return False
+        if next_rect.right > self.background_image.get_width():
             return False
 
-    return True
+        if next_rect.y < 0:
+            return False
+        if next_rect.bottom > self.background_image.get_height():
+            return False
 
-bg_image=map_image.current_map
+        for obstacle in self.obstacles:
+            if obstacle.contains(next_rect):
+                return False
+
+        return True
+
 
 obstacles=[
     pygame.Rect(0, 0, 896, 64),
@@ -77,6 +71,7 @@ obstacles=[
 
 player_character=player_movement.Player(448,832, player_movement.player_sprite_camera.sprites)
 
+current_map=Map("mason center",player_character,obstacles)
 
 if __name__=="__main__":
     running = True
@@ -84,13 +79,13 @@ if __name__=="__main__":
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
-        camera_x_offset = -max(0, min(map_image.current_map.bg_image.get_width() - 640, (player_character.rect.centerx - 320)))
-        camera_y_offset = -max(0, min(map_image.current_map.bg_image.get_height() - 576, (player_character.rect.centery - 288)))
-        screen.blit(map_image.current_map.bg_image, (camera_x_offset, camera_y_offset))
+        camera_x_offset = -max(0, min(current_map.background_image.get_width() - 640, (current_map.player.rect.centerx - 320)))
+        camera_y_offset = -max(0, min(current_map.background_image.get_height() - 576, (current_map.player.rect.centery - 288)))
+        screen.blit(current_map.background_image, (camera_x_offset, camera_y_offset))
         keys = pygame.key.get_pressed()
-        player_character.process_input(keys)
-        can_move_bool=can_move(obstacles,bg_image,player_character)
-        player_character.move_character(can_move_bool)
-        player_character.draw(screen, camera_x_offset, camera_y_offset)
+        current_map.player.process_input(keys)
+        can_move_bool=current_map.can_move()
+        current_map.player.move_character(can_move_bool)
+        current_map.player.draw(screen, camera_x_offset, camera_y_offset)
         pygame.display.flip()
         clock.tick(60)
