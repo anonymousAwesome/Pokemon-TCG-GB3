@@ -1,40 +1,45 @@
 import pygame
 import os
-import ui
 
 #note to self: convert to class, because executing strings from dicts just isn't flexible enough.
 #specifically, I can't think of a way to get the dict-func to create a new dialogue object and replace the old one.
 #with a class, you can feed state into the object as an argument.
 
-mason_center={
-    "obstacles":[
-        pygame.Rect(0, 0, 896, 64),
-        pygame.Rect(0, 448, 64, 512),
-        pygame.Rect(832, 448, 64, 512),
-        pygame.Rect(64, 832, 384, 64),
-        pygame.Rect(64, 896, 384, 64),
-        pygame.Rect(0, 64, 320, 64),
-        pygame.Rect(576, 64, 320, 64),
-        pygame.Rect(576, 832, 256, 64),
-        pygame.Rect(576, 896, 256, 64),
-        pygame.Rect(640, 448, 192, 64),
-        pygame.Rect(0, 128, 64, 192),
-        pygame.Rect(832, 128, 64, 192),
-        pygame.Rect(192, 448, 128, 64),
-        pygame.Rect(192, 512, 128, 64),
-        pygame.Rect(64, 704, 64, 128),
-    ],
-    "interact_object_text":[
-        (pygame.Rect(64, 704, 64, 128), {"location":__import__("builtins"),"function":"print","args":["It's a tree. I'm not sure what you expected."],"kwargs":{}}),
-        (pygame.Rect(448, 0, 64, 64), {"location":__import__("builtins"),"function":"print","args":["It just says \"butts lol\". :/"],"kwargs":{}})
-        ],
-    "step exit triggers":[
-        (pygame.Rect(448, 896, 128, 64), {"mapname":"tcg_island","x":1*64,"y":7*64,"direction":"down"}),
-        (pygame.Rect(0, 320, 64, 64),{"mapname":"mason_left","x":768,"y":704}), 
-        (pygame.Rect(0, 320+64, 64, 64),{"mapname":"mason_left","x":768,"y":704+64}), 
-        (pygame.Rect(832, 320, 64, 64),{"mapname":"mason_right","x":64,"y":320}),
-        (pygame.Rect(832, 320+64, 64, 64),{"mapname":"mason_right","x":64,"y":320+64}),
-        ]}
+class MasonCenter:
+    def __init__(self,screen,map_name):
+        self.screen=screen
+        self.bg_image=pygame.image.load(os.path.join("assets", "maps", map_name+".png"))
+        self.bg_image=pygame.transform.scale(self.bg_image, (self.bg_image.get_width() * 4, self.bg_image.get_height() * 4))
+
+        self.obstacles=[
+            pygame.Rect(0, 0, 896, 64),
+            pygame.Rect(0, 448, 64, 512),
+            pygame.Rect(832, 448, 64, 512),
+            pygame.Rect(64, 832, 384, 64),
+            pygame.Rect(64, 896, 384, 64),
+            pygame.Rect(0, 64, 320, 64),
+            pygame.Rect(576, 64, 320, 64),
+            pygame.Rect(576, 832, 256, 64),
+            pygame.Rect(576, 896, 256, 64),
+            pygame.Rect(640, 448, 192, 64),
+            pygame.Rect(0, 128, 64, 192),
+            pygame.Rect(832, 128, 64, 192),
+            pygame.Rect(192, 448, 128, 64),
+            pygame.Rect(192, 512, 128, 64),
+            pygame.Rect(64, 704, 64, 128),
+        ]
+        
+        self.interact_object_dialogue=[
+            (pygame.Rect(64, 704, 64, 128), "It's a tree. I'm not sure what you expected."),
+            (pygame.Rect(448, 0, 64, 64), "It just says \"butts lol\". :/")
+            ]
+        self.step_exit_triggers=[
+            (pygame.Rect(448, 896, 128, 64), {"mapname":"tcg_island","x":1*64,"y":7*64,"direction":"down"}),
+            (pygame.Rect(0, 320, 64, 64),{"mapname":"mason_left","x":768,"y":704}), 
+            (pygame.Rect(0, 320+64, 64, 64),{"mapname":"mason_left","x":768,"y":704+64}), 
+            (pygame.Rect(832, 320, 64, 64),{"mapname":"mason_right","x":64,"y":320}),
+            (pygame.Rect(832, 320+64, 64, 64),{"mapname":"mason_right","x":64,"y":320+64}),
+            ]
 
 mason_left={
     "bg_image": pygame.image.load(os.path.join("assets", "maps", "mason left.png")),
