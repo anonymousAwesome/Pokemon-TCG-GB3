@@ -15,13 +15,8 @@ input_lock=False
 current_dialogue=None
 
 
-class CurrentMap():
-    def __init__(self,current_map_info):
-        self.current_map_info=current_map_info
-        self.bg_image=current_map_info["bg_image"]
-        self.bg_width=self.bg_image.get_width()
-        self.bg_height=self.bg_image.get_height()
-        self.bg_image = pygame.transform.scale(self.bg_image, (self.bg_width * 4, self.bg_height * 4))
+#class CurrentMap():
+#...
         self.obstacles=current_map_info["obstacles"]
     
     def change_map(self,player_character,new_map_info,new_x,new_y,new_facing=None):
@@ -33,13 +28,6 @@ class CurrentMap():
         player_character.pixels_remaining=0
         player_character.bg_image=self.bg_image
         
-
-current_map=CurrentMap(mapinfo.mason_center)
-
-player_character=character.Player(
-    448,832,
-    character.sprites,
-    current_map.bg_image)
 
 
 #NPC_sprites=character.load_sprites_from_sheet(character.spritesheet, 12)
@@ -77,9 +65,6 @@ def render(input_lock, current_dialogue, event_list):
         #NPC.update(keys,current_map.obstacles)
 
     
-    camera_x_offset = -max(0, min(current_map.bg_width * 4 - 640, (player_character.rect.centerx - 320)))
-    camera_y_offset = -max(0, min(current_map.bg_height * 4 - 576, (player_character.rect.centery - 288)))
-    screen.blit(current_map.bg_image, (camera_x_offset, camera_y_offset))
 
 
     #show_obstacles=True
@@ -91,8 +76,6 @@ def render(input_lock, current_dialogue, event_list):
             red_rect.set_alpha(200)
             red_rect.fill((255,0,0))
             screen.blit(red_rect, ob.move(camera_x_offset, camera_y_offset))
-
-    player_character.draw(screen, camera_x_offset, camera_y_offset)
 
     #NPC.draw(screen, camera_x_offset, camera_y_offset)
 
