@@ -1,6 +1,6 @@
 import pygame
 import time
-import character
+import key_mappings
 
 font_height=45
 font = pygame.font.Font("./assets/pokemon-emerald.otf", font_height)
@@ -141,7 +141,7 @@ class Dialogue:
 
         for event in event_list:
             if event.type==pygame.KEYDOWN:
-                if event.key==character.AFFIRM_KEY or event.key==character.CANCEL_KEY:
+                if event.key==key_mappings.affirm_key or event.key==key_mappings.cancel_key:
                     self.remaining_text=words
 
     def preprocess(self,dialogue_string):

@@ -44,6 +44,7 @@ class Character(pygame.sprite.Sprite):
         self.down_command=False
         self.left_command=False
         self.right_command=False
+        self.accept_key=False
 
     def draw(self, surface, camera_x_offset, camera_y_offset):
         surface.blit(self.image, (self.rect.x + camera_x_offset, self.rect.y + camera_y_offset))
@@ -189,6 +190,12 @@ class Player(Character):
             self.right_command=True
         else:
             self.right_command=False
+
+        if keys[key_mappings.affirm_key]:
+            self.accept_key=True
+        else:
+            self.accept_key=False
+
 
 class NPC(Character):
     def __init__(self, x, y, anim_frames):

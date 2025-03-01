@@ -1,12 +1,12 @@
 import pygame
 import os
+import ui
 
-
-
-
+#note to self: convert to class, because executing strings from dicts just isn't flexible enough.
+#specifically, I can't think of a way to get the dict-func to create a new dialogue object and replace the old one.
+#with a class, you can feed state into the object as an argument.
 
 mason_center={
-    "bg_image": pygame.image.load(os.path.join("assets", "maps", "mason center.png")),
     "obstacles":[
         pygame.Rect(0, 0, 896, 64),
         pygame.Rect(0, 448, 64, 512),
@@ -24,18 +24,17 @@ mason_center={
         pygame.Rect(192, 512, 128, 64),
         pygame.Rect(64, 704, 64, 128),
     ],
+    "interact_object_text":[
+        (pygame.Rect(64, 704, 64, 128), {"location":__import__("builtins"),"function":"print","args":["It's a tree. I'm not sure what you expected."],"kwargs":{}}),
+        (pygame.Rect(448, 0, 64, 64), {"location":__import__("builtins"),"function":"print","args":["It just says \"butts lol\". :/"],"kwargs":{}})
+        ],
     "step exit triggers":[
         (pygame.Rect(448, 896, 128, 64), {"mapname":"tcg_island","x":1*64,"y":7*64,"direction":"down"}),
         (pygame.Rect(0, 320, 64, 64),{"mapname":"mason_left","x":768,"y":704}), 
         (pygame.Rect(0, 320+64, 64, 64),{"mapname":"mason_left","x":768,"y":704+64}), 
         (pygame.Rect(832, 320, 64, 64),{"mapname":"mason_right","x":64,"y":320}),
         (pygame.Rect(832, 320+64, 64, 64),{"mapname":"mason_right","x":64,"y":320+64}),
-        ],
-    "interact object text":[
-        (pygame.Rect(64, 704, 64, 128), {"dialogue_text":"It's a tree. I'm not sure what you expected."}),
-        (pygame.Rect(448, 0, 64, 64), {"dialogue_text":"It just says \"butts lol\". :/"}),
-    ],
-    }
+        ]}
 
 mason_left={
     "bg_image": pygame.image.load(os.path.join("assets", "maps", "mason left.png")),
