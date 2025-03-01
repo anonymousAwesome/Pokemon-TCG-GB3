@@ -1,17 +1,30 @@
 import pygame
-import player_sprite_camera
 import random
+import os
+import key_mappings
 
 TILE_SIZE=64
 anim_speed=32
 
-AFFIRM_KEY=pygame.K_LCTRL
-CANCEL_KEY=pygame.K_LALT
+def load_sprites_from_sheet(spritesheet, row):
+    sprites = []
+    for i in range(10):
+        x = i*17 + 1
+        y = row*17 + 1
+        sprite=spritesheet.subsurface(pygame.Rect(x, y, 16, 16))
+        sprite=pygame.transform.scale(sprite, (16*4, 16*4))
+        sprites.append(sprite)
+    return sprites
 
 
-class Character(player_sprite_camera.StaticCharacter):
+class Character(pygame.sprite.Sprite):
     def __init__(self, x, y, anim_frames):
-        super().__init__(x, y, anim_frames)
+        pygame.sprite.Sprite.__init__(self)
+        self.anim_frames=anim_frames
+        self.image = anim_frames[1]
+        self.rect  = self.image.get_rect()
+        self.rect.x,self.rect.y = x, y
+
         self.walking_down_1=anim_frames[0]
         self.facing_down=anim_frames[1]
         self.walking_down_2=anim_frames[2]
@@ -32,14 +45,30 @@ class Character(player_sprite_camera.StaticCharacter):
         self.left_command=False
         self.right_command=False
 
+    def draw(self, surface, camera_x_offset, camera_y_offset):
+        surface.blit(self.image, (self.rect.x + camera_x_offset, self.rect.y + camera_y_offset))
+
     def flip_walking_side(self):
         self.walking_side=not self.walking_side
 
-    def start_walking(self,move_speed):
+    def change_facing(self):
         if self.up_command:
-            self.flip_walking_side()
             self.facing_direction="up"
             self.image=self.facing_up
+        elif self.down_command:
+            self.facing_direction="down"
+            self.image=self.facing_down
+        elif self.left_command:
+            self.facing_direction="left"
+            self.image=self.facing_left
+        elif self.right_command:
+            self.facing_direction="right"
+            self.image=self.facing_right
+
+    def start_walking(self,move_speed):
+        self.change_facing()
+        if self.up_command:
+            self.flip_walking_side()
             self.pixels_remaining=TILE_SIZE
             self.rect.y-=move_speed
             self.pixels_remaining-=move_speed
@@ -52,8 +81,6 @@ class Character(player_sprite_camera.StaticCharacter):
                     self.image=self.walking_up_2
         elif self.down_command:
             self.flip_walking_side()
-            self.facing_direction="down"
-            self.image=self.facing_down
             self.pixels_remaining=TILE_SIZE
             self.rect.y+=move_speed
             self.pixels_remaining-=move_speed
@@ -65,8 +92,6 @@ class Character(player_sprite_camera.StaticCharacter):
                 else:
                     self.image=self.walking_down_2
         elif self.left_command:
-            self.facing_direction="left"
-            self.image=self.facing_left
             self.pixels_remaining=TILE_SIZE
             self.rect.x-=move_speed
             self.pixels_remaining-=move_speed
@@ -75,8 +100,6 @@ class Character(player_sprite_camera.StaticCharacter):
             else:
                 self.image=self.walking_left
         elif self.right_command:
-            self.facing_direction="right"
-            self.image=self.facing_right
             self.pixels_remaining=TILE_SIZE
             self.rect.x+=move_speed
             self.pixels_remaining-=move_speed
@@ -132,6 +155,8 @@ class Character(player_sprite_camera.StaticCharacter):
             self.rect.y=TILE_SIZE*round(self.rect.y/TILE_SIZE)
             if can_move:
                 self.start_walking(move_speed)
+            else:
+                self.change_facing()
         elif self.pixels_remaining>0:
             self.continue_walking(move_speed)
 
@@ -140,27 +165,27 @@ class Player(Character):
         super().__init__(x, y, anim_frames)
 
     def process_input(self,keys):
-        if keys[CANCEL_KEY]:
+        if keys[key_mappings.cancel_key]:
             self.fast_walking=True
         else:
             self.fast_walking=False
 
-        if keys[pygame.K_UP]:
+        if keys[key_mappings.up_key]:
             self.up_command=True
         else:
             self.up_command=False
 
-        if keys[pygame.K_DOWN]:
+        if keys[key_mappings.down_key]:
             self.down_command=True
         else:
             self.down_command=False
 
-        if keys[pygame.K_LEFT]:
+        if keys[key_mappings.left_key]:
             self.left_command=True
         else:
             self.left_command=False
 
-        if keys[pygame.K_RIGHT]:
+        if keys[key_mappings.right_key]:
             self.right_command=True
         else:
             self.right_command=False
