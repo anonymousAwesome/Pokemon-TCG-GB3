@@ -19,12 +19,12 @@ sprites = characters.load_sprites_from_sheet(spritesheet, 6)
 
 player_character=characters.Player(448,832, sprites)
 
-current_map=mapinfo.MasonCenter(screen,"mason center")
+current_map=mapinfo.MasonCenter(screen)
 
 
 collision_manager=map_managers.CollisionManager(current_map.bg_image,player_character,current_map.obstacles)
 
-triggers=map_managers.MapTriggerManager(screen,player_character,interact_object_triggers=current_map.interact_object_dialogue)
+triggers=map_managers.MapTriggerManager(screen,player_character,current_map)
 
 current_dialogue=None
 
@@ -41,10 +41,26 @@ if __name__=="__main__":
         keys = pygame.key.get_pressed()
         player_character.draw(screen, camera_x_offset, camera_y_offset)
         if not current_dialogue:
-            player_character.process_input(keys)
+            
+            #takes keyboad input, converts it to commands which are stored in the player_character object
+            player_character.process_input(keys) 
+            
+            #checks to see if the current movement command would be blocked by an obstacle
             can_move_bool=collision_manager.can_move()
+             
+            #if not blocked, start movement. If blocked, change facing.
             player_character.move_character(can_move_bool)
-            current_dialogue=triggers.interact_object_dialogue(event_list)
+            
+            #replace the empty current dialogue with a new one if the map trigger manager says the player interacted with the object.
+            current_dialogue=triggers.interact_object_make_dialogue(event_list)
+
+            #if player steps on an exit trigger, change the current map and player location, then update the map managers.
+            for trigger in current_map.step_exit_triggers:
+                if trigger(player_character).rect.contains(player_character.rect):
+                    current_map=trigger(player_character).step_on_exit()(screen)
+                    collision_manager=map_managers.CollisionManager(current_map.bg_image,player_character,current_map.obstacles)
+                    triggers=map_managers.MapTriggerManager(screen,player_character,current_map)
+
         elif current_dialogue:
             current_dialogue.render(event_list)
         pygame.display.flip()

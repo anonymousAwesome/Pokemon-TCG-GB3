@@ -41,12 +41,14 @@ class CollisionManager():
 
 
 class MapTriggerManager():
-    def __init__(self,screen,player,interact_object_triggers=None,interact_self_triggers=None,step_triggers=None):
+    def __init__(self,screen,player,current_map):
         self.screen=screen
         self.player=player
-        self.interact_object_triggers=interact_object_triggers
-        self.interact_self_triggers=interact_self_triggers
-        self.step_triggers=step_triggers
+
+        self.interact_object=getattr(current_map,"interact_object",False)
+
+        self.step_exit_triggers=getattr(current_map,"step_exit_triggers",False)
+
 
     def interact_object(self):
         pass
@@ -54,8 +56,8 @@ class MapTriggerManager():
     def interact_self(self):
         pass
     
-    def interact_object_dialogue(self,event_list):
-        if self.interact_object_triggers:
+    def interact_object_make_dialogue(self,event_list):
+        if self.interact_object:
             temp_interact_front_rect=self.player.rect.copy()
             if self.player.facing_direction=="down":
                 temp_interact_front_rect.y+=characters.TILE_SIZE
@@ -68,15 +70,7 @@ class MapTriggerManager():
             for event in event_list:
                 if event.type==pygame.KEYDOWN:
                     if event.key==key_mappings.affirm_key:
-                        for pair in self.interact_object_triggers:
-                            if pair[0].contains(temp_interact_front_rect):
-                                return(ui.Dialogue(self.screen,pair[1]))
+                        for map_object in self.interact_object:
+                            if map_object().rect.contains(temp_interact_front_rect):
+                                return map_object().interact_object(self.screen)
             return None
-
-    '''
-    def step_trigger(self):
-        if self.step_triggers:
-            for pair in self.step_triggers:
-                if pair[0].contains(self.player.rect):
-                    getattr(pair[1]["location"],pair[1]["function"])(*pair[1]["args"],**pair[1]["kwargs"])
-                    '''

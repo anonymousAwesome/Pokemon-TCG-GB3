@@ -1,14 +1,54 @@
 import pygame
 import os
+import ui
 
 #note to self: convert to class, because executing strings from dicts just isn't flexible enough.
 #specifically, I can't think of a way to get the dict-func to create a new dialogue object and replace the old one.
 #with a class, you can feed state into the object as an argument.
 
+class MasonCenterTree:
+
+    def __init__(self):
+        self.interact_object_dialogue="It's a tree. I'm not sure what you expected."
+        self.rect=pygame.Rect(64, 704, 64, 128)
+
+    def interact_object(self,screen):
+        return(ui.Dialogue(screen,self.interact_object_dialogue))
+
+class MasonCenterBlackboard:
+
+    def __init__(self):
+        self.rect=pygame.Rect(448, 0, 64, 64)
+        self.interact_object_dialogue="It just says \"butts lol\". :/"
+    
+    def interact_object(self,screen):
+        return(ui.Dialogue(screen,self.interact_object_dialogue))
+
+class MasonCenterLeftExitTop:
+    def __init__(self,player):
+        self.player=player
+        self.rect=pygame.Rect(0, 320, 64, 64)
+        
+    def step_on_exit(self):
+        self.player.rect.x=768
+        self.player.rect.y=704
+        return MasonLeft
+
+class MasonCenterLeftExitBottom:
+    def __init__(self,player):
+        self.player=player
+        self.rect=pygame.Rect(0, 320+64, 64, 64)
+        
+    def step_on_exit(self):
+        self.player.rect.x=768
+        self.player.rect.y=704+64
+        return MasonLeft
+
+
 class MasonCenter:
-    def __init__(self,screen,map_name):
+    def __init__(self,screen):
         self.screen=screen
-        self.bg_image=pygame.image.load(os.path.join("assets", "maps", map_name+".png"))
+        self.bg_image=pygame.image.load(os.path.join("assets", "maps", "mason center.png"))
         self.bg_image=pygame.transform.scale(self.bg_image, (self.bg_image.get_width() * 4, self.bg_image.get_height() * 4))
 
         self.obstacles=[
@@ -29,37 +69,51 @@ class MasonCenter:
             pygame.Rect(64, 704, 64, 128),
         ]
         
-        self.interact_object_dialogue=[
-            (pygame.Rect(64, 704, 64, 128), "It's a tree. I'm not sure what you expected."),
-            (pygame.Rect(448, 0, 64, 64), "It just says \"butts lol\". :/")
+        self.interact_object=[
+            MasonCenterTree,
+            MasonCenterBlackboard
             ]
+        
+        self.step_exit_triggers=[
+            MasonCenterLeftExitTop,
+            MasonCenterLeftExitBottom
+            ]
+
+'''
         self.step_exit_triggers=[
             (pygame.Rect(448, 896, 128, 64), {"mapname":"tcg_island","x":1*64,"y":7*64,"direction":"down"}),
-            (pygame.Rect(0, 320, 64, 64),{"mapname":"mason_left","x":768,"y":704}), 
             (pygame.Rect(0, 320+64, 64, 64),{"mapname":"mason_left","x":768,"y":704+64}), 
             (pygame.Rect(832, 320, 64, 64),{"mapname":"mason_right","x":64,"y":320}),
             (pygame.Rect(832, 320+64, 64, 64),{"mapname":"mason_right","x":64,"y":320+64}),
             ]
+'''
 
-mason_left={
-    "bg_image": pygame.image.load(os.path.join("assets", "maps", "mason left.png")),
-    "obstacles":[
-        pygame.Rect(0, 0, 64, 1024),
-        pygame.Rect(64, 0, 832, 64),
-        pygame.Rect(64, 960, 832, 64),
-        pygame.Rect(64, 896, 832, 64),
-        pygame.Rect(832, 64, 64, 640),
-        pygame.Rect(192, 192, 384, 64),
-        pygame.Rect(192, 256, 384, 64),
-        pygame.Rect(192, 512, 384, 64),
-        pygame.Rect(192, 576, 384, 64),
-        pygame.Rect(832, 832, 64, 64),
-    ],
+class MasonLeft:
+    def __init__(self,screen):
+        self.screen=screen
+        self.bg_image=pygame.image.load(os.path.join("assets", "maps", "mason left.png"))
+        self.bg_image=pygame.transform.scale(self.bg_image, (self.bg_image.get_width() * 4, self.bg_image.get_height() * 4))
+
+        self.obstacles=[
+            pygame.Rect(0, 0, 64, 1024),
+            pygame.Rect(64, 0, 832, 64),
+            pygame.Rect(64, 960, 832, 64),
+            pygame.Rect(64, 896, 832, 64),
+            pygame.Rect(832, 64, 64, 640),
+            pygame.Rect(192, 192, 384, 64),
+            pygame.Rect(192, 256, 384, 64),
+            pygame.Rect(192, 512, 384, 64),
+            pygame.Rect(192, 576, 384, 64),
+            pygame.Rect(832, 832, 64, 64),
+            ]
+
+        self.step_exit_triggers=[
+            ]
+'''
     "step exit triggers":[
         (pygame.Rect(832, 704, 64, 64),{"mapname":"mason_center","x":64,"y":320}),
         (pygame.Rect(832, 768, 64, 64),{"mapname":"mason_center","x":64,"y":320+64}),
-        ],
-    }
+        ],'''
 
 mason_right={
     "bg_image": pygame.image.load(os.path.join("assets", "maps", "mason right.png")),
