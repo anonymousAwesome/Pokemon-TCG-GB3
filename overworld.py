@@ -1,12 +1,14 @@
 import pygame
 import characters
 import os
+import functools
 
 if __name__=="__main__":
     pygame.init()
     screen = pygame.display.set_mode((640,576))
     clock = pygame.time.Clock()
 
+import ui
 import map_managers
 import mapinfo
 
@@ -25,12 +27,22 @@ player_character=characters.Player(448,832, pc_sprite)
 
 current_map=mapinfo.MasonCenter(screen)
 
+current_dialogue=ui.Dialogue(screen,"")
 
 collision_manager=map_managers.CollisionManager(current_map.bg_image,player_character,current_map.obstacles)
 
-triggers=map_managers.MapTriggerManager(screen,player_character,current_map)
+triggers=map_managers.MapTriggerManager(screen,player_character,current_map,current_dialogue)
 
-current_dialogue=None
+triggered_functions=[print]
+
+
+'''
+main objects: player character, current dialogue, and current map. 
+main loop should take these objects, feed them into the map manager(s),
+check the appropriate triggers, put one or more functions into the list,
+and trigger at least one function each loop, as appropriate.
+'''
+
 
 if __name__=="__main__":
     running = True
@@ -44,6 +56,7 @@ if __name__=="__main__":
         screen.blit(collision_manager.background_image, (camera_x_offset, camera_y_offset))
         keys = pygame.key.get_pressed()
         player_character.draw(screen, camera_x_offset, camera_y_offset)
+
         if not current_dialogue:
             
             #takes keyboad input, converts it to commands which are stored in the player_character object
@@ -51,18 +64,20 @@ if __name__=="__main__":
             
             #checks to see if the current movement command would be blocked by an obstacle
             can_move_bool=collision_manager.can_move()
-             
+            
             #if not blocked, start movement. If blocked, change facing.
             player_character.move_character(can_move_bool)
             
             #replace the empty current dialogue with a new one if the map trigger manager says the player interacted with the object.
-            current_dialogue=triggers.interact_object_make_dialogue(event_list)
+            temp_dialogue=triggers.interact_object_make_dialogue(event_list)
+            if temp_dialogue:
+                current_dialogue=temp_dialogue
 
             #if player steps on an exit trigger, change the current map and player location, then update the map managers.
             for trigger in current_map.step_exit_triggers:
                 if trigger(player_character).rect.contains(player_character.rect):
                     player_character.pixels_remaining=0
-                    current_map=trigger(player_character).step_on_exit()(screen)
+                    trigger(player_character).step_on_exit()
                     collision_manager=map_managers.CollisionManager(current_map.bg_image,player_character,current_map.obstacles)
                     triggers=map_managers.MapTriggerManager(screen,player_character,current_map)
 

@@ -16,8 +16,8 @@ class MasonCenterTree:
         self.interact_object_dialogue="It's a tree. I'm not sure what you expected."
         self.rect=pygame.Rect(64, 704, 64, 128)
 
-    def interact_object(self,screen):
-        return(ui.Dialogue(screen,self.interact_object_dialogue))
+    def interact_object(self,screen,current_dialogue):
+        current_dialogue.__init__(screen,self.interact_object_dialogue)
 
 class MasonCenterBlackboard:
 
@@ -25,8 +25,8 @@ class MasonCenterBlackboard:
         self.rect=pygame.Rect(448, 0, 64, 64)
         self.interact_object_dialogue="It just says \"butts lol\". :/"
     
-    def interact_object(self,screen):
-        return(ui.Dialogue(screen,self.interact_object_dialogue))
+    def interact_object(self,screen,current_dialogue):
+        current_dialogue.__init__(screen,self.interact_object_dialogue)
 
 """
 ----------------------------------
@@ -39,20 +39,20 @@ class MasonCenterLeftExitTop:
         self.player=player
         self.rect=pygame.Rect(0, 320, 64, 64)
         
-    def step_on_exit(self):
+    def step_on_exit(self,current_map):
         self.player.rect.x=768
         self.player.rect.y=704
-        return MasonLeft
+        current_map.__init__(MasonLeft)
 
 class MasonCenterLeftExitBottom:
     def __init__(self,player):
         self.player=player
         self.rect=pygame.Rect(0, 320+64, 64, 64)
         
-    def step_on_exit(self):
+    def step_on_exit(self,current_map):
         self.player.rect.x=768
         self.player.rect.y=704+64
-        return MasonLeft
+        current_map.__init__(MasonLeft)
 
 
 class MasonCenterBottom:
@@ -60,11 +60,11 @@ class MasonCenterBottom:
         self.player=player
         #self.rect=pygame.Rect(0, 320+64, 64, 64)
         
-    def step_on_exit(self):
+    def step_on_exit(self,current_map):
         #self.player.rect.x=768
         #self.player.rect.y=704+64
         self.player.facing_direction="up"
-        return MasonLeft
+        current_map.__init__(MasonLeft)
 
 
 class ProfMason:

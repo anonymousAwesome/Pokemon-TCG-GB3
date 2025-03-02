@@ -146,19 +146,22 @@ class Dialogue:
 
     def preprocess(self,dialogue_string):
         # Split by spaces, then by newlines, keeping track of the \n characters
-        parts = dialogue_string.split(" ")
-        words = []
-        temp = []
-        for part in parts:
-            if '\n' in part:
-                split_part = part.split('\n')
-                for i, sub_part in enumerate(split_part):
-                    if i > 0: 
-                        words.append("\n")
-                    words.append(sub_part)
-            else:
-                words.append(part)
-        return words
+        if dialogue_string:
+            parts = dialogue_string.split(" ")
+            words = []
+            temp = []
+            for part in parts:
+                if '\n' in part:
+                    split_part = part.split('\n')
+                    for i, sub_part in enumerate(split_part):
+                        if i > 0: 
+                            words.append("\n")
+                        words.append(sub_part)
+                else:
+                    words.append(part)
+            return words
+        else:
+            return ""
 
 
 def bg_box(screen,box_x,box_y,box_width,box_height):

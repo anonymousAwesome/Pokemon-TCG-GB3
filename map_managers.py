@@ -41,9 +41,10 @@ class CollisionManager():
 
 
 class MapTriggerManager():
-    def __init__(self,screen,player,current_map):
+    def __init__(self,screen,player,current_map,current_dialogue):
         self.screen=screen
         self.player=player
+        self.current_dialogue=current_dialogue
 
         self.interact_object=getattr(current_map,"interact_object",False)
 
@@ -72,5 +73,4 @@ class MapTriggerManager():
                     if event.key==key_mappings.affirm_key:
                         for map_object in self.interact_object:
                             if map_object().rect.contains(temp_interact_front_rect):
-                                return map_object().interact_object(self.screen)
-            return None
+                                map_object().interact_object(self.screen,self.current_dialogue)
