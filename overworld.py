@@ -11,13 +11,17 @@ import map_managers
 import mapinfo
 
 
-spritesheet_path = os.path.join("assets","npc sprites","pokemon yellow sprites recolored.png")
-spritesheet = pygame.image.load(spritesheet_path).convert_alpha()
+spritesheet_yellow_path = os.path.join("assets","npc sprites","pokemon yellow sprites recolored.png")
+spritesheet_crystal_path = os.path.join("assets","npc sprites","pokemon crystal sprites recolored.png")
+spritesheet_tcg2_path = os.path.join("assets","npc sprites","pokemon tcg2 sprites.png")
 
-sprites = characters.load_sprites_from_sheet(spritesheet, 6)
+spritesheet_yellow=pygame.image.load(spritesheet_yellow_path).convert_alpha()
+spritesheet_crystal=pygame.image.load(spritesheet_crystal_path).convert_alpha()
+spritesheet_tcg2=pygame.image.load(spritesheet_tcg2_path).convert_alpha()
 
+pc_sprite = characters.load_sprites_from_sheet(spritesheet_yellow, 6)
 
-player_character=characters.Player(448,832, sprites)
+player_character=characters.Player(448,832, pc_sprite)
 
 current_map=mapinfo.MasonCenter(screen)
 
@@ -57,6 +61,7 @@ if __name__=="__main__":
             #if player steps on an exit trigger, change the current map and player location, then update the map managers.
             for trigger in current_map.step_exit_triggers:
                 if trigger(player_character).rect.contains(player_character.rect):
+                    player_character.pixels_remaining=0
                     current_map=trigger(player_character).step_on_exit()(screen)
                     collision_manager=map_managers.CollisionManager(current_map.bg_image,player_character,current_map.obstacles)
                     triggers=map_managers.MapTriggerManager(screen,player_character,current_map)

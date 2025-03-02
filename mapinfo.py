@@ -2,9 +2,13 @@ import pygame
 import os
 import ui
 
-#note to self: convert to class, because executing strings from dicts just isn't flexible enough.
-#specifically, I can't think of a way to get the dict-func to create a new dialogue object and replace the old one.
-#with a class, you can feed state into the object as an argument.
+
+"""
+----------------------------------
+objects
+----------------------------------
+"""
+
 
 class MasonCenterTree:
 
@@ -23,6 +27,12 @@ class MasonCenterBlackboard:
     
     def interact_object(self,screen):
         return(ui.Dialogue(screen,self.interact_object_dialogue))
+
+"""
+----------------------------------
+exits
+----------------------------------
+"""
 
 class MasonCenterLeftExitTop:
     def __init__(self,player):
@@ -44,6 +54,30 @@ class MasonCenterLeftExitBottom:
         self.player.rect.y=704+64
         return MasonLeft
 
+
+class MasonCenterBottom:
+    def __init__(self,player):
+        self.player=player
+        #self.rect=pygame.Rect(0, 320+64, 64, 64)
+        
+    def step_on_exit(self):
+        #self.player.rect.x=768
+        #self.player.rect.y=704+64
+        self.player.facing_direction="up"
+        return MasonLeft
+
+
+class ProfMason:
+    def __init__(self,screen):
+        pass
+
+
+
+"""
+----------------------------------
+map rooms
+----------------------------------
+"""
 
 class MasonCenter:
     def __init__(self,screen):
