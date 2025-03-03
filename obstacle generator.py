@@ -7,8 +7,7 @@ The rects are combined into a row or a column where possible to reduce
 list size, though I admit it wasn't particularly necessary.
 
 screen_scale is the scale factor of the tiles, the window, and the visible
-rectangles. rect_scale only scales the output rects. The two variables 
-should be mutually exclusive; the program applies one or the other, not both.
+rectangles. rect_scale only scales the output rects.
 """
 
 import pygame
@@ -25,7 +24,7 @@ rect_scale = 4
 fps = 60
 selection_color = (255, 0, 0, 128)
 
-TILEMAP_PATH = "./assets/maps/mason left.png"
+TILEMAP_PATH = "./assets/maps/mason center.png"
 tilemap = pygame.image.load(TILEMAP_PATH)
 tilemap = pygame.transform.scale(tilemap, (tilemap.get_width() * screen_scale, tilemap.get_height() * screen_scale))
 
@@ -58,9 +57,21 @@ def generate_merged_rects(selected_tiles):
         for rect in remaining_tiles:
             count = 1  # Start with the initial tile
             test_rect = rect.copy()
-            while any(tile.topleft == test_rect.topright for tile in remaining_tiles):
+
+            while True:
+                found_adjacent_tile = False
+
+                for tile in remaining_tiles:
+                    if tile.topleft == test_rect.topright:
+                        found_adjacent_tile = True
+                        break
+
+                if not found_adjacent_tile:
+                    break
+
                 test_rect.width += visible_tile_size
                 count += 1
+
             if count > best_count:
                 best_count = count
                 best_rect = test_rect
@@ -70,9 +81,21 @@ def generate_merged_rects(selected_tiles):
         for rect in remaining_tiles:
             count = 1  # Start with the initial tile
             test_rect = rect.copy()
-            while any(tile.topleft == test_rect.bottomleft for tile in remaining_tiles):
+
+            while True:
+                found_adjacent_tile = False
+
+                for tile in remaining_tiles:
+                    if tile.topleft == test_rect.bottomleft:
+                        found_adjacent_tile = True
+                        break
+
+                if not found_adjacent_tile:
+                    break
+
                 test_rect.height += visible_tile_size
                 count += 1
+
             if count > best_count:
                 best_count = count
                 best_rect = test_rect
@@ -102,7 +125,6 @@ def generate_code(merged_rects):
     rects_code = "\"obstacles\":[\n"
     for rect in merged_rects:
         rects_code += f"    pygame.Rect({rect.x // screen_scale * rect_scale}, {rect.y // screen_scale * rect_scale}, {rect.width // screen_scale * rect_scale}, {rect.height // screen_scale * rect_scale}),\n"
-        #rects_code += f"    pygame.Rect({rect.x//TILE_SIZE}, {rect.y//TILE_SIZE}, {rect.width//TILE_SIZE}, {rect.height//TILE_SIZE}),\n"
     rects_code += "]"
     return rects_code
 
