@@ -34,37 +34,45 @@ exits
 ----------------------------------
 """
 
-class MasonCenterLeftExit1:
-    def __init__(self,player):
-        self.player=player
-        self.rect=pygame.Rect(0, 320, 64, 64)
-        
-    def step_on_exit(self,map_holder,screen):
-        self.player.rect.x=768
-        self.player.rect.y=704
-        map_holder.__init__(MasonLeft,screen)
 
-class MasonCenterLeftExit2:
-    def __init__(self,player):
-        self.player=player
-        self.rect=pygame.Rect(0, 320+64, 64, 64)
-        
-    def step_on_exit(self,map_holder,screen):
-        self.player.rect.x=768
-        self.player.rect.y=704+64
-        map_holder.__init__(MasonLeft,screen)
+class BaseExitClass:
+    def __init__(self, player):
+        self.player = player
+        print("instantiated\n\n")
+
+    def step_on_exit(self, map_holder, screen):
+        self.player.rect.x = self.new_x
+        self.player.rect.y = self.new_y
+        if hasattr(self, "facing_direction"):
+            self.player.facing_direction = self.facing_direction
+        map_holder.__init__(self.replacement_map, screen)
+
+class MasonCenterLeftExit1(BaseExitClass):
+    def __init__(self, player):
+        super().__init__(player)
+        self.new_x = 768
+        self.new_y = 704
+        self.replacement_map = MasonLeft
+        self.rect = pygame.Rect(0, 320, 64, 64)
+
+class MasonCenterLeftExit2(BaseExitClass):
+    def __init__(self, player):
+        super().__init__(player)
+        self.new_x = 768
+        self.new_y = 704+64
+        self.replacement_map = MasonLeft
+        self.rect = pygame.Rect(0, 320+64, 64, 64)
 
 
-class MasonCenterBottomExit:
+class MasonCenterBottomExit(BaseExitClass):
     def __init__(self,player):
-        self.player=player
+        super().__init__(player)
+        self.new_x = 1*64
+        self.new_y = 7*64
+        self.replacement_map = MasonLeft
         self.rect=pygame.Rect(448, 896, 128, 64)
-        
-    def step_on_exit(self,map_holder,screen):
-        self.player.rect.x=1*64
-        self.player.rect.y=7*64
-        self.player.facing_direction="down"
-        map_holder.__init__(TcgIsland,screen)
+        self.facing_direction="up"
+
 
 
 

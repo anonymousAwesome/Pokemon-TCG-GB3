@@ -52,6 +52,17 @@ class Character(pygame.sprite.Sprite):
     def flip_walking_side(self):
         self.walking_side=not self.walking_side
 
+    def map_exit_change_facing(self):
+        if self.facing_direction=="up":
+            self.image=self.facing_up
+        elif self.facing_direction=="down":
+            self.image=self.facing_down
+        elif self.facing_direction=="left":
+            self.image=self.facing_left
+        elif self.facing_direction=="right":
+            self.image=self.facing_right
+        
+
     def change_facing(self):
         if self.up_command:
             self.facing_direction="up"
