@@ -23,17 +23,29 @@ The program uses the Pygame module for gameplay and pygbag to export the game to
 Cards: 5/~1000 done  
 Duelling system: 5% done  
 Duelling layout: 50% done  
-NPC sprites and portraits: 7% done (each sprite and each portrait is roughly 1%)  
+NPC sprites and portraits: 24% done (each sprite and each portrait is roughly 1%)  
 NPC/player interactions: 0% done  
-New location designs: 6/16 done (8 clubs, hidden basement (2 rooms), FF headquarters (2.5 rooms), Neo Continent Grand Master Stadium, Neo Continent overworld, 0.5 airport, and 1 Imakuni desert)  
+New location designs:  
+
+Airport: done  
+4.5/8 clubs done  
+Trading post: done  
+Neo Stadium: done  
+Neo Continent: done  
+Imakuni?: done  
+Forbidden Faction lounge: done  
+Forbidden Faction castle: 0/2 done  
+ 
 Menu, GUI, and displaying text: 10% done  
 NPC duel AI: 0% done  
 NPC decks: 0% done  
-NPC dialogue: 75% done  
+NPC dialogue: 99% done  
 Music and sounds: 10% done  
 Save/load: 0% done  
-Cutscene system: 0% done
+Cutscene system: 20% done
 
-Game status: very early development build
+Overall game status:
+Overworld: 75%
+Duelling: 15%
 
 This repo also contains the `obstacle generator.py` Python script, a tool to generate rects for tile collision directly on the loaded image. More information about that can be found at the beginning of that file.
