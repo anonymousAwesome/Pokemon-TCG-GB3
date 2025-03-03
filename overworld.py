@@ -77,9 +77,9 @@ if __name__=="__main__":
             for trigger in current_map.step_exit_triggers:
                 if trigger(player_character).rect.contains(player_character.rect):
                     player_character.pixels_remaining=0
-                    trigger(player_character).step_on_exit()
+                    trigger(player_character).step_on_exit(current_map)
                     collision_manager=map_managers.CollisionManager(current_map.bg_image,player_character,current_map.obstacles)
-                    triggers=map_managers.MapTriggerManager(screen,player_character,current_map)
+                    triggers=map_managers.MapTriggerManager(screen,player_character,current_map,current_dialogue)
 
         elif current_dialogue:
             current_dialogue.render(event_list)
