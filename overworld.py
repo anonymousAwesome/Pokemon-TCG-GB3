@@ -31,25 +31,20 @@ current_dialogue=ui.Dialogue(screen,"")
 
 collision_manager=map_managers.CollisionManager(map_holder.current_map.bg_image, player_character, map_holder.current_map.obstacles)
 
-triggers=map_managers.MapTriggerManager(screen, player_character, map_holder.current_map, current_dialogue)
-
-triggered_functions=[print]
-
-
-'''
-main objects: player character, current dialogue, and current map. 
-main loop should take these objects, feed them into the map manager(s),
-check the appropriate triggers, put one or more functions into the list,
-and trigger at least one function each loop, as appropriate.
-'''
-
 def generate_temp_trigger_list(map_holder,player_character):
+    '''called when the player moves into a new map, so I'm not 
+    instantiating the trigger class 60 times a second.'''
     temp_list=[]
     for trigger in map_holder.current_map.step_exit_triggers:
         temp_list.append(trigger(player_character))
     return temp_list
 
 temp_trigger_list=generate_temp_trigger_list(map_holder,player_character)
+
+triggers=map_managers.MapTriggerManager(screen, player_character, map_holder.current_map, current_dialogue)
+
+triggered_functions=[print]
+
 
 if __name__=="__main__":
     running = True
