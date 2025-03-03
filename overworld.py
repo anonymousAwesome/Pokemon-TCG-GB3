@@ -43,6 +43,13 @@ check the appropriate triggers, put one or more functions into the list,
 and trigger at least one function each loop, as appropriate.
 '''
 
+def generate_temp_trigger_list(map_holder,player_character):
+    temp_list=[]
+    for trigger in map_holder.current_map.step_exit_triggers:
+        temp_list.append(trigger(player_character))
+    return temp_list
+
+temp_trigger_list=generate_temp_trigger_list(map_holder,player_character)
 
 if __name__=="__main__":
     running = True
@@ -74,13 +81,14 @@ if __name__=="__main__":
                 current_dialogue=temp_dialogue
 
             #if player steps on an exit trigger, change the current map and player location, then update the map managers.
-            for trigger in map_holder.current_map.step_exit_triggers:
-                if trigger(player_character).rect.contains(player_character.rect):
+            for trigger in temp_trigger_list:
+                if trigger.rect.contains(player_character.rect):
                     player_character.pixels_remaining=0
-                    trigger(player_character).step_on_exit(map_holder,screen)
+                    trigger.step_on_exit(map_holder,screen)
                     player_character.map_exit_change_facing()
                     collision_manager.__init__(map_holder.current_map.bg_image,player_character,map_holder.current_map.obstacles)
                     triggers.__init__(screen,player_character,map_holder.current_map,current_dialogue)
+                    temp_trigger_list=generate_temp_trigger_list(map_holder,player_character)
 
         elif current_dialogue:
             current_dialogue.render(event_list)

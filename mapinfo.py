@@ -38,7 +38,6 @@ exits
 class BaseExitClass:
     def __init__(self, player):
         self.player = player
-        print("instantiated\n\n")
 
     def step_on_exit(self, map_holder, screen):
         self.player.rect.x = self.new_x
