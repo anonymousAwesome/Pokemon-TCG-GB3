@@ -1,0 +1,7 @@
+crop down as much as reasonably possible
+gmic -> contours -> morphological erosion
+dockers -> palette
+create a new palette based on the colors, limit it to 7 colors or less
+save palette
+add filter layer, map -> palettize
+add a new layer for touch-ups, move it above the top layer.
