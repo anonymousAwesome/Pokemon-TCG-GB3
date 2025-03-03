@@ -4,6 +4,10 @@ import characters
 import ui
 import key_mappings
 
+class CurrentMapContainer():
+    def __init__(self,current_map_class,screen):
+        self.current_map=current_map_class(screen)
+
 
 class CollisionManager():
     def __init__(self,background_image,player,obstacles=None):

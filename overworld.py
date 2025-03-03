@@ -21,17 +21,17 @@ spritesheet_yellow=pygame.image.load(spritesheet_yellow_path).convert_alpha()
 spritesheet_crystal=pygame.image.load(spritesheet_crystal_path).convert_alpha()
 spritesheet_tcg2=pygame.image.load(spritesheet_tcg2_path).convert_alpha()
 
-pc_sprite = characters.load_sprites_from_sheet(spritesheet_yellow, 6)
+pc_sprite = characters.load_sprites_from_sheet(spritesheet_tcg2,0)
 
 player_character=characters.Player(448,832, pc_sprite)
 
-current_map=mapinfo.MasonCenter(screen)
+map_holder=map_managers.CurrentMapContainer(mapinfo.MasonCenter,screen)
 
 current_dialogue=ui.Dialogue(screen,"")
 
-collision_manager=map_managers.CollisionManager(current_map.bg_image,player_character,current_map.obstacles)
+collision_manager=map_managers.CollisionManager(map_holder.current_map.bg_image, player_character, map_holder.current_map.obstacles)
 
-triggers=map_managers.MapTriggerManager(screen,player_character,current_map,current_dialogue)
+triggers=map_managers.MapTriggerManager(screen, player_character, map_holder.current_map, current_dialogue)
 
 triggered_functions=[print]
 
@@ -74,12 +74,12 @@ if __name__=="__main__":
                 current_dialogue=temp_dialogue
 
             #if player steps on an exit trigger, change the current map and player location, then update the map managers.
-            for trigger in current_map.step_exit_triggers:
+            for trigger in map_holder.current_map.step_exit_triggers:
                 if trigger(player_character).rect.contains(player_character.rect):
                     player_character.pixels_remaining=0
-                    trigger(player_character).step_on_exit(current_map)
-                    collision_manager=map_managers.CollisionManager(current_map.bg_image,player_character,current_map.obstacles)
-                    triggers=map_managers.MapTriggerManager(screen,player_character,current_map,current_dialogue)
+                    trigger(player_character).step_on_exit(map_holder,screen)
+                    collision_manager.__init__(map_holder.current_map.bg_image,player_character,map_holder.current_map.obstacles)
+                    triggers.__init__(screen,player_character,map_holder.current_map,current_dialogue)
 
         elif current_dialogue:
             current_dialogue.render(event_list)

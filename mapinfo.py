@@ -23,7 +23,7 @@ class MasonCenterBlackboard:
 
     def __init__(self):
         self.rect=pygame.Rect(448, 0, 64, 64)
-        self.interact_object_dialogue="It just says \"butts lol\". :/"
+        self.interact_object_dialogue="It's a chalkboard.\nIt just says \"butts lol\". :/"
     
     def interact_object(self,screen,current_dialogue):
         current_dialogue.__init__(screen,self.interact_object_dialogue)
@@ -34,38 +34,70 @@ exits
 ----------------------------------
 """
 
-class MasonCenterLeftExitTop:
+class MasonCenterLeftExit1:
     def __init__(self,player):
         self.player=player
         self.rect=pygame.Rect(0, 320, 64, 64)
         
-    def step_on_exit(self,current_map):
+    def step_on_exit(self,map_holder,screen):
         self.player.rect.x=768
         self.player.rect.y=704
-        current_map.__init__(MasonLeft)
+        map_holder.__init__(MasonLeft,screen)
 
-class MasonCenterLeftExitBottom:
+class MasonCenterLeftExit2:
     def __init__(self,player):
         self.player=player
         self.rect=pygame.Rect(0, 320+64, 64, 64)
         
-    def step_on_exit(self,current_map):
+    def step_on_exit(self,map_holder,screen):
         self.player.rect.x=768
         self.player.rect.y=704+64
-        current_map.__init__(MasonLeft)
+        map_holder.__init__(MasonLeft,screen)
 
 
-class MasonCenterBottom:
+class MasonCenterBottomExit:
     def __init__(self,player):
         self.player=player
-        #self.rect=pygame.Rect(0, 320+64, 64, 64)
+        self.rect=pygame.Rect(448, 896, 128, 64)
         
-    def step_on_exit(self,current_map):
-        #self.player.rect.x=768
-        #self.player.rect.y=704+64
-        self.player.facing_direction="up"
-        current_map.__init__(MasonLeft)
+    def step_on_exit(self,map_holder,screen):
+        self.player.rect.x=1*64
+        self.player.rect.y=7*64
+        self.player.facing_direction="down"
+        map_holder.__init__(TcgIsland,screen)
 
+
+
+class MasonLeftExit1:
+    def __init__(self,player):
+        self.player=player
+        self.rect=pygame.Rect(832, 704, 64, 64)
+        
+    def step_on_exit(self,map_holder,screen):
+        self.player.rect.x=64
+        self.player.rect.y=320
+        self.player.facing_direction="down"
+        map_holder.__init__(MasonCenter,screen)
+
+
+class MasonLeftExit2:
+    def __init__(self,player):
+        self.player=player
+        self.rect=pygame.Rect(832, 704+64, 64, 64)
+        
+    def step_on_exit(self,map_holder,screen):
+        self.player.rect.x=64
+        self.player.rect.y=320+64
+        self.player.facing_direction="down"
+        map_holder.__init__(MasonCenter,screen)
+
+
+
+"""
+----------------------------------
+NPCs
+----------------------------------
+"""
 
 class ProfMason:
     def __init__(self,screen):
@@ -109,13 +141,14 @@ class MasonCenter:
             ]
         
         self.step_exit_triggers=[
-            MasonCenterLeftExitTop,
-            MasonCenterLeftExitBottom
+            MasonCenterLeftExit1,
+            MasonCenterLeftExit2,
+            MasonCenterBottomExit
             ]
 
 '''
         self.step_exit_triggers=[
-            (pygame.Rect(448, 896, 128, 64), {"mapname":"tcg_island","x":1*64,"y":7*64,"direction":"down"}),
+            
             (pygame.Rect(0, 320+64, 64, 64),{"mapname":"mason_left","x":768,"y":704+64}), 
             (pygame.Rect(832, 320, 64, 64),{"mapname":"mason_right","x":64,"y":320}),
             (pygame.Rect(832, 320+64, 64, 64),{"mapname":"mason_right","x":64,"y":320+64}),
@@ -142,6 +175,8 @@ class MasonLeft:
             ]
 
         self.step_exit_triggers=[
+            MasonLeftExit1,
+            MasonLeftExit2
             ]
 '''
     "step exit triggers":[
