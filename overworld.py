@@ -2,6 +2,7 @@ import pygame
 import characters
 import os
 import functools
+import overworld_event_managers as oem
 
 if __name__=="__main__":
     pygame.init()
@@ -43,13 +44,8 @@ temp_trigger_list=generate_temp_trigger_list(map_holder,player_character)
 
 triggers=map_managers.MapTriggerManager(screen, player_character, map_holder.current_map, current_dialogue)
 
-class TriggeredFunctionList:
-    def __init__(self,function_list):
-        self.function_list=function_list
-    
 
-triggered_functions=[TriggeredFunctionList([])]
-
+overworld_triggered_event_queue = oem.OverworldEvents()
 
 
 if __name__=="__main__":
