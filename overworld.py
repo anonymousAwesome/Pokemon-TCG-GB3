@@ -107,8 +107,6 @@ if __name__=="__main__":
                     temp_exit_list.generate_temp_exit_list(map_holder,player_character)
 
         elif map_input_lock:
-            current_dialogue.render(event_list)
-            if not current_dialogue:
-                map_input_lock.unlock()
+            current_dialogue.render(event_list,map_input_lock)
         pygame.display.flip()
         clock.tick(60)

@@ -65,7 +65,7 @@ class Dialogue:
     def __bool__(self):
         return len(self.remaining_text)>0
 
-    def render(self,event_list):
+    def render(self,event_list,map_input_lock):
         '''Yes, this function is probably doing too much. Not worth the
         effort to refactor it, though.'''
         white = (255, 255, 255)
@@ -143,6 +143,9 @@ class Dialogue:
             if event.type==pygame.KEYDOWN:
                 if event.key==key_mappings.affirm_key or event.key==key_mappings.cancel_key:
                     self.remaining_text=words
+
+        if not self.remaining_text:
+            map_input_lock.unlock()
 
     def preprocess(self,dialogue_string):
         # Split by spaces, then by newlines, keeping track of the \n characters
