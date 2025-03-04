@@ -53,15 +53,11 @@ class MapTriggerManager():
         self.interact_object=getattr(current_map,"interact_object",False)
 
         self.step_exit_triggers=getattr(current_map,"step_exit_triggers",False)
-
-
-    def interact_object(self):
-        pass
-        
-    def interact_self(self):
+       
+    def manager_interact_self(self):
         pass
     
-    def interact_object_make_dialogue(self,event_list,map_input_lock):
+    def manager_interact_object(self,event_list,map_input_lock,passed_definition,definition_type):
         if self.interact_object:
             temp_interact_front_rect=self.player.rect.copy()
             if self.player.facing_direction=="down":
@@ -76,5 +72,6 @@ class MapTriggerManager():
                 if event.type==pygame.KEYDOWN:
                     if event.key==key_mappings.affirm_key:
                         for map_object in self.interact_object:
-                            if map_object().rect.contains(temp_interact_front_rect):
-                                map_object().interact_object(self.screen,self.current_dialogue,map_input_lock)
+                            temp_map_object=map_object(self.screen,passed_definition,definition_type)
+                            if temp_map_object.rect.contains(temp_interact_front_rect):
+                                temp_map_object.interact_object(map_input_lock)

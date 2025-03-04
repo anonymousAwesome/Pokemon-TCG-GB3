@@ -10,25 +10,36 @@ objects
 """
 
 
-class MasonCenterTree:
+class BaseMapObjectClass:
+    def interact_object(self,map_input_lock):
+        if self.definition_type=="class":
+            self.passed_definition.__init__(self.screen,*self.args)
+        elif self.definition_type=="function":
+            self.passed_definition(self.screen,*self.args)
+        else:
+            raise Exception("Definition type needs to be 'class' or 'function'.")
+        map_input_lock.lock()
+        
 
-    def __init__(self):
-        self.interact_object_dialogue="It's a tree.\nI'm not sure what you expected."
+class MasonCenterTree(BaseMapObjectClass):
+
+    def __init__(self,screen,passed_definition,definition_type):
+        self.passed_definition=passed_definition
+        self.args=["It's a tree.\nI'm not sure what you expected."]
         self.rect=pygame.Rect(64, 704, 64, 128)
+        self.screen=screen
+        self.definition_type=definition_type
 
-    def interact_object(self,screen,current_dialogue,map_input_lock):
-        current_dialogue.__init__(screen,self.interact_object_dialogue)
-        map_input_lock.lock()
 
-class MasonCenterBlackboard:
+class MasonCenterBlackboard(BaseMapObjectClass):
 
-    def __init__(self):
+    def __init__(self,screen,passed_definition,definition_type):
+        self.passed_definition=passed_definition
+        self.args=["It's a chalkboard.\nIt just says \"butts lol\". :/"]
         self.rect=pygame.Rect(448, 0, 64, 64)
-        self.interact_object_dialogue="It's a chalkboard.\nIt just says \"butts lol\". :/"
+        self.screen=screen
+        self.definition_type=definition_type
     
-    def interact_object(self,screen,current_dialogue,map_input_lock):
-        current_dialogue.__init__(screen,self.interact_object_dialogue)
-        map_input_lock.lock()
 
 """
 ----------------------------------
