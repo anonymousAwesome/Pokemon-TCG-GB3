@@ -43,35 +43,23 @@ class CollisionManager():
 
         return True
 
-
-class MapTriggerManager():
-    def __init__(self,screen,player,current_map,current_dialogue):
-        self.screen=screen
-        self.player=player
-        self.current_dialogue=current_dialogue
-
-        self.interact_object=getattr(current_map,"interact_object",False)
-
-        self.step_exit_triggers=getattr(current_map,"step_exit_triggers",False)
-       
-    def manager_interact_self(self):
-        pass
-    
-    def manager_interact_object(self,event_list,map_input_lock,passed_definition,definition_type):
-        if self.interact_object:
-            temp_interact_front_rect=self.player.rect.copy()
-            if self.player.facing_direction=="down":
-                temp_interact_front_rect.y+=characters.TILE_SIZE
-            if self.player.facing_direction=="up":
-                temp_interact_front_rect.y-=characters.TILE_SIZE
-            if self.player.facing_direction=="left":
-                temp_interact_front_rect.x-=characters.TILE_SIZE
-            if self.player.facing_direction=="right":
-                temp_interact_front_rect.x+=characters.TILE_SIZE
-            for event in event_list:
-                if event.type==pygame.KEYDOWN:
-                    if event.key==key_mappings.affirm_key:
-                        for map_object in self.interact_object:
-                            temp_map_object=map_object(self.screen,passed_definition,definition_type)
-                            if temp_map_object.rect.contains(temp_interact_front_rect):
-                                temp_map_object.interact_object(map_input_lock)
+def process_step_on_trigger(map_holder,player_character,event_list,screen,passed_definition,definition_type,map_input_lock):
+    interact_object=getattr(map_holder.current_map,"interact_object",False)
+    step_exit_triggers=getattr(map_holder.current_map,"step_exit_triggers",False)
+    if interact_object:
+        temp_interact_front_rect=player_character.rect.copy()
+        if player_character.facing_direction=="down":
+            temp_interact_front_rect.y+=characters.TILE_SIZE
+        if player_character.facing_direction=="up":
+            temp_interact_front_rect.y-=characters.TILE_SIZE
+        if player_character.facing_direction=="left":
+            temp_interact_front_rect.x-=characters.TILE_SIZE
+        if player_character.facing_direction=="right":
+            temp_interact_front_rect.x+=characters.TILE_SIZE
+        for event in event_list:
+            if event.type==pygame.KEYDOWN:
+                if event.key==key_mappings.affirm_key:
+                    for map_object in interact_object:
+                        temp_map_object=map_object(screen,passed_definition)
+                        if temp_map_object.rect.contains(temp_interact_front_rect):
+                            temp_map_object.interact_object(map_input_lock)

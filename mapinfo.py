@@ -11,9 +11,12 @@ objects
 
 
 class BaseMapObjectClass:
+    def __init__(self,screen):
+        self.screen=screen
+
     def interact_object(self,map_input_lock):
-        if self.definition_type=="class":
-            self.passed_definition.__init__(self.screen,*self.args)
+        if self.definition_type=="class object":
+            self.passed.__init__(self.screen,*self.args)
         elif self.definition_type=="function":
             self.passed_definition(self.screen,*self.args)
         else:
@@ -23,22 +26,22 @@ class BaseMapObjectClass:
 
 class MasonCenterTree(BaseMapObjectClass):
 
-    def __init__(self,screen,passed_definition,definition_type):
-        self.passed_definition=passed_definition
+    def __init__(self,screen,passed):
+        super().__init__(screen)
+        self.passed=passed
         self.args=["It's a tree.\nI'm not sure what you expected."]
         self.rect=pygame.Rect(64, 704, 64, 128)
-        self.screen=screen
-        self.definition_type=definition_type
+        self.definition_type="class object"
 
 
 class MasonCenterBlackboard(BaseMapObjectClass):
 
-    def __init__(self,screen,passed_definition,definition_type):
-        self.passed_definition=passed_definition
+    def __init__(self,screen,passed):
+        super().__init__(screen)
+        self.passed=passed
         self.args=["It's a chalkboard.\nIt just says \"butts lol\". :/"]
         self.rect=pygame.Rect(448, 0, 64, 64)
-        self.screen=screen
-        self.definition_type=definition_type
+        self.definition_type="class object"
     
 
 """

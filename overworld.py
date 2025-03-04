@@ -49,9 +49,6 @@ temp_exit_list=TempExitList()
 
 temp_exit_list.generate_temp_exit_list(map_holder,player_character)
 
-triggers=map_managers.MapTriggerManager(screen, player_character, map_holder.current_map, current_dialogue)
-
-
 overworld_triggered_event_queue = oem.OverworldEvents()
 
 
@@ -98,7 +95,7 @@ if __name__=="__main__":
             player_character.move_character(can_move_bool)
             
             #replace the empty current dialogue with a new one if the map trigger manager says the player interacted with the object.
-            triggers.manager_interact_object(event_list,map_input_lock,current_dialogue,"class")
+            map_managers.process_step_on_trigger(map_holder,player_character,event_list,screen,current_dialogue,"class object",map_input_lock)
 
             #if player steps on an exit trigger, change the current map 
             #and player location, re-init the map managers, and re-generate the temp exit list.
@@ -107,7 +104,6 @@ if __name__=="__main__":
                     player_character.pixels_remaining=0
                     trigger.step_on_exit(map_holder,screen)
                     collision_manager.__init__(map_holder.current_map.bg_image,player_character,map_holder.current_map.obstacles)
-                    triggers.__init__(screen,player_character,map_holder.current_map,current_dialogue)
                     temp_exit_list.generate_temp_exit_list(map_holder,player_character)
 
         elif map_input_lock:
