@@ -49,7 +49,7 @@ temp_exit_list=TempExitList()
 
 temp_exit_list.generate_temp_exit_list(map_holder,player_character)
 
-overworld_triggered_event_queue = oem.OverworldEvents()
+overworld_event_manager = oem.OverworldEventManager()
 
 
 class MovementLock():
