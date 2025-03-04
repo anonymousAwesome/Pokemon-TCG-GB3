@@ -44,8 +44,8 @@ Music and sounds: 10% done
 Save/load: 0% done  
 Cutscene system: 20% done
 
-Overall game status:
-Overworld: 75%
-Duelling: 15%
+Overall game status:  
+Overworld: 75%  
+Duelling: 15%  
 
 This repo also contains the `obstacle generator.py` Python script, a tool to generate rects for tile collision directly on the loaded image. More information about that can be found at the beginning of that file.
