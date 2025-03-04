@@ -43,7 +43,13 @@ temp_trigger_list=generate_temp_trigger_list(map_holder,player_character)
 
 triggers=map_managers.MapTriggerManager(screen, player_character, map_holder.current_map, current_dialogue)
 
-triggered_functions=[print]
+class TriggeredFunctionList:
+    def __init__(self,function_list):
+        self.function_list=function_list
+    
+
+triggered_functions=[TriggeredFunctionList([])]
+
 
 
 if __name__=="__main__":
