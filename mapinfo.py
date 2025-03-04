@@ -13,7 +13,7 @@ objects
 class MasonCenterTree:
 
     def __init__(self):
-        self.interact_object_dialogue="It's a tree. I'm not sure what you expected."
+        self.interact_object_dialogue="It's a tree.\nI'm not sure what you expected."
         self.rect=pygame.Rect(64, 704, 64, 128)
 
     def interact_object(self,screen,current_dialogue):
@@ -44,6 +44,7 @@ class BaseExitClass:
         self.player.rect.y = self.new_y
         if hasattr(self, "facing_direction"):
             self.player.facing_direction = self.facing_direction
+            self.player.map_exit_change_facing()
         map_holder.__init__(self.replacement_map, screen)
 
 class MasonCenterLeftExit1(BaseExitClass):

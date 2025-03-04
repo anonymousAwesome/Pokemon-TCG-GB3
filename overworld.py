@@ -80,7 +80,6 @@ if __name__=="__main__":
                 if trigger.rect.contains(player_character.rect):
                     player_character.pixels_remaining=0
                     trigger.step_on_exit(map_holder,screen)
-                    player_character.map_exit_change_facing()
                     collision_manager.__init__(map_holder.current_map.bg_image,player_character,map_holder.current_map.obstacles)
                     triggers.__init__(screen,player_character,map_holder.current_map,current_dialogue)
                     temp_trigger_list=generate_temp_trigger_list(map_holder,player_character)
