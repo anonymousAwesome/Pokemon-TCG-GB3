@@ -13,12 +13,14 @@ objects
 class BaseMapObjectClass:
     def __init__(self,screen):
         self.screen=screen
+        self.args=[]
+        self.kwargs={}
 
     def interact_object(self,map_input_lock):
         if self.definition_type=="class object":
-            self.passed.__init__(self.screen,*self.args)
+            self.passed.__init__(self.screen,*self.args,**self.kwargs)
         elif self.definition_type=="function":
-            self.passed_definition(self.screen,*self.args)
+            self.passed_definition(self.screen,*self.args,**self.kwargs)
         else:
             raise Exception("Definition type needs to be 'class' or 'function'.")
         map_input_lock.lock()
