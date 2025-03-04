@@ -71,7 +71,7 @@ class MovementLock():
     def unlock(self):
         self.locked=False
 
-movement_lock=MovementLock()
+map_input_lock=MovementLock()
 
 if __name__=="__main__":
     running = True
@@ -86,7 +86,7 @@ if __name__=="__main__":
         keys = pygame.key.get_pressed()
         player_character.draw(screen, camera_x_offset, camera_y_offset)
 
-        if not movement_lock:
+        if not map_input_lock:
             
             #takes keyboad input, converts it to commands which are stored in the player_character object
             player_character.process_input(keys) 
@@ -98,9 +98,10 @@ if __name__=="__main__":
             player_character.move_character(can_move_bool)
             
             #replace the empty current dialogue with a new one if the map trigger manager says the player interacted with the object.
-            triggers.interact_object_make_dialogue(event_list,movement_lock)
+            triggers.interact_object_make_dialogue(event_list,map_input_lock)
 
-            #if player steps on an exit trigger, change the current map and player location, then update the map managers.
+            #if player steps on an exit trigger, change the current map 
+            #and player location, re-init the map managers, and re-generate the temp exit list.
             for trigger in temp_exit_list.temp_list:
                 if trigger.rect.contains(player_character.rect):
                     player_character.pixels_remaining=0
@@ -109,9 +110,9 @@ if __name__=="__main__":
                     triggers.__init__(screen,player_character,map_holder.current_map,current_dialogue)
                     temp_exit_list.generate_temp_exit_list(map_holder,player_character)
 
-        elif movement_lock:
+        elif map_input_lock:
             current_dialogue.render(event_list)
             if not current_dialogue:
-                movement_lock.unlock()
+                map_input_lock.unlock()
         pygame.display.flip()
         clock.tick(60)

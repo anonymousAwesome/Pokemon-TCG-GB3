@@ -16,9 +16,9 @@ class MasonCenterTree:
         self.interact_object_dialogue="It's a tree.\nI'm not sure what you expected."
         self.rect=pygame.Rect(64, 704, 64, 128)
 
-    def interact_object(self,screen,current_dialogue,movement_lock):
+    def interact_object(self,screen,current_dialogue,map_input_lock):
         current_dialogue.__init__(screen,self.interact_object_dialogue)
-        movement_lock.lock()
+        map_input_lock.lock()
 
 class MasonCenterBlackboard:
 
@@ -26,9 +26,9 @@ class MasonCenterBlackboard:
         self.rect=pygame.Rect(448, 0, 64, 64)
         self.interact_object_dialogue="It's a chalkboard.\nIt just says \"butts lol\". :/"
     
-    def interact_object(self,screen,current_dialogue,movement_lock):
+    def interact_object(self,screen,current_dialogue,map_input_lock):
         current_dialogue.__init__(screen,self.interact_object_dialogue)
-        movement_lock.lock()
+        map_input_lock.lock()
 
 """
 ----------------------------------

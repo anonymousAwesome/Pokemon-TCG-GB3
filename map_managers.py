@@ -61,7 +61,7 @@ class MapTriggerManager():
     def interact_self(self):
         pass
     
-    def interact_object_make_dialogue(self,event_list,movement_lock):
+    def interact_object_make_dialogue(self,event_list,map_input_lock):
         if self.interact_object:
             temp_interact_front_rect=self.player.rect.copy()
             if self.player.facing_direction=="down":
@@ -77,4 +77,4 @@ class MapTriggerManager():
                     if event.key==key_mappings.affirm_key:
                         for map_object in self.interact_object:
                             if map_object().rect.contains(temp_interact_front_rect):
-                                map_object().interact_object(self.screen,self.current_dialogue,movement_lock)
+                                map_object().interact_object(self.screen,self.current_dialogue,map_input_lock)
