@@ -43,7 +43,7 @@ class CollisionManager():
 
         return True
 
-def process_step_on_trigger(map_holder,player_character,event_list,screen,passed_definition,definition_type,map_input_lock):
+def check_interact_with_object(map_holder,player_character,event_list,screen,passed_definition,definition_type,map_input_lock):
     interact_object=getattr(map_holder.current_map,"interact_object",False)
     step_exit_triggers=getattr(map_holder.current_map,"step_exit_triggers",False)
     if interact_object:

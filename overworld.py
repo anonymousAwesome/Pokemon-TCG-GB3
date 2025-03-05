@@ -95,7 +95,7 @@ if __name__=="__main__":
             player_character.move_character(can_move_bool)
             
             #replace the empty current dialogue with a new one if the map trigger manager says the player interacted with the object.
-            map_managers.process_step_on_trigger(map_holder,player_character,event_list,screen,current_dialogue,"class object",map_input_lock)
+            map_managers.check_interact_with_object(map_holder,player_character,event_list,screen,current_dialogue,"class object",map_input_lock)
 
             #if player steps on an exit trigger, change the current map 
             #and player location, re-init the map managers, and re-generate the temp exit list.
