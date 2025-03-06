@@ -181,6 +181,19 @@ class MasonCenter:
             ]
 '''
 
+
+class TestMap:
+    def __init__(self,screen):
+        self.screen=screen
+        self.bg_image=pygame.image.load(os.path.join("assets", "maps", "trading post.png"))
+        self.bg_image=pygame.transform.scale(self.bg_image, (self.bg_image.get_width() * 4, self.bg_image.get_height() * 4))
+
+        self.obstacles=[
+        ]
+
+        self.step_exit_triggers=[]
+
+
 class MasonLeft:
     def __init__(self,screen):
         self.screen=screen
