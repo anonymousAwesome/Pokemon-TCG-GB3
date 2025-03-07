@@ -45,7 +45,6 @@ class CollisionManager():
 
 def check_interact_with_object(map_holder,player_character,event_list,screen,passed_definition,definition_type,map_input_lock):
     interact_object=getattr(map_holder.current_map,"interact_object",False)
-    step_exit_triggers=getattr(map_holder.current_map,"step_exit_triggers",False)
     if interact_object:
         temp_interact_front_rect=player_character.rect.copy()
         if player_character.facing_direction=="down":

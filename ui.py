@@ -72,6 +72,25 @@ class Dialogue:
         self.remaining_text=self.preprocess(dialogue_text)
         self.creation_time = time.time()
 
+    def preprocess(self,dialogue_string):
+        # Split by spaces, then by newlines, keeping track of the \n characters
+        if dialogue_string:
+            parts = dialogue_string.split(" ")
+            words = []
+            temp = []
+            for part in parts:
+                if '\n' in part:
+                    split_part = part.split('\n')
+                    for i, sub_part in enumerate(split_part):
+                        if i > 0: 
+                            words.append("\n")
+                        words.append(sub_part)
+                else:
+                    words.append(part)
+            return words
+        else:
+            return ""
+
     def elapsed_time(self):
         return time.time() - self.creation_time
 
@@ -103,7 +122,10 @@ class Dialogue:
             self.screen.blit(text_surface, (text_x, text_y))
 
     def process_current_window(self):
-        #process and render dialogue
+        '''checks to see how much will fit in the current window, adds
+        that to... self.lines? I guess? while taking the word off of 
+        self.words. self.words isn't used, unless the player presses 
+        a button and render() sets self.remaining text equal to self.words'''
         self.words = self.remaining_text[:]
         self.lines = []
         current_line = ""
@@ -151,25 +173,6 @@ class Dialogue:
 
         if not self.remaining_text:
             map_input_lock.unlock()
-
-    def preprocess(self,dialogue_string):
-        # Split by spaces, then by newlines, keeping track of the \n characters
-        if dialogue_string:
-            parts = dialogue_string.split(" ")
-            words = []
-            temp = []
-            for part in parts:
-                if '\n' in part:
-                    split_part = part.split('\n')
-                    for i, sub_part in enumerate(split_part):
-                        if i > 0: 
-                            words.append("\n")
-                        words.append(sub_part)
-                else:
-                    words.append(part)
-            return words
-        else:
-            return ""
 
 
 def bg_box(screen,box_x,box_y,box_width,box_height):

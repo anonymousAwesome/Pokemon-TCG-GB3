@@ -36,7 +36,7 @@ class MasonCenterTree(BaseMapObjectClass):
         self.rect=pygame.Rect(64, 704, 64, 128)
         self.definition_type="class object"
 
-
+'''
 class MasonCenterBlackboard(BaseMapObjectClass):
 
     def __init__(self,screen,passed):
@@ -45,7 +45,7 @@ class MasonCenterBlackboard(BaseMapObjectClass):
         self.args=["It's a chalkboard.\nIt just says \"butts lol\". :/"]
         self.rect=pygame.Rect(448, 0, 64, 64)
         self.definition_type="class object"
-    
+   ''' 
 
 """
 ----------------------------------
@@ -161,11 +161,17 @@ class MasonCenter:
             pygame.Rect(192, 512, 128, 64),
             pygame.Rect(64, 704, 64, 128),
         ]
+       
         
         self.interact_object=[
             MasonCenterTree,
-            MasonCenterBlackboard
             ]
+      
+        '''
+        self.interact_object=[
+            MasonCenterTree,
+            MasonCenterBlackboard
+            ]'''
         
         self.step_exit_triggers=[
             MasonCenterLeftExit1,
