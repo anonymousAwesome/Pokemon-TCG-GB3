@@ -32,6 +32,7 @@ class MasonCenterTree(BaseMapObjectClass):
         super().__init__(screen)
         self.passed=passed
         self.args=["It's a tree.\nI'm not sure what you expected."]
+        self.args=["Aaaaaaaaaaaaaaaaaa bbbbbbbbbbbbbbbb ccccccccccccccccccc dddddddddddddddd eeeeeeeeeeeeeeee ffffffffffffffff ggggggggggggggggggg hhhhhhhhhhhhhhhh iiiiiiiiiiiiii jjjjjjjjjjjjjjj kkkkkkkkkkkkkkkk lllllllllllllllllll mmmmmmmmmmmmmmmmmmmm nnnnnnnnnnnnnnnn ooooooooooooooooooo ppppppppppppppppppppp qqqqqqqqqqqqqqqqq"]
         self.rect=pygame.Rect(64, 704, 64, 128)
         self.definition_type="class object"
 

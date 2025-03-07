@@ -7,6 +7,20 @@ font = pygame.font.Font("./assets/pokemon-emerald.otf", font_height)
 club_font = pygame.font.Font("./assets/pokemon-emerald.otf", 60)
 
 
+white = (255, 255, 255)
+blue = (0, 0, 255)
+black=(0,0,0)
+
+vert_margin=6
+hor_margin=16
+
+box_width = 600
+box_height = 150
+box_x = (640 - box_width) // 2
+box_y = 576 - box_height - 20
+
+
+
 class Menu:
     def __init__(self,options,maxwidth=600):
         self.hor_pos=0
@@ -58,7 +72,6 @@ class Dialogue:
         self.remaining_text=self.preprocess(dialogue_text)
         self.creation_time = time.time()
 
-
     def elapsed_time(self):
         return time.time() - self.creation_time
 
@@ -68,34 +81,6 @@ class Dialogue:
     def render(self,event_list,map_input_lock):
         '''Yes, this function is probably doing too much. Not worth the
         effort to refactor it, though.'''
-        white = (255, 255, 255)
-        blue = (0, 0, 255)
-        black=(0,0,0)
-
-        vert_margin=6
-        hor_margin=16
-
-        box_width = 600
-        box_height = 150
-        box_x = (640 - box_width) // 2
-        box_y = 576 - box_height - 20
-
-
-        #draw dialogue box
-        bg_box(self.screen,box_x,box_y,box_width,box_height)
-
-        if self.profile_image:
-            #profile image
-            self.screen.blit(self.profile_image, (box_x+box_width-self.profile_image.get_width()-2, box_y-self.profile_image.get_height()))
-
-        if self.name_text:
-            #render name
-            name_surface = font.render(self.name_text, True, white)
-            name_x = box_x + 15
-            name_y = box_y - 46
-            pygame.draw.rect(self.screen, (30,30,225), (name_x - 10, name_y, name_surface.get_width() + 20, 48),border_top_left_radius=7,border_top_right_radius=7) 
-            pygame.draw.rect(self.screen, black, (name_x - 12, name_y, name_surface.get_width() + 22, 48),width=2,border_top_left_radius=7,border_top_right_radius=7)
-            self.screen.blit(name_surface, (name_x, name_y+2))
 
         #process and render dialogue
         words = self.remaining_text[:]
@@ -131,6 +116,22 @@ class Dialogue:
 
         if current_line and len(lines) < max_lines:
             lines.append(current_line)
+
+        #draw dialogue box
+        bg_box(self.screen,box_x,box_y,box_width,box_height)
+
+        if self.profile_image:
+            #profile image
+            self.screen.blit(self.profile_image, (box_x+box_width-self.profile_image.get_width()-2, box_y-self.profile_image.get_height()))
+
+        if self.name_text:
+            #render name
+            name_surface = font.render(self.name_text, True, white)
+            name_x = box_x + 15
+            name_y = box_y - 46
+            pygame.draw.rect(self.screen, (30,30,225), (name_x - 10, name_y, name_surface.get_width() + 20, 48),border_top_left_radius=7,border_top_right_radius=7) 
+            pygame.draw.rect(self.screen, black, (name_x - 12, name_y, name_surface.get_width() + 22, 48),width=2,border_top_left_radius=7,border_top_right_radius=7)
+            self.screen.blit(name_surface, (name_x, name_y+2))
 
         #displays the text
         for i, line in enumerate(lines):
