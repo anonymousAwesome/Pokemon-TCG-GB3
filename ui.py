@@ -78,45 +78,7 @@ class Dialogue:
     def __bool__(self):
         return len(self.remaining_text)>0
 
-    def render(self,event_list,map_input_lock):
-        '''Yes, this function is probably doing too much. Not worth the
-        effort to refactor it, though.'''
-
-        #process and render dialogue
-        words = self.remaining_text[:]
-        lines = []
-        current_line = ""
-        max_lines = (box_height - 2 * vert_margin) // font_height
-
-        while words:
-            word = words.pop(0)
-            
-            if word == "\n":
-                if current_line:
-                    lines.append(current_line)
-                    current_line = ""
-                if len(lines) >= max_lines:
-                    break
-                continue
-
-            if current_line:
-                box_width_check_line=current_line+" "+word
-
-            if not current_line:
-                box_width_check_line=word 
-
-            if font.size(box_width_check_line)[0] <= (box_width - 2 * hor_margin):
-                current_line = box_width_check_line
-            else:
-                lines.append(current_line)
-                current_line = word
-                if len(lines) >= max_lines:
-                    words.insert(0, word)  # Put the last unprocessed word back
-                    break
-
-        if current_line and len(lines) < max_lines:
-            lines.append(current_line)
-
+    def display_text(self):
         #draw dialogue box
         bg_box(self.screen,box_x,box_y,box_width,box_height)
 
@@ -134,11 +96,53 @@ class Dialogue:
             self.screen.blit(name_surface, (name_x, name_y+2))
 
         #displays the text
-        for i, line in enumerate(lines):
+        for i, line in enumerate(self.lines):
             text_surface = font.render(line, True, black)
             text_x = box_x + hor_margin
             text_y = box_y + vert_margin + i * font_height
             self.screen.blit(text_surface, (text_x, text_y))
+
+    def render(self,event_list,map_input_lock):
+        '''Yes, this function is probably doing too much. Not worth the
+        effort to refactor it, though.'''
+
+        #process and render dialogue
+        words = self.remaining_text[:]
+        self.lines = []
+        current_line = ""
+        max_lines = (box_height - 2 * vert_margin) // font_height
+
+        while words:
+            word = words.pop(0)
+            
+            if word == "\n":
+                if current_line:
+                    self.lines.append(current_line)
+                    current_line = ""
+                if len(lines) >= max_lines:
+                    break
+                continue
+
+            if current_line:
+                box_width_check_line=current_line+" "+word
+
+            if not current_line:
+                box_width_check_line=word 
+
+            if font.size(box_width_check_line)[0] <= (box_width - 2 * hor_margin):
+                current_line = box_width_check_line
+            else:
+                self.lines.append(current_line)
+                current_line = word
+                if len(self.lines) >= max_lines:
+                    words.insert(0, word)  # Put the last unprocessed word back
+                    break
+
+        if current_line and len(self.lines) < max_lines:
+            self.lines.append(current_line)
+
+
+        self.display_text()
 
         for event in event_list:
             if event.type==pygame.KEYDOWN:
