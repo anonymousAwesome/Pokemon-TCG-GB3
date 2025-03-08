@@ -1,6 +1,6 @@
-'''Note: I use a lot of classes because I replace objects in-place a
-lot, and if I don't wrap each of them in a class and use class functions
-to do that, Python won't play nice.'''
+'''Note: I use several singleton classes because I replace objects in-
+place a lot, and if I don't wrap each of them in a class and use class
+functions to do that, Python won't play nice.'''
 
 import pygame
 import characters
@@ -53,8 +53,6 @@ temp_exit_list=TempExitList()
 
 temp_exit_list.generate_temp_exit_list(map_holder,player_character)
 
-overworld_event_manager = oem.OverworldEventManager()
-
 
 class MovementLock():
     def __init__(self,locked=False):
@@ -73,6 +71,10 @@ class MovementLock():
         self.locked=False
 
 map_input_lock=MovementLock()
+
+
+overworld_event_manager = oem.OverworldEventManager(map_input_lock)
+
 
 class EventList():
     def __init__(self):
@@ -121,6 +123,6 @@ if __name__=="__main__":
                     temp_exit_list.generate_temp_exit_list(map_holder,player_character)
                     '''
         elif map_input_lock:
-            overworld_event_manager.run_next_event()
+            overworld_event_manager.run_all_events()
         pygame.display.flip()
         clock.tick(60)

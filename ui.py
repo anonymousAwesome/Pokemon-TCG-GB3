@@ -174,9 +174,6 @@ class Dialogue:
                 if event.key==key_mappings.affirm_key or event.key==key_mappings.cancel_key:
                     self.remaining_text=self.words
 
-        if not self.remaining_text:
-            map_input_lock.unlock()
-
 
 def bg_box(screen,box_x,box_y,box_width,box_height):
     pygame.draw.rect(screen, (255, 255, 255), (box_x + 4, box_y + 4, box_width - 8, box_height - 8))  # White background
