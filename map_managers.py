@@ -43,7 +43,7 @@ class CollisionManager():
 
         return True
 
-def check_interact_with_object(map_holder,player_character,event_list,screen,passed_definition,map_input_lock):
+def check_interact_with_object(map_holder,player_character,event_list,screen,passed_definition,map_input_lock,event_manager,current_dialogue):
     interact_object=getattr(map_holder.current_map,"interact_object",False)
     if interact_object:
         temp_interact_front_rect=player_character.rect.copy()
@@ -55,10 +55,12 @@ def check_interact_with_object(map_holder,player_character,event_list,screen,pas
             temp_interact_front_rect.x-=characters.TILE_SIZE
         if player_character.facing_direction=="right":
             temp_interact_front_rect.x+=characters.TILE_SIZE
-        for event in event_list:
+        for event in event_list.events:
             if event.type==pygame.KEYDOWN:
                 if event.key==key_mappings.affirm_key:
                     for map_object in interact_object:
                         temp_map_object=map_object(screen,passed_definition)
                         if temp_map_object.rect.contains(temp_interact_front_rect):
-                            temp_map_object.interact_object(map_input_lock)
+                            event_manager.add_event(temp_map_object.interact_object)
+                            event_manager.add_event(current_dialogue.render,[event_list,map_input_lock],persistent_condition=current_dialogue.check_remaining_text)
+                            map_input_lock.lock()

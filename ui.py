@@ -72,6 +72,9 @@ class Dialogue:
         self.remaining_text=self.preprocess(dialogue_text)
         self.creation_time = time.time()
 
+    def check_remaining_text(self):
+        return self.remaining_text
+
     def preprocess(self,dialogue_string):
         # Split by spaces, then by newlines, keeping track of the \n characters
         if dialogue_string:
@@ -163,10 +166,10 @@ class Dialogue:
 
     def render(self,event_list,map_input_lock):
 
-        self.process_current_window()
+        self.process_current_window() #note to self: probably shouldn't process the window anew each time through the loop. Do something about that.
         self.display_text()
 
-        for event in event_list:
+        for event in event_list.events:
             if event.type==pygame.KEYDOWN:
                 if event.key==key_mappings.affirm_key or event.key==key_mappings.cancel_key:
                     self.remaining_text=self.words

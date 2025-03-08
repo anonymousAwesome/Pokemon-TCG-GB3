@@ -4,17 +4,25 @@ class OverworldEventManager:
     def __init__(self):
         self.event_queue = deque()  # Queue for ordered events
 
-    def add_event(self, event_func, *args, **kwargs):
-        """Adds an event (function) to the queue."""
-        self.event_queue.append((event_func, args, kwargs))
+    def add_event(self, event_func, args=[], kwargs={},persistent_condition=None):
+        """Adds an event to the queue. If persistent_condition is provided, it persists."""
+        self.event_queue.append((event_func, args, kwargs, persistent_condition))
 
     def run_next_event(self):
-        """Runs the next event if available."""
+        """Runs the next event if available, blocking further events if persistent."""
         if self.event_queue:
-            event_func, args, kwargs = self.event_queue.popleft()
+            event_func, args, kwargs, persistent_condition = self.event_queue.popleft()
             event_func(*args, **kwargs)  # Execute the event function
+            # If persistent, re-add it to the front and stop further execution
+            if persistent_condition and persistent_condition():
+                self.event_queue.appendleft((event_func, args, kwargs, persistent_condition))
 
     def run_all_events(self):
-        """Runs all events sequentially until queue is empty."""
+        """Runs all events, but stops if a persistent event remains active."""
         while self.event_queue:
+            previous_size = len(self.event_queue)
             self.run_next_event()
+            
+            # If the queue size didn’t change, a persistent event is blocking execution
+            if len(self.event_queue) == previous_size:
+                break

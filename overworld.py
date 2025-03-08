@@ -1,3 +1,7 @@
+'''Note: I use a lot of classes because I replace objects in-place a
+lot, and if I don't wrap each of them in a class and use class functions
+to do that, Python won't play nice.'''
+
 import pygame
 import characters
 import os
@@ -70,11 +74,20 @@ class MovementLock():
 
 map_input_lock=MovementLock()
 
+class EventList():
+    def __init__(self):
+        self.events=pygame.event.get()
+    
+    def update(self):
+        self.events=pygame.event.get()
+        
+event_list=EventList()
+
 if __name__=="__main__":
     running = True
     while running:
-        event_list=pygame.event.get()
-        for event in event_list:
+        event_list.update()
+        for event in event_list.events:
             if event.type == pygame.QUIT:
                 running = False
         camera_x_offset = -max(0, min(collision_manager.background_image.get_width() - 640, (player_character.rect.centerx - 320)))
@@ -95,8 +108,9 @@ if __name__=="__main__":
             player_character.move_character(can_move_bool)
             
             #replace the empty current dialogue with a new one if the map trigger manager says the player interacted with the object.
-            map_managers.check_interact_with_object(map_holder,player_character,event_list,screen,current_dialogue.__init__,map_input_lock)
+            map_managers.check_interact_with_object(map_holder,player_character,event_list,screen,current_dialogue.__init__,map_input_lock,overworld_event_manager,current_dialogue)
 
+            '''
             #if player steps on an exit trigger, change the current map 
             #and player location, re-init the map managers, and re-generate the temp exit list.
             for trigger in temp_exit_list.temp_list:
@@ -105,8 +119,8 @@ if __name__=="__main__":
                     trigger.step_on_exit(map_holder,screen)
                     collision_manager.__init__(map_holder.current_map.bg_image,player_character,map_holder.current_map.obstacles)
                     temp_exit_list.generate_temp_exit_list(map_holder,player_character)
-
+                    '''
         elif map_input_lock:
-            current_dialogue.render(event_list,map_input_lock)
+            overworld_event_manager.run_next_event()
         pygame.display.flip()
         clock.tick(60)
