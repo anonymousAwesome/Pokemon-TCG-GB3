@@ -75,21 +75,13 @@ map_input_lock=MovementLock()
 
 overworld_event_manager = oem.OverworldEventManager(map_input_lock)
 
-
-class EventList():
-    def __init__(self):
-        self.events=pygame.event.get()
-    
-    def update(self):
-        self.events=pygame.event.get()
-        
-event_list=EventList()
+event_list=[]
 
 if __name__=="__main__":
     running = True
     while running:
-        event_list.update()
-        for event in event_list.events:
+        event_list[:]=pygame.event.get()
+        for event in event_list:
             if event.type == pygame.QUIT:
                 running = False
         camera_x_offset = -max(0, min(collision_manager.background_image.get_width() - 640, (player_character.rect.centerx - 320)))

@@ -55,7 +55,7 @@ def check_interact_with_object(map_holder,player_character,event_list,screen,pas
             temp_interact_front_rect.x-=characters.TILE_SIZE
         if player_character.facing_direction=="right":
             temp_interact_front_rect.x+=characters.TILE_SIZE
-        for event in event_list.events:
+        for event in event_list:
             if event.type==pygame.KEYDOWN:
                 if event.key==key_mappings.affirm_key:
                     for map_object in interact_object:

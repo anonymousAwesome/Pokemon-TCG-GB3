@@ -169,7 +169,7 @@ class Dialogue:
         self.process_current_window() #note to self: probably shouldn't process the window anew each time through the loop. Do something about that.
         self.display_text()
 
-        for event in event_list.events:
+        for event in event_list:
             if event.type==pygame.KEYDOWN:
                 if event.key==key_mappings.affirm_key or event.key==key_mappings.cancel_key:
                     self.remaining_text=self.words
