@@ -71,6 +71,7 @@ class Dialogue:
             self.profile_image=None
         self.remaining_text=self.preprocess(dialogue_text)
         self.creation_time = time.time()
+        self.process_current_window()
 
     def check_remaining_text(self):
         return self.remaining_text
@@ -166,13 +167,13 @@ class Dialogue:
 
     def render(self,event_list,map_input_lock):
 
-        self.process_current_window() #note to self: probably shouldn't process the window anew each time through the loop. Do something about that.
         self.display_text()
 
         for event in event_list:
             if event.type==pygame.KEYDOWN:
                 if event.key==key_mappings.affirm_key or event.key==key_mappings.cancel_key:
                     self.remaining_text=self.words
+                    self.process_current_window()
 
 
 def bg_box(screen,box_x,box_y,box_width,box_height):

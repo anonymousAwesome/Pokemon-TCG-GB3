@@ -28,3 +28,6 @@ class OverworldEventManager:
             # If the queue size didn’t change, a persistent event is blocking execution
             if len(self.event_queue) == previous_size:
                 break
+        
+        if not self.event_queue:
+            self.map_input_lock.unlock()
