@@ -17,12 +17,7 @@ class BaseMapObjectClass:
         self.kwargs={}
 
     def interact_object(self,map_input_lock):
-        if self.definition_type=="class object":
-            self.passed.__init__(self.screen,*self.args,**self.kwargs)
-        elif self.definition_type=="function":
-            self.passed_definition(self.screen,*self.args,**self.kwargs)
-        else:
-            raise Exception("Definition type needs to be 'class' or 'function'.")
+        self.passed(self.screen,*self.args,**self.kwargs)
         map_input_lock.lock()
         
 
@@ -34,7 +29,6 @@ class MasonCenterTree(BaseMapObjectClass):
         self.args=["It's a tree.\nI'm not sure what you expected."]
         self.args=["Aaaaaaaaaaaaaaaaaa bbbbbbbbbbbbbbbb ccccccccccccccccccc dddddddddddddddd eeeeeeeeeeeeeeee ffffffffffffffff ggggggggggggggggggg hhhhhhhhhhhhhhhh iiiiiiiiiiiiii jjjjjjjjjjjjjjj kkkkkkkkkkkkkkkk lllllllllllllllllll mmmmmmmmmmmmmmmmmmmm nnnnnnnnnnnnnnnn ooooooooooooooooooo ppppppppppppppppppppp qqqqqqqqqqqqqqqqq"]
         self.rect=pygame.Rect(64, 704, 64, 128)
-        self.definition_type="class object"
 
 '''
 class MasonCenterBlackboard(BaseMapObjectClass):
