@@ -142,7 +142,7 @@ class Dialogue:
                 if current_line:
                     self.lines.append(current_line)
                     current_line = ""
-                if len(lines) >= max_lines:
+                if len(self.lines) >= max_lines:
                     break
                 continue
 

@@ -59,8 +59,7 @@ def check_interact_with_object(map_holder,player_character,event_list,screen,pas
             if event.type==pygame.KEYDOWN:
                 if event.key==key_mappings.affirm_key:
                     for map_object in interact_object:
-                        temp_map_object=map_object(screen,passed_definition)
+                        temp_map_object=map_object(screen,current_dialogue,event_manager)
                         if temp_map_object.rect.contains(temp_interact_front_rect):
-                            event_manager.add_event(temp_map_object.interact_object)
-                            event_manager.add_event(current_dialogue.render,[event_list,map_input_lock],persistent_condition=current_dialogue.check_remaining_text)
+                            temp_map_object.interact_object(event_list,map_input_lock)
                             map_input_lock.lock()

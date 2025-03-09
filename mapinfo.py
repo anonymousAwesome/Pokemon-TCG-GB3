@@ -13,21 +13,21 @@ objects
 class BaseMapObjectClass:
     def __init__(self,screen):
         self.screen=screen
-        self.args=[]
-        self.kwargs={}
 
-    def interact_object(self):
-        self.passed(self.screen,self.args,self.kwargs)
-        
+
 
 class MasonCenterTree(BaseMapObjectClass):
 
-    def __init__(self,screen,passed):
+    def __init__(self,screen,current_dialogue,event_manager):
         super().__init__(screen)
-        self.passed=passed
-        self.args=["It's a tree.\nI'm not sure what you expected."]
-        self.args="Aaaaaaaaaaaaaaaaaa bbbbbbbbbbbbbbbb ccccccccccccccccccc dddddddddddddddd eeeeeeeeeeeeeeee ffffffffffffffff ggggggggggggggggggg hhhhhhhhhhhhhhhh iiiiiiiiiiiiii jjjjjjjjjjjjjjj kkkkkkkkkkkkkkkk lllllllllllllllllll mmmmmmmmmmmmmmmmmmmm nnnnnnnnnnnnnnnn ooooooooooooooooooo ppppppppppppppppppppp qqqqqqqqqqqqqqqqq"
+        self.current_dialogue=current_dialogue
         self.rect=pygame.Rect(64, 704, 64, 128)
+        self.event_manager=event_manager
+
+    def interact_object(self,event_list,map_input_lock):
+        self.event_manager.add_event(self.current_dialogue.__init__,[self.screen,"It's a tree.\nI'm not sure what you expected."])
+        self.event_manager.add_event(self.current_dialogue.render,[event_list,map_input_lock],persistent_condition=self.current_dialogue.check_remaining_text)
+
 
 '''
 class MasonCenterBlackboard(BaseMapObjectClass):
