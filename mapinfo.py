@@ -51,13 +51,17 @@ class BaseExitClass:
     def __init__(self, player):
         self.player = player
 
-    def step_on_exit(self, map_holder, screen):
+    def step_on_exit(self, map_holder, screen,overworld_event_manager,collision_manager,player_character,temp_exit_list):
         self.player.rect.x = self.new_x
         self.player.rect.y = self.new_y
         if hasattr(self, "facing_direction"):
             self.player.facing_direction = self.facing_direction
             self.player.map_exit_change_facing()
         map_holder.__init__(self.replacement_map, screen)
+        overworld_event_manager.add_event(collision_manager.__init__,[map_holder.current_map.bg_image,player_character,map_holder.current_map.obstacles])
+        overworld_event_manager.add_event(temp_exit_list.__init__,[map_holder,player_character])
+
+
 
 class MasonCenterLeftExit1(BaseExitClass):
     def __init__(self, player):
@@ -88,28 +92,22 @@ class MasonCenterBottomExit(BaseExitClass):
 
 
 
-class MasonLeftExit1:
+class MasonLeftExit1(BaseExitClass):
     def __init__(self,player):
-        self.player=player
+        super().__init__(player)
+        self.new_x = 64
+        self.new_y = 320
+        self.replacement_map = MasonCenter
         self.rect=pygame.Rect(832, 704, 64, 64)
-        
-    def step_on_exit(self,map_holder,screen):
-        self.player.rect.x=64
-        self.player.rect.y=320
-        self.player.facing_direction="down"
-        map_holder.__init__(MasonCenter,screen)
 
-
-class MasonLeftExit2:
+class MasonLeftExit2(BaseExitClass):
     def __init__(self,player):
-        self.player=player
+        super().__init__(player)
+        self.new_x = 64
+        self.new_y = 320+64
+        self.replacement_map = MasonCenter
         self.rect=pygame.Rect(832, 704+64, 64, 64)
-        
-    def step_on_exit(self,map_holder,screen):
-        self.player.rect.x=64
-        self.player.rect.y=320+64
-        self.player.facing_direction="down"
-        map_holder.__init__(MasonCenter,screen)
+
 
 
 

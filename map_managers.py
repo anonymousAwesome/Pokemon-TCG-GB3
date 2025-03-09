@@ -7,7 +7,8 @@ import key_mappings
 class CurrentMapContainer():
     def __init__(self,current_map_class,screen):
         self.current_map=current_map_class(screen)
-
+        print(current_map_class)
+        print(self.current_map)
 
 class CollisionManager():
     def __init__(self,background_image,player,obstacles=None):

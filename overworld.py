@@ -106,9 +106,8 @@ if __name__=="__main__":
             for trigger in temp_exit_list.temp_list:
                 if trigger.rect.contains(player_character.rect):
                     player_character.pixels_remaining=0
-                    trigger.step_on_exit(map_holder,screen)
-                    collision_manager.__init__(map_holder.current_map.bg_image,player_character,map_holder.current_map.obstacles)
-                    temp_exit_list.__init__(map_holder,player_character)
+                    overworld_event_manager.add_event(trigger.step_on_exit,[map_holder,screen,overworld_event_manager,collision_manager,player_character,temp_exit_list])
+                    map_input_lock.lock()
 
         elif map_input_lock:
             overworld_event_manager.run_all_events()
