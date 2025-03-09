@@ -61,7 +61,7 @@ def check_interact_with_object(map_holder,player_character,event_list,screen,pas
                     for map_object in interact_object:
                         temp_map_object=map_object(screen,current_dialogue,event_manager)
                         if temp_map_object.rect.contains(temp_interact_front_rect):
-                            temp_map_object.interact_object(event_list,map_input_lock)
+                            temp_map_object.interact_object(event_list)
                             map_input_lock.lock()
 
 def check_step_on_object():

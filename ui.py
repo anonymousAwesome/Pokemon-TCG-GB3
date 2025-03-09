@@ -165,7 +165,7 @@ class Dialogue:
             self.lines.append(current_line)
 
 
-    def render(self,event_list,map_input_lock):
+    def render(self,event_list):
 
         self.display_text()
 

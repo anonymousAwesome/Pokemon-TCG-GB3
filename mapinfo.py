@@ -24,9 +24,9 @@ class MasonCenterTree(BaseMapObjectClass):
         self.rect=pygame.Rect(64, 704, 64, 128)
         self.event_manager=event_manager
 
-    def interact_object(self,event_list,map_input_lock):
+    def interact_object(self,event_list):
         self.event_manager.add_event(self.current_dialogue.__init__,[self.screen,"It's a tree.\nI'm not sure what you expected."])
-        self.event_manager.add_event(self.current_dialogue.render,[event_list,map_input_lock],persistent_condition=self.current_dialogue.check_remaining_text)
+        self.event_manager.add_event(self.current_dialogue.render,[event_list],persistent_condition=self.current_dialogue.check_remaining_text)
 
 
 '''
