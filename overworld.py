@@ -39,20 +39,14 @@ collision_manager=map_managers.CollisionManager(map_holder.current_map.bg_image,
 class TempExitList():
     '''called when the player moves into a new map, so I'm not 
     instantiating the trigger class 60 times a second.'''
-    def __init__(self,temp_list=[]):
-        self.temp_list=temp_list
-
-    def generate_temp_exit_list(self,map_holder,player_character):
+    def __init__(self,map_holder,player_character):
         temp_list=[]
         for trigger in map_holder.current_map.step_exit_triggers:
             temp_list.append(trigger(player_character))
         self.temp_list=temp_list
 
 
-temp_exit_list=TempExitList()
-
-temp_exit_list.generate_temp_exit_list(map_holder,player_character)
-
+temp_exit_list=TempExitList(map_holder,player_character)
 
 class MovementLock():
     def __init__(self,locked=False):
@@ -101,10 +95,12 @@ if __name__=="__main__":
             #if not blocked, start movement. If blocked, change facing.
             player_character.move_character(can_move_bool)
             
-            #replace the empty current dialogue with a new one if the map trigger manager says the player interacted with the object.
+            '''check the interaction triggers for the map and, if the
+            player is interacting with them, add the associated
+            function(s) to the event queue'''
             map_managers.check_interact_with_object(map_holder,player_character,event_list,screen,current_dialogue.__init__,map_input_lock,overworld_event_manager,current_dialogue)
 
-            '''
+
             #if player steps on an exit trigger, change the current map 
             #and player location, re-init the map managers, and re-generate the temp exit list.
             for trigger in temp_exit_list.temp_list:
@@ -112,8 +108,8 @@ if __name__=="__main__":
                     player_character.pixels_remaining=0
                     trigger.step_on_exit(map_holder,screen)
                     collision_manager.__init__(map_holder.current_map.bg_image,player_character,map_holder.current_map.obstacles)
-                    temp_exit_list.generate_temp_exit_list(map_holder,player_character)
-                    '''
+                    temp_exit_list.__init__(map_holder,player_character)
+
         elif map_input_lock:
             overworld_event_manager.run_all_events()
         pygame.display.flip()
