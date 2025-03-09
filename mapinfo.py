@@ -26,6 +26,7 @@ class MasonCenterTree(BaseMapObjectClass):
         self.event_manager.add_event(self.current_dialogue.__init__,[self.screen,"It's a tree.\nI'm not sure what you expected."])
         self.event_manager.add_event(self.current_dialogue.render,[event_list],persistent_condition=self.current_dialogue.check_remaining_text)
 
+
 class MasonCenterBlackboard(BaseMapObjectClass):
 
     def __init__(self,screen,current_dialogue,event_manager):
@@ -58,8 +59,6 @@ class BaseExitClass:
         overworld_event_manager.add_event(collision_manager.__init__,[map_holder.current_map.bg_image,player_character,map_holder.current_map.obstacles])
         overworld_event_manager.add_event(temp_exit_list.__init__,[map_holder,player_character])
 
-
-
 class MasonCenterLeftExit1(BaseExitClass):
     def __init__(self, player):
         super().__init__(player)
@@ -86,9 +85,6 @@ class MasonCenterBottomExit(BaseExitClass):
         self.rect=pygame.Rect(448, 896, 128, 64)
         self.facing_direction="up"
 
-
-
-
 class MasonLeftExit1(BaseExitClass):
     def __init__(self,player):
         super().__init__(player)
@@ -107,6 +103,24 @@ class MasonLeftExit2(BaseExitClass):
 
 
 
+
+"""
+----------------------------------
+Overworld Club entrances
+----------------------------------
+"""
+
+class BaseOverworldClubClass:
+    def __init__(self):
+        pass
+    def step_on_club(self):
+        pass
+    def interact_with_club(self):
+        pass
+
+class MasonsLabOverworldEntrance(BaseOverworldClubClass):
+    #super().__init__()
+    pass
 
 """
 ----------------------------------
@@ -223,6 +237,10 @@ class TcgIsland:
             pygame.Rect(576, 64, 64, 64),
             pygame.Rect(64, 192, 64, 64),
             pygame.Rect(64, 384, 64, 64)]
+        
+        self.overworld_club_entrances=[
+        MasonsLabOverworldEntrance
+        ]
         
         '''
         self.interact_self_triggers":[
