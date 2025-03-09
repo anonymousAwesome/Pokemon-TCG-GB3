@@ -94,20 +94,9 @@ if __name__=="__main__":
             
             #if not blocked, start movement. If blocked, change facing.
             player_character.move_character(can_move_bool)
-            
-            '''check the interaction triggers for the map and, if the
-            player is interacting with them, add the associated
-            function(s) to the event queue'''
-            map_managers.check_interact_with_object(map_holder,player_character,event_list,screen,current_dialogue.__init__,map_input_lock,overworld_event_manager,current_dialogue)
 
 
-            #if player steps on an exit trigger, change the current map 
-            #and player location, re-init the map managers, and re-generate the temp exit list.
-            for trigger in temp_exit_list.temp_list:
-                if trigger.rect.contains(player_character.rect):
-                    player_character.pixels_remaining=0
-                    overworld_event_manager.add_event(trigger.step_on_exit,[map_holder,screen,overworld_event_manager,collision_manager,player_character,temp_exit_list])
-                    map_input_lock.lock()
+            map_managers.check_all_interactions(map_holder,player_character,event_list,screen,map_input_lock,current_dialogue,temp_exit_list,overworld_event_manager,collision_manager)
 
         elif map_input_lock:
             overworld_event_manager.run_all_events()

@@ -7,8 +7,6 @@ import key_mappings
 class CurrentMapContainer():
     def __init__(self,current_map_class,screen):
         self.current_map=current_map_class(screen)
-        print(current_map_class)
-        print(self.current_map)
 
 class CollisionManager():
     def __init__(self,background_image,player,obstacles=None):
@@ -44,7 +42,11 @@ class CollisionManager():
 
         return True
 
-def check_interact_with_object(map_holder,player_character,event_list,screen,passed_definition,map_input_lock,event_manager,current_dialogue):
+def check_all_interactions(map_holder,player_character,event_list,screen,map_input_lock,current_dialogue,temp_exit_list,overworld_event_manager,collision_manager):
+    check_interact_with_object(map_holder,player_character,event_list,screen,map_input_lock,overworld_event_manager,current_dialogue)
+    check_step_on_object(temp_exit_list,player_character,overworld_event_manager,map_holder,screen,collision_manager,map_input_lock)
+    
+def check_interact_with_object(map_holder,player_character,event_list,screen,map_input_lock,overworld_event_manager,current_dialogue):
     interact_object=getattr(map_holder.current_map,"interact_object",False)
     if interact_object:
         temp_interact_front_rect=player_character.rect.copy()
@@ -60,10 +62,14 @@ def check_interact_with_object(map_holder,player_character,event_list,screen,pas
             if event.type==pygame.KEYDOWN:
                 if event.key==key_mappings.affirm_key:
                     for map_object in interact_object:
-                        temp_map_object=map_object(screen,current_dialogue,event_manager)
+                        temp_map_object=map_object(screen,current_dialogue,overworld_event_manager)
                         if temp_map_object.rect.contains(temp_interact_front_rect):
                             temp_map_object.interact_object(event_list)
                             map_input_lock.lock()
 
-def check_step_on_object():
-    pass
+def check_step_on_object(temp_exit_list,player_character,overworld_event_manager,map_holder,screen,collision_manager,map_input_lock):
+    for trigger in temp_exit_list.temp_list:
+        if trigger.rect.contains(player_character.rect):
+            player_character.pixels_remaining=0
+            overworld_event_manager.add_event(trigger.step_on_exit,[map_holder,screen,overworld_event_manager,collision_manager,player_character,temp_exit_list])
+            map_input_lock.lock()
