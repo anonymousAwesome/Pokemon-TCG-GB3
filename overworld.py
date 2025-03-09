@@ -102,5 +102,8 @@ if __name__=="__main__":
 
         elif map_input_lock:
             overworld_event_manager.run_all_events()
+            '''functionally identical to overworld_event_manager.run_next_event(),
+            due to the way the main loop works, but I like to have options,
+            just in case.'''
         pygame.display.flip()
         clock.tick(60)
