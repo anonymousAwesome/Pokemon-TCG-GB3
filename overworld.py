@@ -41,7 +41,9 @@ class TempExitList():
     instantiating the trigger class 60 times a second.'''
     def __init__(self,map_holder,player_character):
         temp_list=[]
-        for trigger in map_holder.current_map.step_exit_triggers:
+        triggers=getattr(map_holder.current_map,"step_triggers",[])
+        
+        for trigger in triggers:
             temp_list.append(trigger(player_character))
         self.temp_list=temp_list
 

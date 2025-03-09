@@ -82,7 +82,7 @@ class MasonCenterBottomExit(BaseExitClass):
         super().__init__(player)
         self.new_x = 1*64
         self.new_y = 7*64
-        self.replacement_map = MasonLeft
+        self.replacement_map = TcgIsland
         self.rect=pygame.Rect(448, 896, 128, 64)
         self.facing_direction="up"
 
@@ -156,14 +156,14 @@ class MasonCenter:
             MasonCenterBlackboard
             ]
               
-        self.step_exit_triggers=[
+        self.step_triggers=[
             MasonCenterLeftExit1,
             MasonCenterLeftExit2,
             MasonCenterBottomExit
             ]
 
 '''
-        self.step_exit_triggers=[
+        self.step_triggers=[
             
             (pygame.Rect(0, 320+64, 64, 64),{"mapname":"mason_left","x":768,"y":704+64}), 
             (pygame.Rect(832, 320, 64, 64),{"mapname":"mason_right","x":64,"y":320}),
@@ -181,7 +181,7 @@ class TestMap:
         self.obstacles=[
         ]
 
-        self.step_exit_triggers=[]
+        self.step_triggers=[]
 
 
 class MasonLeft:
@@ -203,15 +203,38 @@ class MasonLeft:
             pygame.Rect(832, 832, 64, 64),
             ]
 
-        self.step_exit_triggers=[
+        self.step_triggers=[
             MasonLeftExit1,
             MasonLeftExit2
             ]
-'''
-    "step exit triggers":[
-        (pygame.Rect(832, 704, 64, 64),{"mapname":"mason_center","x":64,"y":320}),
-        (pygame.Rect(832, 768, 64, 64),{"mapname":"mason_center","x":64,"y":320+64}),
-        ],'''
+
+
+class TcgIsland:
+    def __init__(self,screen):
+        self.bg_image=pygame.image.load(os.path.join("assets", "maps", "tcg island.png"))
+        self.bg_image=pygame.transform.scale(self.bg_image, (self.bg_image.get_width() * 4, self.bg_image.get_height() * 4))
+        
+        self.obstacles=[
+            pygame.Rect(0, 0, 640, 64),
+            pygame.Rect(0, 64, 64, 512),
+            pygame.Rect(64, 512, 576, 64),
+            pygame.Rect(64, 64, 320, 64),
+            pygame.Rect(576, 384, 64, 128),
+            pygame.Rect(576, 64, 64, 64),
+            pygame.Rect(64, 192, 64, 64),
+            pygame.Rect(64, 384, 64, 64)]
+        
+        '''
+        self.interact_self_triggers":[
+            (pygame.Rect(64, 448, 64, 64),{"mapname":"mason_center","x":448,"y":832,"direction":"up"})
+            ],
+        "tcg club names":[
+            (pygame.Rect(64, 448, 64, 64),"Mason's Lab"),
+            (pygame.Rect(192, 448, 64, 64),"Fighting Club"),
+            (pygame.Rect(128, 320, 64, 64),"Lightning Club"),
+            ],'''
+
+
 
 mason_right={
     "bg_image": pygame.image.load(os.path.join("assets", "maps", "mason right.png")),
@@ -230,33 +253,11 @@ mason_right={
         pygame.Rect(64, 512, 128, 64),
         pygame.Rect(64, 576, 128, 64),
     ],
-    "step exit triggers":[
+    "step triggers":[
         (pygame.Rect(0, 320, 64, 64),{"mapname":"mason_center","x":768,"y":320}),
         (pygame.Rect(0, 320+64, 64, 64),{"mapname":"mason_center","x":768,"y":320+64}),
         ],
     }
-
-tcg_island={
-    "bg_image": pygame.image.load(os.path.join("assets", "maps", "tcg island.png")),
-    "obstacles":[
-        pygame.Rect(0, 0, 640, 64),
-        pygame.Rect(0, 64, 64, 512),
-        pygame.Rect(64, 512, 576, 64),
-        pygame.Rect(64, 64, 320, 64),
-        pygame.Rect(576, 384, 64, 128),
-        pygame.Rect(576, 64, 64, 64),
-        pygame.Rect(64, 192, 64, 64),
-        pygame.Rect(64, 384, 64, 64)],
-    "interact self exit triggers":[
-        (pygame.Rect(64, 448, 64, 64),{"mapname":"mason_center","x":448,"y":832,"direction":"up"})
-        ],
-    "tcg club names":[
-        (pygame.Rect(64, 448, 64, 64),"Mason's Lab"),
-        (pygame.Rect(192, 448, 64, 64),"Fighting Club"),
-        (pygame.Rect(128, 320, 64, 64),"Lightning Club"),
-        ],
-    }
-
 
 airport_neo_side={
     "bg_image": pygame.image.load(os.path.join("assets", "maps", "airport neo side.png")),
