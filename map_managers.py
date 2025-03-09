@@ -73,3 +73,6 @@ def check_step_on_object(temp_exit_list,player_character,overworld_event_manager
             player_character.pixels_remaining=0
             overworld_event_manager.add_event(trigger.step_on_exit,[map_holder,screen,overworld_event_manager,collision_manager,player_character,temp_exit_list])
             map_input_lock.lock()
+
+def check_interact_with_self():
+    pass

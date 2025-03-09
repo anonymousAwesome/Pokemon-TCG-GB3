@@ -16,8 +16,6 @@ class BaseMapObjectClass:
         self.current_dialogue=current_dialogue
         self.event_manager=event_manager
 
-
-
 class MasonCenterTree(BaseMapObjectClass):
 
     def __init__(self,screen,current_dialogue,event_manager):
@@ -28,16 +26,16 @@ class MasonCenterTree(BaseMapObjectClass):
         self.event_manager.add_event(self.current_dialogue.__init__,[self.screen,"It's a tree.\nI'm not sure what you expected."])
         self.event_manager.add_event(self.current_dialogue.render,[event_list],persistent_condition=self.current_dialogue.check_remaining_text)
 
-'''
 class MasonCenterBlackboard(BaseMapObjectClass):
 
-    def __init__(self,screen,passed):
-        super().__init__(screen)
-        self.passed=passed
-        self.args=["It's a chalkboard.\nIt just says \"butts lol\". :/"]
+    def __init__(self,screen,current_dialogue,event_manager):
+        super().__init__(screen,current_dialogue,event_manager)
         self.rect=pygame.Rect(448, 0, 64, 64)
-        self.definition_type="class object"
-   ''' 
+
+    def interact_object(self,event_list):
+        self.event_manager.add_event(self.current_dialogue.__init__,[self.screen,"It's a chalkboard.\nIt just says \"butts lol\". :/"])
+        self.event_manager.add_event(self.current_dialogue.render,[event_list],persistent_condition=self.current_dialogue.check_remaining_text)
+        
 
 """
 ----------------------------------
@@ -155,14 +153,9 @@ class MasonCenter:
         
         self.interact_object=[
             MasonCenterTree,
-            ]
-      
-        '''
-        self.interact_object=[
-            MasonCenterTree,
             MasonCenterBlackboard
-            ]'''
-        
+            ]
+              
         self.step_exit_triggers=[
             MasonCenterLeftExit1,
             MasonCenterLeftExit2,
