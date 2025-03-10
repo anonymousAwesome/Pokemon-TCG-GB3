@@ -24,8 +24,7 @@ class MasonCenterTree(BaseMapObjectClass):
         self.rect=pygame.Rect(64, 704, 64, 128)
 
     def interact_object(self,event_list):
-        #self.event_manager.add_event(self.current_dialogue.__init__,[self.screen,"It's a tree.\nI'm not sure what you expected."])
-        self.event_manager.add_event(self.current_dialogue.__init__,[self.screen,"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa bbbbbbbbbbbbbbbbbbbbbbbbbbbbbb cccccccccccccccccccccccccc dddddddddddddddddddddddddddd eeeeeeeeeeeeeeeeeeeeeeeeeee fffffffffffffffffffffffffffff gggggggggggggggggggggg hhhhhhhhhhhhhhhhhhhhhhhh iiiiiiiiiiiiiiiiiiiii"])
+        self.event_manager.add_event(self.current_dialogue.__init__,[self.screen,"It's a tree.\nI'm not sure what you expected."])
         self.event_manager.add_event(self.current_dialogue.render,[event_list],persistent_condition=self.current_dialogue.check_remaining_text)
         self.map_input_lock.lock()
 
@@ -49,30 +48,30 @@ exits
 
 
 class BaseExitClass:
-    def __init__(self, player):
-        self.player = player
+    def __init__(self):
+        pass
 
     def step_on(self, map_holder, screen,overworld_event_manager,collision_manager,player_character,temp_exit_list):
-        self.player.rect.x = self.new_x
-        self.player.rect.y = self.new_y
+        player_character.rect.x = self.new_x
+        player_character.rect.y = self.new_y
         if hasattr(self, "facing_direction"):
-            self.player.facing_direction = self.facing_direction
-            self.player.map_exit_change_facing()
-        map_holder.__init__(self.replacement_map, screen)
+            player_character.facing_direction = self.facing_direction
+            player_character.map_exit_change_facing()
+        map_holder.__init__(self.replacement_map)
         collision_manager.__init__(map_holder.current_map.bg_image,player_character,map_holder.current_map.obstacles)
         temp_exit_list.__init__(map_holder,player_character)
 
 class MasonCenterLeftExit1(BaseExitClass):
-    def __init__(self, player):
-        super().__init__(player)
+    def __init__(self):
+        #super().__init__(player)
         self.new_x = 768
         self.new_y = 704
         self.replacement_map = MasonLeft
         self.rect = pygame.Rect(0, 320, 64, 64)
 
 class MasonCenterLeftExit2(BaseExitClass):
-    def __init__(self, player):
-        super().__init__(player)
+    def __init__(self):
+        #super().__init__(player)
         self.new_x = 768
         self.new_y = 704+64
         self.replacement_map = MasonLeft
@@ -80,8 +79,8 @@ class MasonCenterLeftExit2(BaseExitClass):
 
 
 class MasonCenterBottomExit(BaseExitClass):
-    def __init__(self,player):
-        super().__init__(player)
+    def __init__(self):
+        #super().__init__(player)
         self.new_x = 1*64
         self.new_y = 7*64
         self.replacement_map = TcgIsland
@@ -89,16 +88,16 @@ class MasonCenterBottomExit(BaseExitClass):
         self.facing_direction="down"
 
 class MasonLeftExit1(BaseExitClass):
-    def __init__(self,player):
-        super().__init__(player)
+    def __init__(self):
+        #super().__init__(player)
         self.new_x = 64
         self.new_y = 320
         self.replacement_map = MasonCenter
         self.rect=pygame.Rect(832, 704, 64, 64)
 
 class MasonLeftExit2(BaseExitClass):
-    def __init__(self,player):
-        super().__init__(player)
+    def __init__(self):
+        #super().__init__(player)
         self.new_x = 64
         self.new_y = 320+64
         self.replacement_map = MasonCenter
@@ -117,18 +116,26 @@ class BaseOverworldClubClass:
     def __init__(self):
         pass
     def step_on(self, map_holder, screen,overworld_event_manager,collision_manager,player_character,temp_exit_list):
-        pass
-    def interact_object(self):
-        pass
+        ui.club_name_render(screen,self.club_text)
+    def interact_self(self, map_holder, screen,overworld_event_manager,collision_manager,player_character,temp_exit_list):
+        player_character.rect.x = self.new_x
+        player_character.rect.y = self.new_y
+        if hasattr(self, "facing_direction"):
+            player_character.facing_direction = self.facing_direction
+            player_character.map_exit_change_facing()
+        map_holder.__init__(self.replacement_map)
+        collision_manager.__init__(map_holder.current_map.bg_image,player_character,map_holder.current_map.obstacles)
+        temp_exit_list.__init__(map_holder,player_character)
 
 class MasonsLabOverworldEntrance(BaseOverworldClubClass):
-    def __init__(self,player):
+    def __init__(self):
         #super().__init__()
         self.rect=pygame.Rect(64, 448, 64, 64)
         self.new_x=448
         self.new_y=832
         self.replacement_map=MasonCenter
         self.facing_direction="up"
+        self.club_text="Professor Mason's Lab"
 
 """
 ----------------------------------
@@ -149,8 +156,7 @@ map rooms
 """
 
 class MasonCenter:
-    def __init__(self,screen):
-        self.screen=screen
+    def __init__(self):
         self.bg_image=pygame.image.load(os.path.join("assets", "maps", "mason center.png"))
         self.bg_image=pygame.transform.scale(self.bg_image, (self.bg_image.get_width() * 4, self.bg_image.get_height() * 4))
 
@@ -195,8 +201,7 @@ class MasonCenter:
 
 
 class TestMap:
-    def __init__(self,screen):
-        self.screen=screen
+    def __init__(self):
         self.bg_image=pygame.image.load(os.path.join("assets", "maps", "trading post.png"))
         self.bg_image=pygame.transform.scale(self.bg_image, (self.bg_image.get_width() * 4, self.bg_image.get_height() * 4))
 
@@ -207,8 +212,7 @@ class TestMap:
 
 
 class MasonLeft:
-    def __init__(self,screen):
-        self.screen=screen
+    def __init__(self):
         self.bg_image=pygame.image.load(os.path.join("assets", "maps", "mason left.png"))
         self.bg_image=pygame.transform.scale(self.bg_image, (self.bg_image.get_width() * 4, self.bg_image.get_height() * 4))
 
@@ -232,7 +236,7 @@ class MasonLeft:
 
 
 class TcgIsland:
-    def __init__(self,screen):
+    def __init__(self):
         self.bg_image=pygame.image.load(os.path.join("assets", "maps", "tcg island.png"))
         self.bg_image=pygame.transform.scale(self.bg_image, (self.bg_image.get_width() * 4, self.bg_image.get_height() * 4))
         
@@ -247,6 +251,10 @@ class TcgIsland:
             pygame.Rect(64, 384, 64, 64)]
         
         self.step_triggers=[
+        MasonsLabOverworldEntrance
+        ]
+
+        self.interact_self_triggers=[
         MasonsLabOverworldEntrance
         ]
 

@@ -30,7 +30,7 @@ pc_sprite = characters.load_sprites_from_sheet(spritesheet_tcg2,0)
 
 player_character=characters.Player(448,832, pc_sprite)
 
-map_holder=map_managers.CurrentMapContainer(mapinfo.MasonCenter,screen)
+map_holder=map_managers.CurrentMapContainer(mapinfo.MasonCenter)
 
 current_dialogue=ui.Dialogue(screen,"")
 
@@ -44,7 +44,7 @@ class TempExitList():
         triggers=getattr(map_holder.current_map,"step_triggers",[])
         
         for trigger in triggers:
-            temp_list.append(trigger(player_character))
+            temp_list.append(trigger())
         self.temp_list=temp_list
 
 

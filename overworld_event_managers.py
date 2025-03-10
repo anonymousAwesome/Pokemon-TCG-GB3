@@ -12,7 +12,6 @@ class OverworldEventManager:
     def run_next_event(self):
         """Runs the next event if available, blocking further events if persistent."""
         if self.event_queue:
-            print(self.event_queue)
             event_func, args, kwargs, persistent_condition = self.event_queue.popleft()
             event_func(*args, **kwargs)
             if persistent_condition and persistent_condition():
