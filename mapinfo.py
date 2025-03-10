@@ -1,6 +1,7 @@
 import pygame
 import os
 import ui
+import characters
 
 
 """
@@ -135,19 +136,20 @@ class MasonsLabOverworldEntrance(BaseOverworldClubClass):
         self.new_y=832
         self.replacement_map=MasonCenter
         self.facing_direction="up"
-        self.club_text="Professor Mason's Lab"
+        self.club_text="Mason Lab"
 
 """
 ----------------------------------
 NPCs
 ----------------------------------
 """
-
-class ProfMason:
-    def __init__(self,screen):
-        pass
-
-
+'''
+class DrMason(characters.Character):
+    def __init__(self):
+        loaded_sprites=characters.load_sprites_from_sheet(characters.spritesheet_tcg2,3)
+        
+        self.location=pygame.Rect(448, 192, 64, 64)
+'''
 
 """
 ----------------------------------
@@ -189,6 +191,10 @@ class MasonCenter:
             MasonCenterLeftExit2,
             MasonCenterBottomExit
             ]
+
+        '''self.npcs=[
+            DrMason
+            ]'''
 
 '''
         self.step_triggers=[

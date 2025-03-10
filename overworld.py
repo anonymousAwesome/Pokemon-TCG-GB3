@@ -3,7 +3,6 @@ place a lot, and if I don't wrap each of them in a class and use class
 functions to do that, Python won't play nice.'''
 
 import pygame
-import characters
 import os
 import functools
 import overworld_event_managers as oem
@@ -13,20 +12,13 @@ if __name__=="__main__":
     screen = pygame.display.set_mode((640,576))
     clock = pygame.time.Clock()
 
+import characters
 import ui
 import map_managers
 import mapinfo
 
 
-spritesheet_yellow_path = os.path.join("assets","npc sprites","pokemon yellow sprites recolored.png")
-spritesheet_crystal_path = os.path.join("assets","npc sprites","pokemon crystal sprites recolored.png")
-spritesheet_tcg2_path = os.path.join("assets","npc sprites","pokemon tcg2 sprites.png")
-
-spritesheet_yellow=pygame.image.load(spritesheet_yellow_path).convert_alpha()
-spritesheet_crystal=pygame.image.load(spritesheet_crystal_path).convert_alpha()
-spritesheet_tcg2=pygame.image.load(spritesheet_tcg2_path).convert_alpha()
-
-pc_sprite = characters.load_sprites_from_sheet(spritesheet_tcg2,0)
+pc_sprite = characters.load_sprites_from_sheet(characters.spritesheet_tcg2,0)
 
 player_character=characters.Player(448,832, pc_sprite)
 
@@ -66,12 +58,26 @@ class MovementLock():
     def unlock(self):
         self.locked=False
 
+    
+    
+
 map_input_lock=MovementLock()
 
 
 overworld_event_manager = oem.OverworldEventManager(map_input_lock)
 
 event_list=[]
+
+'''
+current_npcs=[]
+
+for npc in mapinfo.MasonCenter().npcs:
+    current_npcs.append(npc())
+'''
+
+loaded_sprites=characters.load_sprites_from_sheet(characters.spritesheet_tcg2,3)
+current_npcs=[characters.NPC(448,192,loaded_sprites)]
+
 
 if __name__=="__main__":
     running = True
@@ -83,6 +89,10 @@ if __name__=="__main__":
         camera_x_offset = -max(0, min(collision_manager.background_image.get_width() - 640, (player_character.rect.centerx - 320)))
         camera_y_offset = -max(0, min(collision_manager.background_image.get_height() - 576, (player_character.rect.centery - 288)))
         screen.blit(collision_manager.background_image, (camera_x_offset, camera_y_offset))
+
+        for npc in current_npcs:
+            npc.draw(screen,camera_x_offset, camera_y_offset)
+        
         keys = pygame.key.get_pressed()
         player_character.draw(screen, camera_x_offset, camera_y_offset)
 
