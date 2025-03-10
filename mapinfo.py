@@ -49,7 +49,7 @@ class BaseExitClass:
     def __init__(self, player):
         self.player = player
 
-    def step_on_exit(self, map_holder, screen,overworld_event_manager,collision_manager,player_character,temp_exit_list):
+    def step_on(self, map_holder, screen,overworld_event_manager,collision_manager,player_character,temp_exit_list):
         self.player.rect.x = self.new_x
         self.player.rect.y = self.new_y
         if hasattr(self, "facing_direction"):
@@ -83,7 +83,7 @@ class MasonCenterBottomExit(BaseExitClass):
         self.new_y = 7*64
         self.replacement_map = TcgIsland
         self.rect=pygame.Rect(448, 896, 128, 64)
-        self.facing_direction="up"
+        self.facing_direction="down"
 
 class MasonLeftExit1(BaseExitClass):
     def __init__(self,player):
@@ -113,14 +113,19 @@ Overworld Club entrances
 class BaseOverworldClubClass:
     def __init__(self):
         pass
-    def step_on_club(self):
+    def step_on(self, map_holder, screen,overworld_event_manager,collision_manager,player_character,temp_exit_list):
         pass
-    def interact_with_club(self):
+    def interact_object(self):
         pass
 
 class MasonsLabOverworldEntrance(BaseOverworldClubClass):
-    #super().__init__()
-    pass
+    def __init__(self,player):
+        #super().__init__()
+        self.rect=pygame.Rect(64, 448, 64, 64)
+        self.new_x=448
+        self.new_y=832
+        self.replacement_map=MasonCenter
+        self.facing_direction="up"
 
 """
 ----------------------------------
@@ -165,7 +170,7 @@ class MasonCenter:
         ]
        
         
-        self.interact_object=[
+        self.interact_object_triggers=[
             MasonCenterTree,
             MasonCenterBlackboard
             ]
@@ -238,20 +243,17 @@ class TcgIsland:
             pygame.Rect(64, 192, 64, 64),
             pygame.Rect(64, 384, 64, 64)]
         
-        self.overworld_club_entrances=[
+        self.step_triggers=[
         MasonsLabOverworldEntrance
         ]
-        
-        '''
-        self.interact_self_triggers":[
-            (pygame.Rect(64, 448, 64, 64),{"mapname":"mason_center","x":448,"y":832,"direction":"up"})
-            ],
-        "tcg club names":[
+
+        '''        
+        self.step_triggers=[
             (pygame.Rect(64, 448, 64, 64),"Mason's Lab"),
             (pygame.Rect(192, 448, 64, 64),"Fighting Club"),
             (pygame.Rect(128, 320, 64, 64),"Lightning Club"),
             ],'''
-
+'''
 
 
 mason_right={
@@ -380,6 +382,7 @@ neo_stadium={
     }
 
 
+'''
 '''
 elif mapname=="imakuni":
     bg_image = pygame.image.load(os.path.join("assets", "maps", "wandering imakuni.png"))

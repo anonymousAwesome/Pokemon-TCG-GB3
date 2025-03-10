@@ -47,7 +47,7 @@ def check_all_interactions(map_holder,player_character,event_list,screen,map_inp
     check_step_on_object(temp_exit_list,player_character,overworld_event_manager,map_holder,screen,collision_manager,map_input_lock)
     
 def check_interact_with_object(map_holder,player_character,event_list,screen,map_input_lock,overworld_event_manager,current_dialogue):
-    interact_object=getattr(map_holder.current_map,"interact_object",False)
+    interact_object=getattr(map_holder.current_map,"interact_object_triggers",False)
     if interact_object:
         temp_interact_front_rect=player_character.rect.copy()
         if player_character.facing_direction=="down":
@@ -71,7 +71,7 @@ def check_step_on_object(temp_exit_list,player_character,overworld_event_manager
     for trigger in temp_exit_list.temp_list:
         if trigger.rect.contains(player_character.rect):
             player_character.pixels_remaining=0
-            overworld_event_manager.add_event(trigger.step_on_exit,[map_holder,screen,overworld_event_manager,collision_manager,player_character,temp_exit_list])
+            overworld_event_manager.add_event(trigger.step_on,[map_holder,screen,overworld_event_manager,collision_manager,player_character,temp_exit_list])
             map_input_lock.lock()
 
 def check_interact_with_self():
