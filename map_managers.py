@@ -44,35 +44,34 @@ class CollisionManager():
 
 def check_all_interactions(map_holder,player_character,event_list,screen,map_input_lock,current_dialogue,temp_exit_list,overworld_event_manager,collision_manager):
     check_interact_with_object(map_holder,player_character,event_list,screen,map_input_lock,overworld_event_manager,current_dialogue)
-    check_step_on_object(temp_exit_list,player_character,overworld_event_manager,map_holder,screen,collision_manager,map_input_lock)
+    check_step_on_object(temp_exit_list,player_character,overworld_event_manager,map_holder,screen,collision_manager)
     
 def check_interact_with_object(map_holder,player_character,event_list,screen,map_input_lock,overworld_event_manager,current_dialogue):
     interact_object=getattr(map_holder.current_map,"interact_object_triggers",False)
-    if interact_object:
-        temp_interact_front_rect=player_character.rect.copy()
-        if player_character.facing_direction=="down":
-            temp_interact_front_rect.y+=characters.TILE_SIZE
-        if player_character.facing_direction=="up":
-            temp_interact_front_rect.y-=characters.TILE_SIZE
-        if player_character.facing_direction=="left":
-            temp_interact_front_rect.x-=characters.TILE_SIZE
-        if player_character.facing_direction=="right":
-            temp_interact_front_rect.x+=characters.TILE_SIZE
-        for event in event_list:
-            if event.type==pygame.KEYDOWN:
-                if event.key==key_mappings.affirm_key:
-                    for map_object in interact_object:
-                        temp_map_object=map_object(screen,current_dialogue,overworld_event_manager)
-                        if temp_map_object.rect.contains(temp_interact_front_rect):
-                            temp_map_object.interact_object(event_list)
-                            map_input_lock.lock()
+    if not map_input_lock:
+        if interact_object:
+            temp_interact_front_rect=player_character.rect.copy()
+            if player_character.facing_direction=="down":
+                temp_interact_front_rect.y+=characters.TILE_SIZE
+            if player_character.facing_direction=="up":
+                temp_interact_front_rect.y-=characters.TILE_SIZE
+            if player_character.facing_direction=="left":
+                temp_interact_front_rect.x-=characters.TILE_SIZE
+            if player_character.facing_direction=="right":
+                temp_interact_front_rect.x+=characters.TILE_SIZE
+            for event in event_list:
+                if event.type==pygame.KEYDOWN:
+                    if event.key==key_mappings.affirm_key:
+                        for map_object in interact_object:
+                            temp_map_object=map_object(screen,current_dialogue,overworld_event_manager,map_input_lock)
+                            if temp_map_object.rect.contains(temp_interact_front_rect):
+                                temp_map_object.interact_object(event_list)
 
-def check_step_on_object(temp_exit_list,player_character,overworld_event_manager,map_holder,screen,collision_manager,map_input_lock):
+def check_step_on_object(temp_exit_list,player_character,overworld_event_manager,map_holder,screen,collision_manager):
     for trigger in temp_exit_list.temp_list:
         if trigger.rect.contains(player_character.rect):
-            player_character.pixels_remaining=0
+            #player_character.pixels_remaining=0 unnecessary?
             overworld_event_manager.add_event(trigger.step_on,[map_holder,screen,overworld_event_manager,collision_manager,player_character,temp_exit_list])
-            map_input_lock.lock()
 
 def check_interact_with_self():
     pass

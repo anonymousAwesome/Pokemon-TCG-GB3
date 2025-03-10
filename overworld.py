@@ -98,12 +98,8 @@ if __name__=="__main__":
             player_character.move_character(can_move_bool)
 
 
-            map_managers.check_all_interactions(map_holder,player_character,event_list,screen,map_input_lock,current_dialogue,temp_exit_list,overworld_event_manager,collision_manager)
+        map_managers.check_all_interactions(map_holder,player_character,event_list,screen,map_input_lock,current_dialogue,temp_exit_list,overworld_event_manager,collision_manager)
 
-        elif map_input_lock:
-            overworld_event_manager.run_all_events()
-            '''functionally identical to overworld_event_manager.run_next_event(),
-            due to the way the main loop works, but I like to have options,
-            just in case.'''
+        overworld_event_manager.run_next_event()
         pygame.display.flip()
         clock.tick(60)

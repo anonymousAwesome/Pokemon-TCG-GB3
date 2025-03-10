@@ -11,32 +11,35 @@ objects
 
 
 class BaseMapObjectClass:
-    def __init__(self,screen,current_dialogue,event_manager):
+    def __init__(self,screen,current_dialogue,event_manager,map_input_lock):
         self.screen=screen
         self.current_dialogue=current_dialogue
         self.event_manager=event_manager
+        self.map_input_lock=map_input_lock
 
 class MasonCenterTree(BaseMapObjectClass):
 
-    def __init__(self,screen,current_dialogue,event_manager):
-        super().__init__(screen,current_dialogue,event_manager)
+    def __init__(self,screen,current_dialogue,event_manager,map_input_lock):
+        super().__init__(screen,current_dialogue,event_manager,map_input_lock)
         self.rect=pygame.Rect(64, 704, 64, 128)
 
     def interact_object(self,event_list):
-        self.event_manager.add_event(self.current_dialogue.__init__,[self.screen,"It's a tree.\nI'm not sure what you expected."])
+        #self.event_manager.add_event(self.current_dialogue.__init__,[self.screen,"It's a tree.\nI'm not sure what you expected."])
+        self.event_manager.add_event(self.current_dialogue.__init__,[self.screen,"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa bbbbbbbbbbbbbbbbbbbbbbbbbbbbbb cccccccccccccccccccccccccc dddddddddddddddddddddddddddd eeeeeeeeeeeeeeeeeeeeeeeeeee fffffffffffffffffffffffffffff gggggggggggggggggggggg hhhhhhhhhhhhhhhhhhhhhhhh iiiiiiiiiiiiiiiiiiiii"])
         self.event_manager.add_event(self.current_dialogue.render,[event_list],persistent_condition=self.current_dialogue.check_remaining_text)
+        self.map_input_lock.lock()
 
 
 class MasonCenterBlackboard(BaseMapObjectClass):
 
-    def __init__(self,screen,current_dialogue,event_manager):
-        super().__init__(screen,current_dialogue,event_manager)
+    def __init__(self,screen,current_dialogue,event_manager,map_input_lock):
+        super().__init__(screen,current_dialogue,event_manager,map_input_lock)
         self.rect=pygame.Rect(448, 0, 64, 64)
 
     def interact_object(self,event_list):
         self.event_manager.add_event(self.current_dialogue.__init__,[self.screen,"It's a chalkboard.\nIt just says \"butts lol\". :/"])
         self.event_manager.add_event(self.current_dialogue.render,[event_list],persistent_condition=self.current_dialogue.check_remaining_text)
-        
+        self.map_input_lock.lock()
 
 """
 ----------------------------------
@@ -56,8 +59,8 @@ class BaseExitClass:
             self.player.facing_direction = self.facing_direction
             self.player.map_exit_change_facing()
         map_holder.__init__(self.replacement_map, screen)
-        overworld_event_manager.add_event(collision_manager.__init__,[map_holder.current_map.bg_image,player_character,map_holder.current_map.obstacles])
-        overworld_event_manager.add_event(temp_exit_list.__init__,[map_holder,player_character])
+        collision_manager.__init__(map_holder.current_map.bg_image,player_character,map_holder.current_map.obstacles)
+        temp_exit_list.__init__(map_holder,player_character)
 
 class MasonCenterLeftExit1(BaseExitClass):
     def __init__(self, player):

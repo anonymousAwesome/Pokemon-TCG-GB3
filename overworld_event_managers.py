@@ -12,12 +12,18 @@ class OverworldEventManager:
     def run_next_event(self):
         """Runs the next event if available, blocking further events if persistent."""
         if self.event_queue:
+            print(self.event_queue)
             event_func, args, kwargs, persistent_condition = self.event_queue.popleft()
             event_func(*args, **kwargs)
             if persistent_condition and persistent_condition():
                 self.event_queue.appendleft((event_func, args, kwargs, persistent_condition))
         else:
             self.map_input_lock.unlock()
+
+    '''
+    #no longer useful, since it processes the same key input for all
+    #functions, instead of checking separate inputs for each call.
+    #Might be useful for debugging, though.
 
     def run_all_events(self):
         """Runs all events, but stops if a persistent event remains active."""
@@ -30,4 +36,4 @@ class OverworldEventManager:
                 break
         
         if not self.event_queue:
-            self.map_input_lock.unlock()
+            self.map_input_lock.unlock()'''
