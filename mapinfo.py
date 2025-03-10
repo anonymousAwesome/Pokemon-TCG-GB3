@@ -143,13 +143,12 @@ class MasonsLabOverworldEntrance(BaseOverworldClubClass):
 NPCs
 ----------------------------------
 """
-'''
+
 class DrMason(characters.Character):
     def __init__(self):
-        loaded_sprites=characters.load_sprites_from_sheet(characters.spritesheet_tcg2,3)
-        
-        self.location=pygame.Rect(448, 192, 64, 64)
-'''
+        self.loaded_sprites=characters.load_sprites_from_sheet(characters.spritesheet_tcg2,3)
+        self.sprite=characters.NPC(448,192, self.loaded_sprites)
+
 
 """
 ----------------------------------
@@ -192,9 +191,9 @@ class MasonCenter:
             MasonCenterBottomExit
             ]
 
-        '''self.npcs=[
+        self.npcs=[
             DrMason
-            ]'''
+            ]
 
 '''
         self.step_triggers=[

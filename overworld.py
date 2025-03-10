@@ -17,12 +17,13 @@ import ui
 import map_managers
 import mapinfo
 
+starting_map_class=mapinfo.MasonCenter
 
 pc_sprite = characters.load_sprites_from_sheet(characters.spritesheet_tcg2,0)
 
 player_character=characters.Player(448,832, pc_sprite)
 
-map_holder=map_managers.CurrentMapContainer(mapinfo.MasonCenter)
+map_holder=map_managers.CurrentMapContainer(starting_map_class)
 
 current_dialogue=ui.Dialogue(screen,"")
 
@@ -68,16 +69,21 @@ overworld_event_manager = oem.OverworldEventManager(map_input_lock)
 
 event_list=[]
 
-'''
-current_npcs=[]
 
-for npc in mapinfo.MasonCenter().npcs:
-    current_npcs.append(npc())
-'''
+class CurrentNPCs:
+    def __init__(self,current_map_class):
+        self.spritesheet_yellow=characters.spritesheet_yellow
+        self.spritesheet_crystal=characters.spritesheet_crystal
+        self.spritesheet_tcg2=characters.spritesheet_tcg2
 
-loaded_sprites=characters.load_sprites_from_sheet(characters.spritesheet_tcg2,3)
-current_npcs=[characters.NPC(448,192,loaded_sprites)]
+        self.reset(current_map_class)
 
+    def reset(self,current_map_class):
+        self.current_npcs=[]
+        for npc in current_map_class().npcs:
+            self.current_npcs.append(npc())
+        
+current_npcs=CurrentNPCs(starting_map_class)
 
 if __name__=="__main__":
     running = True
@@ -90,8 +96,8 @@ if __name__=="__main__":
         camera_y_offset = -max(0, min(collision_manager.background_image.get_height() - 576, (player_character.rect.centery - 288)))
         screen.blit(collision_manager.background_image, (camera_x_offset, camera_y_offset))
 
-        for npc in current_npcs:
-            npc.draw(screen,camera_x_offset, camera_y_offset)
+        for npc in current_npcs.current_npcs:
+            npc.sprite.draw(screen,camera_x_offset, camera_y_offset)
         
         keys = pygame.key.get_pressed()
         player_character.draw(screen, camera_x_offset, camera_y_offset)
