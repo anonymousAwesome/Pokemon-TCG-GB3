@@ -80,7 +80,7 @@ class CurrentNPCs:
 
     def reset(self,current_map_class):
         self.current_npcs=[]
-        for npc in current_map_class().npcs:
+        for npc in getattr(current_map_class(),"npcs",[]):
             self.current_npcs.append(npc())
         
 current_npcs=CurrentNPCs(starting_map_class)
@@ -114,7 +114,7 @@ if __name__=="__main__":
             player_character.move_character(can_move_bool)
 
 
-        map_managers.check_all_interactions(map_holder,player_character,event_list,screen,map_input_lock,current_dialogue,temp_exit_list,overworld_event_manager,collision_manager)
+        map_managers.check_all_interactions(map_holder,player_character,event_list,screen,map_input_lock,current_dialogue,temp_exit_list,overworld_event_manager,collision_manager,current_npcs)
 
         overworld_event_manager.run_next_event()
         pygame.display.flip()

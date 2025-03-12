@@ -52,7 +52,7 @@ class BaseExitClass:
     def __init__(self):
         pass
 
-    def step_on(self, map_holder, screen,overworld_event_manager,collision_manager,player_character,temp_exit_list):
+    def step_on(self, map_holder, screen,overworld_event_manager,collision_manager,player_character,temp_exit_list,current_npcs):
         player_character.rect.x = self.new_x
         player_character.rect.y = self.new_y
         if hasattr(self, "facing_direction"):
@@ -61,6 +61,7 @@ class BaseExitClass:
         map_holder.__init__(self.replacement_map)
         collision_manager.__init__(map_holder.current_map.bg_image,player_character,map_holder.current_map.obstacles)
         temp_exit_list.__init__(map_holder,player_character)
+        current_npcs.reset(self.replacement_map)
 
 class MasonCenterLeftExit1(BaseExitClass):
     def __init__(self):
@@ -116,9 +117,9 @@ Overworld Club entrances
 class BaseOverworldClubClass:
     def __init__(self):
         pass
-    def step_on(self, map_holder, screen,overworld_event_manager,collision_manager,player_character,temp_exit_list):
+    def step_on(self, map_holder, screen,overworld_event_manager,collision_manager,player_character,temp_exit_list,current_npcs):
         ui.club_name_render(screen,self.club_text)
-    def interact_self(self, map_holder, screen,overworld_event_manager,collision_manager,player_character,temp_exit_list):
+    def interact_self(self, map_holder, screen,overworld_event_manager,collision_manager,player_character,temp_exit_list,current_npcs):
         player_character.rect.x = self.new_x
         player_character.rect.y = self.new_y
         if hasattr(self, "facing_direction"):
@@ -127,6 +128,7 @@ class BaseOverworldClubClass:
         map_holder.__init__(self.replacement_map)
         collision_manager.__init__(map_holder.current_map.bg_image,player_character,map_holder.current_map.obstacles)
         temp_exit_list.__init__(map_holder,player_character)
+        current_npcs.reset(self.replacement_map)
 
 class MasonsLabOverworldEntrance(BaseOverworldClubClass):
     def __init__(self):
