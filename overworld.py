@@ -17,11 +17,13 @@ import ui
 import map_managers
 import mapinfo
 
-starting_map_class=mapinfo.MasonCenter
+#starting_map_class=mapinfo.MasonCenter
+starting_map_class=mapinfo.TradingPost
 
 pc_sprite = characters.load_sprites_from_sheet(characters.spritesheet_tcg2,0)
 
-player_character=characters.Player(448,832, pc_sprite)
+#player_character=characters.Player(448,832, pc_sprite)
+player_character=characters.Player(320,320, pc_sprite)
 
 map_holder=map_managers.CurrentMapContainer(starting_map_class)
 
@@ -58,12 +60,8 @@ class MovementLock():
         
     def unlock(self):
         self.locked=False
-
-    
-    
-
+ 
 map_input_lock=MovementLock()
-
 
 overworld_event_manager = oem.OverworldEventManager(map_input_lock)
 

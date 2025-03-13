@@ -218,6 +218,68 @@ class TestMap:
         self.step_triggers=[]
 
 
+
+
+class TradingPostCharity(BaseMapObjectClass):
+
+    def __init__(self,screen,current_dialogue,event_manager,map_input_lock):
+        super().__init__(screen,current_dialogue,event_manager,map_input_lock)
+        self.rect=pygame.Rect(256, 256, 64, 64)
+        self.photo_location=os.path.join("assets", "duellists", "Charity.png")
+
+    def interact_object(self,event_list):
+        self.event_manager.add_event(self.current_dialogue.__init__,[self.screen,"Welcome to the trading post. Would you like to make a trade?"],{"name_text":"Charity","photo_location":self.photo_location})
+        self.event_manager.add_event(self.current_dialogue.render,[event_list],persistent_condition=self.current_dialogue.check_remaining_text)
+        self.map_input_lock.lock()
+
+
+class TradingPostJumboSteve(BaseMapObjectClass):
+
+    def __init__(self,screen,current_dialogue,event_manager,map_input_lock):
+        super().__init__(screen,current_dialogue,event_manager,map_input_lock)
+        self.rect=pygame.Rect(64, 384, 64, 64)
+        self.photo_location=os.path.join("assets", "duellists", "jumbo steve.png")
+
+    def interact_object(self,event_list):
+        self.event_manager.add_event(self.current_dialogue.__init__,[self.screen,"My deck uses only the largest cards! Jumbo promotional cards are where it's at! Game balance? Never heard of it!"],{"name_text":"Jumbo Steve","photo_location":self.photo_location})
+        self.event_manager.add_event(self.current_dialogue.render,[event_list],persistent_condition=self.current_dialogue.check_remaining_text)
+        self.map_input_lock.lock()
+
+
+
+
+class TradingPost:
+    def __init__(self):
+        self.bg_image=pygame.image.load(os.path.join("assets", "maps", "trading post.png"))
+        self.bg_image=pygame.transform.scale(self.bg_image, (self.bg_image.get_width() * 4, self.bg_image.get_height() * 4))
+
+        self.obstacles=[
+            pygame.Rect(0, 0, 64, 768),
+            pygame.Rect(576, 0, 64, 768),
+            pygame.Rect(64, 256, 512, 64),
+            pygame.Rect(64, 64, 512, 64),
+            pygame.Rect(64, 128, 512, 64),
+            pygame.Rect(64, 192, 512, 64),
+            pygame.Rect(64, 0, 512, 64),
+            pygame.Rect(64, 704, 512, 64),
+            pygame.Rect(64, 384, 64, 320),
+            pygame.Rect(512, 384, 64, 320),
+            pygame.Rect(448, 576, 64, 128),
+            pygame.Rect(128, 576, 64, 128),
+        ]
+
+
+        self.step_triggers=[]
+
+        self.interact_object_triggers=[
+        TradingPostJumboSteve,
+        TradingPostCharity,
+        ]
+
+
+
+
+
 class MasonLeft:
     def __init__(self):
         self.bg_image=pygame.image.load(os.path.join("assets", "maps", "mason left.png"))
