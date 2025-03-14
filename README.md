@@ -23,7 +23,7 @@ The program uses the Pygame module for gameplay and pygbag to export the game to
 Cards: 5/~1000 done  
 Duelling system: 5% done  
 Duelling layout: 50% done  
-NPC sprites and portraits: 24% done (each sprite and each portrait is roughly 1%)  
+NPC sprites and portraits: 32% done (each sprite and each portrait is roughly 1%)  
 NPC/player interactions: 0% done  
 
 New location designs:  
