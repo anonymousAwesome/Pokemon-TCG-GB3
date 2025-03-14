@@ -1,10 +1,10 @@
-#Pokemon TCG GB3: Rise of the Forbidden Faction
+# Pokemon TCG GB3: Rise of the Forbidden Faction
 
 This program is a fangame sequel to the Pokemon TCG games for the Game Boy Color. The player explores the game world, defeats duellists at the Pokemon Trading Card Game, and collects cards to improve their deck.
 
 The program uses the Pygame module for gameplay and pygbag to export the game to HTML5 for browser play.
 
-##Planned features:
+## Planned features:
 
 * Every card from Base to Neo expansions, plus Japanese-only cards that never got an official English release. That's roughly a thousand cards.
 
@@ -16,7 +16,7 @@ The program uses the Pygame module for gameplay and pygbag to export the game to
 
 * Extra duel challenges to spice up the gameplay.
 
-##Current status:
+## Current status:
 
 (All percentages are approximate.)
 
