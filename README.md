@@ -24,7 +24,7 @@ Cards: 5/~1000 done
 Duelling system: 5% done  
 Duelling layout: 50% done  
 NPC sprites and portraits: 32% done (each sprite and each portrait is roughly 1%)  
-NPC/player interactions: 0% done  
+NPC/player interactions: 30% done  
 
 New location designs:  
 Airport: done  
@@ -36,7 +36,7 @@ Imakuni?: done
 Forbidden Faction lounge: done  
 Forbidden Faction castle: 0/2 done  
  
-Menu, GUI, and displaying text: 10% done  
+Menu, GUI, and displaying text: 20% done  
 NPC duel AI: 0% done  
 NPC decks: 0% done  
 NPC dialogue: 99% done  
