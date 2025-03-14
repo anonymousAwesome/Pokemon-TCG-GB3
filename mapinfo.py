@@ -228,7 +228,7 @@ class TradingPostCharity(BaseMapObjectClass):
         self.photo_location=os.path.join("assets", "duellists", "Charity.png")
 
     def interact_object(self,event_list):
-        self.event_manager.add_event(self.current_dialogue.__init__,[self.screen,"Welcome to the trading post. Would you like to make a trade?"],{"name_text":"Charity","photo_location":self.photo_location})
+        self.event_manager.add_event(self.current_dialogue.__init__,[self.screen,"Welcome to the trading post.\nWould you like to make a trade?"],{"name_text":"Charity","photo_location":self.photo_location})
         self.event_manager.add_event(self.current_dialogue.render,[event_list],persistent_condition=self.current_dialogue.check_remaining_text)
         self.map_input_lock.lock()
 

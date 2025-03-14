@@ -102,23 +102,32 @@ class Dialogue:
         return len(self.remaining_text)>0
 
     def display_text(self):
-        #draw dialogue box
         bg_box(self.screen,box_x,box_y,box_width,box_height)
 
         if self.profile_image:
-            #profile image
-            self.screen.blit(self.profile_image, (box_x+box_width-self.profile_image.get_width()-2, box_y-self.profile_image.get_height()))
+            if self.name_text:
+                self.screen.blit(self.profile_image, (box_x+2, box_y-self.profile_image.get_height()-46))
+            else:
+                self.screen.blit(self.profile_image, (box_x+2, box_y-self.profile_image.get_height()))
 
         if self.name_text:
-            #render name
             name_surface = font.render(self.name_text, True, white)
-            name_x = box_x + 15
-            name_y = box_y - 46
-            pygame.draw.rect(self.screen, (30,30,225), (name_x - 10, name_y, name_surface.get_width() + 20, 48),border_top_left_radius=7,border_top_right_radius=7) 
-            pygame.draw.rect(self.screen, black, (name_x - 12, name_y, name_surface.get_width() + 22, 48),width=2,border_top_left_radius=7,border_top_right_radius=7)
-            self.screen.blit(name_surface, (name_x, name_y+2))
+            if self.profile_image:
+                name_x = box_x+6
+                name_y = box_y - 46
+                name_box_width=max(name_surface.get_width()+22,self.profile_image.get_width())
+                pygame.draw.rect(self.screen, (30,30,225), (name_x-5, name_y, name_box_width+3, 48)) 
+                pygame.draw.rect(self.screen, black, (name_x - 7, name_y, name_box_width + 5, 48),width=2)
+                self.screen.blit(name_surface, (name_x+8, name_y))
+               
+            else:
+                name_x = box_x + 15
+                name_y = box_y - 46
+                pygame.draw.rect(self.screen, (30,30,225), (name_x - 10, name_y, name_surface.get_width() + 20, 48),border_top_left_radius=7,border_top_right_radius=7) 
+                pygame.draw.rect(self.screen, black, (name_x - 12, name_y, name_surface.get_width() + 22, 48),width=2,border_top_left_radius=7,border_top_right_radius=7)
+                self.screen.blit(name_surface, (name_x, name_y+2))
 
-        #displays the text
+
         for i, line in enumerate(self.lines):
             text_surface = font.render(line, True, black)
             text_x = box_x + hor_margin
