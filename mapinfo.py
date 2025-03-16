@@ -10,31 +10,39 @@ objects
 ----------------------------------
 """
 
-
 class BaseMapObjectClass:
-    def __init__(self,screen,current_dialogue,event_manager,map_input_lock):
+    def __init__(self,screen,current_dialogue,event_manager,map_input_lock,player_character):
         self.screen=screen
         self.current_dialogue=current_dialogue
         self.event_manager=event_manager
         self.map_input_lock=map_input_lock
+        self.player_character=player_character
 
 class MasonCenterTree(BaseMapObjectClass):
 
-    def __init__(self,screen,current_dialogue,event_manager,map_input_lock):
-        super().__init__(screen,current_dialogue,event_manager,map_input_lock)
+    def __init__(self,screen,current_dialogue,event_manager,map_input_lock,player_character):
+        super().__init__(screen,current_dialogue,event_manager,map_input_lock,player_character)
         self.rect=pygame.Rect(64, 704, 64, 128)
 
     def interact_object(self,event_list):
         self.event_manager.add_event(self.current_dialogue.__init__,[self.screen,"It's a tree.\nI'm not sure what you expected."])
         self.event_manager.add_event(self.current_dialogue.render,[event_list],persistent_condition=self.current_dialogue.check_remaining_text)
+        self.event_manager.add_event(self.player_character.cutscene_walk,["right"])
+        self.event_manager.add_event(self.player_character.start_walking,[4])
+        self.event_manager.add_event(self.player_character.continue_walking,[4],persistent_condition=self.player_character.still_walking)
+        self.event_manager.add_event(self.player_character.start_walking,[4])
+        self.event_manager.add_event(self.player_character.continue_walking,[4],persistent_condition=self.player_character.still_walking)
+        self.event_manager.add_event(self.player_character.cutscene_walk,["up"])
+        self.event_manager.add_event(self.player_character.start_walking,[4])
+        self.event_manager.add_event(self.player_character.continue_walking,[4],persistent_condition=self.player_character.still_walking)
         self.event_manager.add_event(self.map_input_lock.unlock)
         self.map_input_lock.lock()
 
 
 class MasonCenterBlackboard(BaseMapObjectClass):
 
-    def __init__(self,screen,current_dialogue,event_manager,map_input_lock):
-        super().__init__(screen,current_dialogue,event_manager,map_input_lock)
+    def __init__(self,screen,current_dialogue,event_manager,map_input_lock,player_character):
+        super().__init__(screen,current_dialogue,event_manager,map_input_lock,player_character)
         self.rect=pygame.Rect(448, 0, 64, 64)
 
     def interact_object(self,event_list):
@@ -224,8 +232,8 @@ class TestMap:
 
 class TradingPostCharity(BaseMapObjectClass):
 
-    def __init__(self,screen,current_dialogue,event_manager,map_input_lock):
-        super().__init__(screen,current_dialogue,event_manager,map_input_lock)
+    def __init__(self,screen,current_dialogue,event_manager,map_input_lock,player_character):
+        super().__init__(screen,current_dialogue,event_manager,map_input_lock,player_character)
         self.rect=pygame.Rect(256, 256, 64, 64)
         self.photo_location=os.path.join("assets", "duellists", "Charity.png")
 
@@ -238,8 +246,8 @@ class TradingPostCharity(BaseMapObjectClass):
 
 class TradingPostJumboSteve(BaseMapObjectClass):
 
-    def __init__(self,screen,current_dialogue,event_manager,map_input_lock):
-        super().__init__(screen,current_dialogue,event_manager,map_input_lock)
+    def __init__(self,screen,current_dialogue,event_manager,map_input_lock,player_character):
+        super().__init__(screen,current_dialogue,event_manager,map_input_lock,player_character)
         self.rect=pygame.Rect(64, 384, 64, 64)
         self.photo_location=os.path.join("assets", "duellists", "jumbo steve.png")
 

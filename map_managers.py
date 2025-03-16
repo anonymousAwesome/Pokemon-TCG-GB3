@@ -64,7 +64,7 @@ def check_interact_with_object(map_holder,player_character,event_list,screen,map
                 if event.type==pygame.KEYDOWN:
                     if event.key==key_mappings.affirm_key:
                         for map_object in interact_object:
-                            temp_map_object=map_object(screen,current_dialogue,overworld_event_manager,map_input_lock)
+                            temp_map_object=map_object(screen,current_dialogue,overworld_event_manager,map_input_lock,player_character)
                             if temp_map_object.rect.contains(temp_interact_front_rect):
                                 temp_map_object.interact_object(event_list)
 

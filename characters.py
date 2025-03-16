@@ -61,6 +61,24 @@ class Character(pygame.sprite.Sprite):
     def flip_walking_side(self):
         self.walking_side=not self.walking_side
 
+    def cutscene_walk(self,direction):
+        self.up_command=False
+        self.down_command=False
+        self.left_command=False
+        self.right_command=False
+        
+        if direction=="left":
+            self.left_command=True
+        if direction=="right":
+            self.right_command=True
+        if direction=="up":
+            self.up_command=True
+        if direction=="down":
+            self.down_command=True
+
+    def still_walking(self):
+        return self.pixels_remaining
+
     def map_exit_change_facing(self):
         if self.facing_direction=="up":
             self.image=self.facing_up
