@@ -80,7 +80,7 @@ class BaseExitClass:
             player_character.facing_direction = self.facing_direction
             player_character.map_exit_change_facing()
         map_holder.__init__(self.replacement_map)
-        collision_manager.__init__(map_holder.current_map.bg_image,player_character,map_holder.current_map.obstacles)
+        collision_manager.__init__(map_holder.current_map.bg_image,player_character,map_holder.current_map.obstacles,map_holder.current_map.npcs)
         temp_exit_list.__init__(map_holder,player_character)
         current_npcs.reset(self.replacement_map)
 
@@ -147,7 +147,7 @@ class BaseOverworldClubClass:
             player_character.facing_direction = self.facing_direction
             player_character.map_exit_change_facing()
         map_holder.__init__(self.replacement_map)
-        collision_manager.__init__(map_holder.current_map.bg_image,player_character,map_holder.current_map.obstacles)
+        collision_manager.__init__(map_holder.current_map.bg_image,player_character,map_holder.current_map.obstacles,map_holder.current_map.npcs)
         temp_exit_list.__init__(map_holder,player_character)
         current_npcs.reset(self.replacement_map)
 

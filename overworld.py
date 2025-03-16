@@ -29,7 +29,7 @@ map_holder=map_managers.CurrentMapContainer(starting_map_class)
 
 current_dialogue=ui.Dialogue(screen,"")
 
-collision_manager=map_managers.CollisionManager(map_holder.current_map.bg_image, player_character, map_holder.current_map.obstacles)
+collision_manager=map_managers.CollisionManager(map_holder.current_map.bg_image, player_character, map_holder.current_map.obstacles,map_holder.current_map.npcs)
 
 class TempExitList():
     '''called when the player moves into a new map, so I'm not 

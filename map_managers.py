@@ -9,9 +9,12 @@ class CurrentMapContainer():
         self.current_map=current_map_class()
 
 class CollisionManager():
-    def __init__(self,background_image,player,obstacles=None):
+    def __init__(self,background_image,player,obstacles=[],npcs=[]):
         self.background_image=background_image
         self.obstacles=obstacles
+        for npc in npcs:
+            self.obstacles.append(npc().sprite.rect)
+        
         self.player=player
 
     def can_move(self):
