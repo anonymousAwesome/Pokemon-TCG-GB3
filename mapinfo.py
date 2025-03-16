@@ -27,6 +27,7 @@ class MasonCenterTree(BaseMapObjectClass):
     def interact_object(self,event_list):
         self.event_manager.add_event(self.current_dialogue.__init__,[self.screen,"It's a tree.\nI'm not sure what you expected."])
         self.event_manager.add_event(self.current_dialogue.render,[event_list],persistent_condition=self.current_dialogue.check_remaining_text)
+        self.event_manager.add_event(self.map_input_lock.unlock)
         self.map_input_lock.lock()
 
 
@@ -39,6 +40,7 @@ class MasonCenterBlackboard(BaseMapObjectClass):
     def interact_object(self,event_list):
         self.event_manager.add_event(self.current_dialogue.__init__,[self.screen,"It's a chalkboard.\nIt just says \"butts lol\". :/"])
         self.event_manager.add_event(self.current_dialogue.render,[event_list],persistent_condition=self.current_dialogue.check_remaining_text)
+        self.event_manager.add_event(self.map_input_lock.unlock)
         self.map_input_lock.lock()
 
 """
@@ -230,6 +232,7 @@ class TradingPostCharity(BaseMapObjectClass):
     def interact_object(self,event_list):
         self.event_manager.add_event(self.current_dialogue.__init__,[self.screen,"Welcome to the trading post.\nWould you like to make a trade?"],{"name_text":"Charity","photo_location":self.photo_location})
         self.event_manager.add_event(self.current_dialogue.render,[event_list],persistent_condition=self.current_dialogue.check_remaining_text)
+        self.event_manager.add_event(self.map_input_lock.unlock)
         self.map_input_lock.lock()
 
 
@@ -243,6 +246,7 @@ class TradingPostJumboSteve(BaseMapObjectClass):
     def interact_object(self,event_list):
         self.event_manager.add_event(self.current_dialogue.__init__,[self.screen,"My deck uses only the largest cards! Jumbo promotional cards are where it's at! Game balance? Never heard of it!"],{"name_text":"Jumbo Steve","photo_location":self.photo_location})
         self.event_manager.add_event(self.current_dialogue.render,[event_list],persistent_condition=self.current_dialogue.check_remaining_text)
+        self.event_manager.add_event(self.map_input_lock.unlock)
         self.map_input_lock.lock()
 
 

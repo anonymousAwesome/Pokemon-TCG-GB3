@@ -16,8 +16,6 @@ class OverworldEventManager:
             event_func(*args, **kwargs)
             if persistent_condition and persistent_condition():
                 self.event_queue.appendleft((event_func, args, kwargs, persistent_condition))
-        else:
-            self.map_input_lock.unlock()
 
     '''
     #no longer useful, since it processes the same key input for all
