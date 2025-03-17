@@ -73,14 +73,14 @@ class BaseExitClass:
     def __init__(self):
         pass
 
-    def step_on(self, map_holder, screen,overworld_event_manager,collision_manager,player_character,temp_exit_list,current_npcs):
+    def step_on(self, map_holder, screen,overworld_event_manager,collision_manager,player_character,temp_exit_list,current_npcs,current_dialogue,map_input_lock):
         player_character.rect.x = self.new_x
         player_character.rect.y = self.new_y
         if hasattr(self, "facing_direction"):
             player_character.facing_direction = self.facing_direction
             player_character.map_exit_change_facing()
         map_holder.__init__(self.replacement_map)
-        collision_manager.__init__(map_holder.current_map.bg_image,player_character,map_holder.current_map.obstacles,map_holder.current_map.npcs)
+        collision_manager.__init__(map_holder.current_map.bg_image,player_character,screen,current_dialogue,overworld_event_manager,map_input_lock,obstacles=map_holder.current_map.obstacles,npcs=map_holder.current_map.npcs)
         temp_exit_list.__init__(map_holder,player_character)
         current_npcs.reset(self.replacement_map)
 
@@ -138,16 +138,16 @@ Overworld Club entrances
 class BaseOverworldClubClass:
     def __init__(self):
         pass
-    def step_on(self, map_holder, screen,overworld_event_manager,collision_manager,player_character,temp_exit_list,current_npcs):
+    def step_on(self, map_holder, screen,overworld_event_manager,collision_manager,player_character,temp_exit_list,current_npcs,current_dialogue,map_input_lock):
         ui.club_name_render(screen,self.club_text)
-    def interact_self(self, map_holder, screen,overworld_event_manager,collision_manager,player_character,temp_exit_list,current_npcs):
+    def interact_self(self, map_holder, screen,overworld_event_manager,collision_manager,player_character,temp_exit_list,current_npcs,current_dialogue,map_input_lock):
         player_character.rect.x = self.new_x
         player_character.rect.y = self.new_y
         if hasattr(self, "facing_direction"):
             player_character.facing_direction = self.facing_direction
             player_character.map_exit_change_facing()
         map_holder.__init__(self.replacement_map)
-        collision_manager.__init__(map_holder.current_map.bg_image,player_character,map_holder.current_map.obstacles,map_holder.current_map.npcs)
+        collision_manager.__init__(map_holder.current_map.bg_image,player_character,screen,current_dialogue,overworld_event_manager,map_input_lock,obstacles=map_holder.current_map.obstacles,npcs=map_holder.current_map.npcs)
         temp_exit_list.__init__(map_holder,player_character)
         current_npcs.reset(self.replacement_map)
 
@@ -167,7 +167,7 @@ NPCs
 ----------------------------------
 """
 
-class BaseNpcClass(characters.Character):
+class BaseNpcClass():
     def __init__(self,screen,current_dialogue,event_manager,map_input_lock,player_character):
         self.screen=screen
         self.current_dialogue=current_dialogue
@@ -341,6 +341,8 @@ class MasonLeft:
             pygame.Rect(832, 832, 64, 64),
             ]
 
+        self.npcs=[]
+
         self.step_triggers=[
             MasonLeftExit1,
             MasonLeftExit2
@@ -369,6 +371,8 @@ class TcgIsland:
         self.interact_self_triggers=[
         MasonsLabOverworldEntrance
         ]
+
+        self.npcs=[]
 
         '''        
         self.step_triggers=[
