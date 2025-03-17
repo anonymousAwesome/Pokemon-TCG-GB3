@@ -9,11 +9,11 @@ class CurrentMapContainer():
         self.current_map=current_map_class()
 
 class CollisionManager():
-    def __init__(self,background_image,player,obstacles=[],npcs=[]):
+    def __init__(self,background_image,player,screen,current_dialogue,event_manager,map_input_lock,obstacles=[],npcs=[]):
         self.background_image=background_image
         self.obstacles=obstacles
         for npc in npcs:
-            self.obstacles.append(npc().sprite.rect)
+            self.obstacles.append(npc(screen,current_dialogue,event_manager,map_input_lock,player).sprite.rect)
         
         self.player=player
 
@@ -52,8 +52,9 @@ def check_all_interactions(map_holder,player_character,event_list,screen,map_inp
     
 def check_interact_with_object(map_holder,player_character,event_list,screen,map_input_lock,overworld_event_manager,current_dialogue):
     interact_object=getattr(map_holder.current_map,"interact_object_triggers",False)
+    npc_list=getattr(map_holder.current_map,"npcs",False)
     if not map_input_lock:
-        if interact_object:
+        if interact_object or npc_list:
             temp_interact_front_rect=player_character.rect.copy()
             if player_character.facing_direction=="down":
                 temp_interact_front_rect.y+=characters.TILE_SIZE
@@ -70,6 +71,10 @@ def check_interact_with_object(map_holder,player_character,event_list,screen,map
                             temp_map_object=map_object(screen,current_dialogue,overworld_event_manager,map_input_lock,player_character)
                             if temp_map_object.rect.contains(temp_interact_front_rect):
                                 temp_map_object.interact_object(event_list)
+                        for npc in npc_list:
+                            temp_npc=npc(screen,current_dialogue,overworld_event_manager,map_input_lock,player_character)
+                            if temp_npc.sprite.rect.contains(temp_interact_front_rect):
+                                temp_npc.interact_object(event_list)
 
 def check_step_on_object(temp_exit_list,player_character,overworld_event_manager,map_holder,screen,collision_manager,current_npcs):
     for trigger in temp_exit_list.temp_list:

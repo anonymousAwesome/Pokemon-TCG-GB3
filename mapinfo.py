@@ -167,10 +167,30 @@ NPCs
 ----------------------------------
 """
 
-class DrMason(characters.Character):
-    def __init__(self):
+class BaseNpcClass(characters.Character):
+    def __init__(self,screen,current_dialogue,event_manager,map_input_lock,player_character):
+        self.screen=screen
+        self.current_dialogue=current_dialogue
+        self.event_manager=event_manager
+        self.map_input_lock=map_input_lock
+        self.player_character=player_character
+
+
+class DrMason(BaseNpcClass):
+    def __init__(self,screen,current_dialogue,event_manager,map_input_lock,player_character):
+        super().__init__(screen,current_dialogue,event_manager,map_input_lock,player_character)
         self.loaded_sprites=characters.load_sprites_from_sheet(characters.spritesheet_tcg2,3)
         self.sprite=characters.NPC(448,192, self.loaded_sprites)
+        self.rect=self.sprite.rect
+
+    def interact_object(self,event_list):
+        self.event_manager.add_event(self.current_dialogue.__init__,[self.screen,"It's a tree.\nI'm not sure what you expected."])
+        self.event_manager.add_event(self.current_dialogue.render,[event_list],persistent_condition=self.current_dialogue.check_remaining_text)
+        self.event_manager.add_event(self.player_character.cutscene_walk,["right"])
+        self.event_manager.add_event(self.player_character.start_walking,[8])
+        self.event_manager.add_event(self.player_character.continue_walking,[8],persistent_condition=self.player_character.still_walking)
+        self.event_manager.add_event(self.map_input_lock.unlock)
+        self.map_input_lock.lock()
 
 
 """
