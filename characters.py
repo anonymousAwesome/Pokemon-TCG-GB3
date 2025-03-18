@@ -238,7 +238,8 @@ class Player(Character):
 class NPC(Character):
     def __init__(self, x, y, anim_frames,facing_direction):
         super().__init__(x, y, anim_frames,facing_direction)
-        self.loop_counter=1
+        self.frame_duration=17
+        self.loop_counter=random.randint(1,self.frame_duration*4)
 
     def random_jitter(self):
         movementx=random.choice([-1,1])
@@ -267,42 +268,49 @@ class NPC(Character):
         self.facing_direction=direction
 
     def walk_in_place(self):
-        frame_duration=17
         if self.facing_direction=="down":
-            if self.loop_counter>frame_duration*4:
+            if self.loop_counter>self.frame_duration*4:
                 self.loop_counter=1
-            if self.loop_counter<=frame_duration:
+            if self.loop_counter<=self.frame_duration:
                 self.image=self.walking_down_1
-            elif self.loop_counter<=frame_duration*2:
+            elif self.loop_counter<=self.frame_duration*2:
                 self.image=self.facing_down
-            elif self.loop_counter<=frame_duration*3:
+            elif self.loop_counter<=self.frame_duration*3:
                 self.image=self.walking_down_2
-            elif self.loop_counter<=frame_duration*4:
+            elif self.loop_counter<=self.frame_duration*4:
                 self.image=self.facing_down
         if self.facing_direction=="up":
-            if self.loop_counter>frame_duration*4:
+            if self.loop_counter>self.frame_duration*4:
                 self.loop_counter=1
-            if self.loop_counter<=frame_duration:
+            if self.loop_counter<=self.frame_duration:
                 self.image=self.walking_up_1
-            elif self.loop_counter<=frame_duration*2:
+            elif self.loop_counter<=self.frame_duration*2:
                 self.image=self.facing_up
-            elif self.loop_counter<=frame_duration*3:
+            elif self.loop_counter<=self.frame_duration*3:
                 self.image=self.walking_up_2
-            elif self.loop_counter<=frame_duration*4:
+            elif self.loop_counter<=self.frame_duration*4:
                 self.image=self.facing_up
         if self.facing_direction=="left":
-            if self.loop_counter>frame_duration*2:
+            if self.loop_counter>self.frame_duration*2:
                 self.loop_counter=1
-            if self.loop_counter<=frame_duration:
+            if self.loop_counter<=self.frame_duration:
                 self.image=self.facing_left
-            elif self.loop_counter<=frame_duration*2:
+            elif self.loop_counter<=self.frame_duration*2:
+                self.image=self.walking_left
+            elif self.loop_counter<=self.frame_duration*3:
+                self.image=self.facing_left
+            elif self.loop_counter<=self.frame_duration*4:
                 self.image=self.walking_left
         if self.facing_direction=="right":
-            if self.loop_counter>frame_duration*2:
+            if self.loop_counter>self.frame_duration*2:
                 self.loop_counter=1
-            if self.loop_counter<=frame_duration:
+            if self.loop_counter<=self.frame_duration:
                 self.image=self.facing_right
-            elif self.loop_counter<=frame_duration*2:
+            elif self.loop_counter<=self.frame_duration*2:
+                self.image=self.walking_right
+            elif self.loop_counter<=self.frame_duration*3:
+                self.image=self.facing_right
+            elif self.loop_counter<=self.frame_duration*4:
                 self.image=self.walking_right
         
         self.loop_counter+=1
