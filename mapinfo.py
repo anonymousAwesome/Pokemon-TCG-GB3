@@ -47,16 +47,6 @@ class MasonCenterTree(BaseMapObjectClass):
     def interact_object(self,event_list):
         self.event_manager.add_event(self.current_dialogue.__init__,[self.screen,"It's a tree.\nI'm not sure what you expected."])
         self.event_manager.add_event(self.current_dialogue.render,[event_list],persistent_condition=self.current_dialogue.check_remaining_text)
-        self.event_manager.add_event(self.player_character.cutscene_walk,["right"])
-        self.event_manager.add_event(self.player_character.start_walking,[8])
-        self.event_manager.add_event(self.player_character.continue_walking,[8],persistent_condition=self.player_character.still_walking)
-        self.event_manager.add_event(self.player_character.start_walking,[2])
-        self.event_manager.add_event(self.player_character.continue_walking,[2],persistent_condition=self.player_character.still_walking)
-        self.event_manager.add_event(empty_event.__init__,[60])
-        self.event_manager.add_event(empty_event.decrement_loops,persistent_condition=empty_event.check_still_looping)
-        self.event_manager.add_event(self.player_character.cutscene_walk,["up"])
-        self.event_manager.add_event(self.player_character.start_walking,[4])
-        self.event_manager.add_event(self.player_character.continue_walking,[4],persistent_condition=self.player_character.still_walking)
         self.event_manager.add_event(self.map_input_lock.unlock)
         self.map_input_lock.lock()
 
