@@ -22,7 +22,7 @@ starting_map_class=mapinfo.MasonCenter
 
 pc_sprite = characters.load_sprites_from_sheet(characters.spritesheet_tcg2,0)
 
-player_character=characters.Player(448,832, pc_sprite)
+player_character=characters.Player(448,832, pc_sprite,"up")
 #player_character=characters.Player(320,320, pc_sprite)
 
 map_holder=map_managers.CurrentMapContainer(starting_map_class)
@@ -97,6 +97,7 @@ if __name__=="__main__":
         screen.blit(collision_manager.background_image, (camera_x_offset, camera_y_offset))
 
         for npc in current_npcs.current_npcs:
+            npc.sprite.walk_in_place()
             npc.sprite.draw(screen,camera_x_offset, camera_y_offset)
         
         keys = pygame.key.get_pressed()

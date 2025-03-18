@@ -180,7 +180,7 @@ class DrMason(BaseNpcClass):
     def __init__(self,screen,current_dialogue,event_manager,map_input_lock,player_character):
         super().__init__(screen,current_dialogue,event_manager,map_input_lock,player_character)
         self.loaded_sprites=characters.load_sprites_from_sheet(characters.spritesheet_tcg2,3)
-        self.sprite=characters.NPC(448,192, self.loaded_sprites)
+        self.sprite=characters.NPC(448,192, self.loaded_sprites,"down")
         self.rect=self.sprite.rect
 
     def interact_object(self,event_list):

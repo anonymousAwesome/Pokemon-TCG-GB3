@@ -27,13 +27,9 @@ def load_sprites_from_sheet(spritesheet, row):
 
 
 class Character(pygame.sprite.Sprite):
-    def __init__(self, x, y, anim_frames):
+    def __init__(self, x, y, anim_frames,facing_direction):
         pygame.sprite.Sprite.__init__(self)
         self.anim_frames=anim_frames
-        self.image = anim_frames[1]
-        self.rect  = self.image.get_rect()
-        self.rect.x,self.rect.y = x, y
-
         self.walking_down_1=anim_frames[0]
         self.facing_down=anim_frames[1]
         self.walking_down_2=anim_frames[2]
@@ -46,7 +42,6 @@ class Character(pygame.sprite.Sprite):
         self.walking_right=anim_frames[9]
         self.move  = 4 #Just to be safe, keep it a factor of 64: 1, 2, 4, 8, 16, 32, or 64.
         self.pixels_remaining=0
-        self.facing_direction="down"
         self.walking_side=True
         self.fast_walking=False
         self.up_command=False
@@ -54,6 +49,11 @@ class Character(pygame.sprite.Sprite):
         self.left_command=False
         self.right_command=False
         self.accept_key=False
+
+        self.facing_direction=facing_direction
+        self.map_exit_change_facing()
+        self.rect  = self.image.get_rect()
+        self.rect.x,self.rect.y = x, y
 
     def draw(self, surface, camera_x_offset, camera_y_offset):
         surface.blit(self.image, (self.rect.x + camera_x_offset, self.rect.y + camera_y_offset))
@@ -200,8 +200,8 @@ class Character(pygame.sprite.Sprite):
             self.continue_walking(move_speed)
 
 class Player(Character):
-    def __init__(self, x, y, anim_frames):
-        super().__init__(x, y, anim_frames)
+    def __init__(self, x, y, anim_frames,facing_direction):
+        super().__init__(x, y, anim_frames,facing_direction)
 
     def process_input(self,keys):
         if keys[key_mappings.cancel_key]:
@@ -236,8 +236,9 @@ class Player(Character):
 
 
 class NPC(Character):
-    def __init__(self, x, y, anim_frames):
-        super().__init__(x, y, anim_frames)
+    def __init__(self, x, y, anim_frames,facing_direction):
+        super().__init__(x, y, anim_frames,facing_direction)
+        self.loop_counter=1
 
     def random_jitter(self):
         movementx=random.choice([-1,1])
@@ -263,4 +264,42 @@ class NPC(Character):
         super().move_character()
 
     def walk_in_place(self):
-        pass
+        frame_duration=17
+        if self.facing_direction=="down":
+            if self.loop_counter>frame_duration*4:
+                self.loop_counter=1
+            if self.loop_counter<=frame_duration:
+                self.image=self.walking_down_1
+            elif self.loop_counter<=frame_duration*2:
+                self.image=self.facing_down
+            elif self.loop_counter<=frame_duration*3:
+                self.image=self.walking_down_2
+            elif self.loop_counter<=frame_duration*4:
+                self.image=self.facing_down
+        if self.facing_direction=="up":
+            if self.loop_counter>frame_duration*4:
+                self.loop_counter=1
+            if self.loop_counter<=frame_duration:
+                self.image=self.walking_up_1
+            elif self.loop_counter<=frame_duration*2:
+                self.image=self.facing_up
+            elif self.loop_counter<=frame_duration*3:
+                self.image=self.walking_up_2
+            elif self.loop_counter<=frame_duration*4:
+                self.image=self.facing_up
+        if self.facing_direction=="left":
+            if self.loop_counter>frame_duration*2:
+                self.loop_counter=1
+            if self.loop_counter<=frame_duration:
+                self.image=self.facing_left
+            elif self.loop_counter<=frame_duration*2:
+                self.image=self.walking_left
+        if self.facing_direction=="right":
+            if self.loop_counter>frame_duration*2:
+                self.loop_counter=1
+            if self.loop_counter<=frame_duration:
+                self.image=self.facing_right
+            elif self.loop_counter<=frame_duration*2:
+                self.image=self.walking_right
+        
+        self.loop_counter+=1
