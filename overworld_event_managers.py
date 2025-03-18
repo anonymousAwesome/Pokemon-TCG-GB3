@@ -16,21 +16,3 @@ class OverworldEventManager:
             event_func(*args, **kwargs)
             if persistent_condition and persistent_condition():
                 self.event_queue.appendleft((event_func, args, kwargs, persistent_condition))
-
-    '''
-    #no longer useful, since it processes the same key input for all
-    #functions, instead of checking separate inputs for each call.
-    #Might be useful for debugging, though.
-
-    def run_all_events(self):
-        """Runs all events, but stops if a persistent event remains active."""
-        while self.event_queue:
-            previous_size = len(self.event_queue)
-            self.run_next_event()
-            
-            # If the queue size didn’t change, a persistent event is blocking execution
-            if len(self.event_queue) == previous_size:
-                break
-        
-        if not self.event_queue:
-            self.map_input_lock.unlock()'''
