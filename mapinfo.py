@@ -91,9 +91,9 @@ class BaseExitClass:
             player_character.facing_direction = self.facing_direction
             player_character.map_exit_change_facing()
         map_holder.__init__(self.replacement_map)
-        collision_manager.__init__(map_holder.current_map.bg_image,player_character,screen,current_dialogue,overworld_event_manager,map_input_lock,obstacles=map_holder.current_map.obstacles,npcs=map_holder.current_map.npcs)
         temp_exit_list.__init__(map_holder,player_character)
         current_npcs.reset(self.replacement_map)
+        collision_manager.__init__(map_holder.current_map.bg_image,player_character,screen,current_dialogue,overworld_event_manager,map_input_lock,obstacles=map_holder.current_map.obstacles,npcs=current_npcs)
 
 class MasonCenterLeftExit1(BaseExitClass):
     def __init__(self):
@@ -158,9 +158,9 @@ class BaseOverworldClubClass:
             player_character.facing_direction = self.facing_direction
             player_character.map_exit_change_facing()
         map_holder.__init__(self.replacement_map)
-        collision_manager.__init__(map_holder.current_map.bg_image,player_character,screen,current_dialogue,overworld_event_manager,map_input_lock,obstacles=map_holder.current_map.obstacles,npcs=map_holder.current_map.npcs)
         temp_exit_list.__init__(map_holder,player_character)
         current_npcs.reset(self.replacement_map)
+        collision_manager.__init__(map_holder.current_map.bg_image,player_character,screen,current_dialogue,overworld_event_manager,map_input_lock,obstacles=map_holder.current_map.obstacles,npcs=current_npcs)
 
 class MasonsLabOverworldEntrance(BaseOverworldClubClass):
     def __init__(self):

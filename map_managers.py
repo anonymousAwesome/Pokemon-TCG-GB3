@@ -12,9 +12,9 @@ class CollisionManager():
     def __init__(self,background_image,player,screen,current_dialogue,event_manager,map_input_lock,obstacles=[],npcs=[]):
         self.background_image=background_image
         self.obstacles=obstacles
-        for npc in npcs.current_npcs:
-            self.obstacles.append(npc.sprite.rect)
-        
+        if npcs:
+            for npc in npcs.current_npcs:
+                self.obstacles.append(npc.sprite.rect)
         self.player=player
 
     def can_move(self):
