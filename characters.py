@@ -263,6 +263,9 @@ class NPC(Character):
             self.down_command=True
         super().move_character()
 
+    def manual_direction_change(self,direction):
+        self.facing_direction=direction
+
     def walk_in_place(self):
         frame_duration=17
         if self.facing_direction=="down":

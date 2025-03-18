@@ -72,6 +72,14 @@ def check_interact_with_object(map_holder,player_character,event_list,screen,map
                                 temp_map_object.interact_object(event_list)
                         for npc in current_npcs.current_npcs:
                             if npc.sprite.rect.contains(temp_interact_front_rect):
+                                if player_character.facing_direction=="down":
+                                    npc.sprite.manual_direction_change("up")
+                                if player_character.facing_direction=="up":
+                                    npc.sprite.manual_direction_change("down")
+                                if player_character.facing_direction=="left":
+                                    npc.sprite.manual_direction_change("right")
+                                if player_character.facing_direction=="right":
+                                    npc.sprite.manual_direction_change("left")
                                 npc.interact_object(event_list)
 
 def check_step_on_object(temp_exit_list,player_character,overworld_event_manager,map_holder,screen,collision_manager,current_npcs,current_dialogue,map_input_lock):
