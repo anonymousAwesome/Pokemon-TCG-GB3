@@ -97,7 +97,8 @@ if __name__=="__main__":
         screen.blit(collision_manager.background_image, (camera_x_offset, camera_y_offset))
 
         for npc in current_npcs.current_npcs:
-            npc.sprite.walk_in_place()
+            if not npc.sprite.pixels_remaining:
+                npc.sprite.walk_in_place()
             npc.sprite.draw(screen,camera_x_offset, camera_y_offset)
         
         keys = pygame.key.get_pressed()
