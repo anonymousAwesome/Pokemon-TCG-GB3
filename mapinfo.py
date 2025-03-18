@@ -195,22 +195,9 @@ class DrMason(BaseNpcClass):
         self.rect=self.sprite.rect
 
     def interact_object(self,event_list):
-        '''#make Mason walk right 2 tiles
-        self.event_manager.add_event(self.sprite.cutscene_walk,["right"])
-        self.event_manager.add_event(self.sprite.start_walking,[4])
-        self.event_manager.add_event(self.sprite.continue_walking,[4],persistent_condition=self.sprite.still_walking)
-        self.event_manager.add_event(self.sprite.start_walking,[4])
-        self.event_manager.add_event(self.sprite.continue_walking,[4],persistent_condition=self.sprite.still_walking)
-        self.event_manager.add_event(self.map_input_lock.unlock)
-        self.map_input_lock.lock()
-        '''
-        
         self.event_manager.add_event(dialogue_facing,[self.player_character,self])
         self.event_manager.add_event(self.current_dialogue.__init__,[self.screen,"Welcome! I'm Dr. Mason, with a PhD in Pokemon cardology!"])
         self.event_manager.add_event(self.current_dialogue.render,[event_list],persistent_condition=self.current_dialogue.check_remaining_text)
-        #self.event_manager.add_event(self.player_character.cutscene_walk,["right"])
-        #self.event_manager.add_event(self.player_character.start_walking,[8])
-        #self.event_manager.add_event(self.player_character.continue_walking,[8],persistent_condition=self.player_character.still_walking)
         self.event_manager.add_event(self.map_input_lock.unlock)
         self.map_input_lock.lock()
 
