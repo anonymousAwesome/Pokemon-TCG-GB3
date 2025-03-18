@@ -82,7 +82,7 @@ class CurrentNPCs:
         
 current_npcs=CurrentNPCs(starting_map_class)
 
-collision_manager=map_managers.CollisionManager(map_holder.current_map.bg_image, player_character,screen,current_dialogue,overworld_event_manager,map_input_lock,obstacles=map_holder.current_map.obstacles,npcs=map_holder.current_map.npcs)
+collision_manager=map_managers.CollisionManager(map_holder.current_map.bg_image, player_character,screen,current_dialogue,overworld_event_manager,map_input_lock,obstacles=map_holder.current_map.obstacles,npcs=current_npcs)
 
 
 if __name__=="__main__":

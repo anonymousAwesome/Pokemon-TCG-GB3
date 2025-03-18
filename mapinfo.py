@@ -195,10 +195,8 @@ class DrMason(BaseNpcClass):
         self.rect=self.sprite.rect
 
     def interact_object(self,event_list):
+        '''#make Mason walk right 2 tiles
         self.event_manager.add_event(self.sprite.cutscene_walk,["right"])
-        
-        '''
-        #make Mason walk right 2 tiles
         self.event_manager.add_event(self.sprite.start_walking,[4])
         self.event_manager.add_event(self.sprite.continue_walking,[4],persistent_condition=self.sprite.still_walking)
         self.event_manager.add_event(self.sprite.start_walking,[4])
