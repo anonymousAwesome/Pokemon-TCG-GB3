@@ -1,6 +1,9 @@
-'''Note: I use several singleton classes because I replace objects in-
-place a lot, and if I don't wrap each of them in a class and use class
-functions to do that, Python won't play nice.'''
+'''Note: I use several singleton classes because I replace variables in-
+place a lot, and if I try to manually change it, Python sometimes breaks
+the connection to the replaced object.
+
+Instead, I wrap the variable in a class and call class functions to replace
+the variable without breaking the connections to the wrapper object.'''
 
 import pygame
 import os

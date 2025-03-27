@@ -4,7 +4,7 @@ Mason's Lab: A lot of what happens here is a direct reference to the previous ga
 Rock Club: Hal's name and dialogue are a reference to the movie 2001: A Space Odyssey
 Psychic Club: Uri Geller's lawsuit against Pokemon
 Psychic Club: Toolo from Team Four Star's Dragon Ball Z Abridged
-Psychic Club (spooky version): The webcomic Sluggy Freelance. The profile picture of all of the NPCs references Sluggy Freelance's author's avatar, and the dialogue of the NPC Sluggy is lifted from the webcomic's protagonist Torg.
+Psychic Club (spooky version): The webcomic Sluggy Freelance. Specifically, [one of the filler weeks](https://archives.sluggy.com/book.php?chapter=28#2002-03-13).
 Science Club: The streamer ProJared
 Fighting Club: Fight Club
 Pokemon-ex exterior: The Order of the Stick. ("Stupid railroad plots.")
