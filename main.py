@@ -1,27 +1,39 @@
-import duel
 import pygame
+
+pygame.init()
+screen = pygame.display.set_mode((640, 576))
+clock = pygame.time.Clock()
+
 import overworld
+#import duel
+#import paddlewar
+
+overworld_context=overworld.Context(screen)
 
 class PhaseHandler:
     def __init__(self):
-        self.game_phase = "starting"
+        self.game_phase = "overworld"
 
     def set_game_phase(self, new_phase):
         self.game_phase = new_phase
-        '''to-do: add code that checks the new phase against a list of
-        possible phases.'''
-
-    def get_game_phase(self):
-        return self.game_phase
 
 phase_handler = PhaseHandler()
 
-if __name__ == "__main__":
-    running = True
-    while running:
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                running = False
-        overworld.render()
-        #duel.render()
-    pygame.quit()
+running = True
+while running:
+    event_list=pygame.event.get()
+    for event in event_list:
+        if event.type == pygame.QUIT:
+            running = False
+
+    if phase_handler.game_phase == "overworld":
+        overworld_context.update(screen, clock, phase_handler,event_list)
+    elif phase_handler.game_phase == "duel":
+        duel.update(screen, clock, phase_handler)
+    elif phase_handler.game_phase == "paddlewar":
+        paddlewar.update(screen, clock, phase_handler)
+
+    pygame.display.flip()
+    clock.tick(60)
+
+pygame.quit()
