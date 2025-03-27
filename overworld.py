@@ -87,22 +87,22 @@ class Context:
         self.collision_manager=map_managers.CollisionManager(self.map_holder.current_map.bg_image, self.player_character,self.screen,self.current_dialogue,self.overworld_event_manager,self.map_input_lock,obstacles=self.map_holder.current_map.obstacles,npcs=self.current_npcs)
 
 
-    def update(self,screen, clock, phase_handler,event_list):
+    def update(self, clock, phase_handler,event_list):
         self.event_list[:]=event_list
         for event in self.event_list:
             if event.type == pygame.QUIT:
                 running = False
         camera_x_offset = -max(0, min(self.collision_manager.background_image.get_width() - 640, (self.player_character.rect.centerx - 320)))
         camera_y_offset = -max(0, min(self.collision_manager.background_image.get_height() - 576, (self.player_character.rect.centery - 288)))
-        screen.blit(self.collision_manager.background_image, (camera_x_offset, camera_y_offset))
+        self.screen.blit(self.collision_manager.background_image, (camera_x_offset, camera_y_offset))
 
         for npc in self.current_npcs.current_npcs:
             if not npc.sprite.pixels_remaining:
                 npc.sprite.walk_in_place()
-            npc.sprite.draw(screen,camera_x_offset, camera_y_offset)
+            npc.sprite.draw(self.screen,camera_x_offset, camera_y_offset)
         
         keys = pygame.key.get_pressed()
-        self.player_character.draw(screen, camera_x_offset, camera_y_offset)
+        self.player_character.draw(self.screen, camera_x_offset, camera_y_offset)
 
         if not self.map_input_lock:
             
@@ -116,6 +116,6 @@ class Context:
             self.player_character.move_character(can_move_bool)
 
 
-        map_managers.check_all_interactions(self.map_holder,self.player_character,self.event_list,screen,self.map_input_lock,self.current_dialogue,self.temp_exit_list,self.overworld_event_manager,self.collision_manager,self.current_npcs)
+        map_managers.check_all_interactions(self.map_holder,self.player_character,self.event_list,self.screen,self.map_input_lock,self.current_dialogue,self.temp_exit_list,self.overworld_event_manager,self.collision_manager,self.current_npcs,phase_handler)
 
         self.overworld_event_manager.run_next_event()

@@ -6,9 +6,14 @@ clock = pygame.time.Clock()
 
 import overworld
 #import duel
-#import paddlewar
+import paddlewar
 
 overworld_context=overworld.Context(screen)
+
+paddlewar_context=paddlewar.Context(screen)
+
+#duel_context=duel.Context(screen)
+
 
 class PhaseHandler:
     def __init__(self):
@@ -27,11 +32,11 @@ while running:
             running = False
 
     if phase_handler.game_phase == "overworld":
-        overworld_context.update(screen, clock, phase_handler,event_list)
+        overworld_context.update(clock, phase_handler,event_list)
     elif phase_handler.game_phase == "duel":
-        duel.update(screen, clock, phase_handler)
+        duel_context.update(clock, phase_handler,event_list)
     elif phase_handler.game_phase == "paddlewar":
-        paddlewar.update(screen, clock, phase_handler)
+        paddlewar_context.update(clock, phase_handler,event_list)
 
     pygame.display.flip()
     clock.tick(60)

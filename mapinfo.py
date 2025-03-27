@@ -31,12 +31,13 @@ objects
 """
 
 class BaseMapObjectClass:
-    def __init__(self,screen,current_dialogue,event_manager,map_input_lock,player_character):
+    def __init__(self,screen,current_dialogue,event_manager,map_input_lock,player_character,phase_handler):
         self.screen=screen
         self.current_dialogue=current_dialogue
         self.event_manager=event_manager
         self.map_input_lock=map_input_lock
         self.player_character=player_character
+        self.phase_handler=phase_handler
         self.def_rect()
 
 class MasonCenterTree(BaseMapObjectClass):
@@ -56,10 +57,7 @@ class MasonCenterPC(BaseMapObjectClass):
         self.rect=pygame.Rect(64, 64, 64, 64)
 
     def interact_object(self,event_list):
-        self.event_manager.add_event(self.current_dialogue.__init__,[self.screen,"It's a tree.\nI'm not sure what you expected."])
-        self.event_manager.add_event(self.current_dialogue.render,[event_list],persistent_condition=self.current_dialogue.check_remaining_text)
-        self.event_manager.add_event(self.map_input_lock.unlock)
-        self.map_input_lock.lock()
+        self.event_manager.add_event(self.phase_handler.set_game_phase,["paddlewar"])
 
 
 class MasonCenterBlackboard(BaseMapObjectClass):

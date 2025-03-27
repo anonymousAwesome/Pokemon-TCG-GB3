@@ -1,6 +1,7 @@
 A full list of all references made in this game, in roughly chronological order:
 
 Mason's Lab: A lot of what happens here is a direct reference to the previous game, "Pokémon TCG GB2: Team Great Rocket Arrives!", as are the "ping-pong tables".
+Mason's Lab: The game on the computer is based on one of the earliest computer games, Pong, as well as the knockoff version "Paddle War" found in Commander Keen 4, 5, and 6.
 Rock Club: Hal's name and dialogue are a reference to the movie 2001: A Space Odyssey
 Psychic Club: Uri Geller's lawsuit against Pokemon
 Psychic Club: Toolo from Team Four Star's Dragon Ball Z Abridged
