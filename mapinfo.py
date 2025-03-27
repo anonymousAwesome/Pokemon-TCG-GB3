@@ -37,12 +37,23 @@ class BaseMapObjectClass:
         self.event_manager=event_manager
         self.map_input_lock=map_input_lock
         self.player_character=player_character
+        self.def_rect()
 
 class MasonCenterTree(BaseMapObjectClass):
 
-    def __init__(self,screen,current_dialogue,event_manager,map_input_lock,player_character):
-        super().__init__(screen,current_dialogue,event_manager,map_input_lock,player_character)
+    def def_rect(self):
         self.rect=pygame.Rect(64, 704, 64, 128)
+
+    def interact_object(self,event_list):
+        self.event_manager.add_event(self.current_dialogue.__init__,[self.screen,"It's a tree.\nI'm not sure what you expected."])
+        self.event_manager.add_event(self.current_dialogue.render,[event_list],persistent_condition=self.current_dialogue.check_remaining_text)
+        self.event_manager.add_event(self.map_input_lock.unlock)
+        self.map_input_lock.lock()
+
+class MasonCenterPC(BaseMapObjectClass):
+
+    def def_rect(self):
+        self.rect=pygame.Rect(64, 64, 64, 64)
 
     def interact_object(self,event_list):
         self.event_manager.add_event(self.current_dialogue.__init__,[self.screen,"It's a tree.\nI'm not sure what you expected."])
@@ -53,8 +64,7 @@ class MasonCenterTree(BaseMapObjectClass):
 
 class MasonCenterBlackboard(BaseMapObjectClass):
 
-    def __init__(self,screen,current_dialogue,event_manager,map_input_lock,player_character):
-        super().__init__(screen,current_dialogue,event_manager,map_input_lock,player_character)
+    def def_rect(self):
         self.rect=pygame.Rect(448, 0, 64, 64)
 
     def interact_object(self,event_list):
@@ -224,17 +234,18 @@ class MasonCenter:
         
         self.interact_object_triggers=[
             MasonCenterTree,
-            MasonCenterBlackboard
+            MasonCenterBlackboard,
+            MasonCenterPC,
             ]
               
         self.step_triggers=[
             MasonCenterLeftExit1,
             MasonCenterLeftExit2,
-            MasonCenterBottomExit
+            MasonCenterBottomExit,
             ]
 
         self.npcs=[
-            DrMason
+            DrMason,
             ]
 
 '''
