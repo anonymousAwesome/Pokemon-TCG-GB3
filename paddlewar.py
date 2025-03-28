@@ -2,10 +2,6 @@ import pygame
 import random
 import key_mappings
 
-pygame.init()
-
-clock = pygame.time.Clock()
-
 class Context:
 
     def reset_ball(self,direction):
@@ -17,7 +13,7 @@ class Context:
         self.ball_size = 20
         self.paddle_width,self.paddle_height = 10, 80
         self.paddle_speed = 10
-        self.opp_paddle_speed=self.paddle_speed/2
+        self.opp_paddle_speed=3.5
         self.const_ball_speed= 14
         self.white = (0, 255, 0)
         self.dark_green = (0, 100, 0)
@@ -47,7 +43,7 @@ class Context:
         self.score_timer = 0
         self.ball_direction = 1
 
-    def update(self, clock, phase_handler,event_list):
+    def update(self, phase_handler,event_list):
         self.screen.fill(self.dark_green)
 
         pygame.draw.rect(self.screen, self.white, self.player_paddle)
@@ -91,6 +87,10 @@ class Context:
 
         if self.ball.colliderect(self.player_paddle) and self.ball_speed[0] < 0:
             offset = (self.ball.centery - self.player_paddle.centery) / (self.paddle_height)
+            if 0>offset>-0.3:
+                offset=-0.3
+            if 0.3>offset>0:
+                offset=0.3
             self.ball_speed = [self.const_ball_speed * (1 - abs(offset)), self.const_ball_speed * offset]
             #bounce_paddle.play()
 
