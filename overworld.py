@@ -55,10 +55,10 @@ class CurrentNPCs:
     def reset(self,current_map_class):
         self.current_npcs=[]
         for npc in getattr(current_map_class(),"npcs",[]):
-            self.current_npcs.append(npc(self.screen,self.current_dialogue,self.overworld_event_manager,self.map_input_lock,self.player_character))
+            self.current_npcs.append(npc())
 
 class InnerContext:
-    def __init__(self,map_holder,player_character,event_list,screen,map_input_lock,current_dialogue,temp_exit_list,overworld_event_manager,collision_manager,current_npcs):
+    def __init__(self,map_holder,player_character,event_list,screen,map_input_lock,current_dialogue,temp_exit_list,event_manager,collision_manager,current_npcs):
         self.map_holder=map_holder
         self.player_character=player_character
         self.event_list=event_list
@@ -66,7 +66,7 @@ class InnerContext:
         self.map_input_lock=map_input_lock
         self.current_dialogue=current_dialogue
         self.temp_exit_list=temp_exit_list
-        self.overworld_event_manager=overworld_event_manager
+        self.event_manager=event_manager
         self.collision_manager=collision_manager
         self.current_npcs=current_npcs
 

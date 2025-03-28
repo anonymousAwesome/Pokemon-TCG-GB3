@@ -31,13 +31,7 @@ objects
 """
 
 class BaseMapObjectClass:
-    def __init__(self,screen,current_dialogue,event_manager,map_input_lock,player_character,phase_handler):
-        self.screen=screen
-        self.current_dialogue=current_dialogue
-        self.event_manager=event_manager
-        self.map_input_lock=map_input_lock
-        self.player_character=player_character
-        self.phase_handler=phase_handler
+    def __init__(self):
         self.def_rect()
 
 class MasonCenterTree(BaseMapObjectClass):
@@ -45,19 +39,19 @@ class MasonCenterTree(BaseMapObjectClass):
     def def_rect(self):
         self.rect=pygame.Rect(64, 704, 64, 128)
 
-    def interact_object(self,event_list):
-        self.event_manager.add_event(self.current_dialogue.__init__,[self.screen,"It's a tree.\nI'm not sure what you expected."])
-        self.event_manager.add_event(self.current_dialogue.render,[event_list],persistent_condition=self.current_dialogue.check_remaining_text)
-        self.event_manager.add_event(self.map_input_lock.unlock)
-        self.map_input_lock.lock()
+    def interact_object(self,inner_context,phase_handler):
+        inner_context.event_manager.add_event(inner_context.current_dialogue.__init__,[inner_context.screen,"It's a tree.\nI'm not sure what you expected."])
+        inner_context.event_manager.add_event(inner_context.current_dialogue.render,[inner_context.event_list],persistent_condition=inner_context.current_dialogue.check_remaining_text)
+        inner_context.event_manager.add_event(inner_context.map_input_lock.unlock)
+        inner_context.map_input_lock.lock()
 
 class MasonCenterPC(BaseMapObjectClass):
 
     def def_rect(self):
         self.rect=pygame.Rect(64, 64, 64, 64)
 
-    def interact_object(self,event_list):
-        self.event_manager.add_event(self.phase_handler.set_game_phase,["paddlewar"])
+    def interact_object(self,inner_context,phase_handler):
+        inner_context.event_manager.add_event(phase_handler.set_game_phase,["paddlewar"])
 
 
 class MasonCenterBlackboard(BaseMapObjectClass):
@@ -65,11 +59,11 @@ class MasonCenterBlackboard(BaseMapObjectClass):
     def def_rect(self):
         self.rect=pygame.Rect(448, 0, 64, 64)
 
-    def interact_object(self,event_list):
-        self.event_manager.add_event(self.current_dialogue.__init__,[self.screen,"It's a chalkboard.\nIt just says \"butts lol\". :/"])
-        self.event_manager.add_event(self.current_dialogue.render,[event_list],persistent_condition=self.current_dialogue.check_remaining_text)
-        self.event_manager.add_event(self.map_input_lock.unlock)
-        self.map_input_lock.lock()
+    def interact_object(self,inner_context,phase_handler):
+        inner_context.event_manager.add_event(inner_context.current_dialogue.__init__,[inner_context.screen,"It's a chalkboard.\nIt just says \"butts lol\". :/"])
+        inner_context.event_manager.add_event(inner_context.current_dialogue.render,[inner_context.event_list],persistent_condition=inner_context.current_dialogue.check_remaining_text)
+        inner_context.event_manager.add_event(inner_context.map_input_lock.unlock)
+        inner_context.map_input_lock.lock()
 
 """
 ----------------------------------
@@ -82,20 +76,19 @@ class BaseExitClass:
     def __init__(self):
         pass
 
-    def step_on(self, map_holder, screen,overworld_event_manager,collision_manager,player_character,temp_exit_list,current_npcs,current_dialogue,map_input_lock):
-        player_character.rect.x = self.new_x
-        player_character.rect.y = self.new_y
+    def step_on(self, inner_context):
+        inner_context.player_character.rect.x = self.new_x
+        inner_context.player_character.rect.y = self.new_y
         if hasattr(self, "facing_direction"):
-            player_character.facing_direction = self.facing_direction
-            player_character.map_exit_change_facing()
-        map_holder.__init__(self.replacement_map)
-        temp_exit_list.__init__(map_holder,player_character)
-        current_npcs.reset(self.replacement_map)
-        collision_manager.__init__(map_holder.current_map.bg_image,player_character,screen,current_dialogue,overworld_event_manager,map_input_lock,obstacles=map_holder.current_map.obstacles,npcs=current_npcs)
+            inner_context.player_character.facing_direction = self.facing_direction
+            inner_context.player_character.map_exit_change_facing()
+        inner_context.map_holder.__init__(self.replacement_map)
+        inner_context.temp_exit_list.__init__(inner_context.map_holder,inner_context.player_character)
+        inner_context.current_npcs.reset(self.replacement_map)
+        inner_context.collision_manager.__init__(inner_context.map_holder.current_map.bg_image, inner_context.player_character, inner_context.screen, inner_context.current_dialogue, inner_context.event_manager, inner_context.map_input_lock, obstacles=inner_context.map_holder.current_map.obstacles, npcs=inner_context.current_npcs)
 
 class MasonCenterLeftExit1(BaseExitClass):
     def __init__(self):
-        #super().__init__(player)
         self.new_x = 768
         self.new_y = 704
         self.replacement_map = MasonLeft
@@ -103,7 +96,6 @@ class MasonCenterLeftExit1(BaseExitClass):
 
 class MasonCenterLeftExit2(BaseExitClass):
     def __init__(self):
-        #super().__init__(player)
         self.new_x = 768
         self.new_y = 704+64
         self.replacement_map = MasonLeft
@@ -112,7 +104,6 @@ class MasonCenterLeftExit2(BaseExitClass):
 
 class MasonCenterBottomExit(BaseExitClass):
     def __init__(self):
-        #super().__init__(player)
         self.new_x = 1*64
         self.new_y = 7*64
         self.replacement_map = TcgIsland
@@ -121,7 +112,6 @@ class MasonCenterBottomExit(BaseExitClass):
 
 class MasonLeftExit1(BaseExitClass):
     def __init__(self):
-        #super().__init__(player)
         self.new_x = 64
         self.new_y = 320
         self.replacement_map = MasonCenter
@@ -129,7 +119,6 @@ class MasonLeftExit1(BaseExitClass):
 
 class MasonLeftExit2(BaseExitClass):
     def __init__(self):
-        #super().__init__(player)
         self.new_x = 64
         self.new_y = 320+64
         self.replacement_map = MasonCenter
@@ -147,18 +136,18 @@ Overworld Club entrances
 class BaseOverworldClubClass:
     def __init__(self):
         pass
-    def step_on(self, map_holder, screen,overworld_event_manager,collision_manager,player_character,temp_exit_list,current_npcs,current_dialogue,map_input_lock):
-        ui.club_name_render(screen,self.club_text)
-    def interact_self(self, map_holder, screen,overworld_event_manager,collision_manager,player_character,temp_exit_list,current_npcs,current_dialogue,map_input_lock):
-        player_character.rect.x = self.new_x
-        player_character.rect.y = self.new_y
+    def step_on(self, inner_context):
+        ui.club_name_render(inner_context.screen,self.club_text)
+    def interact_self(self, inner_context):
+        inner_context.player_character.rect.x = self.new_x
+        inner_context.player_character.rect.y = self.new_y
         if hasattr(self, "facing_direction"):
-            player_character.facing_direction = self.facing_direction
-            player_character.map_exit_change_facing()
-        map_holder.__init__(self.replacement_map)
-        temp_exit_list.__init__(map_holder,player_character)
-        current_npcs.reset(self.replacement_map)
-        collision_manager.__init__(map_holder.current_map.bg_image,player_character,screen,current_dialogue,overworld_event_manager,map_input_lock,obstacles=map_holder.current_map.obstacles,npcs=current_npcs)
+            inner_context.player_character.facing_direction = self.facing_direction
+            inner_context.player_character.map_exit_change_facing()
+        inner_context.map_holder.__init__(self.replacement_map)
+        inner_context.temp_exit_list.__init__(inner_context.map_holder,inner_context.player_character)
+        inner_context.current_npcs.reset(self.replacement_map)
+        inner_context.collision_manager.__init__(inner_context.map_holder.current_map.bg_image, inner_context.player_character, inner_context.screen, inner_context.current_dialogue, inner_context.event_manager, inner_context.map_input_lock, obstacles=inner_context.map_holder.current_map.obstacles, npcs=inner_context.current_npcs)
 
 class MasonsLabOverworldEntrance(BaseOverworldClubClass):
     def __init__(self):
@@ -177,27 +166,21 @@ NPCs
 """
 
 class BaseNpcClass():
-    def __init__(self,screen,current_dialogue,event_manager,map_input_lock,player_character):
-        self.screen=screen
-        self.current_dialogue=current_dialogue
-        self.event_manager=event_manager
-        self.map_input_lock=map_input_lock
-        self.player_character=player_character
-
+    def __init__(self):
+        pass
 
 class DrMason(BaseNpcClass):
-    def __init__(self,screen,current_dialogue,event_manager,map_input_lock,player_character):
-        super().__init__(screen,current_dialogue,event_manager,map_input_lock,player_character)
+    def __init__(self):
         self.loaded_sprites=characters.load_sprites_from_sheet(characters.spritesheet_tcg2,3)
         self.sprite=characters.NPC(448,192, self.loaded_sprites,"down")
         self.rect=self.sprite.rect
 
-    def interact_object(self,event_list):
-        self.event_manager.add_event(dialogue_facing,[self.player_character,self])
-        self.event_manager.add_event(self.current_dialogue.__init__,[self.screen,"Welcome! I'm Dr. Mason, with a PhD in Pokemon cardology!"])
-        self.event_manager.add_event(self.current_dialogue.render,[event_list],persistent_condition=self.current_dialogue.check_remaining_text)
-        self.event_manager.add_event(self.map_input_lock.unlock)
-        self.map_input_lock.lock()
+    def interact_object(self,inner_context,phase_handler):
+        inner_context.event_manager.add_event(dialogue_facing,[inner_context.player_character,self])
+        inner_context.event_manager.add_event(inner_context.current_dialogue.__init__,[inner_context.screen,"Welcome! I'm Dr. Mason, with a PhD in Pokemon cardology!"])
+        inner_context.event_manager.add_event(inner_context.current_dialogue.render,[inner_context.event_list],persistent_condition=inner_context.current_dialogue.check_remaining_text)
+        inner_context.event_manager.add_event(inner_context.map_input_lock.unlock)
+        inner_context.map_input_lock.lock()
 
 
 """

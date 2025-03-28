@@ -68,19 +68,17 @@ def check_interact_with_object(inner_context,phase_handler):
                 if event.type==pygame.KEYDOWN:
                     if event.key==key_mappings.affirm_key:
                         for map_object in interact_object:
-                            #still need to convert these from individual arguments to an inner_context call
-                            temp_map_object=map_object(inner_context.screen,inner_context.current_dialogue,inner_context.overworld_event_manager,inner_context.map_input_lock,inner_context.player_character,phase_handler)
+                            temp_map_object=map_object()
                             if temp_map_object.rect.contains(temp_interact_front_rect):
-                                temp_map_object.interact_object(inner_context.event_list)
+                                temp_map_object.interact_object(inner_context,phase_handler)
                         for npc in inner_context.current_npcs.current_npcs:
                             if npc.sprite.rect.contains(temp_interact_front_rect):
-                                npc.interact_object(inner_context.event_list)
+                                npc.interact_object(inner_context,phase_handler)
 
 def check_step_on_object(inner_context):
     for trigger in inner_context.temp_exit_list.temp_list:
         if trigger.rect.contains(inner_context.player_character.rect):
-            #same here
-            inner_context.overworld_event_manager.add_event(trigger.step_on,[inner_context.map_holder,inner_context.screen,inner_context.overworld_event_manager,inner_context.collision_manager,inner_context.player_character,inner_context.temp_exit_list,inner_context.current_npcs,inner_context.current_dialogue,inner_context.map_input_lock])
+            inner_context.event_manager.add_event(trigger.step_on,[inner_context])
 
 def check_interact_with_self(inner_context):
     interact_object=getattr(inner_context.map_holder.current_map,"interact_self_triggers",False)
@@ -92,5 +90,4 @@ def check_interact_with_self(inner_context):
                         for map_object in interact_object:
                             temp_map_object=map_object()
                             if temp_map_object.rect.contains(inner_context.player_character.rect):
-                                #and here.
-                                temp_map_object.interact_self(inner_context.map_holder, inner_context.screen,inner_context.overworld_event_manager,inner_context.collision_manager,inner_context.player_character,inner_context.temp_exit_list,inner_context.current_npcs,inner_context.current_dialogue,inner_context.map_input_lock)
+                                temp_map_object.interact_self(inner_context)
