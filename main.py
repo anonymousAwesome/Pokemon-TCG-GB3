@@ -32,11 +32,11 @@ while running:
             running = False
 
     if phase_handler.game_phase == "overworld":
-        overworld_context.update(clock, phase_handler,event_list)
+        overworld_context.update(phase_handler,event_list)
     elif phase_handler.game_phase == "duel":
-        duel_context.update(clock, phase_handler,event_list)
+        duel_context.update(phase_handler,event_list)
     elif phase_handler.game_phase == "paddlewar":
-        paddlewar_context.update(clock, phase_handler,event_list)
+        paddlewar_context.update(phase_handler,event_list)
 
     pygame.display.flip()
     clock.tick(60)

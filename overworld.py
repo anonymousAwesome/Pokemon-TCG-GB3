@@ -87,7 +87,7 @@ class Context:
         self.collision_manager=map_managers.CollisionManager(self.map_holder.current_map.bg_image, self.player_character,self.screen,self.current_dialogue,self.overworld_event_manager,self.map_input_lock,obstacles=self.map_holder.current_map.obstacles,npcs=self.current_npcs)
 
 
-    def update(self, clock, phase_handler,event_list):
+    def update(self, phase_handler,event_list):
         self.event_list[:]=event_list
         for event in self.event_list:
             if event.type == pygame.QUIT:
