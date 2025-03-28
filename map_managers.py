@@ -45,48 +45,52 @@ class CollisionManager():
 
         return True
 
-def check_all_interactions(map_holder,player_character,event_list,screen,map_input_lock,current_dialogue,temp_exit_list,overworld_event_manager,collision_manager,current_npcs,phase_handler):
-    check_interact_with_object(map_holder,player_character,event_list,screen,map_input_lock,overworld_event_manager,current_dialogue,current_npcs,phase_handler)
-    check_step_on_object(temp_exit_list,player_character,overworld_event_manager,map_holder,screen,collision_manager,current_npcs,current_dialogue,map_input_lock)
-    check_interact_with_self(map_holder,player_character,event_list,screen,map_input_lock,overworld_event_manager,current_dialogue,collision_manager,temp_exit_list,current_npcs)
+
+def check_all_interactions(inner_context,phase_handler):
+    check_interact_with_object(inner_context,phase_handler)
+    check_step_on_object(inner_context)
+    check_interact_with_self(inner_context)
     
-def check_interact_with_object(map_holder,player_character,event_list,screen,map_input_lock,overworld_event_manager,current_dialogue,current_npcs,phase_handler):
-    interact_object=getattr(map_holder.current_map,"interact_object_triggers",False)
-    if not map_input_lock:
-        if interact_object or current_npcs.current_npcs:
-            temp_interact_front_rect=player_character.rect.copy()
-            if player_character.facing_direction=="down":
+def check_interact_with_object(inner_context,phase_handler):
+    interact_object=getattr(inner_context.map_holder.current_map,"interact_object_triggers",False)
+    if not inner_context.map_input_lock:
+        if interact_object or inner_context.current_npcs.current_npcs:
+            temp_interact_front_rect=inner_context.player_character.rect.copy()
+            if inner_context.player_character.facing_direction=="down":
                 temp_interact_front_rect.y+=characters.TILE_SIZE
-            if player_character.facing_direction=="up":
+            if inner_context.player_character.facing_direction=="up":
                 temp_interact_front_rect.y-=characters.TILE_SIZE
-            if player_character.facing_direction=="left":
+            if inner_context.player_character.facing_direction=="left":
                 temp_interact_front_rect.x-=characters.TILE_SIZE
-            if player_character.facing_direction=="right":
+            if inner_context.player_character.facing_direction=="right":
                 temp_interact_front_rect.x+=characters.TILE_SIZE
-            for event in event_list:
+            for event in inner_context.event_list:
                 if event.type==pygame.KEYDOWN:
                     if event.key==key_mappings.affirm_key:
                         for map_object in interact_object:
-                            temp_map_object=map_object(screen,current_dialogue,overworld_event_manager,map_input_lock,player_character,phase_handler)
+                            #still need to convert these from individual arguments to an inner_context call
+                            temp_map_object=map_object(inner_context.screen,inner_context.current_dialogue,inner_context.overworld_event_manager,inner_context.map_input_lock,inner_context.player_character,phase_handler)
                             if temp_map_object.rect.contains(temp_interact_front_rect):
-                                temp_map_object.interact_object(event_list)
-                        for npc in current_npcs.current_npcs:
+                                temp_map_object.interact_object(inner_context.event_list)
+                        for npc in inner_context.current_npcs.current_npcs:
                             if npc.sprite.rect.contains(temp_interact_front_rect):
-                                npc.interact_object(event_list)
+                                npc.interact_object(inner_context.event_list)
 
-def check_step_on_object(temp_exit_list,player_character,overworld_event_manager,map_holder,screen,collision_manager,current_npcs,current_dialogue,map_input_lock):
-    for trigger in temp_exit_list.temp_list:
-        if trigger.rect.contains(player_character.rect):
-            overworld_event_manager.add_event(trigger.step_on,[map_holder,screen,overworld_event_manager,collision_manager,player_character,temp_exit_list,current_npcs,current_dialogue,map_input_lock])
+def check_step_on_object(inner_context):
+    for trigger in inner_context.temp_exit_list.temp_list:
+        if trigger.rect.contains(inner_context.player_character.rect):
+            #same here
+            inner_context.overworld_event_manager.add_event(trigger.step_on,[inner_context.map_holder,inner_context.screen,inner_context.overworld_event_manager,inner_context.collision_manager,inner_context.player_character,inner_context.temp_exit_list,inner_context.current_npcs,inner_context.current_dialogue,inner_context.map_input_lock])
 
-def check_interact_with_self(map_holder,player_character,event_list,screen,map_input_lock,overworld_event_manager,current_dialogue,collision_manager,temp_exit_list,current_npcs):
-    interact_object=getattr(map_holder.current_map,"interact_self_triggers",False)
-    if not map_input_lock:
+def check_interact_with_self(inner_context):
+    interact_object=getattr(inner_context.map_holder.current_map,"interact_self_triggers",False)
+    if not inner_context.map_input_lock:
         if interact_object:
-            for event in event_list:
+            for event in inner_context.event_list:
                 if event.type==pygame.KEYDOWN:
                     if event.key==key_mappings.affirm_key:
                         for map_object in interact_object:
                             temp_map_object=map_object()
-                            if temp_map_object.rect.contains(player_character.rect):
-                                temp_map_object.interact_self(map_holder, screen,overworld_event_manager,collision_manager,player_character,temp_exit_list,current_npcs,current_dialogue,map_input_lock)
+                            if temp_map_object.rect.contains(inner_context.player_character.rect):
+                                #and here.
+                                temp_map_object.interact_self(inner_context.map_holder, inner_context.screen,inner_context.overworld_event_manager,inner_context.collision_manager,inner_context.player_character,inner_context.temp_exit_list,inner_context.current_npcs,inner_context.current_dialogue,inner_context.map_input_lock)

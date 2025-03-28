@@ -57,6 +57,18 @@ class CurrentNPCs:
         for npc in getattr(current_map_class(),"npcs",[]):
             self.current_npcs.append(npc(self.screen,self.current_dialogue,self.overworld_event_manager,self.map_input_lock,self.player_character))
 
+class InnerContext:
+    def __init__(self,map_holder,player_character,event_list,screen,map_input_lock,current_dialogue,temp_exit_list,overworld_event_manager,collision_manager,current_npcs):
+        self.map_holder=map_holder
+        self.player_character=player_character
+        self.event_list=event_list
+        self.screen=screen
+        self.map_input_lock=map_input_lock
+        self.current_dialogue=current_dialogue
+        self.temp_exit_list=temp_exit_list
+        self.overworld_event_manager=overworld_event_manager
+        self.collision_manager=collision_manager
+        self.current_npcs=current_npcs
 
 class Context:
     def __init__(self,screen):
@@ -85,6 +97,8 @@ class Context:
         self.current_npcs=CurrentNPCs(self.screen,self.starting_map_class,self.current_dialogue,self.overworld_event_manager,self.map_input_lock,self.player_character)
 
         self.collision_manager=map_managers.CollisionManager(self.map_holder.current_map.bg_image, self.player_character,self.screen,self.current_dialogue,self.overworld_event_manager,self.map_input_lock,obstacles=self.map_holder.current_map.obstacles,npcs=self.current_npcs)
+
+        self.inner_context=InnerContext(self.map_holder,self.player_character,self.event_list,self.screen,self.map_input_lock,self.current_dialogue,self.temp_exit_list,self.overworld_event_manager,self.collision_manager,self.current_npcs)
 
 
     def update(self, phase_handler,event_list):
@@ -116,6 +130,6 @@ class Context:
             self.player_character.move_character(can_move_bool)
 
 
-        map_managers.check_all_interactions(self.map_holder,self.player_character,self.event_list,self.screen,self.map_input_lock,self.current_dialogue,self.temp_exit_list,self.overworld_event_manager,self.collision_manager,self.current_npcs,phase_handler)
+        map_managers.check_all_interactions(self.inner_context,phase_handler)
 
         self.overworld_event_manager.run_next_event()
