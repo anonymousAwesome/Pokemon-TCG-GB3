@@ -8,13 +8,6 @@ import overworld
 #import duel
 import paddlewar
 
-overworld_context=overworld.Context(screen)
-
-paddlewar_context=paddlewar.Context(screen)
-
-#duel_context=duel.Context(screen)
-
-
 class PhaseHandler:
     def __init__(self):
         self.game_phase = "overworld"
@@ -24,6 +17,15 @@ class PhaseHandler:
 
 phase_handler = PhaseHandler()
 
+
+overworld_context=overworld.Context(screen,phase_handler)
+
+paddlewar_context=paddlewar.Context(screen)
+
+#duel_context=duel.Context(screen)
+
+
+
 running = True
 while running:
     event_list=pygame.event.get()
@@ -32,9 +34,9 @@ while running:
             running = False
 
     if phase_handler.game_phase == "overworld":
-        overworld_context.update(phase_handler,event_list)
+        overworld_context.update(event_list)
     elif phase_handler.game_phase == "duel":
-        duel_context.update(phase_handler,event_list)
+        duel_context.update(event_list)
     elif phase_handler.game_phase == "paddlewar":
         paddlewar_context.update(phase_handler,event_list)
 

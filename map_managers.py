@@ -46,12 +46,12 @@ class CollisionManager():
         return True
 
 
-def check_all_interactions(inner_context,phase_handler):
-    check_interact_with_object(inner_context,phase_handler)
+def check_all_interactions(inner_context):
+    check_interact_with_object(inner_context)
     check_step_on_object(inner_context)
     check_interact_with_self(inner_context)
     
-def check_interact_with_object(inner_context,phase_handler):
+def check_interact_with_object(inner_context):
     interact_object=getattr(inner_context.map_holder.current_map,"interact_object_triggers",False)
     if not inner_context.map_input_lock:
         if interact_object or inner_context.current_npcs.current_npcs:
@@ -70,10 +70,10 @@ def check_interact_with_object(inner_context,phase_handler):
                         for map_object in interact_object:
                             temp_map_object=map_object()
                             if temp_map_object.rect.contains(temp_interact_front_rect):
-                                temp_map_object.interact_object(inner_context,phase_handler)
+                                temp_map_object.interact_object(inner_context)
                         for npc in inner_context.current_npcs.current_npcs:
                             if npc.sprite.rect.contains(temp_interact_front_rect):
-                                npc.interact_object(inner_context,phase_handler)
+                                npc.interact_object(inner_context)
 
 def check_step_on_object(inner_context):
     for trigger in inner_context.temp_exit_list.temp_list:

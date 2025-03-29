@@ -58,7 +58,7 @@ class CurrentNPCs:
             self.current_npcs.append(npc())
 
 class InnerContext:
-    def __init__(self,map_holder,player_character,event_list,screen,map_input_lock,current_dialogue,temp_exit_list,event_manager,collision_manager,current_npcs):
+    def __init__(self,map_holder,player_character,event_list,screen,map_input_lock,current_dialogue,temp_exit_list,event_manager,collision_manager,current_npcs,phase_handler):
         self.map_holder=map_holder
         self.player_character=player_character
         self.event_list=event_list
@@ -69,9 +69,10 @@ class InnerContext:
         self.event_manager=event_manager
         self.collision_manager=collision_manager
         self.current_npcs=current_npcs
+        self.phase_handler=phase_handler
 
 class Context:
-    def __init__(self,screen):
+    def __init__(self,screen,phase_handler):
 
         self.screen=screen
         self.starting_map_class=mapinfo.MasonCenter
@@ -98,10 +99,10 @@ class Context:
 
         self.collision_manager=map_managers.CollisionManager(self.map_holder.current_map.bg_image, self.player_character,self.screen,self.current_dialogue,self.overworld_event_manager,self.map_input_lock,obstacles=self.map_holder.current_map.obstacles,npcs=self.current_npcs)
 
-        self.inner_context=InnerContext(self.map_holder,self.player_character,self.event_list,self.screen,self.map_input_lock,self.current_dialogue,self.temp_exit_list,self.overworld_event_manager,self.collision_manager,self.current_npcs)
+        self.inner_context=InnerContext(self.map_holder,self.player_character,self.event_list,self.screen,self.map_input_lock,self.current_dialogue,self.temp_exit_list,self.overworld_event_manager,self.collision_manager,self.current_npcs,phase_handler)
 
 
-    def update(self, phase_handler,event_list):
+    def update(self,event_list):
         self.event_list[:]=event_list
         for event in self.event_list:
             if event.type == pygame.QUIT:
@@ -130,6 +131,6 @@ class Context:
             self.player_character.move_character(can_move_bool)
 
 
-        map_managers.check_all_interactions(self.inner_context,phase_handler)
+        map_managers.check_all_interactions(self.inner_context)
 
         self.overworld_event_manager.run_next_event()

@@ -39,7 +39,7 @@ class MasonCenterTree(BaseMapObjectClass):
     def def_rect(self):
         self.rect=pygame.Rect(64, 704, 64, 128)
 
-    def interact_object(self,inner_context,phase_handler):
+    def interact_object(self,inner_context):
         inner_context.event_manager.add_event(inner_context.current_dialogue.__init__,[inner_context.screen,"It's a tree.\nI'm not sure what you expected."])
         inner_context.event_manager.add_event(inner_context.current_dialogue.render,[inner_context.event_list],persistent_condition=inner_context.current_dialogue.check_remaining_text)
         inner_context.event_manager.add_event(inner_context.map_input_lock.unlock)
@@ -50,8 +50,8 @@ class MasonCenterPC(BaseMapObjectClass):
     def def_rect(self):
         self.rect=pygame.Rect(64, 64, 64, 64)
 
-    def interact_object(self,inner_context,phase_handler):
-        inner_context.event_manager.add_event(phase_handler.set_game_phase,["paddlewar"])
+    def interact_object(self,inner_context):
+        inner_context.event_manager.add_event(inner_context.phase_handler.set_game_phase,["paddlewar"])
 
 
 class MasonCenterBlackboard(BaseMapObjectClass):
@@ -59,7 +59,7 @@ class MasonCenterBlackboard(BaseMapObjectClass):
     def def_rect(self):
         self.rect=pygame.Rect(448, 0, 64, 64)
 
-    def interact_object(self,inner_context,phase_handler):
+    def interact_object(self,inner_context):
         inner_context.event_manager.add_event(inner_context.current_dialogue.__init__,[inner_context.screen,"It's a chalkboard.\nIt just says \"butts lol\". :/"])
         inner_context.event_manager.add_event(inner_context.current_dialogue.render,[inner_context.event_list],persistent_condition=inner_context.current_dialogue.check_remaining_text)
         inner_context.event_manager.add_event(inner_context.map_input_lock.unlock)
@@ -175,7 +175,7 @@ class DrMason(BaseNpcClass):
         self.sprite=characters.NPC(448,192, self.loaded_sprites,"down")
         self.rect=self.sprite.rect
 
-    def interact_object(self,inner_context,phase_handler):
+    def interact_object(self,inner_context):
         inner_context.event_manager.add_event(dialogue_facing,[inner_context.player_character,self])
         inner_context.event_manager.add_event(inner_context.current_dialogue.__init__,[inner_context.screen,"Welcome! I'm Dr. Mason, with a PhD in Pokemon cardology!"])
         inner_context.event_manager.add_event(inner_context.current_dialogue.render,[inner_context.event_list],persistent_condition=inner_context.current_dialogue.check_remaining_text)
