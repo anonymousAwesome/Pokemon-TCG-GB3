@@ -2,6 +2,8 @@ import pygame
 import random
 import os
 import key_mappings
+import numpy as np
+
 
 TILE_SIZE=64
 anim_speed=32
@@ -25,11 +27,17 @@ def load_sprites_from_sheet(spritesheet, row):
         sprites.append(sprite)
     return sprites
 
+def convert_to_grayscale(sprite):
+    grayscale_surface = sprite.copy()
+    pixels = pygame.surfarray.pixels3d(grayscale_surface)
+    gray_pixels = np.dot(pixels[...,:3], [0.2989, 0.5870, 0.1140])
+    pixels[...] = np.repeat(gray_pixels[..., np.newaxis], 3, axis=2)
+    del pixels
+    return grayscale_surface
 
 class Character(pygame.sprite.Sprite):
-    def __init__(self, x, y, anim_frames,facing_direction):
+    def __init__(self, x, y, anim_frames,facing_direction,greyscale):
         pygame.sprite.Sprite.__init__(self)
-        self.anim_frames=anim_frames
         self.walking_down_1=anim_frames[0]
         self.facing_down=anim_frames[1]
         self.walking_down_2=anim_frames[2]
@@ -49,6 +57,20 @@ class Character(pygame.sprite.Sprite):
         self.left_command=False
         self.right_command=False
         self.accept_key=False
+
+        self.greyscale=greyscale
+
+        self.grey_walking_down_1=convert_to_grayscale(anim_frames[0])
+        self.grey_facing_down=convert_to_grayscale(anim_frames[1])
+        self.grey_walking_down_2=convert_to_grayscale(anim_frames[2])
+        self.grey_walking_up_1=convert_to_grayscale(anim_frames[3])
+        self.grey_facing_up=convert_to_grayscale(anim_frames[4])
+        self.grey_walking_up_2=convert_to_grayscale(anim_frames[5])
+        self.grey_facing_left=convert_to_grayscale(anim_frames[6])
+        self.grey_walking_left=convert_to_grayscale(anim_frames[7])
+        self.grey_facing_right=convert_to_grayscale(anim_frames[8])
+        self.grey_walking_right=convert_to_grayscale(anim_frames[9])
+
 
         self.facing_direction=facing_direction
         self.map_exit_change_facing()
@@ -80,29 +102,53 @@ class Character(pygame.sprite.Sprite):
         return self.pixels_remaining
 
     def map_exit_change_facing(self):
-        if self.facing_direction=="up":
-            self.image=self.facing_up
-        elif self.facing_direction=="down":
-            self.image=self.facing_down
-        elif self.facing_direction=="left":
-            self.image=self.facing_left
-        elif self.facing_direction=="right":
-            self.image=self.facing_right
+        if self.greyscale:
+            if self.facing_direction=="up":
+                self.image=self.grey_facing_up
+            elif self.facing_direction=="down":
+                self.image=self.grey_facing_down
+            elif self.facing_direction=="left":
+                self.image=self.grey_facing_left
+            elif self.facing_direction=="right":
+                self.image=self.grey_facing_right
+        else:
+            if self.facing_direction=="up":
+                self.image=self.facing_up
+            elif self.facing_direction=="down":
+                self.image=self.facing_down
+            elif self.facing_direction=="left":
+                self.image=self.facing_left
+            elif self.facing_direction=="right":
+                self.image=self.facing_right
         
 
     def change_facing(self):
-        if self.up_command:
-            self.facing_direction="up"
-            self.image=self.facing_up
-        elif self.down_command:
-            self.facing_direction="down"
-            self.image=self.facing_down
-        elif self.left_command:
-            self.facing_direction="left"
-            self.image=self.facing_left
-        elif self.right_command:
-            self.facing_direction="right"
-            self.image=self.facing_right
+        if self.greyscale:
+            if self.up_command:
+                self.facing_direction="up"
+                self.image=self.grey_facing_up
+            elif self.down_command:
+                self.facing_direction="down"
+                self.image=self.grey_facing_down
+            elif self.left_command:
+                self.facing_direction="left"
+                self.image=self.grey_facing_left
+            elif self.right_command:
+                self.facing_direction="right"
+                self.image=self.grey_facing_right
+        else:
+            if self.up_command:
+                self.facing_direction="up"
+                self.image=self.facing_up
+            elif self.down_command:
+                self.facing_direction="down"
+                self.image=self.facing_down
+            elif self.left_command:
+                self.facing_direction="left"
+                self.image=self.facing_left
+            elif self.right_command:
+                self.facing_direction="right"
+                self.image=self.facing_right
 
     def start_walking(self,move_speed):
         self.change_facing()
@@ -111,74 +157,135 @@ class Character(pygame.sprite.Sprite):
             self.pixels_remaining=TILE_SIZE
             self.rect.y-=move_speed
             self.pixels_remaining-=move_speed
-            if ((TILE_SIZE - self.pixels_remaining) // anim_speed) %2:
-                self.image=self.facing_up
-            else:
-                if self.walking_side:
-                    self.image=self.walking_up_1
+            if self.greyscale:
+                if ((TILE_SIZE - self.pixels_remaining) // anim_speed) %2:
+                    self.image=self.grey_facing_up
                 else:
-                    self.image=self.walking_up_2
+                    if self.walking_side:
+                        self.image=self.grey_walking_up_1
+                    else:
+                        self.image=self.grey_walking_up_2
+            else:
+                if ((TILE_SIZE - self.pixels_remaining) // anim_speed) %2:
+                    self.image=self.facing_up
+                else:
+                    if self.walking_side:
+                        self.image=self.walking_up_1
+                    else:
+                        self.image=self.walking_up_2
         elif self.down_command:
             self.flip_walking_side()
             self.pixels_remaining=TILE_SIZE
             self.rect.y+=move_speed
             self.pixels_remaining-=move_speed
-            if ((TILE_SIZE - self.pixels_remaining) // anim_speed) %2:
-                self.image=self.facing_down
-            else:
-                if self.walking_side:
-                    self.image=self.walking_down_1
+            if self.greyscale:
+                if ((TILE_SIZE - self.pixels_remaining) // anim_speed) %2:
+                    self.image=self.grey_facing_down
                 else:
-                    self.image=self.walking_down_2
+                    if self.walking_side:
+                        self.image=self.grey_walking_down_1
+                    else:
+                        self.image=self.grey_walking_down_2
+            else:
+                if ((TILE_SIZE - self.pixels_remaining) // anim_speed) %2:
+                    self.image=self.facing_down
+                else:
+                    if self.walking_side:
+                        self.image=self.walking_down_1
+                    else:
+                        self.image=self.walking_down_2
         elif self.left_command:
             self.pixels_remaining=TILE_SIZE
             self.rect.x-=move_speed
             self.pixels_remaining-=move_speed
-            if ((TILE_SIZE - self.pixels_remaining) // anim_speed) %2:
-                self.image=self.facing_left
+            if self.greyscale:
+                if ((TILE_SIZE - self.pixels_remaining) // anim_speed) %2:
+                    self.image=self.grey_facing_left
+                else:
+                    self.image=self.grey_walking_left
             else:
-                self.image=self.walking_left
+                if ((TILE_SIZE - self.pixels_remaining) // anim_speed) %2:
+                    self.image=self.facing_left
+                else:
+                    self.image=self.walking_left
         elif self.right_command:
             self.pixels_remaining=TILE_SIZE
             self.rect.x+=move_speed
             self.pixels_remaining-=move_speed
-            if ((TILE_SIZE - self.pixels_remaining) // anim_speed) %2:
-                self.image=self.facing_right
+            if self.greyscale:
+                if ((TILE_SIZE - self.pixels_remaining) // anim_speed) %2:
+                    self.image=self.grey_facing_right
+                else:
+                    self.image=self.grey_walking_right
+
             else:
-                self.image=self.walking_right
+                if ((TILE_SIZE - self.pixels_remaining) // anim_speed) %2:
+                    self.image=self.facing_right
+                else:
+                    self.image=self.walking_right
         
     def continue_walking(self,move_speed):
         if self.facing_direction=="up":
             self.rect.y-=move_speed
-            if ((TILE_SIZE - self.pixels_remaining) // anim_speed) %2:
-                self.image=self.facing_up
-            else:
-                if self.walking_side:
-                    self.image=self.walking_up_1
+            if self.greyscale:
+                if ((TILE_SIZE - self.pixels_remaining) // anim_speed) %2:
+                    self.image=self.grey_facing_up
                 else:
-                    self.image=self.walking_up_2
+                    if self.walking_side:
+                        self.image=self.grey_walking_up_1
+                    else:
+                        self.image=self.grey_walking_up_2
+            else:
+                if ((TILE_SIZE - self.pixels_remaining) // anim_speed) %2:
+                    self.image=self.facing_up
+                else:
+                    if self.walking_side:
+                        self.image=self.walking_up_1
+                    else:
+                        self.image=self.walking_up_2
 
         if self.facing_direction=="down":
             self.rect.y+=move_speed
-            if ((TILE_SIZE - self.pixels_remaining) // anim_speed) %2:
-                self.image=self.facing_down
-            else:
-                if self.walking_side:
-                    self.image=self.walking_down_1
+            if self.greyscale:
+                if ((TILE_SIZE - self.pixels_remaining) // anim_speed) %2:
+                    self.image=self.grey_facing_down
                 else:
-                    self.image=self.walking_down_2
+                    if self.walking_side:
+                        self.image=self.grey_walking_down_1
+                    else:
+                        self.image=self.grey_walking_down_2
+            else:
+                if ((TILE_SIZE - self.pixels_remaining) // anim_speed) %2:
+                    self.image=self.facing_down
+                else:
+                    if self.walking_side:
+                        self.image=self.walking_down_1
+                    else:
+                        self.image=self.walking_down_2
         if self.facing_direction=="left":
             self.rect.x-=move_speed
-            if ((TILE_SIZE - self.pixels_remaining) // anim_speed) %2:
-                self.image=self.facing_left
+            if self.greyscale:
+                if ((TILE_SIZE - self.pixels_remaining) // anim_speed) %2:
+                    self.image=self.grey_facing_left
+                else:
+                    self.image=self.grey_walking_left
             else:
-                self.image=self.walking_left
+                if ((TILE_SIZE - self.pixels_remaining) // anim_speed) %2:
+                    self.image=self.facing_left
+                else:
+                    self.image=self.walking_left
         if self.facing_direction=="right":
             self.rect.x+=move_speed
-            if ((TILE_SIZE - self.pixels_remaining) // anim_speed) %2:
-                self.image=self.facing_right
+            if self.greyscale:
+                if ((TILE_SIZE - self.pixels_remaining) // anim_speed) %2:
+                    self.image=self.grey_facing_right
+                else:
+                    self.image=self.grey_walking_right
             else:
-                self.image=self.walking_right
+                if ((TILE_SIZE - self.pixels_remaining) // anim_speed) %2:
+                    self.image=self.facing_right
+                else:
+                    self.image=self.walking_right
 
         self.pixels_remaining-=move_speed
 
@@ -199,9 +306,12 @@ class Character(pygame.sprite.Sprite):
         elif self.pixels_remaining>0:
             self.continue_walking(move_speed)
 
+    def toggle_greyscale(self):
+        self.greyscale=not self.greyscale
+
 class Player(Character):
-    def __init__(self, x, y, anim_frames,facing_direction):
-        super().__init__(x, y, anim_frames,facing_direction)
+    def __init__(self, x, y, anim_frames,facing_direction,greyscale=False):
+        super().__init__(x, y, anim_frames,facing_direction,greyscale)
 
     def process_input(self,keys):
         if keys[key_mappings.cancel_key]:
@@ -236,8 +346,8 @@ class Player(Character):
 
 
 class NPC(Character):
-    def __init__(self, x, y, anim_frames,facing_direction):
-        super().__init__(x, y, anim_frames,facing_direction)
+    def __init__(self, x, y, anim_frames,facing_direction,greyscale=False):
+        super().__init__(x, y, anim_frames,facing_direction,greyscale)
         self.frame_duration=17
         self.loop_counter=random.randint(1,self.frame_duration*4)
 
@@ -268,49 +378,96 @@ class NPC(Character):
         self.facing_direction=direction
 
     def walk_in_place(self):
-        if self.facing_direction=="down":
-            if self.loop_counter>self.frame_duration*4:
-                self.loop_counter=1
-            if self.loop_counter<=self.frame_duration:
-                self.image=self.walking_down_1
-            elif self.loop_counter<=self.frame_duration*2:
-                self.image=self.facing_down
-            elif self.loop_counter<=self.frame_duration*3:
-                self.image=self.walking_down_2
-            elif self.loop_counter<=self.frame_duration*4:
-                self.image=self.facing_down
-        if self.facing_direction=="up":
-            if self.loop_counter>self.frame_duration*4:
-                self.loop_counter=1
-            if self.loop_counter<=self.frame_duration:
-                self.image=self.walking_up_1
-            elif self.loop_counter<=self.frame_duration*2:
-                self.image=self.facing_up
-            elif self.loop_counter<=self.frame_duration*3:
-                self.image=self.walking_up_2
-            elif self.loop_counter<=self.frame_duration*4:
-                self.image=self.facing_up
-        if self.facing_direction=="left":
-            if self.loop_counter>self.frame_duration*2:
-                self.loop_counter=1
-            if self.loop_counter<=self.frame_duration:
-                self.image=self.facing_left
-            elif self.loop_counter<=self.frame_duration*2:
-                self.image=self.walking_left
-            elif self.loop_counter<=self.frame_duration*3:
-                self.image=self.facing_left
-            elif self.loop_counter<=self.frame_duration*4:
-                self.image=self.walking_left
-        if self.facing_direction=="right":
-            if self.loop_counter>self.frame_duration*2:
-                self.loop_counter=1
-            if self.loop_counter<=self.frame_duration:
-                self.image=self.facing_right
-            elif self.loop_counter<=self.frame_duration*2:
-                self.image=self.walking_right
-            elif self.loop_counter<=self.frame_duration*3:
-                self.image=self.facing_right
-            elif self.loop_counter<=self.frame_duration*4:
-                self.image=self.walking_right
+        if self.greyscale:
+            if self.facing_direction=="down":
+                if self.loop_counter>self.frame_duration*4:
+                    self.loop_counter=1
+                if self.loop_counter<=self.frame_duration:
+                    self.image=self.grey_walking_down_1
+                elif self.loop_counter<=self.frame_duration*2:
+                    self.image=self.grey_facing_down
+                elif self.loop_counter<=self.frame_duration*3:
+                    self.image=self.grey_walking_down_2
+                elif self.loop_counter<=self.frame_duration*4:
+                    self.image=self.grey_facing_down
+            if self.facing_direction=="up":
+                if self.loop_counter>self.frame_duration*4:
+                    self.loop_counter=1
+                if self.loop_counter<=self.frame_duration:
+                    self.image=self.grey_walking_up_1
+                elif self.loop_counter<=self.frame_duration*2:
+                    self.image=self.grey_facing_up
+                elif self.loop_counter<=self.frame_duration*3:
+                    self.image=self.grey_walking_up_2
+                elif self.loop_counter<=self.frame_duration*4:
+                    self.image=self.grey_facing_up
+            if self.facing_direction=="left":
+                if self.loop_counter>self.frame_duration*2:
+                    self.loop_counter=1
+                if self.loop_counter<=self.frame_duration:
+                    self.image=self.grey_facing_left
+                elif self.loop_counter<=self.frame_duration*2:
+                    self.image=self.grey_walking_left
+                elif self.loop_counter<=self.frame_duration*3:
+                    self.image=self.grey_facing_left
+                elif self.loop_counter<=self.frame_duration*4:
+                    self.image=self.grey_walking_left
+            if self.facing_direction=="right":
+                if self.loop_counter>self.frame_duration*2:
+                    self.loop_counter=1
+                if self.loop_counter<=self.frame_duration:
+                    self.image=self.grey_facing_right
+                elif self.loop_counter<=self.frame_duration*2:
+                    self.image=self.grey_walking_right
+                elif self.loop_counter<=self.frame_duration*3:
+                    self.image=self.grey_facing_right
+                elif self.loop_counter<=self.frame_duration*4:
+                    self.image=self.grey_walking_right
+
+        else:
+            if self.facing_direction=="down":
+                if self.loop_counter>self.frame_duration*4:
+                    self.loop_counter=1
+                if self.loop_counter<=self.frame_duration:
+                    self.image=self.walking_down_1
+                elif self.loop_counter<=self.frame_duration*2:
+                    self.image=self.facing_down
+                elif self.loop_counter<=self.frame_duration*3:
+                    self.image=self.walking_down_2
+                elif self.loop_counter<=self.frame_duration*4:
+                    self.image=self.facing_down
+            if self.facing_direction=="up":
+                if self.loop_counter>self.frame_duration*4:
+                    self.loop_counter=1
+                if self.loop_counter<=self.frame_duration:
+                    self.image=self.walking_up_1
+                elif self.loop_counter<=self.frame_duration*2:
+                    self.image=self.facing_up
+                elif self.loop_counter<=self.frame_duration*3:
+                    self.image=self.walking_up_2
+                elif self.loop_counter<=self.frame_duration*4:
+                    self.image=self.facing_up
+            if self.facing_direction=="left":
+                if self.loop_counter>self.frame_duration*2:
+                    self.loop_counter=1
+                if self.loop_counter<=self.frame_duration:
+                    self.image=self.facing_left
+                elif self.loop_counter<=self.frame_duration*2:
+                    self.image=self.walking_left
+                elif self.loop_counter<=self.frame_duration*3:
+                    self.image=self.facing_left
+                elif self.loop_counter<=self.frame_duration*4:
+                    self.image=self.walking_left
+            if self.facing_direction=="right":
+                if self.loop_counter>self.frame_duration*2:
+                    self.loop_counter=1
+                if self.loop_counter<=self.frame_duration:
+                    self.image=self.facing_right
+                elif self.loop_counter<=self.frame_duration*2:
+                    self.image=self.walking_right
+                elif self.loop_counter<=self.frame_duration*3:
+                    self.image=self.facing_right
+                elif self.loop_counter<=self.frame_duration*4:
+                    self.image=self.walking_right
         
         self.loop_counter+=1

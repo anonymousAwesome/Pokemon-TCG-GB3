@@ -4,7 +4,7 @@
         inner_context.event_manager.add_event(self.sprite.continue_walking,[4],persistent_condition=self.sprite.still_walking)
         inner_context.event_manager.add_event(self.sprite.start_walking,[4])
         inner_context.event_manager.add_event(self.sprite.continue_walking,[4],persistent_condition=self.sprite.still_walking)
-        inner_context.event_manager.add_event(self.map_input_lock.unlock)
+        inner_context.event_manager.add_event(inner_context.map_input_lock.unlock)
         inner_context.map_input_lock.lock()
 
 		#Note: the 4 is the speed of the character movement. Increase or decrease it to 8 or 2 for faster or slower movement.
@@ -13,7 +13,7 @@
         inner_context.event_manager.add_event(inner_context.player_character.cutscene_walk,["right"])
         inner_context.event_manager.add_event(inner_context.player_character.start_walking,[4])
         inner_context.event_manager.add_event(inner_context.player_character.continue_walking,[4],persistent_condition=inner_context.player_character.still_walking)
-        inner_context.event_manager.add_event(self.map_input_lock.unlock)
+        inner_context.event_manager.add_event(inner_context.map_input_lock.unlock)
         inner_context.map_input_lock.lock()
 
 
@@ -96,3 +96,10 @@
         inner_context.map_input_lock.lock()
 
         #to reverse the effect, replace remove_npc with undelete_npc
+
+        #making npc greyscale
+        #add greyscale=True to the self.sprite definition in the NPC's __init__ function.
+        self.sprite=characters.NPC(448,192, self.loaded_sprites,"down" greyscale=True)
+
+        #make pc greyscale
+        inner_context.event_manager.add_event(inner_context.player_character.toggle_greyscale)
