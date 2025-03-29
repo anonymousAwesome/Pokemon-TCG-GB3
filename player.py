@@ -9,6 +9,8 @@ class PlayerData:
         "first event":False
         }
         self.player_name=None
+        self.removed_npcs=set()
+        
     def set_flag(self,flagname):
         self.event_flags[flagname]=True
     
@@ -24,3 +26,10 @@ class PlayerData:
         
     def set_name(self,name):
         self.player_name=name
+        
+    def remove_npc(self,npc):
+        self.removed_npcs.add(npc)
+    
+    def undelete_npc(self,npc):
+        self.removed_npcs.remove(npc)
+        

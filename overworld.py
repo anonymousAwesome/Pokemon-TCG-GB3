@@ -42,7 +42,7 @@ class MovementLock():
         self.locked=False
 
 class CurrentNPCs:
-    def __init__(self,screen,current_map_class,current_dialogue,overworld_event_manager,map_input_lock,player_character):
+    def __init__(self,screen,current_map_class,current_dialogue,overworld_event_manager,map_input_lock,player_character,player_data):
         self.current_dialogue=current_dialogue
         self.overworld_event_manager=overworld_event_manager
         self.map_input_lock=map_input_lock
@@ -51,12 +51,14 @@ class CurrentNPCs:
         self.spritesheet_crystal=characters.spritesheet_crystal
         self.spritesheet_tcg2=characters.spritesheet_tcg2
         self.screen=screen
+        self.player_data=player_data
         self.reset(current_map_class)
 
     def reset(self,current_map_class):
         self.current_npcs=[]
         for npc in getattr(current_map_class(),"npcs",[]):
-            self.current_npcs.append(npc())
+            if npc not in self.player_data.removed_npcs:
+                self.current_npcs.append(npc())
 
 class InnerContext:
     def __init__(self,map_holder,player_character,event_list,screen,map_input_lock,current_dialogue,temp_exit_list,event_manager,collision_manager,current_npcs,phase_handler,player_data):
@@ -96,12 +98,13 @@ class Context:
         self.overworld_event_manager = oem.OverworldEventManager(self.map_input_lock)
 
         self.event_list=[]
+
+        self.player_data=player.PlayerData()
                 
-        self.current_npcs=CurrentNPCs(self.screen,self.starting_map_class,self.current_dialogue,self.overworld_event_manager,self.map_input_lock,self.player_character)
+        self.current_npcs=CurrentNPCs(self.screen,self.starting_map_class,self.current_dialogue,self.overworld_event_manager,self.map_input_lock,self.player_character,self.player_data)
 
         self.collision_manager=map_managers.CollisionManager(self.map_holder.current_map.bg_image, self.player_character,self.screen,self.current_dialogue,self.overworld_event_manager,self.map_input_lock,obstacles=self.map_holder.current_map.obstacles,npcs=self.current_npcs)
 
-        self.player_data=player.PlayerData()
 
         self.inner_context=InnerContext(self.map_holder,self.player_character,self.event_list,self.screen,self.map_input_lock,self.current_dialogue,self.temp_exit_list,self.overworld_event_manager,self.collision_manager,self.current_npcs,phase_handler,self.player_data)
 
