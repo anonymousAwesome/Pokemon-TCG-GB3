@@ -12,6 +12,7 @@ import characters
 import ui
 import map_managers
 import mapinfo
+import player
 
 class TempExitList():
     '''called when the player moves into a new map, so I'm not 
@@ -58,7 +59,7 @@ class CurrentNPCs:
             self.current_npcs.append(npc())
 
 class InnerContext:
-    def __init__(self,map_holder,player_character,event_list,screen,map_input_lock,current_dialogue,temp_exit_list,event_manager,collision_manager,current_npcs,phase_handler):
+    def __init__(self,map_holder,player_character,event_list,screen,map_input_lock,current_dialogue,temp_exit_list,event_manager,collision_manager,current_npcs,phase_handler,player_data):
         self.map_holder=map_holder
         self.player_character=player_character
         self.event_list=event_list
@@ -70,6 +71,7 @@ class InnerContext:
         self.collision_manager=collision_manager
         self.current_npcs=current_npcs
         self.phase_handler=phase_handler
+        self.player_data=player_data
 
 class Context:
     def __init__(self,screen,phase_handler):
@@ -99,7 +101,9 @@ class Context:
 
         self.collision_manager=map_managers.CollisionManager(self.map_holder.current_map.bg_image, self.player_character,self.screen,self.current_dialogue,self.overworld_event_manager,self.map_input_lock,obstacles=self.map_holder.current_map.obstacles,npcs=self.current_npcs)
 
-        self.inner_context=InnerContext(self.map_holder,self.player_character,self.event_list,self.screen,self.map_input_lock,self.current_dialogue,self.temp_exit_list,self.overworld_event_manager,self.collision_manager,self.current_npcs,phase_handler)
+        self.player_data=player.PlayerData()
+
+        self.inner_context=InnerContext(self.map_holder,self.player_character,self.event_list,self.screen,self.map_input_lock,self.current_dialogue,self.temp_exit_list,self.overworld_event_manager,self.collision_manager,self.current_npcs,phase_handler,self.player_data)
 
 
     def update(self,event_list):
