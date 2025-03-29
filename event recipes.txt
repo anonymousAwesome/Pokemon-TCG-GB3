@@ -88,10 +88,13 @@
         inner_context.event_manager.add_event(inner_context.map_input_lock.unlock)
         inner_context.map_input_lock.lock()
 
-        #remove an NPC from the map, though it doesn't trigger until the map is reloaded.
+        #remove an NPC from the map
         #Note: You'll need to replace ~~NpcClassNameHere~~ with the class name of the NPC to
-        #be removed. For example, DrMason.
+        #be removed, such as DrMason, and ~~CurrentMap~~ with the current map, such as 
+        #MasonCenter (if the map needs to be reloaded).
+
         inner_context.event_manager.add_event(inner_context.player_data.remove_npc,[~~NpcClassNameHere~~])
+        inner_context.event_manager.add_event(reload_map,[inner_context,~~CurrentMap~~])
         inner_context.event_manager.add_event(inner_context.map_input_lock.unlock)
         inner_context.map_input_lock.lock()
 
