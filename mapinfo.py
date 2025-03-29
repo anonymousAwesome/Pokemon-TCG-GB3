@@ -2,6 +2,31 @@ import pygame
 import os
 import ui
 import characters
+import random_name
+import numpy as np
+
+class GlitchEffect:
+    def __init__(self):
+        self.time_remaining=0
+
+    def glitch_screen(self, screen):
+        if self.time_remaining>=120 or 60>=self.time_remaining>=30:
+            screen_copy = screen.copy()
+            array = pygame.surfarray.array3d(screen_copy)
+            transposed = np.transpose(array, (1, 0, 2))[:array.shape[0], :array.shape[1]]
+            result = np.clip(array[:transposed.shape[0], :transposed.shape[1]] - transposed, 0, 255).astype(np.uint8)
+            glitch_surface = pygame.surfarray.make_surface(result)
+            screen.blit(glitch_surface, (0, 0))    
+
+        self.time_remaining -= 1
+
+    def start_glitch(self):
+        self.time_remaining=180
+        
+    def check_time_remaining(self):
+        return self.time_remaining
+
+glitch_effect=GlitchEffect()
 
 class EmptyEvent():
     def __init__(self,loops_left):
@@ -181,8 +206,7 @@ class DrMason(BaseNpcClass):
         inner_context.event_manager.add_event(inner_context.current_dialogue.render,[inner_context.event_list],persistent_condition=inner_context.current_dialogue.check_remaining_text)
         inner_context.event_manager.add_event(inner_context.map_input_lock.unlock)
         inner_context.map_input_lock.lock()
-
-
+ 
 """
 ----------------------------------
 map rooms

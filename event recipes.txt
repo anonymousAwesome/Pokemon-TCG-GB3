@@ -1,35 +1,35 @@
         #make the NPC walk right 2 tiles
-        self.event_manager.add_event(self.sprite.cutscene_walk,["right"])
-        self.event_manager.add_event(self.sprite.start_walking,[4])
-        self.event_manager.add_event(self.sprite.continue_walking,[4],persistent_condition=self.sprite.still_walking)
-        self.event_manager.add_event(self.sprite.start_walking,[4])
-        self.event_manager.add_event(self.sprite.continue_walking,[4],persistent_condition=self.sprite.still_walking)
-        self.event_manager.add_event(self.map_input_lock.unlock)
-        self.map_input_lock.lock()
+        inner_context.event_manager.add_event(self.sprite.cutscene_walk,["right"])
+        inner_context.event_manager.add_event(self.sprite.start_walking,[4])
+        inner_context.event_manager.add_event(self.sprite.continue_walking,[4],persistent_condition=self.sprite.still_walking)
+        inner_context.event_manager.add_event(self.sprite.start_walking,[4])
+        inner_context.event_manager.add_event(self.sprite.continue_walking,[4],persistent_condition=self.sprite.still_walking)
+        inner_context.event_manager.add_event(self.map_input_lock.unlock)
+        inner_context.map_input_lock.lock()
 
-Note: the 4 is the speed of the character movement. Increase or decrease it to 8 or 2 for faster or slower movement.
+		#Note: the 4 is the speed of the character movement. Increase or decrease it to 8 or 2 for faster or slower movement.
 
 		#make the player walk right one tile
-        self.event_manager.add_event(self.player_character.cutscene_walk,["right"])
-        self.event_manager.add_event(self.player_character.start_walking,[4])
-        self.event_manager.add_event(self.player_character.continue_walking,[4],persistent_condition=self.player_character.still_walking)
-        self.event_manager.add_event(self.map_input_lock.unlock)
-        self.map_input_lock.lock()
+        inner_context.event_manager.add_event(inner_context.player_character.cutscene_walk,["right"])
+        inner_context.event_manager.add_event(inner_context.player_character.start_walking,[4])
+        inner_context.event_manager.add_event(inner_context.player_character.continue_walking,[4],persistent_condition=inner_context.player_character.still_walking)
+        inner_context.event_manager.add_event(self.map_input_lock.unlock)
+        inner_context.map_input_lock.lock()
 
 
 		#dialogue, no name or image
-        self.event_manager.add_event(dialogue_facing,[self.player_character,self])
-        self.event_manager.add_event(self.current_dialogue.__init__,[self.screen,"Welcome! I'm Dr. Mason, with a PhD in Pokemon cardology!"])
-        self.event_manager.add_event(self.current_dialogue.render,[event_list],persistent_condition=self.current_dialogue.check_remaining_text)
-        self.event_manager.add_event(self.map_input_lock.unlock)
-        self.map_input_lock.lock()
+        inner_context.event_manager.add_event(dialogue_facing,[inner_context.player_character,self])
+        inner_context.event_manager.add_event(inner_context.current_dialogue.__init__,[inner_context.screen,"Welcome! I'm Dr. Mason, with a PhD in Pokemon cardology!"])
+        inner_context.event_manager.add_event(inner_context.current_dialogue.render,[event_list],persistent_condition=inner_context.current_dialogue.check_remaining_text)
+        inner_context.event_manager.add_event(inner_context.map_input_lock.unlock)
+        inner_context.map_input_lock.lock()
 
 
         #pause for 60 frames; 1 sec.
-        self.event_manager.add_event(empty_event.__init__,[60])
-        self.event_manager.add_event(empty_event.decrement_loops,persistent_condition=empty_event.check_still_looping)
-        self.event_manager.add_event(self.map_input_lock.unlock) #not sure if necessary?
-        self.map_input_lock.lock()
+        inner_context.event_manager.add_event(empty_event.__init__,[60])
+        inner_context.event_manager.add_event(empty_event.decrement_loops,persistent_condition=empty_event.check_still_looping)
+        inner_context.event_manager.add_event(inner_context.map_input_lock.unlock) #not sure if necessary?
+        inner_context.map_input_lock.lock()
 
 
         #dialogue with name and image        
@@ -38,8 +38,52 @@ Note: the 4 is the speed of the character movement. Increase or decrease it to 8
         self.photo_location=os.path.join("assets", "duellists", "Charity.png")
 
         #then, in interact_object:
-        self.event_manager.add_event(dialogue_facing,[self.player_character,self])
-        self.event_manager.add_event(self.current_dialogue.__init__,[self.screen,"Welcome to the trading post.\nWould you like to make a trade?"],{"name_text":"Charity","photo_location":self.photo_location})
-        self.event_manager.add_event(self.current_dialogue.render,[event_list],persistent_condition=self.current_dialogue.check_remaining_text)
-        self.event_manager.add_event(self.map_input_lock.unlock)
-        self.map_input_lock.lock()
+        inner_context.event_manager.add_event(dialogue_facing,[self.player_character,self])
+        inner_context.event_manager.add_event(inner_context.current_dialogue.__init__,[inner_context.screen,"Welcome to the trading post.\nWould you like to make a trade?"],{"name_text":"Charity","photo_location":self.photo_location})
+        inner_context.event_manager.add_event(inner_context.current_dialogue.render,[event_list],persistent_condition=inner_context.current_dialogue.check_remaining_text)
+        inner_context.event_manager.add_event(inner_context.map_input_lock.unlock)
+        inner_context.map_input_lock.lock()
+
+
+        #handling event flags
+        
+        inner_context.event_manager.add_event(dialogue_facing,[inner_context.player_character,self])
+        if not inner_context.player_data.event_flags["first event"]:
+            inner_context.event_manager.add_event(inner_context.current_dialogue.__init__,[inner_context.screen,"Welcome! I'm Dr. Mason, with a PhD in Pokemon cardology!"])
+            inner_context.event_manager.add_event(inner_context.player_data.set_flag,["first event"])
+        else:
+            inner_context.event_manager.add_event(inner_context.current_dialogue.__init__,[inner_context.screen,"You already talked to me once before!"])
+        inner_context.event_manager.add_event(inner_context.current_dialogue.render,[inner_context.event_list],persistent_condition=inner_context.current_dialogue.check_remaining_text)
+        inner_context.event_manager.add_event(inner_context.map_input_lock.unlock)
+        inner_context.map_input_lock.lock()
+
+
+        #adding cards and checking the card pool
+
+        inner_context.event_manager.add_event(inner_context.player_data.add_cards,[["card1","card2"]])
+        inner_context.event_manager.add_event(inner_context.player_data.display_cards)
+
+
+        #setting name and using name.
+        #note that the name appears as None the first time, but since the name generally won't be set
+        #in the same loop as it's being checked, this won't be an issue.
+        
+        inner_context.event_manager.add_event(inner_context.player_data.set_name,["Bob"])
+        inner_context.event_manager.add_event(inner_context.current_dialogue.__init__,[inner_context.screen,f"Ah! I see! Your name is {inner_context.player_data.player_name}!"])
+
+
+        #randomly-generate a word and use that in dialogue
+
+        temp_word=random_name.gen_word()
+        inner_context.event_manager.add_event(dialogue_facing,[inner_context.player_character,self])
+        inner_context.event_manager.add_event(inner_context.current_dialogue.__init__,[inner_context.screen,f"Your magic word is {temp_word}! That'll be five dollars."])
+        inner_context.event_manager.add_event(inner_context.current_dialogue.render,[inner_context.event_list],persistent_condition=inner_context.current_dialogue.check_remaining_text)
+        inner_context.event_manager.add_event(inner_context.map_input_lock.unlock)
+        inner_context.map_input_lock.lock()
+
+
+        #glitch effect
+        inner_context.event_manager.add_event(glitch_effect.start_glitch)
+        inner_context.event_manager.add_event(glitch_effect.glitch_screen,[inner_context.screen],persistent_condition=glitch_effect.check_time_remaining)
+        inner_context.event_manager.add_event(inner_context.map_input_lock.unlock)
+        inner_context.map_input_lock.lock()
