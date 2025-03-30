@@ -74,6 +74,11 @@ class InnerContext:
         self.current_npcs=current_npcs
         self.phase_handler=phase_handler
         self.player_data=player_data
+        
+        self.just_stepped_on_exit=False
+        
+    def reset_exit_flag(self):
+        self.just_stepped_on_exit = False
 
 class Context:
     def __init__(self,screen,phase_handler):

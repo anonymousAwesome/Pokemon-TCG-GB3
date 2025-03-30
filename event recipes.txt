@@ -106,3 +106,29 @@
 
         #make pc greyscale
         inner_context.event_manager.add_event(inner_context.player_character.toggle_greyscale)
+
+
+
+    #add an effect that triggers just before the map changes
+    #add the following function to the specific exit class, such as MasonCenterBottomExit
+    
+    def step_on(self,inner_context):
+        
+        inner_context.event_manager.add_event(inner_context.current_dialogue.__init__,[inner_context.screen,"Welcome! I'm Dr. Mason, with a PhD in Pokemon cardology!"])
+        inner_context.event_manager.add_event(inner_context.current_dialogue.render,[inner_context.event_list],persistent_condition=inner_context.current_dialogue.check_remaining_text)
+        inner_context.event_manager.add_event(BaseExitClass.step_on,[self,inner_context])
+        inner_context.event_manager.add_event(inner_context.reset_exit_flag)
+        inner_context.event_manager.add_event(inner_context.map_input_lock.unlock)
+        inner_context.map_input_lock.lock()
+        inner_context.just_stepped_on_exit = True
+
+
+    #add an effect that triggers just after the map changes.
+    #It's simpler, since I don't need to make sure the event isn't repeatedly added to the queue.
+    def step_on(self,inner_context):
+
+        inner_context.event_manager.add_event(BaseExitClass.step_on,[self,inner_context])        
+        inner_context.event_manager.add_event(inner_context.current_dialogue.__init__,[inner_context.screen,"Welcome! I'm Dr. Mason, with a PhD in Pokemon cardology!"])
+        inner_context.event_manager.add_event(inner_context.current_dialogue.render,[inner_context.event_list],persistent_condition=inner_context.current_dialogue.check_remaining_text)
+        inner_context.event_manager.add_event(inner_context.map_input_lock.unlock)
+        inner_context.map_input_lock.lock()

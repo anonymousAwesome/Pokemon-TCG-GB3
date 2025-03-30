@@ -139,6 +139,7 @@ class MasonCenterBottomExit(BaseExitClass):
         self.replacement_map = TcgIsland
         self.rect=pygame.Rect(448, 896, 128, 64)
         self.facing_direction="down"
+    
 
 class MasonLeftExit1(BaseExitClass):
     def __init__(self):

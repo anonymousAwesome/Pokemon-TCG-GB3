@@ -76,9 +76,11 @@ def check_interact_with_object(inner_context):
                                 npc.interact_object(inner_context)
 
 def check_step_on_object(inner_context):
-    for trigger in inner_context.temp_exit_list.temp_list:
-        if trigger.rect.contains(inner_context.player_character.rect):
-            inner_context.event_manager.add_event(trigger.step_on,[inner_context])
+    if not inner_context.just_stepped_on_exit:
+        for trigger in inner_context.temp_exit_list.temp_list:
+            if trigger.rect.contains(inner_context.player_character.rect):
+                trigger.step_on(inner_context)
+                
 
 def check_interact_with_self(inner_context):
     interact_object=getattr(inner_context.map_holder.current_map,"interact_self_triggers",False)
