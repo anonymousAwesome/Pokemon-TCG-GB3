@@ -40,7 +40,7 @@ class CollisionManager():
             return False
 
         for obstacle in self.obstacles:
-            if obstacle.contains(next_rect):
+            if obstacle.colliderect(next_rect):
                 return False
 
         return True
