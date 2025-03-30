@@ -11,6 +11,8 @@ class PlayerData:
         self.player_name=None
         self.removed_npcs=set()
         
+        self.currently_greyscale=True
+        
     def set_flag(self,flagname):
         self.event_flags[flagname]=True
     
@@ -32,4 +34,6 @@ class PlayerData:
     
     def undelete_npc(self,npc):
         self.removed_npcs.remove(npc)
-        
+    
+    def toggle_greyscale(self):
+        self.currently_greyscale=not self.currently_greyscale

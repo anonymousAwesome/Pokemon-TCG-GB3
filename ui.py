@@ -61,7 +61,7 @@ class Dialogue:
     box does.
     I couldn't think of a good term that would refer to both of those but
     wouldn't also include menu text or duel text.'''
-    def __init__(self, screen, dialogue_text, name_text=None, photo_location=None):
+    def __init__(self, screen, dialogue_text, name_text=None, photo_location=None,greyscale=False):
         self.screen=screen
         self.name_text=name_text
         if photo_location:
@@ -72,6 +72,7 @@ class Dialogue:
         self.remaining_text=self.preprocess(dialogue_text)
         self.creation_time = time.time()
         self.process_current_window()
+        self.greyscale=greyscale
 
     def check_remaining_text(self):
         return self.remaining_text
@@ -102,7 +103,7 @@ class Dialogue:
         return len(self.remaining_text)>0
 
     def display_text(self):
-        bg_box(self.screen,box_x,box_y,box_width,box_height)
+        self.bg_box(self.screen,box_x,box_y,box_width,box_height)
 
         if self.profile_image:
             if self.name_text:
@@ -116,14 +117,20 @@ class Dialogue:
                 name_x = box_x+6
                 name_y = box_y - 46
                 name_box_width=max(name_surface.get_width()+22,self.profile_image.get_width())
-                pygame.draw.rect(self.screen, (30,30,225), (name_x-5, name_y, name_box_width+3, 48)) 
+                if self.greyscale:
+                    pygame.draw.rect(self.screen, (180,180,180), (name_x-5, name_y, name_box_width+3, 48)) 
+                else:
+                    pygame.draw.rect(self.screen, (30,30,225), (name_x-5, name_y, name_box_width+3, 48)) 
                 pygame.draw.rect(self.screen, black, (name_x - 7, name_y, name_box_width + 5, 48),width=2)
                 self.screen.blit(name_surface, (name_x+8, name_y))
                
             else:
                 name_x = box_x + 15
                 name_y = box_y - 46
-                pygame.draw.rect(self.screen, (30,30,225), (name_x - 10, name_y, name_surface.get_width() + 20, 48),border_top_left_radius=7,border_top_right_radius=7) 
+                if self.greyscale:
+                    pygame.draw.rect(self.screen, (180,180,180), (name_x - 10, name_y, name_surface.get_width() + 20, 48),border_top_left_radius=7,border_top_right_radius=7) 
+                else:
+                    pygame.draw.rect(self.screen, (30,30,225), (name_x - 10, name_y, name_surface.get_width() + 20, 48),border_top_left_radius=7,border_top_right_radius=7) 
                 pygame.draw.rect(self.screen, black, (name_x - 12, name_y, name_surface.get_width() + 22, 48),width=2,border_top_left_radius=7,border_top_right_radius=7)
                 self.screen.blit(name_surface, (name_x, name_y+2))
 
@@ -185,10 +192,14 @@ class Dialogue:
                     self.process_current_window()
 
 
-def bg_box(screen,box_x,box_y,box_width,box_height):
-    pygame.draw.rect(screen, (255, 255, 255), (box_x + 4, box_y + 4, box_width - 8, box_height - 8))  # White background
-    pygame.draw.rect(screen, (0,0,200), (box_x, box_y, box_width, box_height), width=6)  # Blue border
-    pygame.draw.rect(screen, (125,125,255), (box_x+2, box_y+2, box_width-4, box_height-4), width=2)  # light blue middle
+    def bg_box(self,screen,box_x,box_y,box_width,box_height):
+        pygame.draw.rect(screen, (255, 255, 255), (box_x + 4, box_y + 4, box_width - 8, box_height - 8))  # White background
+        if self.greyscale:
+            pygame.draw.rect(screen, (70,70,70), (box_x, box_y, box_width, box_height), width=6)  # grey border
+            pygame.draw.rect(screen, (150,150,150), (box_x+2, box_y+2, box_width-4, box_height-4), width=2)  # lighter grey middle
+        else:
+            pygame.draw.rect(screen, (0,0,200), (box_x, box_y, box_width, box_height), width=6)  # Blue border
+            pygame.draw.rect(screen, (125,125,255), (box_x+2, box_y+2, box_width-4, box_height-4), width=2)  # light blue middle
 
 
 def club_name_render(screen, text):

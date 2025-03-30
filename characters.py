@@ -55,8 +55,11 @@ class Character(pygame.sprite.Sprite):
         self.rect  = self.image.get_rect()
         self.rect.x,self.rect.y = x, y
 
-    def draw(self, surface, camera_x_offset, camera_y_offset):
-        surface.blit(self.image, (self.rect.x + camera_x_offset, self.rect.y + camera_y_offset))
+    def draw(self, surface, camera_x_offset, camera_y_offset,inner_context):
+        if inner_context.player_data.currently_greyscale:
+            surface.blit(inner_context.perceptual_greyscale(self.image), (self.rect.x + camera_x_offset, self.rect.y + camera_y_offset))
+        else:
+            surface.blit(self.image, (self.rect.x + camera_x_offset, self.rect.y + camera_y_offset))
 
     def flip_walking_side(self):
         self.walking_side=not self.walking_side

@@ -14,6 +14,9 @@ import map_managers
 import mapinfo
 import player
 
+import pygame
+import numpy as np
+
 class TempExitList():
     '''called when the player moves into a new map, so I'm not 
     instantiating the trigger class 60 times a second.'''
@@ -80,6 +83,21 @@ class InnerContext:
     def reset_exit_flag(self):
         self.just_stepped_on_exit = False
 
+    def perceptual_greyscale(self,surface):
+        """Convert a surface to greyscale efficiently using numpy and preserve transparency."""
+        arr = pygame.surfarray.pixels3d(surface)
+        alpha = pygame.surfarray.pixels_alpha(surface)
+
+        grey = (0.299 * arr[:, :, 0] + 0.587 * arr[:, :, 1] + 0.114 * arr[:, :, 2]).astype(np.uint8)
+        grey_arr = np.stack((grey, grey, grey), axis=-1)
+
+        grey_surface = pygame.Surface(surface.get_size(), pygame.SRCALPHA)
+        pygame.surfarray.blit_array(grey_surface, grey_arr)
+        pygame.surfarray.pixels_alpha(grey_surface)[:] = alpha
+
+        return grey_surface
+
+
 class Context:
     def __init__(self,screen,phase_handler):
 
@@ -110,8 +128,10 @@ class Context:
 
         self.collision_manager=map_managers.CollisionManager(self.map_holder.current_map.bg_image, self.player_character,self.screen,self.current_dialogue,self.overworld_event_manager,self.map_input_lock,obstacles=self.map_holder.current_map.obstacles,npcs=self.current_npcs)
 
-
         self.inner_context=InnerContext(self.map_holder,self.player_character,self.event_list,self.screen,self.map_input_lock,self.current_dialogue,self.temp_exit_list,self.overworld_event_manager,self.collision_manager,self.current_npcs,phase_handler,self.player_data)
+
+        if self.player_data.currently_greyscale:
+            self.map_holder.current_map.bg_image.blit(self.inner_context.perceptual_greyscale(self.map_holder.current_map.bg_image),(0,0))
 
 
     def update(self,event_list):
@@ -126,10 +146,12 @@ class Context:
         for npc in self.current_npcs.current_npcs:
             if not npc.sprite.pixels_remaining:
                 npc.sprite.walk_in_place()
-            npc.sprite.draw(self.screen,camera_x_offset, camera_y_offset)
+            npc.sprite.draw(self.screen,camera_x_offset, camera_y_offset,self.inner_context)
         
         keys = pygame.key.get_pressed()
-        self.player_character.draw(self.screen, camera_x_offset, camera_y_offset)
+        
+        self.player_character.draw(self.screen, camera_x_offset, camera_y_offset,self.inner_context)
+
 
         if not self.map_input_lock:
             

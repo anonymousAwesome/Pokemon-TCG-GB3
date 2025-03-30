@@ -7,6 +7,9 @@ import numpy as np
 
 def reload_map(inner_context,replacement_map):
     inner_context.map_holder.__init__(replacement_map)
+    if inner_context.player_data.currently_greyscale:
+        inner_context.map_holder.current_map.bg_image.blit(inner_context.perceptual_greyscale(inner_context.map_holder.current_map.bg_image),(0,0))
+
     inner_context.temp_exit_list.__init__(inner_context.map_holder,inner_context.player_character)
     inner_context.current_npcs.reset(replacement_map)
     inner_context.collision_manager.__init__(inner_context.map_holder.current_map.bg_image, inner_context.player_character, inner_context.screen, inner_context.current_dialogue, inner_context.event_manager, inner_context.map_input_lock, obstacles=inner_context.map_holder.current_map.obstacles, npcs=inner_context.current_npcs)
@@ -100,7 +103,7 @@ class MasonCenterBlackboard(BaseMapObjectClass):
         self.rect=pygame.Rect(448, 0, 64, 64)
 
     def interact_object(self,inner_context):
-        inner_context.event_manager.add_event(inner_context.current_dialogue.__init__,[inner_context.screen,"It's a chalkboard.\nIt just says \"butts lol\". :/"])
+        inner_context.event_manager.add_event(inner_context.current_dialogue.__init__,[inner_context.screen,"It's a chalkboard.\nIt just says \"butts lol\". :/"],{"greyscale":inner_context.player_data.currently_greyscale})
         inner_context.event_manager.add_event(inner_context.current_dialogue.render,[inner_context.event_list],persistent_condition=inner_context.current_dialogue.check_remaining_text)
         inner_context.event_manager.add_event(inner_context.map_input_lock.unlock)
         inner_context.map_input_lock.lock()
@@ -211,10 +214,8 @@ class DrMason(BaseNpcClass):
         self.rect=self.sprite.rect
 
     def interact_object(self,inner_context):
-
-        inner_context.event_manager.add_event(glitch_effect.start_glitch,[300])
-        inner_context.event_manager.add_event(glitch_effect.steady_glitch,[inner_context.screen],persistent_condition=glitch_effect.check_time_remaining)
-
+        inner_context.event_manager.add_event(inner_context.player_data.toggle_greyscale)
+        inner_context.event_manager.add_event(reload_map,[inner_context,MasonCenter])
 
     '''
     def interact_object(self,inner_context):

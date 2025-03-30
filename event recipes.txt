@@ -127,3 +127,10 @@
         inner_context.event_manager.add_event(inner_context.current_dialogue.render,[inner_context.event_list],persistent_condition=inner_context.current_dialogue.check_remaining_text)
         inner_context.event_manager.add_event(inner_context.map_input_lock.unlock)
         inner_context.map_input_lock.lock()
+
+        #toggle greyscale:
+        inner_context.event_manager.add_event(inner_context.player_data.toggle_greyscale)
+		
+		#getting the dialogue boxes to be greyscale:
+		inner_context.event_manager.add_event(inner_context.current_dialogue.__init__,[inner_context.screen,"It's a chalkboard.\nIt just says \"butts lol\". :/"],{"greyscale":inner_context.player_data.currently_greyscale})
+		#note that you'll only need to do this for the few screens that require dialogue in the greyscale flashback; Normal club, airport, and Mason's Lab. I'm undecided on whether or not I should make the Normal Club dialogue boxes and profile images greyscale.
