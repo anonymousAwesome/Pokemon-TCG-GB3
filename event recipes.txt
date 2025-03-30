@@ -82,11 +82,15 @@
         inner_context.map_input_lock.lock()
 
 
-        #glitch effect
+        #pulse glitch effect, locked input
         inner_context.event_manager.add_event(glitch_effect.start_glitch)
-        inner_context.event_manager.add_event(glitch_effect.glitch_screen,[inner_context.screen],persistent_condition=glitch_effect.check_time_remaining)
+        inner_context.event_manager.add_event(glitch_effect.pulse_glitch,[inner_context.screen],persistent_condition=glitch_effect.check_time_remaining)
         inner_context.event_manager.add_event(inner_context.map_input_lock.unlock)
         inner_context.map_input_lock.lock()
+
+        #steady glitch effect, no lock
+        inner_context.event_manager.add_event(glitch_effect.start_glitch,[300])
+        inner_context.event_manager.add_event(glitch_effect.steady_glitch,[inner_context.screen],persistent_condition=glitch_effect.check_time_remaining)
 
         #remove an NPC from the map
         #Note: You'll need to replace ~~NpcClassNameHere~~ with the class name of the NPC to
@@ -95,8 +99,6 @@
 
         inner_context.event_manager.add_event(inner_context.player_data.remove_npc,[~~NpcClassNameHere~~])
         inner_context.event_manager.add_event(reload_map,[inner_context,~~CurrentMap~~])
-        inner_context.event_manager.add_event(inner_context.map_input_lock.unlock)
-        inner_context.map_input_lock.lock()
 
         #to reverse the effect, replace remove_npc with undelete_npc
 

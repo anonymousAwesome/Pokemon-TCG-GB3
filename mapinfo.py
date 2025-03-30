@@ -17,19 +17,26 @@ class GlitchEffect:
     def __init__(self):
         self.time_remaining=0
 
-    def glitch_screen(self, screen):
-        if self.time_remaining>=80 or 30>=self.time_remaining>=0:
-            screen_copy = screen.copy()
-            array = pygame.surfarray.array3d(screen_copy)
-            transposed = np.transpose(array, (1, 0, 2))[:array.shape[0], :array.shape[1]]
-            result = np.clip(array[:transposed.shape[0], :transposed.shape[1]] - transposed, 0, 255).astype(np.uint8)
-            glitch_surface = pygame.surfarray.make_surface(result)
-            screen.blit(glitch_surface, (0, 0))    
+    def process_glitch(self,screen):
+        screen_copy = screen.copy()
+        array = pygame.surfarray.array3d(screen_copy)
+        transposed = np.transpose(array, (1, 0, 2))[:array.shape[0], :array.shape[1]]
+        result = np.clip(array[:transposed.shape[0], :transposed.shape[1]] - transposed, 0, 255).astype(np.uint8)
+        glitch_surface = pygame.surfarray.make_surface(result)
+        screen.blit(glitch_surface, (0, 0))    
+        
 
+    def pulse_glitch(self, screen):
+        if self.time_remaining>=80 or 30>=self.time_remaining>=0:
+            self.process_glitch(screen)
         self.time_remaining -= 1
 
-    def start_glitch(self):
-        self.time_remaining=150
+    def steady_glitch(self,screen):
+        self.process_glitch(screen)
+        self.time_remaining -= 1
+
+    def start_glitch(self,duration=150):
+        self.time_remaining=duration
         
     def check_time_remaining(self):
         return self.time_remaining
@@ -204,10 +211,9 @@ class DrMason(BaseNpcClass):
         self.rect=self.sprite.rect
 
     def interact_object(self,inner_context):
-        inner_context.event_manager.add_event(inner_context.player_data.remove_npc,[DrMason])
-        inner_context.event_manager.add_event(reload_map,[inner_context,MasonCenter])
-        inner_context.event_manager.add_event(inner_context.map_input_lock.unlock)
-        inner_context.map_input_lock.lock()
+
+        inner_context.event_manager.add_event(glitch_effect.start_glitch,[300])
+        inner_context.event_manager.add_event(glitch_effect.steady_glitch,[inner_context.screen],persistent_condition=glitch_effect.check_time_remaining)
 
 
     '''
