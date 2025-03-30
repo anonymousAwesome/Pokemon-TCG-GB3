@@ -18,7 +18,7 @@ class GlitchEffect:
         self.time_remaining=0
 
     def glitch_screen(self, screen):
-        if self.time_remaining>=120 or 60>=self.time_remaining>=30:
+        if self.time_remaining>=80 or 30>=self.time_remaining>=0:
             screen_copy = screen.copy()
             array = pygame.surfarray.array3d(screen_copy)
             transposed = np.transpose(array, (1, 0, 2))[:array.shape[0], :array.shape[1]]
@@ -29,7 +29,7 @@ class GlitchEffect:
         self.time_remaining -= 1
 
     def start_glitch(self):
-        self.time_remaining=180
+        self.time_remaining=150
         
     def check_time_remaining(self):
         return self.time_remaining
