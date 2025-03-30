@@ -102,14 +102,6 @@
 
         #to reverse the effect, replace remove_npc with undelete_npc
 
-        #making npc greyscale
-        #add greyscale=True to the self.sprite definition in the NPC's __init__ function.
-        self.sprite=characters.NPC(448,192, self.loaded_sprites,"down" greyscale=True)
-
-        #make pc greyscale
-        inner_context.event_manager.add_event(inner_context.player_character.toggle_greyscale)
-
-
 
     #add an effect that triggers just before the map changes
     #add the following function to the specific exit class, such as MasonCenterBottomExit
@@ -126,7 +118,8 @@
 
 
     #add an effect that triggers just after the map changes.
-    #It's simpler, since I don't need to make sure the event isn't repeatedly added to the queue.
+    #add the following function to the specific exit class, such as MasonCenterBottomExit
+    #This one is simpler, since I don't need to make sure the event isn't repeatedly added to the queue.
     def step_on(self,inner_context):
 
         inner_context.event_manager.add_event(BaseExitClass.step_on,[self,inner_context])        
