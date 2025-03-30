@@ -11,7 +11,7 @@ Fighting Club: Fight Club
 Pokemon-ex exterior: The Order of the Stick. ("Stupid railroad plots.")
 Neo Continent map layout and music: Super Mario Bros. 3, World 1
 Neo Continent club duellists and masters: minor characters from the early seasons of the Pokemon anime
-Bug Club: Yu-gi-oh
+Bug Club: Yu-gi-oh, but not Weevil Underwood, oddly enough.
 Ground Club: The streamer RedVelvetNite
 Flying Club: Hippie delivers a line from Pokemon Vietnamese Crystal
 Dark Club: Transcendental Cha Cha Cha by Tom Cardy
@@ -21,6 +21,10 @@ Normal Club: The club layout, characters, and dialogue are all taken from Pokemo
 Forbidden Faction lounge: Energy-stealing NPC from Pokemon GB
 Forbidden Faction lounge: Musicians Sara Bareilles, Cher, Chamillionaire, and Phil Lynott
 Neo Continent Grandmaster Stadium: Crono, Lucca, Marle, and Magus are all characters from Chrono Trigger
-Neo Continent Grandmaster Stadium: Lucca's deck contains Entei and Unown, a reference to the third Pokemon movie
+Neo Continent Grandmaster Stadium: Lucca's deck contains Entei and Unown, a weak reference to the third Pokemon movie
 Final duel: Yu-gi-oh (Heavy Storm card)
 Final duel: AI-generated Magic: The Gathering cards (Slidshocking Krow with Tromple and Mointainspalk).
+Ronald's dialogue: Futurama
+
+The design of the Forbidden Faction cultist robes are not an intentional reference to the Konosuba game "Love for these Clothes of Desire"; I'm just too lazy to come up with my own design.
+Which, arguably, fits the theme of Konosuba.
