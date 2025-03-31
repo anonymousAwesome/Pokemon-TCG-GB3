@@ -11,7 +11,7 @@ class PlayerData:
         self.player_name=None
         self.removed_npcs=set()
         
-        self.currently_greyscale=True
+        self.currently_greyscale=False
         
     def set_flag(self,flagname):
         self.event_flags[flagname]=True

@@ -13,9 +13,8 @@ import ui
 import map_managers
 import mapinfo
 import player
-
-import pygame
 import numpy as np
+import animation
 
 class TempExitList():
     '''called when the player moves into a new map, so I'm not 
@@ -64,7 +63,7 @@ class CurrentNPCs:
                 self.current_npcs.append(npc())
 
 class InnerContext:
-    def __init__(self,map_holder,player_character,event_list,screen,map_input_lock,current_dialogue,temp_exit_list,event_manager,collision_manager,current_npcs,phase_handler,player_data):
+    def __init__(self,map_holder,player_character,event_list,screen,map_input_lock,current_dialogue,temp_exit_list,event_manager,collision_manager,current_npcs,phase_handler,player_data,animation_manager,camera):
         self.map_holder=map_holder
         self.player_character=player_character
         self.event_list=event_list
@@ -77,8 +76,9 @@ class InnerContext:
         self.current_npcs=current_npcs
         self.phase_handler=phase_handler
         self.player_data=player_data
-        
         self.just_stepped_on_exit=False
+        self.animation_manager=animation_manager
+        self.camera=camera
         
     def reset_exit_flag(self):
         self.just_stepped_on_exit = False
@@ -97,6 +97,25 @@ class InnerContext:
 
         return grey_surface
 
+class Camera:
+    def __init__(self,collision_manager,player_character):
+        self.x_offset=0
+        self.y_offset=0
+        self.x_offset_offset=0
+        self.y_offset_offset=0
+        self.collision_manager=collision_manager
+        self.player_character=player_character
+
+    def update(self):
+        self.x_offset = -max(0, min(self.collision_manager.background_image.get_width() - 640, (self.player_character.rect.centerx - 320)))
+        self.y_offset = -max(0, min(self.collision_manager.background_image.get_height() - 576, (self.player_character.rect.centery - 288)))
+        self.x_offset+=self.x_offset_offset
+        self.y_offset+=self.y_offset_offset
+
+    def offset_offset_reset(self):
+        self.x_offset_offset=0
+        self.y_offset_offset=0
+    
 
 class Context:
     def __init__(self,screen,phase_handler):
@@ -128,30 +147,40 @@ class Context:
 
         self.collision_manager=map_managers.CollisionManager(self.map_holder.current_map.bg_image, self.player_character,self.screen,self.current_dialogue,self.overworld_event_manager,self.map_input_lock,obstacles=self.map_holder.current_map.obstacles,npcs=self.current_npcs)
 
-        self.inner_context=InnerContext(self.map_holder,self.player_character,self.event_list,self.screen,self.map_input_lock,self.current_dialogue,self.temp_exit_list,self.overworld_event_manager,self.collision_manager,self.current_npcs,phase_handler,self.player_data)
+        self.animation_manager=animation.AnimationManager()
+
+        self.camera=Camera(self.collision_manager,self.player_character)
+
+        self.inner_context=InnerContext(self.map_holder,self.player_character,self.event_list,self.screen,self.map_input_lock,self.current_dialogue,self.temp_exit_list,self.overworld_event_manager,self.collision_manager,self.current_npcs,phase_handler,self.player_data,self.animation_manager,self.camera)
 
         if self.player_data.currently_greyscale:
             self.map_holder.current_map.bg_image.blit(self.inner_context.perceptual_greyscale(self.map_holder.current_map.bg_image),(0,0))
 
+        #temporary; remove this later.
+        rudimentary_sprite=animation.RudimentarySprite(self.inner_context)
+        self.animation_manager.add_animation(rudimentary_sprite)
 
     def update(self,event_list):
         self.event_list[:]=event_list
         for event in self.event_list:
             if event.type == pygame.QUIT:
                 running = False
-        camera_x_offset = -max(0, min(self.collision_manager.background_image.get_width() - 640, (self.player_character.rect.centerx - 320)))
-        camera_y_offset = -max(0, min(self.collision_manager.background_image.get_height() - 576, (self.player_character.rect.centery - 288)))
-        self.screen.blit(self.collision_manager.background_image, (camera_x_offset, camera_y_offset))
+        
+        self.animation_manager.update()
+        
+        self.camera.update()
+        self.screen.blit(self.collision_manager.background_image, (self.camera.x_offset, self.camera.y_offset))
 
         for npc in self.current_npcs.current_npcs:
             if not npc.sprite.pixels_remaining:
                 npc.sprite.walk_in_place()
-            npc.sprite.draw(self.screen,camera_x_offset, camera_y_offset,self.inner_context)
+            npc.sprite.draw(self.screen,self.camera.x_offset, self.camera.y_offset,self.inner_context)
         
         keys = pygame.key.get_pressed()
         
-        self.player_character.draw(self.screen, camera_x_offset, camera_y_offset,self.inner_context)
+        self.player_character.draw(self.screen, self.camera.x_offset, self.camera.y_offset,self.inner_context)
 
+        self.animation_manager.draw(self.screen)
 
         if not self.map_input_lock:
             
