@@ -103,34 +103,39 @@
         #to reverse the effect, replace remove_npc with undelete_npc
 
 
-    #add an effect that triggers just before the map changes
-    #add the following function to the specific exit class, such as MasonCenterBottomExit
+        #add an effect that triggers just before the map changes
+        #add the following function to the specific exit class, such as MasonCenterBottomExit
     
-    def step_on(self,inner_context):
-        
-        inner_context.event_manager.add_event(inner_context.current_dialogue.__init__,[inner_context.screen,"Welcome! I'm Dr. Mason, with a PhD in Pokemon cardology!"])
-        inner_context.event_manager.add_event(inner_context.current_dialogue.render,[inner_context.event_list],persistent_condition=inner_context.current_dialogue.check_remaining_text)
-        inner_context.event_manager.add_event(BaseExitClass.step_on,[self,inner_context])
-        inner_context.event_manager.add_event(inner_context.reset_exit_flag)
-        inner_context.event_manager.add_event(inner_context.map_input_lock.unlock)
-        inner_context.map_input_lock.lock()
-        inner_context.just_stepped_on_exit = True
+        def step_on(self,inner_context):
+            inner_context.event_manager.add_event(inner_context.current_dialogue.__init__,[inner_context.screen,"Welcome! I'm Dr. Mason, with a PhD in Pokemon cardology!"])
+            inner_context.event_manager.add_event(inner_context.current_dialogue.render,[inner_context.event_list],persistent_condition=inner_context.current_dialogue.check_remaining_text)
+            inner_context.event_manager.add_event(BaseExitClass.step_on,[self,inner_context])
+            inner_context.event_manager.add_event(inner_context.reset_exit_flag)
+            inner_context.event_manager.add_event(inner_context.map_input_lock.unlock)
+            inner_context.map_input_lock.lock()
+            inner_context.just_stepped_on_exit = True
 
 
-    #add an effect that triggers just after the map changes.
-    #add the following function to the specific exit class, such as MasonCenterBottomExit
-    #This one is simpler, since I don't need to make sure the event isn't repeatedly added to the queue.
-    def step_on(self,inner_context):
-
-        inner_context.event_manager.add_event(BaseExitClass.step_on,[self,inner_context])        
-        inner_context.event_manager.add_event(inner_context.current_dialogue.__init__,[inner_context.screen,"Welcome! I'm Dr. Mason, with a PhD in Pokemon cardology!"])
-        inner_context.event_manager.add_event(inner_context.current_dialogue.render,[inner_context.event_list],persistent_condition=inner_context.current_dialogue.check_remaining_text)
-        inner_context.event_manager.add_event(inner_context.map_input_lock.unlock)
-        inner_context.map_input_lock.lock()
+        #add an effect that triggers just after the map changes.
+        #add the following function to the specific exit class, such as MasonCenterBottomExit
+        #This one is simpler, since I don't need to make sure the event isn't repeatedly added to the queue.
+        def step_on(self,inner_context):
+            inner_context.event_manager.add_event(BaseExitClass.step_on,[self,inner_context])        
+            inner_context.event_manager.add_event(inner_context.current_dialogue.__init__,[inner_context.screen,"Welcome! I'm Dr. Mason, with a PhD in Pokemon cardology!"])
+            inner_context.event_manager.add_event(inner_context.current_dialogue.render,[inner_context.event_list],persistent_condition=inner_context.current_dialogue.check_remaining_text)
+            inner_context.event_manager.add_event(inner_context.map_input_lock.unlock)
+            inner_context.map_input_lock.lock()
 
         #toggle greyscale:
+        #~~current_map~~ example: MasonCenter
         inner_context.event_manager.add_event(inner_context.player_data.toggle_greyscale)
+        inner_context.event_manager.add_event(reload_map,[inner_context,~~current_map~~])
+
 		
 		#getting the dialogue boxes to be greyscale:
 		inner_context.event_manager.add_event(inner_context.current_dialogue.__init__,[inner_context.screen,"It's a chalkboard.\nIt just says \"butts lol\". :/"],{"greyscale":inner_context.player_data.currently_greyscale})
 		#note that you'll only need to do this for the few screens that require dialogue in the greyscale flashback; Normal club, airport, and Mason's Lab. I'm undecided on whether or not I should make the Normal Club dialogue boxes and profile images greyscale.
+
+        #creating an animation
+        #~~animation sprite class~~ example: RudimentarySprite
+        inner_context.event_manager.add_event(inner_context.animation_manager.add_animation,[animation.~~animation sprite class~~(inner_context)])

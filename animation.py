@@ -19,9 +19,9 @@ class AnimationManager:
             if animation.is_complete:
                 self.active_animations.remove(animation)
     
-    def draw(self, screen):
+    def draw(self):
         for animation in self.active_animations:
-            animation.draw(screen)
+            animation.draw()
 
     def cancel_all_animations(self):
         self.active_animations=[]
@@ -36,13 +36,20 @@ class RudimentarySprite:
         self.inner_context=inner_context
         self.x=0
         self.y=0
+        self.lifetime=60
     
     def update(self):
-        self.x+=4
-        self.y+=4
+        self.x+=1
+        self.y+=1
+        self.lifetime-=1
+        if not self.lifetime:
+            self.is_complete=True
+
+    def check_is_done(self):
+        return self.is_complete
         
-    def draw(self,screen):
-        screen.blit(self.image, (self.x,self.y))
+    def draw(self):
+        self.inner_context.screen.blit(self.image, (self.x,self.y))
 
 '''
 Below this point is all Deepseek code. I'm only keeping it for reference;

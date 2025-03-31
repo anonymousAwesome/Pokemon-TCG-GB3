@@ -156,10 +156,6 @@ class Context:
         if self.player_data.currently_greyscale:
             self.map_holder.current_map.bg_image.blit(self.inner_context.perceptual_greyscale(self.map_holder.current_map.bg_image),(0,0))
 
-        #temporary; remove this later.
-        rudimentary_sprite=animation.RudimentarySprite(self.inner_context)
-        self.animation_manager.add_animation(rudimentary_sprite)
-
     def update(self,event_list):
         self.event_list[:]=event_list
         for event in self.event_list:
@@ -180,7 +176,7 @@ class Context:
         
         self.player_character.draw(self.screen, self.camera.x_offset, self.camera.y_offset,self.inner_context)
 
-        self.animation_manager.draw(self.screen)
+        self.animation_manager.draw()
 
         if not self.map_input_lock:
             

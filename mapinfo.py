@@ -4,6 +4,7 @@ import ui
 import characters
 import random_name
 import numpy as np
+import animation
 
 def reload_map(inner_context,replacement_map):
     inner_context.map_holder.__init__(replacement_map)
@@ -214,8 +215,8 @@ class DrMason(BaseNpcClass):
         self.rect=self.sprite.rect
 
     def interact_object(self,inner_context):
-        inner_context.event_manager.add_event(inner_context.player_data.toggle_greyscale)
-        inner_context.event_manager.add_event(reload_map,[inner_context,MasonCenter])
+        inner_context.event_manager.add_event(inner_context.animation_manager.add_animation,[animation.RudimentarySprite(inner_context)])
+        
 
     '''
     def interact_object(self,inner_context):
