@@ -165,16 +165,16 @@ class Context:
         self.animation_manager.update()
         
         self.camera.update()
-        self.screen.blit(self.collision_manager.background_image, (self.camera.x_offset, self.camera.y_offset))
+        self.screen.blit(self.collision_manager.background_image, (self.camera.x_offset+self.camera.x_offset_offset, self.camera.y_offset+self.camera.y_offset_offset))
 
         for npc in self.current_npcs.current_npcs:
             if not npc.sprite.pixels_remaining:
                 npc.sprite.walk_in_place()
-            npc.sprite.draw(self.screen,self.camera.x_offset, self.camera.y_offset,self.inner_context)
+            npc.sprite.draw(self.screen,self.camera.x_offset+self.camera.x_offset_offset, self.camera.y_offset+self.camera.y_offset_offset,self.inner_context)
         
         keys = pygame.key.get_pressed()
         
-        self.player_character.draw(self.screen, self.camera.x_offset, self.camera.y_offset,self.inner_context)
+        self.player_character.draw(self.screen, self.camera.x_offset+self.camera.x_offset_offset, self.camera.y_offset+self.camera.y_offset_offset,self.inner_context)
 
         self.animation_manager.draw()
 

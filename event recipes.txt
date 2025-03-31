@@ -139,3 +139,7 @@
         #creating an animation
         #~~animation sprite class~~ example: RudimentarySprite
         inner_context.event_manager.add_event(inner_context.animation_manager.add_animation,[animation.~~animation sprite class~~(inner_context)])
+
+		#end all animations when transitioning between maps; untested
+        inner_context.event_manager.add_event(inner_context.animation_manager.cancel_all_animations)
+

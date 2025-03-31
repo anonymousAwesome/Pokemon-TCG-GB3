@@ -36,20 +36,40 @@ class RudimentarySprite:
         self.inner_context=inner_context
         self.x=0
         self.y=0
-        self.lifetime=60
+        self.remaining_loops=1000
     
     def update(self):
         self.x+=1
         self.y+=1
-        self.lifetime-=1
-        if not self.lifetime:
+        self.remaining_loops-=1
+        if not self.remaining_loops:
             self.is_complete=True
 
     def check_is_done(self):
         return self.is_complete
         
     def draw(self):
-        self.inner_context.screen.blit(self.image, (self.x,self.y))
+        self.inner_context.screen.blit(self.image, (self.x+self.inner_context.camera.x_offset+self.inner_context.camera.x_offset_offset,
+                                       self.y+self.inner_context.camera.y_offset+self.inner_context.camera.y_offset_offset))
+
+class MoveCameraUp:
+    def __init__(self,inner_context):
+        self.is_complete=False
+        self.inner_context=inner_context
+        self.remaining_loops=60
+
+    def update(self):
+        self.inner_context.camera.y_offset_offset+=1
+        self.remaining_loops-=1
+        if not self.remaining_loops:
+            self.inner_context.camera.offset_offset_reset()
+            self.is_complete=True
+
+    def check_is_done(self):
+        return self.is_complete
+        
+    def draw(self):
+        pass    
 
 '''
 Below this point is all Deepseek code. I'm only keeping it for reference;
