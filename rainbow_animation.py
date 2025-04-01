@@ -2,16 +2,10 @@ import pygame
 import numpy as np
 import math
 
-pygame.init()
-
-width, height = 640, 480
-screen = pygame.display.set_mode((width, height))
-pygame.display.set_caption("Fixed Hue Rotation")
-
 class Rotation:
     def __init__(self):
         self.current_angle = 0
-        self.rotation_amount = 2
+        self.rotation_amount = 5
         # Precompute matrices
         self.rgb_to_xyz = np.array([
             [0.4124, 0.3576, 0.1805],
@@ -90,39 +84,3 @@ class Rotation:
         self.current_angle = (self.current_angle + self.rotation_amount) % 360
         del pixels  # Unlock surface
         return surface
-
-def main():
-
-    rotation=Rotation()
-    
-    # Load the image (replace with your image path)
-    image = pygame.image.load("./assets/pokemon-ex cards.png").convert_alpha()
-    image=pygame.transform.scale(image,(image.get_width()*4,image.get_height()*4))
-    
-    # Display original image
-    screen.blit(image, (0, 0))
-    pygame.display.flip()
-        
-    clock = pygame.time.Clock()
-    # Main loop
-    running = True
-    while running:
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                running = False
-
-        # Modify the colors
-        modified_image = rotation.modify_colors(image.copy())
-        
-        # Display modified image
-        screen.blit(modified_image, (0, 0))
-        pygame.display.flip()
-
-        pygame.time.delay(8)
-        clock.tick(60)
-
-    
-    pygame.quit()
-
-if __name__ == "__main__":
-    main()

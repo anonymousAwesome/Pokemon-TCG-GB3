@@ -1,6 +1,6 @@
 import os
 import pygame
-
+import rainbow_animation
 
 '''
 The animation module was created late in overworld development, so it
@@ -57,15 +57,25 @@ class RudimentarySprite:
 
 class RainbowCards:
     def __init__(self,inner_context):
-        image_location=os.path.join("assets","medals","Psychic_icon_SwSh.png")
+        image_location=os.path.join("assets","pokemon-ex cards.png")
         image=pygame.image.load(image_location).convert_alpha()
+        image=pygame.transform.scale(image,(image.get_width()*4,image.get_height()*4))
         self.image=image
+        self.modified_image=self.image.copy()
         self.is_complete=False
         self.inner_context=inner_context
         self.x=448
         self.y=192
-        self.delay_factor=4
+        self.delay=4
+        self.rotation=rainbow_animation.Rotation()
+        self.frame=0
 
+    def update(self):
+        self.modified_image = self.rotation.modify_colors(self.image.copy())
+
+    def draw(self):
+        self.inner_context.screen.blit(self.modified_image, (self.x+self.inner_context.camera.x_offset+self.inner_context.camera.x_offset_offset,
+                                       self.y+self.inner_context.camera.y_offset+self.inner_context.camera.y_offset_offset))
 
 
 class MoveCameraUp:
