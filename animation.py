@@ -1,6 +1,7 @@
 import os
 import pygame
 
+
 '''
 The animation module was created late in overworld development, so it
 doesn't handle player and NPC animations.
@@ -34,13 +35,15 @@ class RudimentarySprite:
         self.image=image
         self.is_complete=False
         self.inner_context=inner_context
-        self.x=0
-        self.y=0
-        self.remaining_loops=1000
-    
+        self.x=448
+        self.y=192
+        self.remaining_loops=60*3
+        self.delay_factor=4
+        
     def update(self):
-        self.x+=1
-        self.y+=1
+        if self.remaining_loops % self.delay_factor==0:
+            self.x+=4
+            self.y+=4
         self.remaining_loops-=1
         if not self.remaining_loops:
             self.is_complete=True
@@ -51,6 +54,19 @@ class RudimentarySprite:
     def draw(self):
         self.inner_context.screen.blit(self.image, (self.x+self.inner_context.camera.x_offset+self.inner_context.camera.x_offset_offset,
                                        self.y+self.inner_context.camera.y_offset+self.inner_context.camera.y_offset_offset))
+
+class RainbowCards:
+    def __init__(self,inner_context):
+        image_location=os.path.join("assets","medals","Psychic_icon_SwSh.png")
+        image=pygame.image.load(image_location).convert_alpha()
+        self.image=image
+        self.is_complete=False
+        self.inner_context=inner_context
+        self.x=448
+        self.y=192
+        self.delay_factor=4
+
+
 
 class MoveCameraUp:
     def __init__(self,inner_context):

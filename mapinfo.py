@@ -215,7 +215,7 @@ class DrMason(BaseNpcClass):
         self.rect=self.sprite.rect
 
     def interact_object(self,inner_context):
-        inner_context.event_manager.add_event(inner_context.animation_manager.add_animation,[animation.MoveCameraUp(inner_context)])
+        inner_context.event_manager.add_event(inner_context.animation_manager.add_animation,[animation.RudimentarySprite(inner_context)])
         
 
     '''
