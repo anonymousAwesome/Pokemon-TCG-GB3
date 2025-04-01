@@ -65,13 +65,26 @@ class RainbowCards:
         self.is_complete=False
         self.inner_context=inner_context
         self.x=448
-        self.y=192
-        self.delay=4
+        self.y=192-4 #extra 4 pixels up so it doesn't cover up the player's head
         self.rotation=rainbow_animation.Rotation()
-        self.frame=0
+        self.wobble_counter=0
+        self.wobble_delay_factor=20 #this is the one to modify to affect wobble speed
+        self.wobble_loop_length=self.wobble_delay_factor*4
 
     def update(self):
         self.modified_image = self.rotation.modify_colors(self.image.copy())
+        
+        if self.wobble_counter%self.wobble_loop_length==self.wobble_delay_factor*0:
+            self.y-=4
+        if self.wobble_counter%self.wobble_loop_length==self.wobble_delay_factor*1:
+            self.y+=4
+        if self.wobble_counter%self.wobble_loop_length==self.wobble_delay_factor*2:
+            self.y+=4
+        if self.wobble_counter%self.wobble_loop_length==self.wobble_delay_factor*3:
+            self.y-=4
+        self.wobble_counter+=1
+        self.wobble_counter=self.wobble_counter%self.wobble_loop_length
+            
 
     def draw(self):
         self.inner_context.screen.blit(self.modified_image, (self.x+self.inner_context.camera.x_offset+self.inner_context.camera.x_offset_offset,
