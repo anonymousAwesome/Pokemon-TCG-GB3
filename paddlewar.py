@@ -57,9 +57,9 @@ class Context:
                 running = False
 
         keys = pygame.key.get_pressed()
-        if keys[pygame.K_UP] and self.player_paddle.top > 0:
+        if keys[key_mappings.up_key] and self.player_paddle.top > 0:
             self.player_paddle.y -= self.paddle_speed
-        if keys[pygame.K_DOWN] and self.player_paddle.bottom < self.height:
+        if keys[key_mappings.down_key] and self.player_paddle.bottom < self.height:
             self.player_paddle.y += self.paddle_speed
         if keys[key_mappings.cancel_key]:
             self.phase_handler.set_game_phase("overworld")
