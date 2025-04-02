@@ -284,7 +284,7 @@ class MasonCenter:
 
 class TestMap:
     def __init__(self):
-        self.bg_image=pygame.image.load(os.path.join("assets", "maps", "trading post.png"))
+        self.bg_image=pygame.image.load(os.path.join("assets", "maps", "metal club.png"))
         self.bg_image=pygame.transform.scale(self.bg_image, (self.bg_image.get_width() * 4, self.bg_image.get_height() * 4))
 
         self.obstacles=[

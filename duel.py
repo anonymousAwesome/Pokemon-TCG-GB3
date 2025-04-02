@@ -147,11 +147,11 @@ player2_prize_card_positions = [
 
 text2a=" Hand: 6 "
 text2b=" Discard: 0 "
-text2c=" Deck: 48 "
+text2c=" Deck: 54 "
 
 text1a=" Hand: 6 "
-text1b=" Discard: 77 "
-text1c=" Deck: 48 "
+text1b=" Discard: 0 "
+text1c=" Deck: 54 "
 
 text2_positions=[
 (5, 71),
