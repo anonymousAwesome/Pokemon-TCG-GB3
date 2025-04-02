@@ -4,7 +4,7 @@ Contains player name, player decks, player medals, and event flags triggered. Ma
 
 class PlayerData:
     def __init__(self):
-        self.cardpool=[]
+        self.card_pool=[]
         self.event_flags={
         "first event":False
         }

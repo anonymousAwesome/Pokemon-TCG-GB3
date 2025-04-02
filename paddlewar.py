@@ -8,7 +8,8 @@ class Context:
         angle = random.uniform(-0.2, 0.2)
         return [self.const_ball_speed * direction, self.const_ball_speed * angle]
 
-    def __init__(self,screen):
+    def __init__(self,screen,phase_handler):
+        self.phase_handler=phase_handler
         self.width, self.height = 640, 576
         self.ball_size = 20
         self.paddle_width,self.paddle_height = 10, 80
@@ -43,7 +44,7 @@ class Context:
         self.score_timer = 0
         self.ball_direction = 1
 
-    def update(self, phase_handler,event_list):
+    def update(self, event_list):
         self.screen.fill(self.dark_green)
 
         pygame.draw.rect(self.screen, self.white, self.player_paddle)
@@ -61,7 +62,7 @@ class Context:
         if keys[pygame.K_DOWN] and self.player_paddle.bottom < self.height:
             self.player_paddle.y += self.paddle_speed
         if keys[key_mappings.cancel_key]:
-            phase_handler.set_game_phase("overworld")
+            self.phase_handler.set_game_phase("overworld")
 
         if self.opponent_paddle.centery < self.ball.centery:
             self.opponent_paddle.y += self.opp_paddle_speed

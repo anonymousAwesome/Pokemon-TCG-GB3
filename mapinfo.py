@@ -213,10 +213,16 @@ class DrMason(BaseNpcClass):
         self.loaded_sprites=characters.load_sprites_from_sheet(characters.spritesheet_tcg2,3)
         self.sprite=characters.NPC(448,192, self.loaded_sprites,"down")
         self.rect=self.sprite.rect
+    
+    def award_rewards(self,inner_context):
+        if inner_context.phase_handler.won_last_duel:
+            #inner_context.player_data.card_pool.extend(["card1","card2"])
+            inner_context.phase_handler.won_last_duel=False
 
     def interact_object(self,inner_context):
-        inner_context.event_manager.add_event(inner_context.animation_manager.add_animation,[animation.RainbowCards(inner_context)])
-        
+        inner_context.event_manager.add_event(inner_context.phase_handler.set_duel_data,[],{"player_deck":[],"opponent_deck":[],"background_image":None})
+        inner_context.event_manager.add_event(inner_context.phase_handler.set_game_phase,["duel"])
+        inner_context.event_manager.add_event(self.award_rewards,[inner_context])
 
     '''
     def interact_object(self,inner_context):
@@ -284,7 +290,7 @@ class MasonCenter:
 
 class TestMap:
     def __init__(self):
-        self.bg_image=pygame.image.load(os.path.join("assets", "maps", "metal club.png"))
+        self.bg_image=pygame.image.load(os.path.join("assets", "maps", "qfg2 rocks.png"))
         self.bg_image=pygame.transform.scale(self.bg_image, (self.bg_image.get_width() * 4, self.bg_image.get_height() * 4))
 
         self.obstacles=[

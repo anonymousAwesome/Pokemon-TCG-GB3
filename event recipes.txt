@@ -1,3 +1,5 @@
+Note: anything formatted like ~~this~~ means you're supposed to replace it before using the recipe.
+
         #make the NPC walk right 2 tiles
         inner_context.event_manager.add_event(self.sprite.cutscene_walk,["right"])
         inner_context.event_manager.add_event(self.sprite.start_walking,[4])
@@ -46,6 +48,8 @@
 
 
         #handling event flags
+		#note that the event flags don't update until the event queue is processed, so you can't 
+        #set an event flag and check it within the same event chain.
         
         inner_context.event_manager.add_event(dialogue_facing,[inner_context.player_character,self])
         if not inner_context.player_data.event_flags["first event"]:
@@ -143,3 +147,14 @@
 		#end all animations when transitioning between maps; untested
         inner_context.event_manager.add_event(inner_context.animation_manager.cancel_all_animations)
 
+		#code to trigger the dummy duel module.
+    	def award_rewards(self,inner_context):
+        	if inner_context.phase_handler.won_last_duel:
+            	inner_context.player_data.card_pool.extend([~~the cards the player won~~])
+            	inner_context.phase_handler.won_last_duel=False
+	
+    	def interact_object(self,inner_context):
+        	inner_context.event_manager.add_event(inner_context.phase_handler.set_duel_data,[],{"player_deck":[~~the player's deck~~],"opponent_deck":[~~the opponent's deck~~],"background_image":~~the background image~~})
+        	inner_context.event_manager.add_event(inner_context.phase_handler.set_game_phase,["duel"])
+        	inner_context.event_manager.add_event(self.award_rewards,[inner_context])
+	

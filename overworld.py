@@ -121,13 +121,13 @@ class Context:
     def __init__(self,screen,phase_handler):
 
         self.screen=screen
-        #self.starting_map_class=mapinfo.MasonCenter
-        self.starting_map_class=mapinfo.TestMap
+        self.starting_map_class=mapinfo.MasonCenter
+        #self.starting_map_class=mapinfo.TestMap
 
         self.pc_sprite = characters.load_sprites_from_sheet(characters.spritesheet_tcg2,0)
 
-        #self.player_character=characters.Player(448,832, self.pc_sprite,"up")
-        self.player_character=characters.Player(320,320, self.pc_sprite,"up")
+        self.player_character=characters.Player(448,320, self.pc_sprite,"up")
+        #self.player_character=characters.Player(320,640, self.pc_sprite,"up")
 
         self.map_holder=map_managers.CurrentMapContainer(self.starting_map_class)
 
