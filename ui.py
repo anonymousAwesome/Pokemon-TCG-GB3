@@ -203,13 +203,15 @@ class Dialogue:
 
 
 def club_name_render(screen, text):
-    name_surface = club_font.render(text, True,(0,0,0))
-    w=name_surface.get_width()
-    h=name_surface.get_height()
-    box_x,box_y,box_width,box_height=48,28,w+40,h+20
-    pygame.draw.rect(screen, (255, 255, 255), (box_x + 4, box_y + 4, box_width - 8, box_height - 8))  # White background
-    pygame.draw.rect(screen, (0,0,0), (box_x, box_y, box_width, box_height), width=4)  # Black border
-    screen.blit(name_surface, (68, 40))
+    keys = pygame.key.get_pressed()
+    if not keys[key_mappings.up_key] and not keys[key_mappings.down_key] and not keys[key_mappings.right_key] and not keys[key_mappings.left_key]:
+        name_surface = club_font.render(text, True,(0,0,0))
+        w=name_surface.get_width()
+        h=name_surface.get_height()
+        box_x,box_y,box_width,box_height=48,28,w+40,h+20
+        pygame.draw.rect(screen, (255, 255, 255), (box_x + 4, box_y + 4, box_width - 8, box_height - 8))  # White background
+        pygame.draw.rect(screen, (0,0,0), (box_x, box_y, box_width, box_height), width=4)  # Black border
+        screen.blit(name_surface, (68, 40))
     
 
 #themenu=Menu(["status","diary","deck","mini-com","coins"],3)

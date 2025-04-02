@@ -190,13 +190,122 @@ class BaseOverworldClubClass:
 
 class MasonsLabOverworldEntrance(BaseOverworldClubClass):
     def __init__(self):
-        #super().__init__()
         self.rect=pygame.Rect(64, 448, 64, 64)
         self.new_x=448
         self.new_y=832
         self.replacement_map=MasonCenter
         self.facing_direction="up"
         self.club_text="Mason Lab"
+
+class FightingClubOverworldEntrance(BaseOverworldClubClass):
+    def __init__(self):
+        self.rect=pygame.Rect(192, 448, 64, 64)
+        self.new_x=0
+        self.new_y=0
+        self.replacement_map=MasonCenter
+        self.facing_direction="up"
+        self.club_text="Fighting Club"
+
+class FireClubOverworldEntrance(BaseOverworldClubClass):
+    def __init__(self):    
+        self.rect=pygame.Rect(448, 64, 64, 64)
+        self.new_x=0
+        self.new_y=0
+        self.replacement_map=MasonCenter
+        self.facing_direction="up"
+        self.club_text="Fire Club"
+    
+class GrassClubOverworldEntrance(BaseOverworldClubClass):
+    def __init__(self):
+        self.rect=pygame.Rect(512, 256, 64, 64)
+        self.new_x=0
+        self.new_y=0
+        self.replacement_map=MasonCenter
+        self.facing_direction="up"
+        self.club_text="Grass Club"
+    
+class LightningClubOverworldEntrance(BaseOverworldClubClass):
+    def __init__(self):    
+        self.rect=pygame.Rect(128, 320, 64, 64)
+        self.new_x=0
+        self.new_y=0
+        self.replacement_map=MasonCenter
+        self.facing_direction="up"
+        self.club_text="Lightning Club"
+    
+class PsychicClubOverworldEntrance(BaseOverworldClubClass):
+    def __init__(self):    
+        self.rect=pygame.Rect(384, 192, 64, 64)
+        self.new_x=0
+        self.new_y=0
+        self.replacement_map=MasonCenter
+        self.facing_direction="up"
+        self.club_text="Psychic Club"
+    
+class RockClubOverworldEntrance(BaseOverworldClubClass):
+    def __init__(self):    
+        self.rect=pygame.Rect(64, 256, 64, 64)
+        self.new_x=0
+        self.new_y=0
+        self.replacement_map=MasonCenter
+        self.facing_direction="up"
+        self.club_text="Rock Club"
+    
+class ScienceClubOverworldEntrance(BaseOverworldClubClass):
+    def __init__(self):    
+        self.rect=pygame.Rect(512, 128, 64, 64)
+        self.new_x=0
+        self.new_y=0
+        self.replacement_map=MasonCenter
+        self.facing_direction="up"
+        self.club_text="Science Club"
+    
+class WaterClubOverworldEntrance(BaseOverworldClubClass):
+    def __init__(self):    
+        self.rect=pygame.Rect(448, 384, 64, 64)
+        self.new_x=0
+        self.new_y=0
+        self.replacement_map=MasonCenter
+        self.facing_direction="up"
+        self.club_text="Water Club"
+    
+class AirportOverworldEntrance(BaseOverworldClubClass):
+    def __init__(self):    
+        self.rect=pygame.Rect(320, 448, 64, 64)
+        self.new_x=0
+        self.new_y=0
+        self.replacement_map=MasonCenter
+        self.facing_direction="up"
+        self.club_text="Airport"
+    
+class ChallengeHallOverworldEntrance(BaseOverworldClubClass):
+    def __init__(self):    
+        self.rect=pygame.Rect(256, 128, 64, 64)
+        self.new_x=0
+        self.new_y=0
+        self.replacement_map=MasonCenter
+        self.facing_direction="up"
+        self.club_text="Challenge Hall"
+    
+class IshiharasHouseOverworldEntrance(BaseOverworldClubClass):
+    def __init__(self):    
+        self.rect=pygame.Rect(64, 128, 64, 64)
+        self.new_x=0
+        self.new_y=0
+        self.replacement_map=MasonCenter
+        self.facing_direction="up"
+        self.club_text="Ishihara's House"
+    
+class PokemonDomeOverworldEntrance(BaseOverworldClubClass):
+    def __init__(self):    
+        self.rect=pygame.Rect(256, 256, 64, 64)
+        self.new_x=0
+        self.new_y=0
+        self.replacement_map=MasonCenter
+        self.facing_direction="up"
+        self.club_text="Pokemon Dome"
+    
+
 
 """
 ----------------------------------
@@ -405,12 +514,24 @@ class TcgIsland:
             pygame.Rect(64, 384, 64, 64)]
         
         self.step_triggers=[
-        MasonsLabOverworldEntrance
+        MasonsLabOverworldEntrance,
+        FightingClubOverworldEntrance,
+        FireClubOverworldEntrance,
+        GrassClubOverworldEntrance,
+        LightningClubOverworldEntrance,
+        PsychicClubOverworldEntrance,
+        RockClubOverworldEntrance,
+        ScienceClubOverworldEntrance,
+        WaterClubOverworldEntrance,
+        AirportOverworldEntrance,
+        ChallengeHallOverworldEntrance,
+        IshiharasHouseOverworldEntrance,
+        PokemonDomeOverworldEntrance,
         ]
 
-        self.interact_self_triggers=[
-        MasonsLabOverworldEntrance
-        ]
+        self.interact_self_triggers=self.step_triggers
+
+
 
         self.npcs=[]
 
