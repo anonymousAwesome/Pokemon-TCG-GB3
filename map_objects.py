@@ -23,6 +23,28 @@ class MasonCenterPC(BaseMapObjectClass):
     def interact_object(self,inner_context):
         inner_context.event_manager.add_event(inner_context.phase_handler.set_game_phase,["paddlewar"])
 
+class MasonCenterBooks1(BaseMapObjectClass):
+
+    def def_rect(self):
+        self.rect=pygame.Rect(576, 64, 256, 64)
+
+    def interact_object(self,inner_context):
+        inner_context.event_manager.add_event(inner_context.current_dialogue.__init__,[inner_context.screen,"It's a shelf that contains books.\nA bookshelf, if you will."])
+        inner_context.event_manager.add_event(inner_context.current_dialogue.render,[inner_context.event_list],persistent_condition=inner_context.current_dialogue.check_remaining_text)
+        inner_context.event_manager.add_event(inner_context.map_input_lock.unlock)
+        inner_context.map_input_lock.lock()
+
+class MasonCenterBooks2(BaseMapObjectClass):
+
+    def def_rect(self):
+        self.rect=pygame.Rect(640, 448, 192, 64)
+
+    def interact_object(self,inner_context):
+        inner_context.event_manager.add_event(inner_context.current_dialogue.__init__,[inner_context.screen,"It's a shelf that contains books.\nA bookshelf, if you will."])
+        inner_context.event_manager.add_event(inner_context.current_dialogue.render,[inner_context.event_list],persistent_condition=inner_context.current_dialogue.check_remaining_text)
+        inner_context.event_manager.add_event(inner_context.map_input_lock.unlock)
+        inner_context.map_input_lock.lock()
+
 
 class MasonCenterBlackboard(BaseMapObjectClass):
 
@@ -35,6 +57,13 @@ class MasonCenterBlackboard(BaseMapObjectClass):
         inner_context.event_manager.add_event(inner_context.map_input_lock.unlock)
         inner_context.map_input_lock.lock()
         
+        
+
+
+
+
+
+
 class TradingPostCharity(BaseMapObjectClass):
 
     def __init__(self,screen,current_dialogue,event_manager,map_input_lock,player_character):
