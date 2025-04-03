@@ -61,14 +61,10 @@ class Dialogue:
     box does.
     I couldn't think of a good term that would refer to both of those but
     wouldn't also include menu text or duel text.'''
-    def __init__(self, screen, dialogue_text, name_text=None, photo_location=None,greyscale=False):
+    def __init__(self, screen, dialogue_text, name_text=None, profile_image=None,greyscale=False):
         self.screen=screen
         self.name_text=name_text
-        if photo_location:
-            profile_image=pygame.image.load(photo_location).convert()
-            self.profile_image = pygame.transform.scale(profile_image, (profile_image.get_width() * 4, profile_image.get_height() * 4))
-        else:
-            self.profile_image=None
+        self.profile_image=profile_image
         self.remaining_text=self.preprocess(dialogue_text)
         self.creation_time = time.time()
         self.process_current_window()

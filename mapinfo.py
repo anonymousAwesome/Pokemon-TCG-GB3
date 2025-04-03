@@ -246,6 +246,7 @@ class MasonCenter:
 
         self.npcs=[
             map_npcs.DrMason,
+            map_npcs.LabTechCenterTopRight
             ]
 
 

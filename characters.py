@@ -10,12 +10,19 @@ spritesheet_yellow_path = os.path.join("assets","npc sprites","pokemon yellow sp
 spritesheet_crystal_path = os.path.join("assets","npc sprites","pokemon crystal sprites recolored.png")
 spritesheet_tcg2_path = os.path.join("assets","npc sprites","pokemon tcg2 sprites.png")
 spritesheet_gb3_path = os.path.join("assets","npc sprites","GB3 sprites.png")
+portrait_sheet_GB2_path=os.path.join("assets","duellists","GB2 profiles.png")
 
 spritesheet_yellow=pygame.image.load(spritesheet_yellow_path).convert_alpha()
 spritesheet_crystal=pygame.image.load(spritesheet_crystal_path).convert_alpha()
 spritesheet_tcg2=pygame.image.load(spritesheet_tcg2_path).convert_alpha()
 spritesheet_gb3=pygame.image.load(spritesheet_gb3_path).convert_alpha()
 
+portrait_sheet_GB2=pygame.image.load(portrait_sheet_GB2_path).convert()
+
+def load_portrait_from_sheet(portrait_sheet,row,column,max_width=48,max_height=48,image_width=48,image_height=48):
+    portrait=portrait_sheet.subsurface(pygame.Rect(row*max_width, column*max_height, image_width, image_height))
+    portrait=pygame.transform.scale(portrait, (image_width*4, image_height*4))
+    return portrait
 
 def load_sprites_from_sheet(spritesheet, row):
     sprites = []
