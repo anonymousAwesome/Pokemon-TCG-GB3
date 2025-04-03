@@ -1,0 +1,52 @@
+Indices for GB3 spritesheet:
+0 Dr Mason
+1 Malinda
+2 FF Grass
+3 FF Lightning
+4 FF Fire
+5 FF Water
+6 FF Ground/Fighting/Rock
+7 FF Poison
+8 FF Flying/Ghost
+9 FF Psychic
+10 FF Normal
+11 Unmasked FF Lightning
+12 Unmasked FF Grass
+13 Unmasked FF Fighting/Ground/Rock
+14 Unmasked Poison
+15 Tad
+16 Cassandra
+17 Samurai
+18 Stella
+19 RedVelvetNite
+20 A.J.
+21 Lara Laramie
+22 Anthony
+23 Mayor
+24 Melanie
+25 Hippie
+26 Florinda Showers
+27 Cardy Fan
+28 Raven
+29 Gothic Lolita
+30 Yusei
+31 Jazz
+32 Maddie
+33 Jack
+34 Danny
+35 Chopper
+36 Kay
+37 Tyra
+38 Seymour
+39 Damien
+40 Nastina
+41 Brendan
+42 Giselle
+43 Chrono
+44 Marle
+45 Lucca
+46 Magus
+47 Joey
+48 Shorts Kid
+49 Team Rocket Cosplayer
+50 Gary

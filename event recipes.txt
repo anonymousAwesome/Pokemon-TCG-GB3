@@ -148,13 +148,8 @@ Note: anything formatted like ~~this~~ means you're supposed to replace it befor
         inner_context.event_manager.add_event(inner_context.animation_manager.cancel_all_animations)
 
 		#code to trigger the dummy duel module.
-    	def award_rewards(self,inner_context):
-        	if inner_context.phase_handler.won_last_duel:
-            	inner_context.player_data.card_pool.extend([~~the cards the player won~~])
-            	inner_context.phase_handler.won_last_duel=False
-	
     	def interact_object(self,inner_context):
         	inner_context.event_manager.add_event(inner_context.phase_handler.set_duel_data,[],{"player_deck":[~~the player's deck~~],"opponent_deck":[~~the opponent's deck~~],"background_image":~~the background image~~})
         	inner_context.event_manager.add_event(inner_context.phase_handler.set_game_phase,["duel"])
-        	inner_context.event_manager.add_event(self.award_rewards,[inner_context])
+        	inner_context.event_manager.add_event(award_rewards,[inner_context,~~reward~~])
 	

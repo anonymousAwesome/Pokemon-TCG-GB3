@@ -16,6 +16,12 @@ def reload_map(inner_context,replacement_map):
     inner_context.collision_manager.__init__(inner_context.map_holder.current_map.bg_image, inner_context.player_character, inner_context.screen, inner_context.current_dialogue, inner_context.event_manager, inner_context.map_input_lock, obstacles=inner_context.map_holder.current_map.obstacles, npcs=inner_context.current_npcs)
 
 
+def award_rewards(inner_context,rewards):
+    if inner_context.phase_handler.won_last_duel:
+        inner_context.player_data.card_pool.extend(rewards)
+        inner_context.phase_handler.won_last_duel=False
+
+
 
 class GlitchEffect:
     def __init__(self):
@@ -319,19 +325,13 @@ class BaseNpcClass():
 
 class DrMason(BaseNpcClass):
     def __init__(self):
-        self.loaded_sprites=characters.load_sprites_from_sheet(characters.spritesheet_tcg2,3)
+        self.loaded_sprites=characters.load_sprites_from_sheet(characters.spritesheet_gb3,18)
         self.sprite=characters.NPC(448,192, self.loaded_sprites,"down")
         self.rect=self.sprite.rect
     
-    def award_rewards(self,inner_context):
-        if inner_context.phase_handler.won_last_duel:
-            #inner_context.player_data.card_pool.extend(["card1","card2"])
-            inner_context.phase_handler.won_last_duel=False
 
     def interact_object(self,inner_context):
-        inner_context.event_manager.add_event(inner_context.phase_handler.set_duel_data,[],{"player_deck":[],"opponent_deck":[],"background_image":None})
-        inner_context.event_manager.add_event(inner_context.phase_handler.set_game_phase,["duel"])
-        inner_context.event_manager.add_event(self.award_rewards,[inner_context])
+        inner_context.event_manager.add_event(dialogue_facing,[inner_context.player_character,self])
 
     '''
     def interact_object(self,inner_context):
@@ -399,7 +399,7 @@ class MasonCenter:
 
 class TestMap:
     def __init__(self):
-        self.bg_image=pygame.image.load(os.path.join("assets", "maps", "qfg2 rocks.png"))
+        self.bg_image=pygame.image.load(os.path.join("assets", "maps", "FF entrance.png"))
         self.bg_image=pygame.transform.scale(self.bg_image, (self.bg_image.get_width() * 4, self.bg_image.get_height() * 4))
 
         self.obstacles=[
