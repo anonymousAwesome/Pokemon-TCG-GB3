@@ -1,4 +1,5 @@
 import random
+import numpy as np
 
 with open("profanity_dict.txt", 'r') as file:
     profanity_words=file.read().splitlines()
