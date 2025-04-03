@@ -23,18 +23,10 @@ The program uses the Pygame module for gameplay and pygbag to export the game to
 Cards: 5/~1000 done  
 Duelling system: 5% done  
 Duelling layout: 50% done  
-NPC sprites and portraits: 32% done (each sprite and each portrait is roughly 1%)  
-NPC/player interactions: 30% done  
+NPC sprites and portraits: 66% done (each sprite and each portrait is roughly 1%)  
+NPC/player interactions: 85% done  
 
-New location designs:  
-Airport: done  
-6.5/8 clubs done  
-Trading post: done  
-Neo Continent Pokemon Stadium: done  
-Neo Continent overworld map: done  
-Imakuni?: done  
-Forbidden Faction lounge: done  
-Forbidden Faction castle: 0/2 done  
+New location designs: 90% done
  
 Menu, GUI, and displaying text: 20% done  
 NPC duel AI: 0% done  
@@ -45,7 +37,7 @@ Save/load: 0% done
 Cutscene system: 20% done
 
 Overall game status:  
-Overworld: 75%  
+Overworld: 90%  
 Duelling: 15%  
 
 This repo also contains the `obstacle generator.py` Python script, a tool to generate rects for tile collision directly on the loaded image. More information about that can be found at the beginning of that file.
