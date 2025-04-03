@@ -10,8 +10,6 @@ glitch_effect=map_helpers.GlitchEffect()
 empty_event=map_helpers.EmptyEvent(0)
 
 
-
-
 """
 ----------------------------------
 exits
@@ -68,8 +66,6 @@ class MasonLeftExit2(BaseExitClass):
         self.new_y = 320+64
         self.replacement_map = MasonCenter
         self.rect=pygame.Rect(832, 704+64, 64, 64)
-
-
 
 
 """
@@ -210,12 +206,54 @@ class PokemonDomeOverworldEntrance(BaseOverworldClubClass):
     
 
 
-
 """
 ----------------------------------
 map rooms
 ----------------------------------
 """
+
+class TestMap:
+    def __init__(self):
+        self.bg_image=pygame.image.load(os.path.join("assets", "maps", "FF entrance.png"))
+        self.bg_image=pygame.transform.scale(self.bg_image, (self.bg_image.get_width() * 4, self.bg_image.get_height() * 4))
+
+        self.obstacles=[
+        ]
+
+        self.step_triggers=[]
+
+
+class TcgIsland:
+    def __init__(self):
+        self.bg_image=pygame.image.load(os.path.join("assets", "maps", "tcg island.png"))
+        self.bg_image=pygame.transform.scale(self.bg_image, (self.bg_image.get_width() * 4, self.bg_image.get_height() * 4))
+        self.obstacles=[
+            pygame.Rect(0, 0, 640, 64),
+            pygame.Rect(0, 64, 64, 512),
+            pygame.Rect(64, 512, 576, 64),
+            pygame.Rect(64, 64, 320, 64),
+            pygame.Rect(576, 384, 64, 128),
+            pygame.Rect(576, 64, 64, 64),
+            pygame.Rect(64, 192, 64, 64),
+            pygame.Rect(64, 384, 64, 64)]
+        self.step_triggers=[
+        MasonsLabOverworldEntrance,
+        FightingClubOverworldEntrance,
+        FireClubOverworldEntrance,
+        GrassClubOverworldEntrance,
+        LightningClubOverworldEntrance,
+        PsychicClubOverworldEntrance,
+        RockClubOverworldEntrance,
+        ScienceClubOverworldEntrance,
+        WaterClubOverworldEntrance,
+        AirportOverworldEntrance,
+        ChallengeHallOverworldEntrance,
+        IshiharasHouseOverworldEntrance,
+        PokemonDomeOverworldEntrance,
+        ]
+        self.interact_self_triggers=self.step_triggers
+        self.npcs=[]
+
 
 class MasonCenter:
     def __init__(self):
@@ -266,19 +304,30 @@ class MasonCenter:
             ]
 '''
 
-
-class TestMap:
+class MasonLeft:
     def __init__(self):
-        self.bg_image=pygame.image.load(os.path.join("assets", "maps", "FF entrance.png"))
+        self.bg_image=pygame.image.load(os.path.join("assets", "maps", "mason left.png"))
         self.bg_image=pygame.transform.scale(self.bg_image, (self.bg_image.get_width() * 4, self.bg_image.get_height() * 4))
 
         self.obstacles=[
-        ]
+            pygame.Rect(0, 0, 64, 1024),
+            pygame.Rect(64, 0, 832, 64),
+            pygame.Rect(64, 960, 832, 64),
+            pygame.Rect(64, 896, 832, 64),
+            pygame.Rect(832, 64, 64, 640),
+            pygame.Rect(192, 192, 384, 64),
+            pygame.Rect(192, 256, 384, 64),
+            pygame.Rect(192, 512, 384, 64),
+            pygame.Rect(192, 576, 384, 64),
+            pygame.Rect(832, 832, 64, 64),
+            ]
 
-        self.step_triggers=[]
+        self.npcs=[]
 
-
-
+        self.step_triggers=[
+            MasonLeftExit1,
+            MasonLeftExit2
+            ]
 
 
 
@@ -316,76 +365,8 @@ class TradingPost:
 
 
 
-class MasonLeft:
-    def __init__(self):
-        self.bg_image=pygame.image.load(os.path.join("assets", "maps", "mason left.png"))
-        self.bg_image=pygame.transform.scale(self.bg_image, (self.bg_image.get_width() * 4, self.bg_image.get_height() * 4))
-
-        self.obstacles=[
-            pygame.Rect(0, 0, 64, 1024),
-            pygame.Rect(64, 0, 832, 64),
-            pygame.Rect(64, 960, 832, 64),
-            pygame.Rect(64, 896, 832, 64),
-            pygame.Rect(832, 64, 64, 640),
-            pygame.Rect(192, 192, 384, 64),
-            pygame.Rect(192, 256, 384, 64),
-            pygame.Rect(192, 512, 384, 64),
-            pygame.Rect(192, 576, 384, 64),
-            pygame.Rect(832, 832, 64, 64),
-            ]
-
-        self.npcs=[]
-
-        self.step_triggers=[
-            MasonLeftExit1,
-            MasonLeftExit2
-            ]
 
 
-class TcgIsland:
-    def __init__(self):
-        self.bg_image=pygame.image.load(os.path.join("assets", "maps", "tcg island.png"))
-        self.bg_image=pygame.transform.scale(self.bg_image, (self.bg_image.get_width() * 4, self.bg_image.get_height() * 4))
-        
-        self.obstacles=[
-            pygame.Rect(0, 0, 640, 64),
-            pygame.Rect(0, 64, 64, 512),
-            pygame.Rect(64, 512, 576, 64),
-            pygame.Rect(64, 64, 320, 64),
-            pygame.Rect(576, 384, 64, 128),
-            pygame.Rect(576, 64, 64, 64),
-            pygame.Rect(64, 192, 64, 64),
-            pygame.Rect(64, 384, 64, 64)]
-        
-        self.step_triggers=[
-        MasonsLabOverworldEntrance,
-        FightingClubOverworldEntrance,
-        FireClubOverworldEntrance,
-        GrassClubOverworldEntrance,
-        LightningClubOverworldEntrance,
-        PsychicClubOverworldEntrance,
-        RockClubOverworldEntrance,
-        ScienceClubOverworldEntrance,
-        WaterClubOverworldEntrance,
-        AirportOverworldEntrance,
-        ChallengeHallOverworldEntrance,
-        IshiharasHouseOverworldEntrance,
-        PokemonDomeOverworldEntrance,
-        ]
-
-        self.interact_self_triggers=self.step_triggers
-
-
-
-        self.npcs=[]
-
-        '''        
-        self.step_triggers=[
-            (pygame.Rect(64, 448, 64, 64),"Mason's Lab"),
-            (pygame.Rect(192, 448, 64, 64),"Fighting Club"),
-            (pygame.Rect(128, 320, 64, 64),"Lightning Club"),
-            ],'''
-'''
 
 
 mason_right={
@@ -512,4 +493,3 @@ neo_stadium={
         pygame.Rect(64, 960, 320, 64),
         pygame.Rect(64, 896, 320, 64)],
     }
-'''
