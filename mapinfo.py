@@ -246,7 +246,10 @@ class MasonCenter:
 
         self.npcs=[
             map_npcs.DrMason,
-            map_npcs.LabTechCenterTopRight
+            map_npcs.LabTechCenterTopRight,
+            map_npcs.Sam,
+            map_npcs.LabTechCenterBottomRight,
+            map_npcs.LabTechCenterBottomLeft,
             ]
 
 
@@ -304,7 +307,10 @@ class MasonLeft:
             pygame.Rect(832, 832, 64, 64),
             ]
 
-        self.npcs=[]
+        self.npcs=[
+        map_npcs.LabTechLeftTop,
+        map_npcs.LabTechLeftBottom,
+        ]
 
         self.step_triggers=[
             MasonLeftExit1,
@@ -347,9 +353,15 @@ class MasonRight:
             pygame.Rect(64, 512, 128, 64),
             pygame.Rect(64, 576, 128, 64),
             ]
+        
         self.step_triggers=[
             MasonRightExit1,
             MasonRightExit2
+            ]
+        
+        self.npcs=[
+            map_npcs.LabTechRightBottom,
+            map_npcs.LabTechRightTop,
             ]
     
 class MasonRightExit1(BaseExitClass):

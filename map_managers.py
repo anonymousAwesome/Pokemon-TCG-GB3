@@ -67,13 +67,15 @@ def check_interact_with_object(inner_context):
             for event in inner_context.event_list:
                 if event.type==pygame.KEYDOWN:
                     if event.key==key_mappings.affirm_key:
-                        for map_object in interact_object:
-                            temp_map_object=map_object()
-                            if temp_map_object.rect.contains(temp_interact_front_rect):
-                                temp_map_object.interact_object(inner_context)
-                        for npc in inner_context.current_npcs.current_npcs:
-                            if npc.sprite.rect.contains(temp_interact_front_rect):
-                                npc.interact_object(inner_context)
+                        if interact_object:
+                            for map_object in interact_object:
+                                temp_map_object=map_object()
+                                if temp_map_object.rect.contains(temp_interact_front_rect):
+                                    temp_map_object.interact_object(inner_context)
+                        if inner_context.current_npcs.current_npcs:
+                            for npc in inner_context.current_npcs.current_npcs:
+                                if npc.sprite.rect.contains(temp_interact_front_rect):
+                                    npc.interact_object(inner_context)
 
 def check_step_on_object(inner_context):
     if not inner_context.just_stepped_on_exit:
