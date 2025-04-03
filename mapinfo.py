@@ -2,77 +2,13 @@ import pygame
 import os
 import ui
 import characters
-import random_name
 import numpy as np
 import animation
+import map_helpers
 
-def reload_map(inner_context,replacement_map):
-    inner_context.map_holder.__init__(replacement_map)
-    if inner_context.player_data.currently_greyscale:
-        inner_context.map_holder.current_map.bg_image.blit(inner_context.perceptual_greyscale(inner_context.map_holder.current_map.bg_image),(0,0))
+glitch_effect=map_helpers.GlitchEffect()
+empty_event=map_helpers.EmptyEvent(0)
 
-    inner_context.temp_exit_list.__init__(inner_context.map_holder,inner_context.player_character)
-    inner_context.current_npcs.reset(replacement_map)
-    inner_context.collision_manager.__init__(inner_context.map_holder.current_map.bg_image, inner_context.player_character, inner_context.screen, inner_context.current_dialogue, inner_context.event_manager, inner_context.map_input_lock, obstacles=inner_context.map_holder.current_map.obstacles, npcs=inner_context.current_npcs)
-
-
-def award_rewards(inner_context,rewards):
-    if inner_context.phase_handler.won_last_duel:
-        inner_context.player_data.card_pool.extend(rewards)
-        inner_context.phase_handler.won_last_duel=False
-
-
-
-class GlitchEffect:
-    def __init__(self):
-        self.time_remaining=0
-
-    def process_glitch(self,screen):
-        screen_copy = screen.copy()
-        array = pygame.surfarray.array3d(screen_copy)
-        transposed = np.transpose(array, (1, 0, 2))[:array.shape[0], :array.shape[1]]
-        result = np.clip(array[:transposed.shape[0], :transposed.shape[1]] - transposed, 0, 255).astype(np.uint8)
-        glitch_surface = pygame.surfarray.make_surface(result)
-        screen.blit(glitch_surface, (0, 0))    
-        
-
-    def pulse_glitch(self, screen):
-        if self.time_remaining>=80 or 30>=self.time_remaining>=0:
-            self.process_glitch(screen)
-        self.time_remaining -= 1
-
-    def steady_glitch(self,screen):
-        self.process_glitch(screen)
-        self.time_remaining -= 1
-
-    def start_glitch(self,duration=150):
-        self.time_remaining=duration
-        
-    def check_time_remaining(self):
-        return self.time_remaining
-
-glitch_effect=GlitchEffect()
-
-class EmptyEvent():
-    def __init__(self,loops_left):
-        self.loops_left=loops_left
-    def decrement_loops(self):
-        self.loops_left-=1
-    def check_still_looping(self):
-        return self.loops_left
-    
-empty_event=EmptyEvent(0)
-
-
-def dialogue_facing(player_character,npc):
-    if player_character.facing_direction=="down":
-        npc.sprite.manual_direction_change("up")
-    if player_character.facing_direction=="up":
-        npc.sprite.manual_direction_change("down")
-    if player_character.facing_direction=="left":
-        npc.sprite.manual_direction_change("right")
-    if player_character.facing_direction=="right":
-        npc.sprite.manual_direction_change("left")
 
 """
 ----------------------------------
@@ -132,7 +68,7 @@ class BaseExitClass:
         if hasattr(self, "facing_direction"):
             inner_context.player_character.facing_direction = self.facing_direction
             inner_context.player_character.map_exit_change_facing()
-        reload_map(inner_context,self.replacement_map)
+        map_helpers.reload_map(inner_context,self.replacement_map)
 
 class MasonCenterLeftExit1(BaseExitClass):
     def __init__(self):
@@ -192,7 +128,7 @@ class BaseOverworldClubClass:
         if hasattr(self, "facing_direction"):
             inner_context.player_character.facing_direction = self.facing_direction
             inner_context.player_character.map_exit_change_facing()
-        reload_map(inner_context,self.replacement_map)
+        map_helpers.reload_map(inner_context,self.replacement_map)
 
 class MasonsLabOverworldEntrance(BaseOverworldClubClass):
     def __init__(self):
@@ -331,7 +267,7 @@ class DrMason(BaseNpcClass):
     
 
     def interact_object(self,inner_context):
-        inner_context.event_manager.add_event(dialogue_facing,[inner_context.player_character,self])
+        inner_context.event_manager.add_event(inner_context.player_character.toggle_visibility)
 
     '''
     def interact_object(self,inner_context):
@@ -668,37 +604,4 @@ neo_stadium={
         pygame.Rect(64, 960, 320, 64),
         pygame.Rect(64, 896, 320, 64)],
     }
-
-
-'''
-'''
-elif mapname=="imakuni":
-    bg_image = pygame.image.load(os.path.join("assets", "maps", "wandering imakuni.png"))
-    obstacles=[]
-    player_starting_location=(6*64,6*64)
-
-elif mapname=="fighting":
-    bg_image = pygame.image.load(os.path.join("assets", "maps", "fighting club.png"))
-    obstacles=[]
-    player_starting_location=(5*64,10*64)
-
-elif mapname=="normal":
-    bg_image = pygame.image.load(os.path.join("assets", "maps", "normal club.png"))
-    obstacles=[]
-    player_starting_location=(4*64,12*64)
-
-elif mapname=="ground":
-    bg_image = pygame.image.load(os.path.join("assets", "maps", "ground club.png"))
-    obstacles=[]
-    player_starting_location=(4*64,12*64)
-
-elif mapname=="temp":
-    bg_image = pygame.image.load(os.path.join("assets", "maps", "dark club.png"))
-    obstacles=[]
-    player_starting_location=(4*64,4*64)
-
-else:
-    bg_image = pygame.image.load(os.path.join("assets", "maps", "map load error.png"))
-    obstacles=[]
-    player_starting_location=(0*64,0*64)
 '''

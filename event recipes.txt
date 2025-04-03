@@ -78,9 +78,10 @@ Note: anything formatted like ~~this~~ means you're supposed to replace it befor
 
         #randomly-generate a word and use that in dialogue
 
-        temp_word=random_name.gen_word()
+        temp_word=map_helpers.gen_word()
         inner_context.event_manager.add_event(dialogue_facing,[inner_context.player_character,self])
-        inner_context.event_manager.add_event(inner_context.current_dialogue.__init__,[inner_context.screen,f"Your magic word is {temp_word}! That'll be five dollars."])
+        inner_context.event_manager.add_event(inner_context.current_dialogue.__init__,[inner_context.screen,f"Your magic word is {temp_word}! You are now five rupees poorer."])
+		#formerly, "That'll be five dollars."
         inner_context.event_manager.add_event(inner_context.current_dialogue.render,[inner_context.event_list],persistent_condition=inner_context.current_dialogue.check_remaining_text)
         inner_context.event_manager.add_event(inner_context.map_input_lock.unlock)
         inner_context.map_input_lock.lock()
@@ -153,3 +154,6 @@ Note: anything formatted like ~~this~~ means you're supposed to replace it befor
         	inner_context.event_manager.add_event(inner_context.phase_handler.set_game_phase,["duel"])
         	inner_context.event_manager.add_event(award_rewards,[inner_context,~~reward~~])
 	
+
+		#toggle player visibility
+		inner_context.event_manager.add_event(inner_context.player_character.toggle_visibility)

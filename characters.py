@@ -51,17 +51,22 @@ class Character(pygame.sprite.Sprite):
         self.left_command=False
         self.right_command=False
         self.accept_key=False
+        self.visible=True
 
         self.facing_direction=facing_direction
         self.map_exit_change_facing()
         self.rect  = self.image.get_rect()
         self.rect.x,self.rect.y = x, y
 
+    def toggle_visibility(self):
+        self.visible=not self.visible
+
     def draw(self, surface, camera_x_offset, camera_y_offset,inner_context):
-        if inner_context.player_data.currently_greyscale:
-            surface.blit(inner_context.perceptual_greyscale(self.image), (self.rect.x + camera_x_offset, self.rect.y + camera_y_offset))
-        else:
-            surface.blit(self.image, (self.rect.x + camera_x_offset, self.rect.y + camera_y_offset))
+        if self.visible:
+            if inner_context.player_data.currently_greyscale:
+                surface.blit(inner_context.perceptual_greyscale(self.image), (self.rect.x + camera_x_offset, self.rect.y + camera_y_offset))
+            else:
+                surface.blit(self.image, (self.rect.x + camera_x_offset, self.rect.y + camera_y_offset))
 
     def flip_walking_side(self):
         self.walking_side=not self.walking_side
