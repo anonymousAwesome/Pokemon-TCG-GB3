@@ -155,5 +155,5 @@ Note: anything formatted like ~~this~~ means you're supposed to replace it befor
         	inner_context.event_manager.add_event(award_rewards,[inner_context,~~reward~~])
 	
 
-		#toggle player visibility
-		inner_context.event_manager.add_event(inner_context.player_character.toggle_visibility)
+        #toggle player visibility
+        inner_context.event_manager.add_event(inner_context.player_character.toggle_visibility)

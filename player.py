@@ -1,17 +1,23 @@
+import mapinfo
+
 '''
 Contains player name, player decks, player medals, and event flags triggered. Maybe save/load functionality.
 '''
 
 class PlayerData:
-    def __init__(self):
+    def __init__(self,card_pool=[],event_flags=None,player_name="",removed_npcs=set(),currently_greyscale=False,current_map_class=mapinfo.MasonCenter):
         self.card_pool=[]
-        self.event_flags={
-        "first event":False
-        }
-        self.player_name=None
-        self.removed_npcs=set()
+        if not event_flags:
+            self.event_flags={
+            "opening_cutscene":False,
+            "mason disappeared":False
+            }
+        self.player_name=player_name
+        self.removed_npcs=removed_npcs
         
-        self.currently_greyscale=False
+        self.currently_greyscale=currently_greyscale
+        self.current_map_class=current_map_class
+
         
     def set_flag(self,flagname):
         self.event_flags[flagname]=True

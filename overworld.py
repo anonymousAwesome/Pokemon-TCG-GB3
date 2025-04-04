@@ -120,8 +120,10 @@ class Camera:
 class Context:
     def __init__(self,screen,phase_handler):
 
+        self.player_data=player.PlayerData()
+
         self.screen=screen
-        self.starting_map_class=mapinfo.MasonCenter
+        self.starting_map_class=self.player_data.current_map_class
         #self.starting_map_class=mapinfo.TestMap
 
         self.pc_sprite = characters.load_sprites_from_sheet(characters.spritesheet_tcg2,0)
@@ -141,8 +143,6 @@ class Context:
 
         self.event_list=[]
 
-        self.player_data=player.PlayerData()
-                
         self.current_npcs=CurrentNPCs(self.screen,self.starting_map_class,self.current_dialogue,self.overworld_event_manager,self.map_input_lock,self.player_character,self.player_data)
 
         self.collision_manager=map_managers.CollisionManager(self.map_holder.current_map.bg_image, self.player_character,self.screen,self.current_dialogue,self.overworld_event_manager,self.map_input_lock,obstacles=self.map_holder.current_map.obstacles,npcs=self.current_npcs)
