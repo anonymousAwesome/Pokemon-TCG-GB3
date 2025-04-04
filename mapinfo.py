@@ -96,8 +96,8 @@ class MasonsLabOverworldEntrance(BaseOverworldClubClass):
 class FightingClubOverworldEntrance(BaseOverworldClubClass):
     def __init__(self):
         self.rect=pygame.Rect(192, 448, 64, 64)
-        self.new_x=0
-        self.new_y=0
+        self.new_x=320
+        self.new_y=640
         self.replacement_map=FightingClub
         self.facing_direction="up"
         self.club_text="Fighting Club"
@@ -255,15 +255,15 @@ class MasonCenter:
 
 class MasonCenterLeftExit1(BaseExitClass):
     def __init__(self):
-        self.new_x = 768
-        self.new_y = 704
+        self.new_x = 704-64
+        self.new_y = 640
         self.replacement_map = MasonLeft
         self.rect = pygame.Rect(0, 320, 64, 64)
 
 class MasonCenterLeftExit2(BaseExitClass):
     def __init__(self):
-        self.new_x = 768
-        self.new_y = 704+64
+        self.new_x = 704-64
+        self.new_y = 640+64
         self.replacement_map = MasonLeft
         self.rect = pygame.Rect(0, 320+64, 64, 64)
 
@@ -295,16 +295,16 @@ class MasonLeft:
         self.bg_image=pygame.transform.scale(self.bg_image, (self.bg_image.get_width() * 4, self.bg_image.get_height() * 4))
 
         self.obstacles=[
-            pygame.Rect(0, 0, 64, 1024),
-            pygame.Rect(64, 0, 832, 64),
-            pygame.Rect(64, 960, 832, 64),
-            pygame.Rect(64, 896, 832, 64),
-            pygame.Rect(832, 64, 64, 640),
-            pygame.Rect(192, 192, 384, 64),
-            pygame.Rect(192, 256, 384, 64),
+            pygame.Rect(0, 0, 64, 960),
+            pygame.Rect(64, 0, 704, 64),
+            pygame.Rect(64, 896, 704, 64),
+            pygame.Rect(64, 832, 704, 64),
+            pygame.Rect(704, 64, 64, 576),
             pygame.Rect(192, 512, 384, 64),
             pygame.Rect(192, 576, 384, 64),
-            pygame.Rect(832, 832, 64, 64),
+            pygame.Rect(192, 256, 384, 64),
+            pygame.Rect(192, 192, 384, 64),
+            pygame.Rect(704, 768, 64, 64),
             ]
 
         self.npcs=[
@@ -322,14 +322,14 @@ class MasonLeftExit1(BaseExitClass):
         self.new_x = 64
         self.new_y = 320
         self.replacement_map = MasonCenter
-        self.rect=pygame.Rect(832, 704, 64, 64)
+        self.rect=pygame.Rect(704, 640, 64, 64)
 
 class MasonLeftExit2(BaseExitClass):
     def __init__(self):
         self.new_x = 64
         self.new_y = 320+64
         self.replacement_map = MasonCenter
-        self.rect=pygame.Rect(832, 704+64, 64, 64)
+        self.rect=pygame.Rect(704, 640+64, 64, 64)
 
 
 
@@ -361,7 +361,7 @@ class MasonRight:
         
         self.npcs=[
             map_npcs.LabTechRightBottom,
-            map_npcs.LabTechRightTop,
+            map_npcs.Aaron,
             ]
     
 class MasonRightExit1(BaseExitClass):
@@ -387,16 +387,53 @@ class FightingClub:
         self.bg_image=pygame.transform.scale(self.bg_image, (self.bg_image.get_width() * 4, self.bg_image.get_height() * 4))
 
         self.obstacles=[
+            pygame.Rect(0, 0, 768, 64),
+            pygame.Rect(0, 64, 64, 704),
+            pygame.Rect(704, 64, 64, 704),
+            pygame.Rect(64, 640, 256, 64),
+            pygame.Rect(64, 704, 256, 64),
+            pygame.Rect(448, 640, 256, 64),
+            pygame.Rect(448, 704, 256, 64),
+            pygame.Rect(64, 64, 192, 64),
+            pygame.Rect(512, 64, 192, 64),
+            pygame.Rect(640, 320, 64, 192),
+            pygame.Rect(64, 320, 64, 128),
+            pygame.Rect(64, 128, 64, 128),
+            pygame.Rect(640, 128, 64, 128),
             ]
+
         
         self.interact_object_triggers=[
+            map_objects.FightingClubSign
             ]
               
         self.step_triggers=[
+            FightingClubExitRight,
+            FightingClubExitLeft
             ]
 
         self.npcs=[
+            map_npcs.Tyler,
+            map_npcs.Norton,
+            map_npcs.Helena,
+            map_npcs.Brad,
             ]
+
+
+class FightingClubExitRight(BaseExitClass):
+    def __init__(self):
+        self.new_x = 3*64
+        self.new_y = 7*64
+        self.replacement_map = TcgIsland
+        self.rect=pygame.Rect(320, 640+64, 128, 64)
+
+
+class FightingClubExitLeft(BaseExitClass):
+    def __init__(self):
+        self.new_x = 3*64
+        self.new_y = 7*64
+        self.replacement_map = TcgIsland
+        self.rect=pygame.Rect(320+64, 640+64, 128, 64)
 
 
 

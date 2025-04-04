@@ -16,3 +16,5 @@ class OverworldEventManager:
             event_func(*args, **kwargs)
             if persistent_condition and persistent_condition():
                 self.event_queue.appendleft((event_func, args, kwargs, persistent_condition))
+            if persistent_condition and not persistent_condition():
+                self.run_next_event()

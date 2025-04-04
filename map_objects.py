@@ -58,9 +58,19 @@ class MasonCenterBlackboard(BaseMapObjectClass):
         inner_context.map_input_lock.lock()
         
         
+class FightingClubSign(BaseMapObjectClass):
+    def def_rect(self):
+        self.rect=pygame.Rect(256, 0, 256, 64)
+        self.text1="No meaning, looks pretty."
+        self.text2="No, I mean, that's literally what it says."
 
-
-
+    def interact_object(self,inner_context):
+        inner_context.event_manager.add_event(inner_context.current_dialogue.__init__,[inner_context.screen,self.text1])
+        inner_context.event_manager.add_event(inner_context.current_dialogue.render,[inner_context.event_list],persistent_condition=inner_context.current_dialogue.check_remaining_text)
+        inner_context.event_manager.add_event(inner_context.current_dialogue.__init__,[inner_context.screen,self.text2])
+        inner_context.event_manager.add_event(inner_context.current_dialogue.render,[inner_context.event_list],persistent_condition=inner_context.current_dialogue.check_remaining_text)
+        inner_context.event_manager.add_event(inner_context.map_input_lock.unlock)
+        inner_context.map_input_lock.lock()
 
 
 
