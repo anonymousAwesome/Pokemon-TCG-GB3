@@ -76,12 +76,12 @@ class InnerContext:
         self.current_npcs=current_npcs
         self.phase_handler=phase_handler
         self.player_data=player_data
-        self.just_stepped_on_exit=False
+        self.prevent_step_trigger=False
         self.animation_manager=animation_manager
         self.camera=camera
         
-    def reset_exit_flag(self):
-        self.just_stepped_on_exit = False
+    def disable_prevent_step_trigger(self):
+        self.prevent_step_trigger = False
 
     def perceptual_greyscale(self,surface):
         """Convert a surface to greyscale efficiently using numpy and preserve transparency."""
@@ -120,7 +120,8 @@ class Camera:
 class Context:
     def __init__(self,screen,phase_handler):
 
-        self.player_data=player.PlayerData()
+        self.player_data=player.PlayerData(current_map_class=mapinfo.MasonCenter)
+        #self.player_data=player.PlayerData(current_map_class=mapinfo.TestMap)
 
         self.screen=screen
         self.starting_map_class=self.player_data.current_map_class

@@ -12,9 +12,7 @@ empty_event=map_helpers.EmptyEvent(0)
 
 
 class BaseExitClass:
-    def __init__(self):
-        pass
-
+    
     def step_on(self, inner_context):
         inner_context.player_character.rect.x = self.new_x
         inner_context.player_character.rect.y = self.new_y
@@ -26,8 +24,6 @@ class BaseExitClass:
 
 
 class BaseOverworldClubClass:
-    def __init__(self):
-        pass
     def step_on(self, inner_context):
         ui.club_name_render(inner_context.screen,self.club_text)
     def interact_self(self, inner_context):
@@ -65,23 +61,69 @@ class TcgIsland:
             pygame.Rect(576, 64, 64, 64),
             pygame.Rect(64, 192, 64, 64),
             pygame.Rect(64, 384, 64, 64)]
+        self.obstacles=[]
         self.step_triggers=[
-        MasonsLabOverworldEntrance,
-        FightingClubOverworldEntrance,
-        FireClubOverworldEntrance,
-        GrassClubOverworldEntrance,
-        LightningClubOverworldEntrance,
-        PsychicClubOverworldEntrance,
-        RockClubOverworldEntrance,
-        ScienceClubOverworldEntrance,
-        WaterClubOverworldEntrance,
-        AirportOverworldEntrance,
-        ChallengeHallOverworldEntrance,
-        IshiharasHouseOverworldEntrance,
-        PokemonDomeOverworldEntrance,
+            OpeningCutsceneTrigger,
+            MasonsLabOverworldEntrance,
+            FightingClubOverworldEntrance,
+            FireClubOverworldEntrance,
+            GrassClubOverworldEntrance,
+            LightningClubOverworldEntrance,
+            PsychicClubOverworldEntrance,
+            RockClubOverworldEntrance,
+            ScienceClubOverworldEntrance,
+            WaterClubOverworldEntrance,
+            AirportOverworldEntrance,
+            ChallengeHallOverworldEntrance,
+            IshiharasHouseOverworldEntrance,
+            PokemonDomeOverworldEntrance,
         ]
         self.interact_self_triggers=self.step_triggers
         self.npcs=[]
+
+
+class OpeningCutsceneTrigger:
+    def __init__(self):
+        self.rect=pygame.Rect(0, 0, 64, 64)
+
+    def step_on(self, inner_context):
+
+        text1=f"""{inner_context.player_data.player_name} is just crazy about card collecting and duelling! They faced each club leader on TCG Island and defeated the Grand Masters, obtaining the Legendary Pokemon cards. But then, disaster struck! Team Great Rocket stole everybody's cards and took over TCG Island! After duelling their way through the ranks, {inner_context.player_data.player_name} defeated their leader, King Villicci, causing him to have a change of heart and give up his evil ways. Peace returned to TCG Island."""
+        
+        text2="""Until one day..."""
+
+        inner_context.event_manager.add_event(inner_context.current_dialogue.__init__,[inner_context.screen,text1])
+        inner_context.event_manager.add_event(inner_context.current_dialogue.render,[inner_context.event_list],persistent_condition=inner_context.current_dialogue.check_remaining_text)
+        inner_context.event_manager.add_event(inner_context.current_dialogue.__init__,[inner_context.screen,text2])
+        inner_context.event_manager.add_event(inner_context.current_dialogue.render,[inner_context.event_list],persistent_condition=inner_context.current_dialogue.check_remaining_text)
+        inner_context.event_manager.add_event(map_helpers.reload_map,[inner_context,CutsceneFfEntrance])
+        inner_context.event_manager.add_event(inner_context.disable_prevent_step_trigger)
+        
+        
+        
+        inner_context.event_manager.add_event(inner_context.map_input_lock.unlock)
+        inner_context.map_input_lock.lock()
+        inner_context.prevent_step_trigger = True
+
+
+
+class CutsceneFfEntrance:
+    def __init__(self):
+        self.bg_image=pygame.image.load(os.path.join("assets", "maps", "FF entrance.png"))
+        self.bg_image=pygame.transform.scale(self.bg_image, (self.bg_image.get_width() * 4, self.bg_image.get_height() * 4))
+
+        self.obstacles=[
+        ]
+
+        self.npcs=[
+        map_npcs.OpeningCutsceneMalinda,
+        map_npcs.OpeningCutsceneGrass,
+        map_npcs.OpeningCutsceneLightning
+        ]
+
+        self.step_triggers=[]
+
+
 
 
 class MasonsLabOverworldEntrance(BaseOverworldClubClass):
@@ -672,7 +714,5 @@ class TradingPost:
         map_objects.TradingPostJumboSteve,
         map_objects.TradingPostCharity,
         ]
-
-
 
 

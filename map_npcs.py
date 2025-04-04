@@ -1,13 +1,30 @@
 import characters
 import map_helpers
 
-class BaseNpcClass():
+
+
+class OpeningCutsceneMalinda():
     def __init__(self):
-        pass
+        self.loaded_sprites=characters.load_sprites_from_sheet(characters.spritesheet_gb3,1)
+        self.sprite=characters.NPC(288,64, self.loaded_sprites,"down")
+        self.rect=self.sprite.rect
+
+
+class OpeningCutsceneGrass():
+    def __init__(self):
+        self.loaded_sprites=characters.load_sprites_from_sheet(characters.spritesheet_gb3,2)
+        self.sprite=characters.NPC(256,0, self.loaded_sprites,"down")
+        self.rect=self.sprite.rect
+
+class OpeningCutsceneLightning():
+    def __init__(self):
+        self.loaded_sprites=characters.load_sprites_from_sheet(characters.spritesheet_gb3,3)
+        self.sprite=characters.NPC(320,0, self.loaded_sprites,"down")
+        self.rect=self.sprite.rect
 
 #Mason's Lab
 
-class DrMason(BaseNpcClass):
+class DrMason():
     def __init__(self):
         self.loaded_sprites=characters.load_sprites_from_sheet(characters.spritesheet_gb3,0)
         self.sprite=characters.NPC(448,192, self.loaded_sprites,"down")
@@ -21,7 +38,7 @@ class DrMason(BaseNpcClass):
         inner_context.event_manager.add_event(inner_context.map_input_lock.unlock)
         inner_context.map_input_lock.lock()
 
-class Sam(BaseNpcClass):
+class Sam():
     def __init__(self):
         self.loaded_sprites=characters.load_sprites_from_sheet(characters.spritesheet_tcg2,4)
         self.sprite=characters.NPC(2*64,7*64, self.loaded_sprites,"right")
@@ -37,7 +54,7 @@ Maybe you could play one of the prequels first? Last I heard, the first game was
         inner_context.event_manager.add_event(inner_context.map_input_lock.unlock)
         inner_context.map_input_lock.lock()    
 
-class LabTechCenterTopRight(BaseNpcClass):
+class LabTechCenterTopRight():
     def __init__(self):
         self.loaded_sprites=characters.load_sprites_from_sheet(characters.spritesheet_tcg2,4)
         self.sprite=characters.NPC(11*64,4*64, self.loaded_sprites,"left")
@@ -54,7 +71,7 @@ On a related note, I'm out of energy cards. Gave them all away. Probably shouldn
         inner_context.event_manager.add_event(inner_context.map_input_lock.unlock)
         inner_context.map_input_lock.lock()
         
-class LabTechCenterBottomRight(BaseNpcClass):
+class LabTechCenterBottomRight():
     def __init__(self):
         self.loaded_sprites=characters.load_sprites_from_sheet(characters.spritesheet_tcg2,4)
         self.sprite=characters.NPC(10*64,10*64, self.loaded_sprites,"down")
@@ -68,7 +85,7 @@ class LabTechCenterBottomRight(BaseNpcClass):
         inner_context.event_manager.add_event(inner_context.map_input_lock.unlock)
         inner_context.map_input_lock.lock()
 
-class LabTechCenterBottomLeft(BaseNpcClass):
+class LabTechCenterBottomLeft():
     def __init__(self):
         self.loaded_sprites=characters.load_sprites_from_sheet(characters.spritesheet_tcg2,4)
         self.sprite=characters.NPC(5*64,11*64, self.loaded_sprites,"right")
@@ -85,7 +102,7 @@ class LabTechCenterBottomLeft(BaseNpcClass):
         inner_context.event_manager.add_event(inner_context.map_input_lock.unlock)
         inner_context.map_input_lock.lock()
 
-class Aaron(BaseNpcClass):
+class Aaron():
     def __init__(self):
         self.loaded_sprites=characters.load_sprites_from_sheet(characters.spritesheet_tcg2,4)
         self.sprite=characters.NPC(3*64,4*64, self.loaded_sprites,"down")
@@ -100,7 +117,7 @@ class Aaron(BaseNpcClass):
         inner_context.event_manager.add_event(inner_context.map_input_lock.unlock)
         inner_context.map_input_lock.lock()
 
-class LabTechRightBottom(BaseNpcClass):
+class LabTechRightBottom():
     def __init__(self):
         self.loaded_sprites=characters.load_sprites_from_sheet(characters.spritesheet_tcg2,4)
         self.sprite=characters.NPC(5*64,8*64, self.loaded_sprites,"left")
@@ -114,7 +131,7 @@ class LabTechRightBottom(BaseNpcClass):
         inner_context.event_manager.add_event(inner_context.map_input_lock.unlock)
         inner_context.map_input_lock.lock()
 
-class LabTechLeftTop(BaseNpcClass):
+class LabTechLeftTop():
     def __init__(self):
         self.loaded_sprites=characters.load_sprites_from_sheet(characters.spritesheet_tcg2,4)
         self.sprite=characters.NPC(1*64,2*64, self.loaded_sprites,"left")
@@ -132,7 +149,7 @@ class LabTechLeftTop(BaseNpcClass):
         inner_context.map_input_lock.lock()
 
 
-class LabTechLeftBottom(BaseNpcClass):
+class LabTechLeftBottom():
     def __init__(self):
         self.loaded_sprites=characters.load_sprites_from_sheet(characters.spritesheet_tcg2,4)
         self.sprite=characters.NPC(10*64,7*64, self.loaded_sprites,"left")
@@ -153,7 +170,7 @@ Well, at least I can still practice on the cutting-edge computer simulation in t
 #Fighting Club
 
 
-class Tyler(BaseNpcClass):
+class Tyler():
     def __init__(self):
         self.loaded_sprites=characters.load_sprites_from_sheet(characters.spritesheet_tcg2,14)
         self.sprite=characters.NPC(7*64,7*64, self.loaded_sprites,"down")
@@ -171,7 +188,7 @@ class Tyler(BaseNpcClass):
         inner_context.event_manager.add_event(inner_context.map_input_lock.unlock)
         inner_context.map_input_lock.lock()
 
-class Norton(BaseNpcClass):
+class Norton():
     def __init__(self):
         self.loaded_sprites=characters.load_sprites_from_sheet(characters.spritesheet_tcg2,14)
         self.sprite=characters.NPC(9*64,5*64, self.loaded_sprites,"up")
@@ -189,7 +206,7 @@ class Norton(BaseNpcClass):
         inner_context.event_manager.add_event(inner_context.map_input_lock.unlock)
         inner_context.map_input_lock.lock()
 
-class Helena(BaseNpcClass):
+class Helena():
     def __init__(self):
         self.loaded_sprites=characters.load_sprites_from_sheet(characters.spritesheet_tcg2,18)
         self.sprite=characters.NPC(3*64,6*64, self.loaded_sprites,"down")
@@ -204,7 +221,7 @@ class Helena(BaseNpcClass):
         inner_context.event_manager.add_event(inner_context.map_input_lock.unlock)
         inner_context.map_input_lock.lock()
 
-class Brad(BaseNpcClass):
+class Brad():
     def __init__(self):
         self.loaded_sprites=characters.load_sprites_from_sheet(characters.spritesheet_tcg2,33)
         self.sprite=characters.NPC(5*64,3*64, self.loaded_sprites,"down")

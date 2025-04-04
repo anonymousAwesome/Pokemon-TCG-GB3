@@ -5,7 +5,7 @@ Contains player name, player decks, player medals, and event flags triggered. Ma
 '''
 
 class PlayerData:
-    def __init__(self,card_pool=[],event_flags=None,player_name="",removed_npcs=set(),currently_greyscale=False,current_map_class=mapinfo.MasonCenter):
+    def __init__(self,card_pool=[],event_flags=None,player_name="Mark",removed_npcs=set(),currently_greyscale=False,current_map_class=mapinfo.MasonCenter):
         self.card_pool=[]
         if not event_flags:
             self.event_flags={
