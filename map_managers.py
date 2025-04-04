@@ -94,4 +94,5 @@ def check_interact_with_self(inner_context):
                         for map_object in interact_object:
                             temp_map_object=map_object()
                             if temp_map_object.rect.contains(inner_context.player_character.rect):
-                                temp_map_object.interact_self(inner_context)
+                                if getattr(temp_map_object,"interact_self",False):
+                                    temp_map_object.interact_self(inner_context)

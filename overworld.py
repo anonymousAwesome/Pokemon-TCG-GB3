@@ -62,6 +62,10 @@ class CurrentNPCs:
             if npc not in self.player_data.removed_npcs:
                 self.current_npcs.append(npc())
 
+    def add_new_temp_npc(self,npc):
+        self.current_npcs.append(npc())
+
+
 class InnerContext:
     def __init__(self,map_holder,player_character,event_list,screen,map_input_lock,current_dialogue,temp_exit_list,event_manager,collision_manager,current_npcs,phase_handler,player_data,animation_manager,camera):
         self.map_holder=map_holder

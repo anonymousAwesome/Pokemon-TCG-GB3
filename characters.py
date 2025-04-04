@@ -216,6 +216,15 @@ class Character(pygame.sprite.Sprite):
         elif self.pixels_remaining>0:
             self.continue_walking(move_speed)
 
+    def move_npc(self,move_speed):
+        if self.pixels_remaining<0:
+            self.pixels_remaining=0
+        if self.pixels_remaining==0:
+            self.start_walking(move_speed)
+        elif self.pixels_remaining>0:
+            self.continue_walking(move_speed)
+
+
 class Player(Character):
     def __init__(self, x, y, anim_frames,facing_direction):
         super().__init__(x, y, anim_frames,facing_direction)
@@ -279,7 +288,7 @@ class NPC(Character):
             self.up_command=True
         if rand_choices==4:
             self.down_command=True
-        super().move_character()
+        super().move_npc()
 
     def manual_direction_change(self,direction):
         self.facing_direction=direction

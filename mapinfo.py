@@ -98,14 +98,8 @@ class OpeningCutsceneTrigger:
         inner_context.event_manager.add_event(inner_context.current_dialogue.render,[inner_context.event_list],persistent_condition=inner_context.current_dialogue.check_remaining_text)
         inner_context.event_manager.add_event(map_helpers.reload_map,[inner_context,CutsceneFfEntrance])
         inner_context.event_manager.add_event(inner_context.disable_prevent_step_trigger)
-        
-        
-        
-        inner_context.event_manager.add_event(inner_context.map_input_lock.unlock)
-        inner_context.map_input_lock.lock()
         inner_context.prevent_step_trigger = True
-
-
+        inner_context.map_input_lock.lock()
 
 class CutsceneFfEntrance:
     def __init__(self):
@@ -118,10 +112,41 @@ class CutsceneFfEntrance:
         self.npcs=[
         map_npcs.OpeningCutsceneMalinda,
         map_npcs.OpeningCutsceneGrass,
-        map_npcs.OpeningCutsceneLightning
+        map_npcs.OpeningCutsceneLightning,
+        map_npcs.OpeningCutsceneFire,
+        map_npcs.OpeningCutsceneWater,
+        map_npcs.OpeningCutsceneGround,
+        map_npcs.OpeningCutscenePoison,
+        map_npcs.OpeningCutsceneFlying,
+        map_npcs.OpeningCutscenePsychic,
+        map_npcs.OpeningCutsceneNormal
         ]
 
-        self.step_triggers=[]
+        self.step_triggers=[
+        FfEntranceCutsceneTrigger
+        ]
+
+
+
+
+class FfEntranceCutsceneTrigger:
+    def __init__(self):
+        self.rect=pygame.Rect(0, 0, 64, 64)
+
+    def step_on(self, inner_context):
+        temp=map_helpers.FFCutsceneHelpers(inner_context)
+        inner_context.event_manager.add_event(temp.group_move,[inner_context,3],persistent_condition=temp.check_bottom1)
+
+        inner_context.event_manager.add_event(empty_event.__init__,[60])
+        inner_context.event_manager.add_event(empty_event.decrement_loops,persistent_condition=empty_event.check_still_looping)
+
+        inner_context.event_manager.add_event(temp.group_move,[inner_context,8],persistent_condition=temp.check_bottom2)
+        
+        inner_context.prevent_step_trigger = True
+        inner_context.event_manager.add_event(inner_context.map_input_lock.unlock)
+        #inner_context.event_manager.add_event(inner_context.disable_prevent_step_trigger)
+        inner_context.map_input_lock.lock()
+        
 
 
 

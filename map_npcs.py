@@ -3,24 +3,69 @@ import map_helpers
 
 
 
+vertical_modifier=-192
+
 class OpeningCutsceneMalinda():
     def __init__(self):
         self.loaded_sprites=characters.load_sprites_from_sheet(characters.spritesheet_gb3,1)
-        self.sprite=characters.NPC(288,64, self.loaded_sprites,"down")
+        self.sprite=characters.NPC(288,128+vertical_modifier, self.loaded_sprites,"down")
         self.rect=self.sprite.rect
 
 
 class OpeningCutsceneGrass():
     def __init__(self):
         self.loaded_sprites=characters.load_sprites_from_sheet(characters.spritesheet_gb3,2)
-        self.sprite=characters.NPC(256,0, self.loaded_sprites,"down")
+        self.sprite=characters.NPC(256,0+vertical_modifier, self.loaded_sprites,"down")
         self.rect=self.sprite.rect
 
 class OpeningCutsceneLightning():
     def __init__(self):
         self.loaded_sprites=characters.load_sprites_from_sheet(characters.spritesheet_gb3,3)
-        self.sprite=characters.NPC(320,0, self.loaded_sprites,"down")
+        self.sprite=characters.NPC(320,0+vertical_modifier, self.loaded_sprites,"down")
         self.rect=self.sprite.rect
+
+class OpeningCutsceneFire():
+    def __init__(self):
+        self.loaded_sprites=characters.load_sprites_from_sheet(characters.spritesheet_gb3,4)
+        self.sprite=characters.NPC(256,-64+vertical_modifier, self.loaded_sprites,"down")
+        self.rect=self.sprite.rect
+
+class OpeningCutsceneWater():
+    def __init__(self):
+        self.loaded_sprites=characters.load_sprites_from_sheet(characters.spritesheet_gb3,5)
+        self.sprite=characters.NPC(320,-64+vertical_modifier, self.loaded_sprites,"down")
+        self.rect=self.sprite.rect
+
+class OpeningCutsceneGround():
+    def __init__(self):
+        self.loaded_sprites=characters.load_sprites_from_sheet(characters.spritesheet_gb3,6)
+        self.sprite=characters.NPC(256,-128+vertical_modifier, self.loaded_sprites,"down")
+        self.rect=self.sprite.rect
+
+class OpeningCutscenePoison():
+    def __init__(self):
+        self.loaded_sprites=characters.load_sprites_from_sheet(characters.spritesheet_gb3,7)
+        self.sprite=characters.NPC(320,-128+vertical_modifier, self.loaded_sprites,"down")
+        self.rect=self.sprite.rect
+
+class OpeningCutsceneFlying():
+    def __init__(self):
+        self.loaded_sprites=characters.load_sprites_from_sheet(characters.spritesheet_gb3,8)
+        self.sprite=characters.NPC(256,-192+vertical_modifier, self.loaded_sprites,"down")
+        self.rect=self.sprite.rect
+
+class OpeningCutscenePsychic():
+    def __init__(self):
+        self.loaded_sprites=characters.load_sprites_from_sheet(characters.spritesheet_gb3,9)
+        self.sprite=characters.NPC(320,-192+vertical_modifier, self.loaded_sprites,"down")
+        self.rect=self.sprite.rect
+
+class OpeningCutsceneNormal():
+    def __init__(self):
+        self.loaded_sprites=characters.load_sprites_from_sheet(characters.spritesheet_gb3,10)
+        self.sprite=characters.NPC(256,-832+vertical_modifier, self.loaded_sprites,"down")
+        self.rect=self.sprite.rect
+
 
 #Mason's Lab
 
@@ -30,7 +75,7 @@ class DrMason():
         self.sprite=characters.NPC(448,192, self.loaded_sprites,"down")
         self.rect=self.sprite.rect
         self.portrait=characters.load_portrait_from_sheet(characters.portrait_sheet_GB2,2,0)
-    
+
     def interact_object(self,inner_context):
         inner_context.event_manager.add_event(map_helpers.dialogue_facing,[inner_context.player_character,self])
         inner_context.event_manager.add_event(inner_context.current_dialogue.__init__,[inner_context.screen,"Welcome! I'm Dr. Mason, with a PhD in Pokemon cardology!"],{"name_text":"Dr. Mason", "profile_image":self.portrait})

@@ -110,3 +110,35 @@ def dialogue_facing(player_character,npc):
         npc.sprite.manual_direction_change("right")
     if player_character.facing_direction=="right":
         npc.sprite.manual_direction_change("left")
+
+
+class FFCutsceneHelpers:
+
+    def __init__(self,inner_context):
+        self.inner_context=inner_context
+
+    def group_move(self,inner_context,speed):
+        for npc in inner_context.current_npcs.current_npcs:
+            npc.sprite.cutscene_walk("down")
+            npc.sprite.move_npc(speed)
+
+    def check_bottom1(self):
+        lowest=0
+        for npc in self.inner_context.current_npcs.current_npcs:
+            if npc.rect.bottom>lowest:
+                lowest=npc.rect.bottom
+        if lowest>896+64:
+            return False
+        else:
+            return True
+
+    def check_bottom2(self):
+        lowest=0
+        for npc in self.inner_context.current_npcs.current_npcs:
+            if npc.rect.bottom>lowest:
+                lowest=npc.rect.bottom
+        if lowest>1536+64:
+            return False
+        else:
+            return True
+
