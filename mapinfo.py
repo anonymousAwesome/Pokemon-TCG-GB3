@@ -127,26 +127,41 @@ class CutsceneFfEntrance:
         ]
 
 
-
-
 class FfEntranceCutsceneTrigger:
     def __init__(self):
         self.rect=pygame.Rect(0, 0, 64, 64)
 
     def step_on(self, inner_context):
         temp=map_helpers.FFCutsceneHelpers(inner_context)
-        inner_context.event_manager.add_event(temp.group_move,[inner_context,3],persistent_condition=temp.check_bottom1)
+        inner_context.event_manager.add_event(temp.group_move,[inner_context,3],persistent_condition=temp.check_bottom,condition_kwargs={"y_coord":960})
 
         inner_context.event_manager.add_event(empty_event.__init__,[60])
         inner_context.event_manager.add_event(empty_event.decrement_loops,persistent_condition=empty_event.check_still_looping)
 
-        inner_context.event_manager.add_event(temp.group_move,[inner_context,8],persistent_condition=temp.check_bottom2)
+        inner_context.event_manager.add_event(temp.group_move,[inner_context,8],persistent_condition=temp.check_bottom,condition_kwargs={"y_coord":1600})
+        
+        inner_context.event_manager.add_event(map_helpers.reload_map,[inner_context,CutsceneWaterClub])
         
         inner_context.prevent_step_trigger = True
         inner_context.event_manager.add_event(inner_context.map_input_lock.unlock)
         #inner_context.event_manager.add_event(inner_context.disable_prevent_step_trigger)
         inner_context.map_input_lock.lock()
         
+class CutsceneWaterClub:
+    def __init__(self):
+        self.bg_image=pygame.image.load(os.path.join("assets", "maps", "water club.png"))
+        self.bg_image=pygame.transform.scale(self.bg_image, (self.bg_image.get_width() * 4, self.bg_image.get_height() * 4))
+
+        self.obstacles=[
+        ]
+
+
+        self.npcs=[
+        ]
+
+        self.step_triggers=[
+        ]
+
 
 
 

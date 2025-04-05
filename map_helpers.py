@@ -122,23 +122,12 @@ class FFCutsceneHelpers:
             npc.sprite.cutscene_walk("down")
             npc.sprite.move_npc(speed)
 
-    def check_bottom1(self):
+    def check_bottom(self,y_coord):
         lowest=0
         for npc in self.inner_context.current_npcs.current_npcs:
             if npc.rect.bottom>lowest:
                 lowest=npc.rect.bottom
-        if lowest>896+64:
+        if lowest>y_coord:
             return False
         else:
             return True
-
-    def check_bottom2(self):
-        lowest=0
-        for npc in self.inner_context.current_npcs.current_npcs:
-            if npc.rect.bottom>lowest:
-                lowest=npc.rect.bottom
-        if lowest>1536+64:
-            return False
-        else:
-            return True
-
