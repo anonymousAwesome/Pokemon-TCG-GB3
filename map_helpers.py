@@ -131,3 +131,27 @@ class FFCutsceneHelpers:
             return False
         else:
             return True
+
+
+def deliver_lines(npc_self,inner_context,text,name_text=None,profile_image=None,duel=True):
+    inner_context.event_manager.add_event(dialogue_facing,[inner_context.player_character,npc_self])
+    kwargs_dict={}
+    if name_text:
+        kwargs_dict["name_text"]=name_text
+    if profile_image:
+        kwargs_dict["profile_image"]=profile_image
+    if type(text) is str:
+            inner_context.event_manager.add_event(inner_context.current_dialogue.__init__,[inner_context.screen,text],kwargs_dict)
+            inner_context.event_manager.add_event(inner_context.current_dialogue.render,[inner_context.event_list],persistent_condition=inner_context.current_dialogue.check_remaining_text)
+    elif type(text) is list:
+        for line in text:
+            inner_context.event_manager.add_event(inner_context.current_dialogue.__init__,[inner_context.screen,line],kwargs_dict)
+            inner_context.event_manager.add_event(inner_context.current_dialogue.render,[inner_context.event_list],persistent_condition=inner_context.current_dialogue.check_remaining_text)
+    if duel:
+        #inner_context.event_manager.add_event(inner_context.phase_handler.set_duel_data,[],{"player_deck":[~~the player's deck~~],"opponent_deck":[~~the opponent's deck~~],"background_image":~~the background image~~})
+        inner_context.event_manager.add_event(inner_context.phase_handler.set_game_phase,["duel"])
+        #inner_context.event_manager.add_event(award_rewards,[inner_context,[~~the rewarded cards~~]])
+
+    inner_context.event_manager.add_event(inner_context.map_input_lock.unlock)
+    inner_context.map_input_lock.lock()
+

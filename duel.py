@@ -185,7 +185,7 @@ class Context:
 
         #screen.fill((255, 255, 255))
 
-    def update(self,eventlist):
+    def update(self,event_list):
 
         self.screen.blit(self.background,(0,0))
         self.screen.blit(self.large_pkmn_card1, self.player1_active_pokemon_position)
@@ -217,7 +217,8 @@ class Context:
         self.screen.blit(self.stadium_card,(264,256))
 
 
-        keys = pygame.key.get_pressed()
-        if keys[key_mappings.cancel_key]:
-            self.phase_handler.won_last_duel=True
-            self.phase_handler.set_game_phase("overworld")
+        for event in event_list:
+            if event.type==pygame.KEYDOWN:
+                if event.key==key_mappings.cancel_key:
+                    self.phase_handler.won_last_duel=True
+                    self.phase_handler.set_game_phase("overworld")
