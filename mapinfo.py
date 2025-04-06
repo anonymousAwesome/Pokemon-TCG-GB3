@@ -190,8 +190,8 @@ class FightingClubOverworldEntrance(BaseOverworldClubClass):
 class FireClubOverworldEntrance(BaseOverworldClubClass):
     def __init__(self):    
         self.rect=pygame.Rect(448, 64, 64, 64)
-        self.new_x=0
-        self.new_y=0
+        self.new_x=384
+        self.new_y=896
         self.replacement_map=FireClub
         self.facing_direction="up"
         self.club_text="Fire Club"
@@ -199,8 +199,8 @@ class FireClubOverworldEntrance(BaseOverworldClubClass):
 class GrassClubOverworldEntrance(BaseOverworldClubClass):
     def __init__(self):
         self.rect=pygame.Rect(512, 256, 64, 64)
-        self.new_x=0
-        self.new_y=0
+        self.new_x=384
+        self.new_y=832
         self.replacement_map=GrassClub
         self.facing_direction="up"
         self.club_text="Grass Club"
@@ -208,8 +208,8 @@ class GrassClubOverworldEntrance(BaseOverworldClubClass):
 class LightningClubOverworldEntrance(BaseOverworldClubClass):
     def __init__(self):    
         self.rect=pygame.Rect(128, 320, 64, 64)
-        self.new_x=0
-        self.new_y=0
+        self.new_x=384
+        self.new_y=896
         self.replacement_map=LightningClub
         self.facing_direction="up"
         self.club_text="Lightning Club"
@@ -217,8 +217,8 @@ class LightningClubOverworldEntrance(BaseOverworldClubClass):
 class PsychicClubOverworldEntrance(BaseOverworldClubClass):
     def __init__(self):    
         self.rect=pygame.Rect(384, 192, 64, 64)
-        self.new_x=0
-        self.new_y=0
+        self.new_x=384
+        self.new_y=768
         self.replacement_map=PsychicClub
         self.facing_direction="up"
         self.club_text="Psychic Club"
@@ -226,8 +226,8 @@ class PsychicClubOverworldEntrance(BaseOverworldClubClass):
 class RockClubOverworldEntrance(BaseOverworldClubClass):
     def __init__(self):    
         self.rect=pygame.Rect(64, 256, 64, 64)
-        self.new_x=0
-        self.new_y=0
+        self.new_x=384
+        self.new_y=832
         self.replacement_map=RockClub
         self.facing_direction="up"
         self.club_text="Rock Club"
@@ -235,8 +235,8 @@ class RockClubOverworldEntrance(BaseOverworldClubClass):
 class ScienceClubOverworldEntrance(BaseOverworldClubClass):
     def __init__(self):    
         self.rect=pygame.Rect(512, 128, 64, 64)
-        self.new_x=0
-        self.new_y=0
+        self.new_x=384
+        self.new_y=896
         self.replacement_map=ScienceClub
         self.facing_direction="up"
         self.club_text="Science Club"
@@ -244,8 +244,8 @@ class ScienceClubOverworldEntrance(BaseOverworldClubClass):
 class WaterClubOverworldEntrance(BaseOverworldClubClass):
     def __init__(self):    
         self.rect=pygame.Rect(448, 384, 64, 64)
-        self.new_x=0
-        self.new_y=0
+        self.new_x=384
+        self.new_y=896
         self.replacement_map=WaterClub
         self.facing_direction="up"
         self.club_text="Water Club"
@@ -253,17 +253,17 @@ class WaterClubOverworldEntrance(BaseOverworldClubClass):
 class AirportOverworldEntrance(BaseOverworldClubClass):
     def __init__(self):    
         self.rect=pygame.Rect(320, 448, 64, 64)
-        self.new_x=0
-        self.new_y=0
-        self.replacement_map=Airport
+        self.new_x=320
+        self.new_y=704
+        self.replacement_map=AirportTcg
         self.facing_direction="up"
         self.club_text="Airport"
     
 class ChallengeHallOverworldEntrance(BaseOverworldClubClass):
     def __init__(self):    
         self.rect=pygame.Rect(256, 128, 64, 64)
-        self.new_x=0
-        self.new_y=0
+        self.new_x=384
+        self.new_y=832
         self.replacement_map=ChallengeHall
         self.facing_direction="up"
         self.club_text="Challenge Hall"
@@ -271,8 +271,8 @@ class ChallengeHallOverworldEntrance(BaseOverworldClubClass):
 class IshiharasHouseOverworldEntrance(BaseOverworldClubClass):
     def __init__(self):    
         self.rect=pygame.Rect(64, 128, 64, 64)
-        self.new_x=0
-        self.new_y=0
+        self.new_x=256
+        self.new_y=704
         self.replacement_map=IshiharasHouse
         self.facing_direction="up"
         self.club_text="Ishihara's House"
@@ -280,9 +280,9 @@ class IshiharasHouseOverworldEntrance(BaseOverworldClubClass):
 class PokemonDomeOverworldEntrance(BaseOverworldClubClass):
     def __init__(self):    
         self.rect=pygame.Rect(256, 256, 64, 64)
-        self.new_x=0
-        self.new_y=0
-        self.replacement_map=PokemonDome
+        self.new_x=448
+        self.new_y=448
+        self.replacement_map=PokemonDomeEntrance
         self.facing_direction="up"
         self.club_text="Pokemon Dome"
     
@@ -493,8 +493,7 @@ class FightingClub:
             ]
               
         self.step_triggers=[
-            FightingClubExitRight,
-            FightingClubExitLeft
+            FightingClubExit,
             ]
 
         self.npcs=[
@@ -505,20 +504,12 @@ class FightingClub:
             ]
 
 
-class FightingClubExitRight(BaseExitClass):
+class FightingClubExit(BaseExitClass):
     def __init__(self):
         self.new_x = 3*64
         self.new_y = 7*64
         self.replacement_map = TcgIsland
         self.rect=pygame.Rect(320, 640+64, 128, 64)
-
-
-class FightingClubExitLeft(BaseExitClass):
-    def __init__(self):
-        self.new_x = 3*64
-        self.new_y = 7*64
-        self.replacement_map = TcgIsland
-        self.rect=pygame.Rect(320+64, 640+64, 128, 64)
 
 
 
@@ -655,9 +646,9 @@ class WaterClub:
 
 
 
-class Airport:
+class AirportTcg:
     def __init__(self):
-        self.bg_image=pygame.image.load(os.path.join("assets", "maps", "airport.png"))
+        self.bg_image=pygame.image.load(os.path.join("assets", "maps", "airport tcg side.png"))
         self.bg_image=pygame.transform.scale(self.bg_image, (self.bg_image.get_width() * 4, self.bg_image.get_height() * 4))
 
         self.obstacles=[
@@ -710,9 +701,9 @@ class IshiharasHouse:
             ]
 
 
-class PokemonDome:
+class PokemonDomeEntrance:
     def __init__(self):
-        self.bg_image=pygame.image.load(os.path.join("assets", "maps", "pokemon dome.png"))
+        self.bg_image=pygame.image.load(os.path.join("assets", "maps", "pokemon dome entrance.png"))
         self.bg_image=pygame.transform.scale(self.bg_image, (self.bg_image.get_width() * 4, self.bg_image.get_height() * 4))
 
         self.obstacles=[
