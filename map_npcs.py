@@ -82,7 +82,7 @@ class DrMason():
         self.text="Welcome! I'm Dr. Mason, with a PhD in Pokemon cardology!"
 
     def interact_object(self,inner_context):
-        map_helpers.deliver_lines(self,inner_context,self.text,name_text="Dr. Mason",profile_image=self.portrait,duel=False)
+        map_helpers.dialogue_duel(self,inner_context,self.text,name_text="Dr. Mason",profile_image=self.portrait,duel=False)
         
 
 class Sam():
@@ -95,7 +95,7 @@ class Sam():
 Maybe you could play one of the prequels first? Last I heard, the first game was available on the Switch."""
     
     def interact_object(self,inner_context):
-        map_helpers.deliver_lines(self,inner_context,self.text,name_text="Sam",profile_image=self.portrait,duel=False)
+        map_helpers.dialogue_duel(self,inner_context,self.text,name_text="Sam",profile_image=self.portrait,duel=False)
         
 class LabTechCenterTopRight():
     def __init__(self):
@@ -108,7 +108,7 @@ This is not to be confused with Aaron, who gave you a booster of 10 energy cards
 On a related note, I'm out of energy cards. Gave them all away. Probably shouldn't have done that."""
     
     def interact_object(self,inner_context):
-        map_helpers.deliver_lines(self,inner_context,self.text,name_text="Lab Tech",duel=False)
+        map_helpers.dialogue_duel(self,inner_context,self.text,name_text="Lab Tech",duel=False)
         
 class LabTechCenterBottomRight():
     def __init__(self):
@@ -118,7 +118,7 @@ class LabTechCenterBottomRight():
         self.text="Thanks to recent card science breakthroughs, the same card can now be placed in multiple decks at the same time! I realize this breaks the laws of physics, but it's so convenient!"
     
     def interact_object(self,inner_context):
-        map_helpers.deliver_lines(self,inner_context,self.text,name_text="Lab Tech",duel=False)
+        map_helpers.dialogue_duel(self,inner_context,self.text,name_text="Lab Tech",duel=False)
 
 class LabTechCenterBottomLeft():
     def __init__(self):
@@ -130,7 +130,7 @@ class LabTechCenterBottomLeft():
         self.text=[text1,text2]
     
     def interact_object(self,inner_context):
-        map_helpers.deliver_lines(self,inner_context,self.text,name_text="Lab Tech",duel=False)
+        map_helpers.dialogue_duel(self,inner_context,self.text,name_text="Lab Tech",duel=False)
 
 class Aaron():
     def __init__(self):
@@ -141,7 +141,7 @@ class Aaron():
         self.portrait=characters.load_portrait_from_sheet(characters.portrait_sheet_GB2,1,1)
     
     def interact_object(self,inner_context):
-        map_helpers.deliver_lines(self,inner_context,self.text,name_text="Aaron",profile_image=self.portrait,duel=False)
+        map_helpers.dialogue_duel(self,inner_context,self.text,name_text="Aaron",profile_image=self.portrait,duel=False)
 
 class LabTechRightBottom():
     def __init__(self):
@@ -151,7 +151,7 @@ class LabTechRightBottom():
         self.text="Dr. Mason? I thought he already left for his vacation."
     
     def interact_object(self,inner_context):
-        map_helpers.deliver_lines(self,inner_context,self.text,name_text="Lab Tech",duel=False)
+        map_helpers.dialogue_duel(self,inner_context,self.text,name_text="Lab Tech",duel=False)
 
 class LabTechLeftTop():
     def __init__(self):
@@ -183,7 +183,7 @@ Well, at least I can still practice on the cutting-edge computer simulation in t
 
     
     def interact_object(self,inner_context):
-        map_helpers.deliver_lines(self,inner_context,self.text,name_text="Lab Tech",duel=False)
+        map_helpers.dialogue_duel(self,inner_context,self.text,name_text="Lab Tech",duel=False)
 
 
 #Fighting Club
@@ -200,7 +200,7 @@ class Tyler():
         self.text=[text1,text2]
     
     def interact_object(self,inner_context):
-        map_helpers.deliver_lines(self,inner_context,self.text,name_text="Tyler",profile_image=self.portrait)
+        map_helpers.dialogue_duel(self,inner_context,self.text,name_text="Tyler",profile_image=self.portrait,reward=["tylercard"])
         
 class Norton():
     def __init__(self):
@@ -214,7 +214,7 @@ class Norton():
         self.portrait=characters.load_portrait_from_sheet(characters.portrait_sheet_GB2,1,9)
     
     def interact_object(self,inner_context):
-        map_helpers.deliver_lines(self,inner_context,self.text,name_text="Norton",profile_image=self.portrait,post_duel_text=self.post_duel_text)
+        map_helpers.dialogue_duel(self,inner_context,self.text,name_text="Norton",profile_image=self.portrait,post_duel_text=self.post_duel_text,reward=["nortoncard"])
 
 class Helena():
     def __init__(self):
@@ -225,7 +225,7 @@ class Helena():
         self.portrait=characters.load_portrait_from_sheet(characters.portrait_sheet_GB2,2,9)
     
     def interact_object(self,inner_context):
-        map_helpers.deliver_lines(self,inner_context,self.text,name_text="Helena",profile_image=self.portrait)
+        map_helpers.dialogue_duel(self,inner_context,self.text,name_text="Helena",profile_image=self.portrait,reward=["helenacard"])
 
 
 class Brad():
@@ -237,4 +237,4 @@ class Brad():
         self.portrait=characters.load_portrait_from_sheet(characters.portrait_sheet_GB2,3,9)
     
     def interact_object(self,inner_context):
-        map_helpers.deliver_lines(self,inner_context,self.text,name_text="Brad",profile_image=self.portrait)
+        map_helpers.dialogue_duel(self,inner_context,self.text,name_text="Brad",profile_image=self.portrait)

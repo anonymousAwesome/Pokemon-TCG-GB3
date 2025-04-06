@@ -56,9 +56,10 @@ def reload_map(inner_context,replacement_map):
     inner_context.collision_manager.__init__(inner_context.map_holder.current_map.bg_image, inner_context.player_character, inner_context.screen, inner_context.current_dialogue, inner_context.event_manager, inner_context.map_input_lock, obstacles=inner_context.map_holder.current_map.obstacles, npcs=inner_context.current_npcs)
 
 
-def award_rewards(inner_context,rewards):
+def award_rewards(inner_context,reward):
     if inner_context.phase_handler.won_last_duel:
-        inner_context.player_data.card_pool.extend(rewards)
+        print(f"{reward=}")
+        inner_context.player_data.card_pool.extend(reward)
         inner_context.phase_handler.won_last_duel=False
 
 
@@ -133,7 +134,7 @@ class FFCutsceneHelpers:
             return True
 
 
-def deliver_lines(npc_self,inner_context,text,name_text=None,profile_image=None,duel=True,post_duel_text=None):
+def dialogue_duel(npc_self,inner_context,text,name_text=None,profile_image=None,duel=True,post_duel_text=None,reward=["card1","card2"]):
     #may need to add an argument for pre-duel text, but currently not sure how
     #duels are going to be handled.
     inner_context.event_manager.add_event(dialogue_facing,[inner_context.player_character,npc_self])
@@ -152,7 +153,8 @@ def deliver_lines(npc_self,inner_context,text,name_text=None,profile_image=None,
     if duel:
         #inner_context.event_manager.add_event(inner_context.phase_handler.set_duel_data,[],{"player_deck":[~~the player's deck~~],"opponent_deck":[~~the opponent's deck~~],"background_image":~~the background image~~})
         inner_context.event_manager.add_event(inner_context.phase_handler.set_game_phase,["duel"])
-        #inner_context.event_manager.add_event(award_rewards,[inner_context,[~~the rewarded cards~~]])
+        inner_context.event_manager.add_event(award_rewards,[inner_context,reward])
+        inner_context.event_manager.add_event(print,[inner_context.player_data.card_pool])
     if post_duel_text:
         inner_context.event_manager.add_event(inner_context.current_dialogue.__init__,[inner_context.screen,post_duel_text],kwargs_dict)
         inner_context.event_manager.add_event(inner_context.current_dialogue.render,[inner_context.event_list],persistent_condition=inner_context.current_dialogue.check_remaining_text)
