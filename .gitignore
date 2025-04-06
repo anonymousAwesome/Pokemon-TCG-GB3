@@ -2,3 +2,6 @@
 __pycache__
 *~
 *.kra-autosave.kra
+build/
+
+paddlewar-pygbag.py

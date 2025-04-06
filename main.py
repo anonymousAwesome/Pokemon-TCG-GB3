@@ -1,4 +1,6 @@
+import asyncio
 import pygame
+import numpy as np
 
 pygame.init()
 screen = pygame.display.set_mode((640, 576))
@@ -46,22 +48,27 @@ paddlewar_context=paddlewar.Context(screen,phase_handler)
 duel_context=duel.Context(screen,phase_handler)
 
 
+async def main():
 
-running = True
-while running:
-    event_list=pygame.event.get()
-    for event in event_list:
-        if event.type == pygame.QUIT:
-            running = False
+    running = True
+    while running:
+        event_list=pygame.event.get()
+        for event in event_list:
+            if event.type == pygame.QUIT:
+                running = False
 
-    if phase_handler.game_phase == "overworld":
-        overworld_context.update(event_list)
-    elif phase_handler.game_phase == "duel":
-        duel_context.update(event_list)
-    elif phase_handler.game_phase == "paddlewar":
-        paddlewar_context.update(event_list)
+        if phase_handler.game_phase == "overworld":
+            overworld_context.update(event_list)
+        elif phase_handler.game_phase == "duel":
+            duel_context.update(event_list)
+        elif phase_handler.game_phase == "paddlewar":
+            paddlewar_context.update(event_list)
 
-    pygame.display.flip()
-    clock.tick(60)
+        pygame.display.flip()
+        clock.tick(60)
+        await asyncio.sleep(0)
 
-pygame.quit()
+    pygame.quit()
+    return
+
+asyncio.run(main())
