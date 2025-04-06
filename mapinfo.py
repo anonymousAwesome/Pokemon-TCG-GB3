@@ -84,7 +84,9 @@ class TcgIsland:
 
 class OpeningCutsceneTrigger:
     def __init__(self):
-        self.rect=pygame.Rect(0, 0, 64, 64)
+        self.rect=pygame.Rect(-2, -2, 1, 1) #disabled
+        
+        #self.rect=pygame.Rect(0, 0, 64, 64)
 
     def step_on(self, inner_context):
 
@@ -519,16 +521,41 @@ class FireClub:
         self.bg_image=pygame.transform.scale(self.bg_image, (self.bg_image.get_width() * 4, self.bg_image.get_height() * 4))
 
         self.obstacles=[
+            pygame.Rect(0, 0, 64, 1024),
+            pygame.Rect(832, 0, 64, 1024),
+            pygame.Rect(64, 0, 768, 64),
+            pygame.Rect(64, 960, 320, 64),
+            pygame.Rect(64, 896, 320, 64),
+            pygame.Rect(512, 960, 320, 64),
+            pygame.Rect(512, 896, 320, 64),
+            pygame.Rect(576, 448, 64, 320),
+            pygame.Rect(256, 448, 64, 320),
+            pygame.Rect(576, 64, 64, 256),
+            pygame.Rect(256, 64, 64, 256),
+            pygame.Rect(320, 64, 64, 192),
+            pygame.Rect(512, 64, 64, 192),
+            pygame.Rect(640, 128, 64, 128),
+            pygame.Rect(192, 128, 64, 128),
             ]
+
         
         self.interact_object_triggers=[
             ]
               
         self.step_triggers=[
+            FireClubExit
             ]
 
         self.npcs=[
             ]
+
+class FireClubExit(BaseExitClass):
+    def __init__(self):
+        self.new_x = 448
+        self.new_y = 64
+        self.replacement_map = TcgIsland
+        self.rect=pygame.Rect(384, 960, 128, 64)
+
 
 
 
@@ -538,16 +565,46 @@ class GrassClub:
         self.bg_image=pygame.transform.scale(self.bg_image, (self.bg_image.get_width() * 4, self.bg_image.get_height() * 4))
 
         self.obstacles=[
-            ]
+            pygame.Rect(0, 0, 64, 960),
+            pygame.Rect(832, 0, 64, 960),
+            pygame.Rect(64, 0, 768, 64),
+            pygame.Rect(256, 448, 384, 64),
+            pygame.Rect(256, 320, 384, 64),
+            pygame.Rect(256, 384, 384, 64),
+            pygame.Rect(64, 896, 320, 64),
+            pygame.Rect(64, 832, 320, 64),
+            pygame.Rect(512, 832, 320, 64),
+            pygame.Rect(512, 896, 320, 64),
+            pygame.Rect(64, 64, 256, 64),
+            pygame.Rect(576, 64, 256, 64),
+            pygame.Rect(128, 192, 256, 64),
+            pygame.Rect(512, 192, 256, 64),
+            pygame.Rect(512, 640, 256, 64),
+            pygame.Rect(128, 640, 256, 64),
+            pygame.Rect(128, 256, 64, 128),
+            pygame.Rect(704, 256, 64, 128),
+            pygame.Rect(704, 512, 64, 128),
+            pygame.Rect(128, 512, 64, 128),
+        ]
+
         
         self.interact_object_triggers=[
             ]
               
         self.step_triggers=[
+            GrassClubExit
             ]
 
         self.npcs=[
             ]
+
+
+class GrassClubExit(BaseExitClass):
+    def __init__(self):
+        self.new_x = 512
+        self.new_y = 256
+        self.replacement_map = TcgIsland
+        self.rect=pygame.Rect(384, 896, 128, 64)
 
 
 
@@ -557,16 +614,38 @@ class LightningClub:
         self.bg_image=pygame.transform.scale(self.bg_image, (self.bg_image.get_width() * 4, self.bg_image.get_height() * 4))
 
         self.obstacles=[
-            ]
+            pygame.Rect(0, 0, 64, 1024),
+            pygame.Rect(832, 0, 64, 1024),
+            pygame.Rect(64, 0, 768, 64),
+            pygame.Rect(256, 64, 384, 64),
+            pygame.Rect(64, 960, 320, 64),
+            pygame.Rect(64, 896, 320, 64),
+            pygame.Rect(512, 960, 320, 64),
+            pygame.Rect(512, 896, 320, 64),
+            pygame.Rect(256, 448, 64, 320),
+            pygame.Rect(576, 448, 64, 320),
+            pygame.Rect(704, 128, 64, 64),
+            pygame.Rect(128, 128, 64, 64),
+        ]
+
+
         
         self.interact_object_triggers=[
             ]
               
         self.step_triggers=[
+            LightningClubExit
             ]
 
         self.npcs=[
             ]
+
+class LightningClubExit(BaseExitClass):
+    def __init__(self):
+        self.new_x = 128
+        self.new_y = 320
+        self.replacement_map = TcgIsland
+        self.rect=pygame.Rect(384, 960, 128, 64)
 
 
 
@@ -576,16 +655,40 @@ class PsychicClub:
         self.bg_image=pygame.transform.scale(self.bg_image, (self.bg_image.get_width() * 4, self.bg_image.get_height() * 4))
 
         self.obstacles=[
-            ]
+            pygame.Rect(0, 0, 896, 64),
+            pygame.Rect(0, 64, 64, 832),
+            pygame.Rect(832, 64, 64, 832),
+            pygame.Rect(64, 768, 320, 64),
+            pygame.Rect(64, 832, 320, 64),
+            pygame.Rect(512, 832, 320, 64),
+            pygame.Rect(512, 768, 320, 64),
+            pygame.Rect(512, 512, 64, 128),
+            pygame.Rect(704, 448, 64, 128),
+            pygame.Rect(704, 192, 64, 128),
+            pygame.Rect(512, 128, 64, 128),
+            pygame.Rect(320, 128, 64, 128),
+            pygame.Rect(128, 192, 64, 128),
+            pygame.Rect(128, 448, 64, 128),
+            pygame.Rect(320, 512, 64, 128),
+        ]
+
         
         self.interact_object_triggers=[
             ]
               
         self.step_triggers=[
+            PsychicClubExit
             ]
 
         self.npcs=[
             ]
+
+class PsychicClubExit(BaseExitClass):
+    def __init__(self):
+        self.new_x = 384
+        self.new_y = 192
+        self.replacement_map = TcgIsland
+        self.rect=pygame.Rect(384, 832, 128, 64)
 
 
 
@@ -595,16 +698,42 @@ class RockClub:
         self.bg_image=pygame.transform.scale(self.bg_image, (self.bg_image.get_width() * 4, self.bg_image.get_height() * 4))
 
         self.obstacles=[
-            ]
+            pygame.Rect(0, 0, 64, 960),
+            pygame.Rect(832, 0, 64, 960),
+            pygame.Rect(64, 0, 768, 64),
+            pygame.Rect(64, 896, 320, 64),
+            pygame.Rect(64, 832, 320, 64),
+            pygame.Rect(512, 896, 320, 64),
+            pygame.Rect(512, 832, 320, 64),
+            pygame.Rect(640, 448, 128, 64),
+            pygame.Rect(576, 128, 128, 64),
+            pygame.Rect(128, 640, 128, 64),
+            pygame.Rect(256, 64, 64, 128),
+            pygame.Rect(640, 704, 64, 64),
+            pygame.Rect(640, 384, 64, 64),
+            pygame.Rect(576, 64, 64, 64),
+            pygame.Rect(128, 320, 64, 64),
+            pygame.Rect(192, 576, 64, 64),
+        ]
+
         
         self.interact_object_triggers=[
             ]
               
         self.step_triggers=[
+            RockClubExit
             ]
 
         self.npcs=[
             ]
+
+
+class RockClubExit(BaseExitClass):
+    def __init__(self):
+        self.new_x = 64
+        self.new_y = 256
+        self.replacement_map = TcgIsland
+        self.rect=pygame.Rect(384, 896, 128, 64)
 
 
 
@@ -614,16 +743,43 @@ class ScienceClub:
         self.bg_image=pygame.transform.scale(self.bg_image, (self.bg_image.get_width() * 4, self.bg_image.get_height() * 4))
 
         self.obstacles=[
-            ]
+            pygame.Rect(0, 0, 64, 1024),
+            pygame.Rect(832, 0, 64, 1024),
+            pygame.Rect(64, 0, 768, 64),
+            pygame.Rect(256, 64, 576, 64),
+            pygame.Rect(448, 640, 384, 64),
+            pygame.Rect(448, 576, 384, 64),
+            pygame.Rect(64, 896, 320, 64),
+            pygame.Rect(64, 960, 320, 64),
+            pygame.Rect(512, 960, 320, 64),
+            pygame.Rect(512, 896, 320, 64),
+            pygame.Rect(512, 128, 64, 320),
+            pygame.Rect(64, 256, 64, 256),
+            pygame.Rect(128, 256, 64, 256),
+            pygame.Rect(128, 576, 192, 64),
+            pygame.Rect(128, 640, 192, 64),
+            pygame.Rect(384, 384, 128, 64),
+            pygame.Rect(64, 64, 128, 64),
+            pygame.Rect(192, 384, 64, 64),
+        ]
+
         
         self.interact_object_triggers=[
             ]
               
         self.step_triggers=[
+            ScienceClubExit
             ]
 
         self.npcs=[
             ]
+
+class ScienceClubExit(BaseExitClass):
+    def __init__(self):
+        self.new_x = 512
+        self.new_y = 128
+        self.replacement_map = TcgIsland
+        self.rect=pygame.Rect(384, 960, 128, 64)
 
 
 
@@ -633,16 +789,50 @@ class WaterClub:
         self.bg_image=pygame.transform.scale(self.bg_image, (self.bg_image.get_width() * 4, self.bg_image.get_height() * 4))
 
         self.obstacles=[
-            ]
-        
+            pygame.Rect(0, 0, 64, 1024),
+            pygame.Rect(832, 0, 64, 1024),
+            pygame.Rect(64, 0, 768, 64),
+            pygame.Rect(64, 256, 512, 64),
+            pygame.Rect(64, 192, 512, 64),
+            pygame.Rect(64, 128, 512, 64),
+            pygame.Rect(64, 64, 512, 64),
+            pygame.Rect(64, 448, 448, 64),
+            pygame.Rect(64, 384, 448, 64),
+            pygame.Rect(64, 320, 448, 64),
+            pygame.Rect(64, 896, 320, 64),
+            pygame.Rect(64, 960, 320, 64),
+            pygame.Rect(512, 960, 320, 64),
+            pygame.Rect(512, 896, 320, 64),
+            pygame.Rect(64, 704, 64, 192),
+            pygame.Rect(128, 704, 64, 192),
+            pygame.Rect(768, 256, 64, 192),
+            pygame.Rect(704, 256, 64, 192),
+            pygame.Rect(768, 704, 64, 128),
+            pygame.Rect(640, 64, 64, 64),
+            pygame.Rect(768, 576, 64, 64),
+            pygame.Rect(768, 128, 64, 64),
+            pygame.Rect(192, 576, 64, 64),
+            pygame.Rect(320, 640, 64, 64),
+        ]
+
+
+            
         self.interact_object_triggers=[
             ]
               
         self.step_triggers=[
+            WaterClubExit
             ]
 
         self.npcs=[
             ]
+
+class WaterClubExit(BaseExitClass):
+    def __init__(self):
+        self.new_x = 448
+        self.new_y = 384
+        self.replacement_map = TcgIsland
+        self.rect=pygame.Rect(384, 960, 128, 64)
 
 
 
@@ -652,16 +842,47 @@ class AirportTcg:
         self.bg_image=pygame.transform.scale(self.bg_image, (self.bg_image.get_width() * 4, self.bg_image.get_height() * 4))
 
         self.obstacles=[
-            ]
+            pygame.Rect(0, 0, 64, 832),
+            pygame.Rect(64, 0, 704, 64),
+            pygame.Rect(320, 256, 448, 64),
+            pygame.Rect(448, 704, 320, 64),
+            pygame.Rect(448, 768, 320, 64),
+            pygame.Rect(64, 768, 256, 64),
+            pygame.Rect(64, 704, 256, 64),
+            pygame.Rect(576, 320, 192, 64),
+            pygame.Rect(576, 512, 192, 64),
+            pygame.Rect(704, 64, 64, 192),
+            pygame.Rect(320, 64, 64, 192),
+            pygame.Rect(704, 576, 64, 128),
+            pygame.Rect(192, 64, 64, 64),
+        ]
+
         
         self.interact_object_triggers=[
             ]
               
         self.step_triggers=[
+            AirportTcgBottomExit,
+            AirportTcgRightExit
             ]
 
         self.npcs=[
             ]
+
+class AirportTcgBottomExit(BaseExitClass):
+    def __init__(self):
+        self.new_x = 320
+        self.new_y = 448
+        self.replacement_map = TcgIsland
+        self.rect=pygame.Rect(320, 768, 128, 64)
+
+class AirportTcgRightExit(BaseExitClass):
+    def __init__(self):
+        self.new_x = 0
+        self.new_y = 0
+        self.replacement_map = TcgIsland
+        self.rect=pygame.Rect(704, 384, 64, 128)
+
 
 
 class ChallengeHall:
@@ -670,16 +891,51 @@ class ChallengeHall:
         self.bg_image=pygame.transform.scale(self.bg_image, (self.bg_image.get_width() * 4, self.bg_image.get_height() * 4))
 
         self.obstacles=[
-            ]
+            pygame.Rect(0, 0, 64, 960),
+            pygame.Rect(832, 0, 64, 960),
+            pygame.Rect(64, 0, 704, 64),
+            pygame.Rect(256, 64, 384, 64),
+            pygame.Rect(64, 896, 320, 64),
+            pygame.Rect(64, 832, 320, 64),
+            pygame.Rect(512, 832, 320, 64),
+            pygame.Rect(512, 896, 320, 64),
+            pygame.Rect(128, 64, 64, 320),
+            pygame.Rect(704, 64, 64, 320),
+            pygame.Rect(384, 192, 64, 192),
+            pygame.Rect(448, 192, 64, 192),
+            pygame.Rect(384, 512, 128, 64),
+            pygame.Rect(192, 384, 64, 64),
+            pygame.Rect(320, 448, 64, 64),
+            pygame.Rect(512, 448, 64, 64),
+            pygame.Rect(640, 384, 64, 64),
+        ]
+
         
         self.interact_object_triggers=[
             ]
               
         self.step_triggers=[
+            ChallengeHallBottomExit,
+            ChallengeHallTopExit
             ]
 
         self.npcs=[
             ]
+
+class ChallengeHallBottomExit(BaseExitClass):
+    def __init__(self):
+        self.new_x = 256
+        self.new_y = 128
+        self.replacement_map = TcgIsland
+        self.rect=pygame.Rect(384, 896, 128, 64)
+
+
+class ChallengeHallTopExit(BaseExitClass):
+    def __init__(self):
+        self.new_x = 256
+        self.new_y = 128
+        self.replacement_map = TcgIsland
+        self.rect=pygame.Rect(768, 0, 64, 64)
 
 
 
@@ -689,16 +945,38 @@ class IshiharasHouse:
         self.bg_image=pygame.transform.scale(self.bg_image, (self.bg_image.get_width() * 4, self.bg_image.get_height() * 4))
 
         self.obstacles=[
-            ]
+            pygame.Rect(0, 0, 64, 832),
+            pygame.Rect(576, 0, 64, 832),
+            pygame.Rect(64, 64, 512, 64),
+            pygame.Rect(64, 0, 512, 64),
+            pygame.Rect(512, 320, 64, 256),
+            pygame.Rect(64, 768, 192, 64),
+            pygame.Rect(64, 704, 192, 64),
+            pygame.Rect(64, 512, 192, 64),
+            pygame.Rect(64, 448, 192, 64),
+            pygame.Rect(384, 768, 192, 64),
+            pygame.Rect(384, 704, 192, 64),
+            pygame.Rect(384, 448, 128, 64),
+            pygame.Rect(384, 512, 128, 64),
+        ]
+
         
         self.interact_object_triggers=[
             ]
               
         self.step_triggers=[
+            IshiharasHouseExit
             ]
 
         self.npcs=[
             ]
+
+class IshiharasHouseExit(BaseExitClass):
+    def __init__(self):
+        self.new_x = 64
+        self.new_y = 128
+        self.replacement_map = TcgIsland
+        self.rect=pygame.Rect(256, 768, 128, 64)
 
 
 class PokemonDomeEntrance:
@@ -707,17 +985,112 @@ class PokemonDomeEntrance:
         self.bg_image=pygame.transform.scale(self.bg_image, (self.bg_image.get_width() * 4, self.bg_image.get_height() * 4))
 
         self.obstacles=[
-            ]
+            pygame.Rect(0, 0, 704, 64),
+            pygame.Rect(960, 0, 64, 576),
+            pygame.Rect(0, 64, 64, 512),
+            pygame.Rect(64, 448, 384, 64),
+            pygame.Rect(64, 512, 384, 64),
+            pygame.Rect(576, 448, 384, 64),
+            pygame.Rect(576, 512, 384, 64),
+            pygame.Rect(64, 256, 192, 64),
+            pygame.Rect(64, 64, 192, 64),
+            pygame.Rect(832, 0, 128, 64),
+        ]
+
         
         self.interact_object_triggers=[
             ]
               
         self.step_triggers=[
+            PokemonDomeEntranceBottomExit,
+            PokemonDomeEntranceTopLeftExit,
+            PokemonDomeEntranceTopRightExit
             ]
 
         self.npcs=[
             ]
 
+
+class PokemonDomeEntranceBottomExit(BaseExitClass):
+    def __init__(self):
+        self.new_x = 256
+        self.new_y = 256
+        self.replacement_map = TcgIsland
+        self.rect=pygame.Rect(448, 512, 128, 64)
+
+class PokemonDomeEntranceTopLeftExit(BaseExitClass):
+    def __init__(self):
+        self.new_x = 448
+        self.new_y = 896
+        self.replacement_map = PokemonDomeInterior
+        self.rect=pygame.Rect(704, 0, 64, 64)
+
+
+class PokemonDomeEntranceTopRightExit(BaseExitClass):
+    def __init__(self):
+        self.new_x = 448+64
+        self.new_y = 896
+        self.replacement_map = PokemonDomeInterior
+        self.rect=pygame.Rect(704+64, 0, 64, 64)
+
+
+
+class PokemonDomeInterior:
+    def __init__(self):
+        self.bg_image=pygame.image.load(os.path.join("assets", "maps", "pokemon dome interior.png"))
+        self.bg_image=pygame.transform.scale(self.bg_image, (self.bg_image.get_width() * 4, self.bg_image.get_height() * 4))
+
+        self.obstacles=[
+            pygame.Rect(0, 0, 1024, 64),
+            pygame.Rect(960, 64, 64, 960),
+            pygame.Rect(0, 64, 64, 960),
+            pygame.Rect(896, 192, 64, 448),
+            pygame.Rect(64, 192, 64, 448),
+            pygame.Rect(64, 960, 384, 64),
+            pygame.Rect(64, 896, 384, 64),
+            pygame.Rect(576, 960, 384, 64),
+            pygame.Rect(576, 896, 384, 64),
+            pygame.Rect(576, 192, 320, 64),
+            pygame.Rect(128, 192, 320, 64),
+            pygame.Rect(640, 640, 192, 64),
+            pygame.Rect(192, 640, 192, 64),
+            pygame.Rect(256, 320, 64, 192),
+            pygame.Rect(320, 320, 64, 192),
+            pygame.Rect(640, 320, 64, 192),
+            pygame.Rect(704, 320, 64, 192),
+            pygame.Rect(832, 576, 64, 64),
+            pygame.Rect(576, 704, 64, 64),
+            pygame.Rect(384, 704, 64, 64),
+            pygame.Rect(128, 576, 64, 64),
+        ]
+
+
+        
+        self.interact_object_triggers=[
+            ]
+              
+        self.step_triggers=[
+            PokemonDomeInteriorExitLeft,
+            PokemonDomeInteriorExitRight
+            ]
+
+        self.npcs=[
+            ]
+
+
+class PokemonDomeInteriorExitLeft(BaseExitClass):
+    def __init__(self):
+        self.new_x = 704
+        self.new_y = 64
+        self.replacement_map = PokemonDomeEntrance
+        self.rect=pygame.Rect(448, 960, 64, 64)
+
+class PokemonDomeInteriorExitRight(BaseExitClass):
+    def __init__(self):
+        self.new_x = 704+64
+        self.new_y = 64
+        self.replacement_map = PokemonDomeEntrance
+        self.rect=pygame.Rect(448+64, 960, 64, 64)
 
 
 

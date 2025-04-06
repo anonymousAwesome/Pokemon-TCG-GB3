@@ -24,7 +24,7 @@ rect_scale = 4
 fps = 60
 selection_color = (255, 0, 0, 128)
 
-TILEMAP_PATH = "./assets/maps/water club.png"
+TILEMAP_PATH = "./assets/maps/pokemon dome interior.png"
 tilemap = pygame.image.load(TILEMAP_PATH)
 tilemap = pygame.transform.scale(tilemap, (tilemap.get_width() * screen_scale, tilemap.get_height() * screen_scale))
 
@@ -122,7 +122,7 @@ def generate_merged_rects(selected_tiles):
 
 def generate_code(merged_rects):
     """Generate Python code for creating merged rects."""
-    rects_code = "\"obstacles\":[\n"
+    rects_code = "self.obstacles=[\n"
     for rect in merged_rects:
         rects_code += f"    pygame.Rect({rect.x // screen_scale * rect_scale}, {rect.y // screen_scale * rect_scale}, {rect.width // screen_scale * rect_scale}, {rect.height // screen_scale * rect_scale}),\n"
     rects_code += "]"
