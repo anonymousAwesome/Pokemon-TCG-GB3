@@ -133,7 +133,9 @@ class FFCutsceneHelpers:
             return True
 
 
-def deliver_lines(npc_self,inner_context,text,name_text=None,profile_image=None,duel=True):
+def deliver_lines(npc_self,inner_context,text,name_text=None,profile_image=None,duel=True,post_duel_text=None):
+    #may need to add an argument for pre-duel text, but currently not sure how
+    #duels are going to be handled.
     inner_context.event_manager.add_event(dialogue_facing,[inner_context.player_character,npc_self])
     kwargs_dict={}
     if name_text:
@@ -151,6 +153,9 @@ def deliver_lines(npc_self,inner_context,text,name_text=None,profile_image=None,
         #inner_context.event_manager.add_event(inner_context.phase_handler.set_duel_data,[],{"player_deck":[~~the player's deck~~],"opponent_deck":[~~the opponent's deck~~],"background_image":~~the background image~~})
         inner_context.event_manager.add_event(inner_context.phase_handler.set_game_phase,["duel"])
         #inner_context.event_manager.add_event(award_rewards,[inner_context,[~~the rewarded cards~~]])
+    if post_duel_text:
+        inner_context.event_manager.add_event(inner_context.current_dialogue.__init__,[inner_context.screen,post_duel_text],kwargs_dict)
+        inner_context.event_manager.add_event(inner_context.current_dialogue.render,[inner_context.event_list],persistent_condition=inner_context.current_dialogue.check_remaining_text)
 
     inner_context.event_manager.add_event(inner_context.map_input_lock.unlock)
     inner_context.map_input_lock.lock()

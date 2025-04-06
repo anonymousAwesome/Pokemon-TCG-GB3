@@ -140,6 +140,9 @@ class FfEntranceCutsceneTrigger:
 
         inner_context.event_manager.add_event(temp.group_move,[inner_context,8],persistent_condition=temp.check_bottom,condition_kwargs={"y_coord":1600})
         
+        inner_context.event_manager.add_event(empty_event.__init__,[60])
+        inner_context.event_manager.add_event(empty_event.decrement_loops,persistent_condition=empty_event.check_still_looping)
+        
         inner_context.event_manager.add_event(map_helpers.reload_map,[inner_context,CutsceneWaterClub])
         
         inner_context.prevent_step_trigger = True

@@ -19,9 +19,9 @@ class OpeningCutsceneGrass():
         self.sprite=characters.NPC(256,0+vertical_modifier, self.loaded_sprites,"down")
         self.rect=self.sprite.rect
 
-class OpeningCutsceneLightning():
+class OpeningCutsceneNormal():
     def __init__(self):
-        self.loaded_sprites=characters.load_sprites_from_sheet(characters.spritesheet_gb3,3)
+        self.loaded_sprites=characters.load_sprites_from_sheet(characters.spritesheet_gb3,10)
         self.sprite=characters.NPC(320,0+vertical_modifier, self.loaded_sprites,"down")
         self.rect=self.sprite.rect
 
@@ -61,9 +61,9 @@ class OpeningCutscenePsychic():
         self.sprite=characters.NPC(320,-192+vertical_modifier, self.loaded_sprites,"down")
         self.rect=self.sprite.rect
 
-class OpeningCutsceneNormal():
+class OpeningCutsceneLightning():
     def __init__(self):
-        self.loaded_sprites=characters.load_sprites_from_sheet(characters.spritesheet_gb3,10)
+        self.loaded_sprites=characters.load_sprites_from_sheet(characters.spritesheet_gb3,3)
         self.sprite=characters.NPC(256,-832+vertical_modifier, self.loaded_sprites,"down")
         self.rect=self.sprite.rect
 
@@ -210,10 +210,11 @@ class Norton():
         text1="""(So he was a hallucination the entire time. What a twist!)"""
         text2="""Oh, hello! I was just playing this video game. Did you want to duel?"""
         self.text=[text1,text2]
+        self.post_duel_text="Maybe I'M not real! Whooo-ooo-ooo! Spooky!"
         self.portrait=characters.load_portrait_from_sheet(characters.portrait_sheet_GB2,1,9)
     
     def interact_object(self,inner_context):
-        map_helpers.deliver_lines(self,inner_context,self.text,name_text="Norton",profile_image=self.portrait)
+        map_helpers.deliver_lines(self,inner_context,self.text,name_text="Norton",profile_image=self.portrait,post_duel_text=self.post_duel_text)
 
 class Helena():
     def __init__(self):

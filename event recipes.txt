@@ -148,6 +148,7 @@ Note: anything formatted like ~~this~~ means you're supposed to replace it befor
         inner_context.event_manager.add_event(inner_context.animation_manager.cancel_all_animations)
 
 		#code to trigger the dummy duel module.
+		#note that the ~~arguments~~ aren't defined, since I'm not sure what form they'll take. 
     	def interact_object(self,inner_context):
         	inner_context.event_manager.add_event(inner_context.phase_handler.set_duel_data,[],{"player_deck":[~~the player's deck~~],"opponent_deck":[~~the opponent's deck~~],"background_image":~~the background image~~})
         	inner_context.event_manager.add_event(inner_context.phase_handler.set_game_phase,["duel"])
