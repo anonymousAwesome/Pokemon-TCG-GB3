@@ -219,6 +219,6 @@ class Context:
 
         for event in event_list:
             if event.type==pygame.KEYDOWN:
-                if event.key==key_mappings.cancel_key:
+                if event.key==key_mappings.cancel_key or event.key==key_mappings.affirm_key:
                     self.phase_handler.won_last_duel=True
                     self.phase_handler.set_game_phase("overworld")

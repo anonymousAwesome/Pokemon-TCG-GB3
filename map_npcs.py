@@ -135,9 +135,9 @@ class LabTechCenterBottomLeft():
 class Aaron():
     def __init__(self):
         self.loaded_sprites=characters.load_sprites_from_sheet(characters.spritesheet_tcg2,4)
-        self.sprite=characters.NPC(3*64,4*64, self.loaded_sprites,"down")
+        self.sprite=characters.NPC(4*64,4*64, self.loaded_sprites,"down")
         self.rect=self.sprite.rect
-        self.text="This room holds the auto deck system, but it broke. Nobody ever used it, though, so it was months before anybody noticed."
+        self.text="This room holds the auto deck system, but it's completely broken. Nobody ever used it, though, so it was months before anybody noticed."
         self.portrait=characters.load_portrait_from_sheet(characters.portrait_sheet_GB2,1,1)
     
     def interact_object(self,inner_context):
@@ -195,7 +195,8 @@ class Tyler():
         self.sprite=characters.NPC(7*64,7*64, self.loaded_sprites,"down")
         self.rect=self.sprite.rect
         text1="""The first rule of the Fighting Club is: you don't talk about the Fighting Club."""
-        text2="""I mean, unless you really want to. We don't really enforce that rule."""
+        text2="""I mean, unless you really want to.
+We don't really enforce that rule."""
         self.portrait=characters.load_portrait_from_sheet(characters.portrait_sheet_GB2,0,9)
         self.text=[text1,text2]
     
@@ -221,7 +222,7 @@ class Helena():
         self.loaded_sprites=characters.load_sprites_from_sheet(characters.spritesheet_tcg2,18)
         self.sprite=characters.NPC(3*64,6*64, self.loaded_sprites,"down")
         self.rect=self.sprite.rect
-        self.text="""We are a generation of duellists, raised by Pokemon cards. And I'm wondering if more Pokemon cards are really the answer."""
+        self.text="""We are a generation of duelists, raised by Pokemon cards. And I'm wondering if more Pokemon cards are really the answer."""
         self.portrait=characters.load_portrait_from_sheet(characters.portrait_sheet_GB2,2,9)
     
     def interact_object(self,inner_context):
@@ -238,3 +239,56 @@ class Brad():
     
     def interact_object(self,inner_context):
         map_helpers.dialogue_duel(self,inner_context,self.text,name_text="Brad",profile_image=self.portrait)
+        
+        
+        
+#Water Club
+
+
+class Sara():
+    def __init__(self):
+        self.loaded_sprites=characters.load_sprites_from_sheet(characters.spritesheet_tcg2,22)
+        self.sprite=characters.NPC(5*64,11*64, self.loaded_sprites,"right")
+        self.rect=self.sprite.rect
+        self.text="""My water deck will sweep you away like a raging tsunami!"""
+        self.portrait=characters.load_portrait_from_sheet(characters.portrait_sheet_GB2,0,5)
+        self.player_won_text="Oh. It was more like a sprinkle."
+    
+    def interact_object(self,inner_context):
+        map_helpers.dialogue_duel(self,inner_context,self.text,name_text="Sara",profile_image=self.portrait,player_won_text=self.player_won_text)
+
+class Joshua():
+    def __init__(self):
+        self.loaded_sprites=characters.load_sprites_from_sheet(characters.spritesheet_tcg2,24)
+        self.sprite=characters.NPC(8*64,7*64, self.loaded_sprites,"left")
+        self.rect=self.sprite.rect
+        self.text="""I love swimming... but why do my cards keep getting wet?"""
+        self.portrait=characters.load_portrait_from_sheet(characters.portrait_sheet_GB2,1,5)
+    
+    def interact_object(self,inner_context):
+        map_helpers.dialogue_duel(self,inner_context,self.text,name_text="Joshua",profile_image=self.portrait)
+
+
+class Amanda():
+    def __init__(self):
+        self.loaded_sprites=characters.load_sprites_from_sheet(characters.spritesheet_tcg2,23)
+        self.sprite=characters.NPC(10*64,10*64, self.loaded_sprites,"left")
+        self.rect=self.sprite.rect
+        self.text="""I love Pokemon cards, but I love making puns more. Let's do some CARD-io! :D"""
+        self.portrait=characters.load_portrait_from_sheet(characters.portrait_sheet_GB2,2,5)
+    
+    def interact_object(self,inner_context):
+        map_helpers.dialogue_duel(self,inner_context,self.text,name_text="Amanda",profile_image=self.portrait)
+
+
+class Amy():
+    def __init__(self):
+        self.loaded_sprites=characters.load_sprites_from_sheet(characters.spritesheet_tcg2,29)
+        self.sprite=characters.NPC(10*64,4*64, self.loaded_sprites,"down")
+        self.rect=self.sprite.rect
+        self.text="""Warm sands and a cool drink. It doesn't get much better than this."""
+        self.portrait=characters.load_portrait_from_sheet(characters.portrait_sheet_GB2,3,5)
+        #note: still needs "Oh hell, yes." if you select "yes" to duel her.
+    
+    def interact_object(self,inner_context):
+        map_helpers.dialogue_duel(self,inner_context,self.text,name_text="Amy",profile_image=self.portrait)

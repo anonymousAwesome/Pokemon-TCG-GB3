@@ -825,6 +825,10 @@ class WaterClub:
             ]
 
         self.npcs=[
+            map_npcs.Sara,
+            map_npcs.Joshua,
+            map_npcs.Amy,
+            map_npcs.Amanda,
             ]
 
 class WaterClubExit(BaseExitClass):
