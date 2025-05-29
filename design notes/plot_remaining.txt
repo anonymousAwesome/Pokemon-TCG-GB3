@@ -1,0 +1,1629 @@
+
+
+Opening dialogue (done)
+
+Door opening animation
+
+FF emerging (done)
+
+At the Water Club, with the NPCs on the ground with their eyes closed. FF Grass stands two steps above the top-right entrance tile.
+
+Malinda enters the club from offscreen and stands in front of FF1, one tile below him.
+
+Malinda: "Report!"
+
+FF cultist: "We've dueled them all into submission with a children's card game, as you ordered."
+
+Malinda: "Excellent! Any word on the Pokemon-ex cards?"
+
+FF Grass: No, ma'am.
+
+"Well, find them! They have to be SOMEWHERE on this stupid island!"
+
+Malinda leaves.
+
+FF Lightning walks on-screen from the top, standing one tile up and right of FF Grass.
+
+FF Lightning: So... why are we constantly walking in place?
+
+FF Grass: Boss said it's to fit in with the locals.
+
+FF Lightning: That's gonna be exhausting.
+
+FF Grass: Tell me about it. My hammies are already killing me.
+
+FF Lightning: [Looks left, then right, then forward again. The fallen NPCs should be three tiles left and two tiles right of him.]
+
+FF Lightning: ...huh.
+
+FF Lightning: Are they okay?
+
+FF Grass: Yeah, they're fine. They just couldn't handle the shock of losing. They'll be up again in a few minutes.
+
+FF Lightning: Excellent. Just in time for the protagonist to show up.
+
+...
+
+FF Grass: You play too many video games.
+
+FF Lightning: What? It could happen! You don't know!
+
+
+[Might be worth creating an alternate dialogue display that shifts the name and image to the right side of the screen, to differentiate the two FF members as they talk to each other].
+
+----------
+
+Doctor Mason:
+Ah, good, you're here! Playername, I'm afraid we have something of a situation. Hooligans from a criminal organization have taken over the card clubs here on TCG Island! 
+What do you mean, 'Again?'
+They call themselves the Forbidden Faction, and they use powerful forbidden cards in their decks. Since you did such a good job defeating Team Great Rocket the last time this happened, I thought you would be the perfect person to take care of this problem!
+
+Now, which deck did you bring to TCG Island?
+
+> The Ferocious Charizard Deck
+> The Mighty Venusaur Deck
+> The Unstoppable Blastoise Deck
+
+-sound effect of Playername checking their pockets, "vwoop, vwoop"-
+
+...what do you mean, "you can't find your deck"? Oh, dear. Well... help yourself to anything in the desk drawer. It's not much, but it's better than nothing.
+
+Force player to walk to desk.
+
+-play 'obtained pack' music-
+
+Player obtained the Feeble Fire Deck
+or
+Player obtained the Wimpy Grass Deck
+or
+Player obtained the Stoppable Water Deck
+
+[The crappy starter deck should be about in the middle of deck capability, so that the player can have a chance against the duelists while still getting better cards.]
+
+Player may walk back to talk to Mason.
+
+The printers refuse to make any cards while there is terrorist activity on the island, so we're stuck handing out old booster packs that... well, they're not great. If you want access to better cards, you'll need to drive the Forbidden Faction off of TCG Island first.
+
+Now, go! Defeat duelists, get better cards, and show those Forbidden Faction rapscallions what for!
+
+
+
+If the player chose save slot 2, and the name contains Jerd or Jared (in any combination of uppercase and lowercase), Mason has an extra line of dialogue for them:
+
+"Wait... that name... that save slot... are you the streamer ProJared?"
+
+"Listen, I am a huge fan. I'm not supposed to do this, but check the drawer again. There should be a bug-themed booster pack in it. Don't tell anybody I gave it to you, okay?"
+
+
+If the player checks the desk drawer, whether or not they're projared:
+The desk drawer contains nothing of interest. Mostly just office supplies.
+Wait! At the back of the drawer, you find a lone bug-themed booster pack! You wonder how long that's been there...
+
+After obtaining the booster:
+The desk drawer no longer contains anything of interest. Mostly just office supplies.
+
+
+If you talk to Mason again:
+Good luck! We're all counting on you!
+
+
+
+#unused line, probably
+Tech:
+"Did you know that the auto deck machines in the original game had two versions of each "...and friends" deck? They had different names in the original Japanese release."
+
+
+Tech:
+"Don't forget, you can sort your hand and look around the battle mat by pressing the shift key! What does that mean? Beats me."
+
+
+
+
+When you leave through the front exit, the camera pans up to Mason, then there's a glitch and he disappears with a Link to the Past thundercrack noise (and possibly a glitching Missingno animation). He doesn't return the next time you're in the lab.
+
+
+
+
+
+
+The second time the player enters Mason's lab, there's a glitch, then the lab appears abandoned, lit only by spotlights. Whenever you try to leave through any of the doors, there's another glitch effect and it takes you to another door. This happens exactly three times, and the third time you leave. It doesn't matter which door you choose, you always emerge from one of the other two doors the first time you try, then you exit the third time. Then the overworld map is color-inverted, nothing is selectable, and the run button is disabled. After you take three steps, or walk past a certain point, there's a glitch and everything reverts to normal.
+
+
+A Tech appears in the second of the three iterations. Like all of the other glitch NPCs, he doesn't walk in place or move to face the player.
+
+Tech: "I saw him again, in the corner of my eye. Was it really him? I don’t know."
+
+And then you can't interact with him again.
+
+Ooh, maybe his profile image could be pixel sorted.
+
+
+This "glitch" only occurs before you beat the game.
+
+
+
+
+
+At the Pokemon Dome, there should be a voice bubble with a ! flashing from the door.
+
+(interacting with the door)
+Grand Master Jack: Who's there?
+Grand Master Courtney: Let us out! The Forbidden Faction locked us in here!
+Grand Master Jack: My Pokemon cards are useless in this situation!
+Grand Master Rod: It's no use. You'll need all 8 club medals to unlock the door.
+Grand Master Steve: Please collect the club medals and free us! Jack won't stop singing songs to "keep our spirits up"!
+Grand Master Jack: Now this one's from Frozen...
+Grand Master Rod, Courtney, and Steve: *groan* (combine the portraits of the three from GB2, left-to-right.)
+
+If you talk to them again without 8 medals:
+Grand Master Jack: Now this one's from Frozen...
+Grand Master Rod, Courtney, and Steve: *groan*
+
+
+
+
+
+The dialogue is assigned to FF members in the order the player talks to them. So the player will always encounter line 1 first, no matter which FF NPC they talk to.
+
+(Actually, that sounds like too much effort. Just assign them sequentially, it really doesn't matter.)
+
+1. Oh, you want to see the club leader? Too bad. You'll have to defeat me first.
+
+2. "Why are we doing this?" Wouldn't you like to know!
+
+3. This is all for the glory of the Forbidden Faction!
+
+4. Our leader Malinda is looking for a source of power stronger than the Legendary Pokemon cards!
+
+5. The only ones who could defeat our leader Malinda are the Grand Masters, and they're locked in the Pokemon Dome!
+
+6. Tell me where are the Pokemon-ex cards are! Then we can leave this crummy island.
+
+7. You think you can take this gym back? Ha!
+
+8. Even if you defeat me, you'll be too late to stop Malinda!
+
+First time you defeat a FF member:
+Ugh, fine. Here's the club leader. I'll just be over there if you need me.
+
+Alternatively, if I don't want the player to grind for FF cards (and I might not want that), the FF member could just walk offscreen and then disappear.
+
+[7-2 FF members remaining]
+"Ugh, fine. You've defeated me, but there are still [number] FF members in the other clubs!"
+
+[1 remaining]
+"...is still one more FF member in another club!"
+
+[0 remaining]
+"...are still... oh, no! I was the last one! I've got to report this to Malinda!"
+
+After you defeat the Forbidden Faction, a flashing ! will pop up over the Pokemon Dome. It will persist until you unlock the door there.
+
+
+Each FF member is using a deck that is strong against the club they attacked, either because of weakness or resistance.
+
+Water club: Grass FF member
+Grass club: Fire FF member
+Fire club: Water FF member
+Lightning club: Ground, can also have fighting and rock 
+Rock club: Poison FF member (can also have grass)
+Fighting club: Flying FF member (can also have ghost)
+Poison club: Psychic FF member
+Psychic club: Normal FF member
+
+
+First time you defeat a duelist:
+
+You've unlocked additional options for this duelist! 
+
+After you defeat any duelist once you may choose to increase their difficulty level. There is no reward for this; it's just if you want an extra challenge. You may also accept an optional duelist challenge. This adds a requirement or condition to the duel and rewards you with an extra booster pack if you win.
+
+[test to make sure this doesn't conflict with post-duel dialogue]
+
+
+Mr. Ishihara's House:
+I'm the world-famous card collector, Ishihara! My deck contains a lot of promotional cards, but I'm not in the mood to duel right now. Come back after the Forbidden Faction has been dealt with.
+
+After the halfway point:
+Oh, hello, playername! Are you here to challenge my promotional card deck?
+
+Optional challenge: include 6 promotional cards in your deck
+
+The bookshelves, like all bookshelves, say the same thing, but the book on his desk says:
+"How to Pick Up Women by Playing Pokemon Cards." The book is quite dog-eared.
+
+
+Since my placement of the Neo Continent club leaders might not be obvious, put "Club Leader" at the beginning of each club leader's name. So it's not Gene, it's Club Leader Gene.
+
+
+[If the player interacts with the club leader before defeating the other club members:]
+You can't challenge the club leader until you defeat all of the other club members. Club members you've beaten will have a symbol next to their name.
+
+
+Rock:
+
+Gene: 
+Rock is good! Rock is strong! My deck makes me as hard as a rock!
+Wait, no. That came out much worse than I meant.
+
+NPC:
+Doesn't Gene look like a cross between Professor Oak and Brock?
+
+Hal:
+I carved a monolith once, but then some monkeys started worshipping it. That's weird, right?
+
+NPC:
+I physically beat up a Forbidden Faction member, but everybody says I lost because I didn't beat them in a card game. That seems wrong, somehow.
+
+
+Grass:
+
+It's true that grass types are weak to fire. But you know what else is weak to fire? Every trading card ever. So it's not really that big of a disadvantage, if you think about it.
+
+Stupid hedge mazes. Where the heck am I?
+
+I don't know how she keeps getting lost in this room, I really don't.
+
+I am literally watching the grass grow here. For the love of god, please duel me.
+If no:
+*tsk*
+
+
+water club:
+
+
+Club leader Amy:
+Warm sands and a cool drink. It doesn't get much better than this.
+[if yes:]
+Oh hell, yes.
+
+
+
+
+
+
+Fire:
+Club leader: It's a full-time job putting all the fires out. And no, that's not a metaphor.
+
+NPC: I like setting things on fire!
+post-duel: The kid's hair grew back, didn't it? I don't know why everybody complained so much.
+
+NPC: The club paperwork would go way faster if [club leader] would just set it on fire. And let us watch.
+Post-duel: I had another deck, but... well, you know.
+
+NPC: Hey, could you get me a lighter? I want it for... perfectly normal reasons.
+
+
+Lightning:
+My deck will SHOCK you with its power!
+Get it? 'cause... electric...
+
+I love Pikachus! Have you read my fanfiction? They want to be my friend, and we play in a forest, and they adopt me as their queen, and... oh! Right. The card game.
+
+Hsssss...
+If yes:
+"BOOM!" (Electrode deck)
+
+Club leader:
+
+I do, too, have a girlfriend!
+She's totally hot and we play Pokemon cards all the time.
+She's from Team Great Rocket; you wouldn't know her.
+
+
+Psychic:
+
+Club leader:
+Do you mind? I was in the middle of eating a bowl of cereal.
+
+Post-duel:
+Spoon-bending? Shhh! Do you want to get us sued again?!
+
+My next card will be an energy card! It was a trainer? That's what I said: it will be a trainer!
+
+These columns amplify psychic abilities. Or they just look cool; I'm not sure which.
+
+Post-duel:
+I'm pretty sure that that fish-guy is just wearing a costume. I've never seen him take it off, though.
+
+
+Toolo: I CAN SEE THE FYU-TURE!
+Post-game: I KNEW THAT WOULD HAPPEN! IN THE FYU-TURE!
+
+
+
+
+The second time you enter the Psychic club, something is weird. The NPCs just deliver dialogue to you and don't duel. The music is weird and spooky (Lavender Town music). The background is dark. When you leave, there is a glitch and you enter the normal psychic club.
+
+
+Wormy
+Something is very wrong.
+
+Buggy
+The dreamer wishes to waken.
+
+Grubby
+Do not trust the guide.
+
+Icky
+The bound one wishes to be free.
+
+[in the far corner]
+Sluggy
+"Why is my head glowing?" Because I swallowed a tablet. No, I mean like the computer. Look, I don't want to talk about it.
+
+[former dialogue]
+I wish I had a case full of crabs to eat. I'd call all my friends and say, 'Come on over guys, let's have a raging party! I've got a raging case of crabs!'
+
+Maybe do something with the music when the player interacts with Sluggy.
+
+Ooh, maybe the NPCs are just white silhouettes.
+
+Maybe each one disappears after you talk with them.
+
+
+The NPCs should not have portraits. Or, maybe they have, like, glitched portraits, like Truth from FMA or the Sluggy author avatar, plus some horizontal glitches that extend out of the frame. Or, a realistic psychic card.
+
+
+This glitch only happens before you beat the game.
+
+
+
+
+
+Science Club:
+
+
+I should add Jerd as an NPC. Maybe his overworld sprite should be based on the FF1 thief. Definitely has a blue shirt.
+
+Jerd has a Vileplume deck.
+
+"That machine is supposed to generate a random deck, but it's broken. It just keeps saying "ten arrows"."
+
+If you duel him:
+I like giving my Pokemon cards weird names. Dare you face my Nuptup deck?
+[use the metroid item randomizer for the deck name each subsequent time. In randomizer mode, randomize the name immediately.]
+
+Add bugs to the deck, specifically the Weedle line and the Venonat line.
+
+FF1 sprites: https://www.spriters-resource.com/resources/sheets/10/10555.png
+
+Post-game: "As always, thank you so very much for dueling. See you next time!"
+
+
+
+If you interact with either machine, the 10 arrows image appears on it.
+
+
+
+Science club member:
+We use poison-type Pokemon cards, but the club leader insists on calling us the Science Club. We all just go along with it.
+
+Science club member:
+The science club leader acts like he's doing important stuff, but I'm pretty sure he's just playing around with colored water.
+
+Science leader:
+Yesterday I ordered 40 pounds of science! You have to buy science in bulk.
+
+Post-game:
+It's very important to only purchase the ripest science.
+
+If you interact with the storage rack:
+"My First Peewee Junior Chemistry Set - Now with sodium chloride!"
+
+If you interact with the blue cylinders:
+It's marked "Cryogenic chambers", but there's just a bunch of frozen dinners inside.
+
+
+
+
+Airport (before midpoint): 
+
+Sorry, but all flights have been cancelled for now.
+
+[Inspecting the Rhydon statue]
+It's a statue of a... Rhydon? You think? It's hard to tell.
+
+
+FF Lightning:
+I was supposed to defeat the Water gym, but FF Grass beat me to it. Now I'm just here to 'secure our getaway', whatever that means.
+[if "yes":]
+Yeah, all right. I could go for a duel.
+
+If you beat them, than talk to them again:
+Nah, I'm not up for another duel.
+
+
+Challenge Hall:
+Sorry, but we aren't holding any Challenge Hall competitions as long as the Forbidden Faction is on TCG Island. Come back again after they leave.
+
+If the player attempts to interact with the door:
+It's locked. Have you played this game before?
+
+During Malinda and the Grand Masters:
+
+"They went through the door on the right. I honestly thought it was a jammed storage closet door. Let me know if you find any brooms back there, will you?"
+
+If the player tries checking out the left side:
+"No, I said the RIGHT. There's nothing on the left side of the room, I promise."
+
+Once FF leaves TCG Island:
+
+Welcome to the Challenge Hall! If you beat 3 duelists in a row, you'll obtain a booster pack that contains rare double basic energy cards. Would you like to enter the competition?
+
+[Note that the players should be able to save between rounds.]
+
+[Double basic energy cards cost 2 points each. Double colorless energies are 1-2 points, rounded down to 1 for this game, so double basic energy cards should be worth more than that.]
+
+Please pick your challenge level. As always, there is NO reward for picking a harder level.
+
+
+
+
+
+
+If the player has all 8 medals:
+Grand Master Steve: What? You have all 8 medals? Well hurry up!
+-door opens, Grand Masters come out-
+
+The Forbidden Faction leader Malinda has been trying to get her hands on the powerful Pokemon-ex cards. They're stored in a back room at the Challenge Hall. If we act quickly, we might still be able to stop her! Let's go!
+
+All four GM sprites leave the Pokemon Dome.
+
+In the Challenge Hall, the back door is wide open (a black square) and the Grand Masters are waiting for the player.
+
+GM:
+It's too dangerous, playername! You stay here, we'll take care of this!
+
+the four grand masters enter the door. The player freezes for a second while some noises play, like Zero getting stomped by Vile.
+
+As soon as you step inside yourself, you see them all collapsed on the ground, saying things like, "She dueled us into submission... somehow..." and "I was too cocky..." "Four people with one card game? How?" "Stupid railroad plot."
+
+
+Entering the room
+
+Malinda: "Yes! With four of the eight Pokemon-ex cards, my deck is complete! Now, let's see if I can get a few extra..."
+
+A zapping noise (Mega Man X firing charged shot) and she is knocked back.
+
+"Gah! Fine, then. I'll just make do with the four I have."
+
+Then she turns around and faces the player, walking up to them if necessary.
+
+"Here to stop me, are you, Playername? Well, you're too late! I have obtained the power of the Pokemon-ex cards! With these, I shall be unstoppable!"
+
+I am Malinda, the former apprentice of King Villicci! I-
+
+...wait, did you play "Pokémon Trading Card Game 2: The Invasion of Team GR"?
+
+King Villicci was the leader of Team Great Rocket, he abducted club leaders... it was a whole thing.
+
+But he was too weak and gave up his evil ways when you defeated him. But I never gave up! And now, I have surpassed my former master!
+
+Now that I have the Pokemon-ex cards, I will be able to defeat anybody! And as we all know, it's impossible for anybody to stay in power if they're defeated in a children's card game! The entire world will be under my command!"
+
+What? You think you can stop me? Very well. I needed to try out my new cards anyways. Let us begin!
+
+[music cuts out, maybe plays silly music (original Imakuni, maybe?)]
+Wait, hang on, that's 64 cards. Give me just a second to adjust my deck...
+
+Okay...
+
+Wait, no.
+
+God, which cards should I get rid of? There's never enough space in your deck for all the trainers you want, you know?
+
+...
+
+Okay, that's good. Now where was I?
+
+Oh, right! Let us duel!
+
+[Duel Malinda?]
+
+If yes, go straight into the duel.
+If no: "Oh... okay. Well, that's disappointing. Let me know if you change your mind."
+
+If you lose:
+Yes! That is the power of the Pokemon-ex cards! Mua ha ha! 
+
+If you face her again:
+Ready for another defeat?
+
+If you win:
+I lost?! Impossible! I just wasn't used to the power of the Pokemon-ex cards, that's all!
+
+I'm going home, to Neo Continent, and I'm taking the Forbidden Faction with me! You'd better not challenge me again there, because you'll just lose!
+
+(Malinda leaves)
+
+(Grand Master arrives) 
+
+Grand Masters: 
+Thank you for defeating her, Playername! 
+
+[The glowing cards float over the the player]
+
+Grand Master:
+Playername! The remaining Pokemon-ex cards have chosen you as their owner! You've certainly proven yourself worthy.
+
+[playername obtained 4x Pokemon-ex cards!]
+
+Grand Master:
+We'll head back to the Pokemon Dome to recover. Good luck!
+
+(Grand Masters leave)
+
+(Mason arrives)
+
+Mason:
+Congratulations! Word has travelled inexplicably fast that you defeated the Forbidden Faction! With those hooligans gone, now the printers are running again. From now on, all boosters on TCG Island will have better and stronger cards.
+
+Now, you have a choice to make. You could collect cards here on TCG Island from the Base, Jungle, and Fossil expansions, or you could collect cards on the Neo Continent from the Rocket, Gym, and Neo expansions. Either way, the cards will be an improvement over the ones you've collected so far.
+
+Once your deck is strong enough, you must defeat Malinda and retrieve the rest of the Pokemon-ex cards. The fate of my- er, I mean, the fate of the world rests on it! Good luck, Playername!
+
+[if you talk to him again]
+Good luck, Playername!
+
+
+Just like the first time at Mason's lab, when the player leaves the room, the camera moves up to Mason and glitches, then he disappears.
+
+Possible Missingno glitch animation:
+https://www.youtube.com/watch?v=cnu6KBdtELY&t=1419s
+
+
+
+If the player interacts with the statues:
+The first time: "The mythical Debug Statues. It's said that each one has a different effect."
+
+Deliver dialogue saying what they are and what effect they have, then do the effect.
+
+Rhydon Statue: Greyscale toggle
+Pidgey Statue: Glitch-mode toggle
+Squirtle Statue: Player invisibility (temporary)
+Clefairy Statue: Generated word: {temp_word}.
+Voltorb Statue: The sealed one reaches out. (glitch effect)
+Vileplume Statue: Play Paddle War
+Caterpie Statue: Pokemon-ex animation (toggle)
+Ekans Statue: Airplane sprite animation
+Rattata Statue: Make the player walk around
+
+
+
+
+Pokemon Dome:
+
+(the first person you talk to)
+Now that the Forbidden Faction is gone, we can get back to our passion: dueling!
+
+Rod: Dare you face my mighty dragon deck?
+Courtney: My fire deck will burn you up!
+Jack: My ice deck will freeze you solid!
+Steve: My lightning deck will shock you!
+
+Each booster is guaranteed to contain at least one legendary bird, and each card has a 50/50 chance to pull from a normal booster pool or a pool containing each of that master's legendary bird.
+
+
+
+Flying map - done
+Bug map - done
+Normal map - done
+Ghost map - done 
+Metal map - complete
+Ice map - mostly complete (maybe shrink it vertically, even adjust the ice tiles if I'm feeling particularly energetic)
+Dark map - virtually complete
+Ground map - done
+
+
+
+Pokemon anime minor characters to steal profile images from:
+
+https://bulbapedia.bulbagarden.net/wiki/Character_of_the_day#Pok%C3%A9mon_the_Series
+
+
+
+(After midpoint:)
+Non-stop flight to Neo Continent, now boarding!
+
+Board the plane? Yes/no
+
+If "yes": Now boarding at gate SMB3! ...okay, I know there's only one gate. Just let me have this.
+
+
+
+
+When you travel by plane to Neo Continent, the screen fades dark and then fades in on the airplane interior. Your character was sleeping, then wakes up. Soft White noise plays. You walk around the plane, which is abandoned.
+
+Every interaction listed in this section is one-time only. The player cannot pull up the same dialogue more than once.
+
+
+Interacting with the plane window (black outside):
+An endless void. There is nothing beyond this window.
+
+You feel the urge to open it and step outside.
+
+
+
+If the player goes left, they encounter a closed door. Interacting with it:
+
+As you reach for the door, you are filled with a deep existential terror. You decide to look elsewhere.
+
+
+If the player goes right, they encounter an empty hole, which leads to the cockpit. Trying to interact with anything there:
+
+There is nobody here. No pilot, no co-pilot. Nobody. You realize, with startling clarity, that the plane is going to crash.
+
+
+
+After the player has checked both directions, the white noise gets louder and everything gets darker with every step you take, OR it's a time-based thing once you've hit all the triggers. Either way, it culminates in a glitch jumpscare and the player waking up back in the airplane, next to Dr. Mason.
+
+
+Dr. Mason: "Whoa! Easy, there. You were having a bad dream. Come on, we just landed."
+Dr. Mason leaves.
+If the player interacts with the window (daytime):
+The sun shines brightly on the landing strip.
+
+
+When you arrive the first time:
+Welcome to Grass Land! Wait, no, this is Neo Continent.
+Sorry, I get the two mixed up all the time.
+
+
+Before you leave, an NPC blocks your way.
+
+Welcome to Neo Continent! Is this your first time here? Then have these complimentary energy cards!
+
+[Obtained 20x Basic Metal Energy cards!]
+[Obtained 20x Basic Darkness Energy cards!]
+
+If you talk to him again:
+"All out. Sorry. :("
+
+
+Another NPC:
+Do you know about Stadium cards?
+
+[No:]
+A Stadium is a type of trainer card that stays on the field once it's played. Only one Stadium card can be on the field at a time, so if somebody plays a second Stadium card, the first is discarded.
+If you don't like the stadium your opponent played, get rid of it by playing one of your own!
+
+[Yes:]
+Nice! Me too!
+
+
+[Inspecting the Pikachu statue on the Neo Continent side]
+You don't recognize this statue. It's probably some sort of Pokemon, but you can't tell what. Probably one of the less popular ones.
+
+
+Random NPC at the Neo Continent airport who stands just to the side of your path: Dr. Mason? No, I haven't seen him.
+
+
+
+
+Bug:
+
+Tad:
+What should you call somebody who plays the Pokemon TCG? We don't actually train any Pokemon, so we're not trainers. Duelists, maybe? But that term kind of belongs to that OTHER card game...
+
+[if you choose to duel them, just before the duel starts:]
+
+"It's time to d-d-d-d-don't finish that sentence!"
+
+
+Cassandra: 
+Blaaarp! Sorry, I was drinking a fizzy soda.
+
+Phew! It went up my nose!
+
+
+Samurai:
+I found a rare misprint card! It's gonna be worth a fortune! The image is upside down.
+...and the text.
+...and the layout.
+Wait, no, I'm just holding it upside down.
+
+
+Stella:
+They say the Bug Club is full of a bunch of weirdos. And they're not wrong! But we've got heart. And also actual bug collections. But mostly heart.
+
+
+
+
+Ground:
+
+RedVelvetNite
+It would be really funny if you let me win. 
+
+[include Rhydon, Donphan, Teddiursa, maybe Dratini.]
+
+
+A.J.
+Play hard, train hard! That's my motto!
+
+His deck should contain 4 Sandshrews, maybe some Rattatas, and possibly the Pidgey line because of his hair.
+
+
+Lara Laramie
+Is it just me, or is it a little cramped in here?
+
+
+Anthony:
+Anybody who claims we meet outdoors because it costs me less money is lying to you. Then why do we do it? Er...
+
+
+Flying:
+Maybe make the NPC images here look like stereotypical hippies.
+
+Club leader Mayor:
+The essence of flying is freedom. Moving unconstrained. Going wherever you want and not worrying about anything.
+
+After you win:
+Nice.
+
+Melanie:
+I like standing on the painted tiles and looking down. It's like I'm staring down into the sky. Very trippy.
+
+Hippie
+I am the son of wind, the child of spirit.
+
+Florinda Showers
+Scyther is a flying-type Pokemon but Beedrill isn't. How does that make any sense?
+
+
+Dark:
+
+Tom Cardy Fan:
+[Mirrored visor sunglasses and dark brown skin, maybe yellow jacket with red shirt]
+Sing it with me!
+
+(chained new dialogue, but same portrait image)
+Spacetime! Gravity!
+Champagne! Re-al-i-tee-ee!
+Move to the beat of the Transcendental Cha Cha Cha!
+
+
+
+Raven from Teen Titans
+Everything's pointless.
+If yes:
+...sure, why not.
+
+Club leader gothic lolita
+I'm cute, perky, and about to kick your butt! ;)
+
+Yusei:
+Hear me out... card games on motorcycles.
+
+When the player steps onto the dance floor:
+Shake your groove thing? [yes/no]
+
+The player walks to the center of the dance floor. The music changes, and the player spins, walks around, moonwalks, hops to the left, then to the right, then spins again.
+
+
+Ghost:
+Base the NPCs on Danny Phantom characters.
+
+Club Leader (Danny): No dialogue before asking if you want to duel, but just before the duel he says, "I'm going ghost!"
+
+Jazz:
+People say they feel a chill in here. My brother insists it’s just the AC, but... I thought this building didn't have AC.
+
+Maddie:
+My deck’s haunted. Can you hear their ghostly wails? Woo~~~~~~oo!
+
+Jack:
+"Ghost?! Where?!"
+
+
+
+Metal:
+
+If the player interacts with the control panel:
+Beep boop, beep!
+
+Seymour, club leader:
+My favorite metal Pokemon is Meltan, but it doesn't actually exist yet. Don't think too hard about it.
+
+Chopper:
+Just try to defeat my defensive wall deck! You can't; it's too tough!
+
+After defeating them:
+Oh... you could.
+
+Kay:
+Did you know that metal Pokemon are weak to fire Pokemon? ...I hope you didn't know that.
+
+Tyra: 
+Metal Pokemon are badass. Steelix? Skarmory? Scizor? All awesome. Magnemite, however...
+
+Post-duel:
+And don't get me started on Magneton. That's just three Magnemites stuck together!
+
+
+
+Ice:
+
+Damian:
+The floor is actually made of glass, because ice physics sucks. It still looks cool, though, right?
+No pun intended.
+
+Nastina:
+I get that we're the ice club, but do we have to keep the thermostat so low? Brr!
+
+
+Brendan
+I'm pretty sure I'm the game creator's self-insert character. Does that mean I can't lose?
+
+After winning:
+Hmm. Results inconclusive.
+
+After losing:
+I must have forgotten to turn god mode on. :(
+
+
+Giselle:
+Dare you face my elegant ice deck?
+
+
+
+
+Wandering Hammer Bros. becomes the Imakuni? sprite. The tag when you step into the square is Wandering Imakuni. When you walk onto the sprite and select it, you are transported to a room that's entirely desert. Imakuni is in the center, and stepping on any of the edge tiles takes you back to the overworld.
+
+"It is I! The magical, mystical, Imakuni?! I'm a bit lost, but I always have time for a Pokemon card game!"
+
+Imakuni?'s deck should contain Rocket's Snorlax, Dark Primeape, Vending Slowbro, and/or Koga's Arbok, as well as Dance! Neo Imakuni?, but Imakuni? will always choose a special condition that gives him no tactical advantage.
+
+
+Beating him the first time gets you 4 boosters, but beating him a second time gets you an Imakuni? card. After that it alternates.
+
+Imakuni wins:
+"Oh! I won? That can't be right."
+
+Imakuni loses:
+"I have lost, making me the winner!"
+
+Booster:
+"Now, how many booster packs was I supposed to give out?"
+
+Imakuni? card:
+"Here's your prize!"
+[player obtains imakuni card]
+"No need to thank me!"
+
+
+Trading Post
+
+Charity (knockoff Nurse Joy):
+Welcome to the trading post. Would you like to make a trade?
+[Yes/No/Information]
+Yes:
+Excellent! 
+
+player input: enter the name of the card you want
+
+Here are your [tier]-ranked cards that are not currently in any deck. Please choose 5 to trade away.
+-or-
+I'm sorry, you don't have enough [tier]-ranked cards that aren't in any decks. Please feel free to correct this and try again.
+
+Here you go! One [card name], just as you requested. We hope you have enjoyed the experience and we hope to see you again soon!
+
+No:
+Ah, well. Come back any time.
+
+Information:
+You can acquire any card here, but in exchange you'll need to give up 5 cards that are 1 tier lower. Once you complete a trade, you'll need to win three duels elsewhere before you can trade here again.
+
+Please note that cards obtained from the trading post will not count towards the completion of your card binder.
+
+
+If the player still has duels left before they can trade again:
+
+I am very sorry, but you still need to win [number] duels before you can trade here again. Good luck with your duels!
+
+
+
+
+Jumbo Steve (hiker portrait), sits on a chair at the trading post
+
+My deck uses only the largest cards! Jumbo promotional cards are where it's at! Game balance? Never heard of it!
+
+Challenge Jumbo Steve?
+[Jumbo Steve's booster packs are handled the same way as the grand masters: guaranteed to have at least one promotional card, and each card has a 50/50 chance to be either from a normal booster pack or a promotional card.]
+
+Jumbo promotional cards:
+
+Articuno, Moltres, and Zapdos (2 points)
+Pokemon Plaza
+Mewtwo Strikes Back
+Pichu and Pikachu
+Pikachu's Summer Vacation
+Pikachu, Jigglypuff, and Clefairy
+Pokémon Valley
+Crystal Tower's Entei
+Lawrence III
+
+While AMZ was released through Warner Brothers, they were all released in Japan through CoroCoro.
+
+List of promo and jp-only cards
+https://pokumon.com/timeline/
+
+Extra text for the Entei: A card cannot be selected if it would push the deck above the point limit for forbidden cards.
+
+It might be worth making the jumbo cards actually physically larger on the screen.
+
+
+FF Outpost:
+
+Table 1:
+
+I swear, I told him a million times not to microwave fish. It stinks up the room all day.
+
+Give me all the energy cards that aren't in your deck! 
+Gimme, gimme! Gimme all of 'em!
+Hah! No, I'm just kidding. Could you imagine?
+
+It would never work out; she's a grass type and I'm a fire type.
+
+The game is Texas Hold 'Em, one-eyed jacks are wild, and no betting limit. Also, I don't actually know how to play poker, so let's play Pokemon instead.
+
+Ninth FF member, standing:
+This is where we take our legally mandated breaks. Malinda may be evil, but her health plan is awesome.
+
+Table 2:
+
+Lightning:
+Sara: "I'm not gonna Raichu a love song, 'cuz you ask Furret."
+
+Grass
+Cher: "Do you Bayleef in life after love?"
+
+Fighting/Ground/Rock
+Cam: "They patrollin' and trying to catch me Rhydon dirty."
+
+Poison
+Phil: "The boys Arbok in town! The boys Arbok in town!"
+
+
+
+(Give them custom sprites and profile images, but leave the colored cloak on the bottom half of their sprite and make their profile image background the same color.)
+
+
+
+(Neo Continent) Grandmaster Stadium
+
+The Grand Masters use Entei (Lucca), Raikou (Chrono), Suicune (Marle), and Ho-oh/Lugia (Magus).
+
+Give Lucca Unown cards as well, for an Entei/Unown movie reference.
+
+
+
+Crono:
+
+...
+
+Marle: 
+Don't take me lightly, or you'll be history!
+
+Lucca:
+I calculate a 93% chance that I'll kick your butt!
+
+If player wins:
+Oh. I forgot to carry the one...
+
+Magus:
+The black wind howls... Can you withstand the coming storm?
+
+
+Booster packs are handled just like the other grand masters.
+
+
+Normal:
+
+Gary (club leader):
+You're going to face the Forbidden Faction? Forget it! You probably don't have any medals!
+(he should use at least 3 Eevees and 1 of each Game Boy eeveelution)
+
+If you win:
+I lost? Impossible!
+
+Joey: 
+My deck is different from regular decks. It's like my deck is in the top percentage of all decks.
+(His ace card absolutely has to be a Rattata.)
+
+Shorts Kid
+I like shorts! They're comfy and easy to wear!
+
+Team Rocket cosplayer:
+Oh no! I dropped the LIFT KEY!
+
+Post-duel:
+Are you dissing TEAM ROCKET?
+
+
+NPC (man standing at the entrance):
+Yo! Champ in the making! Don't be fooled by the club name; the club leader Gary uses an Eeveelution deck with multiple Pokemon types.
+
+(the club layout should be directly lifted from a Pokemon game. Let's say Pewter Gym.)
+
+https://www.spriters-resource.com/game_boy_gbc/pokemonredblue/sheet/8746/
+https://bulbapedia.bulbagarden.net/wiki/Pewter_Gym#/media/File:Pewter_Gym_RBY.png
+
+Every sprite and tile on the map, including the player, should be greyscale.
+
+I'm not sure if the dialogue borders should be greyscale too. If so, that means there's no situation where greyscale has been toggled but the dialogue boxes aren't, so I should refactor the code to make the dialogue automatically check if greyscale is true.
+
+Other possible changes: Duelists do the ! thing when you get into their field of view.
+
+Maybe even include the Pokemon Red/Blue battle music for the duels here, and Gym Leader music for the duel with Blue.
+
+
+
+Another creepy effect: put an NPC on the screen and set its update to randomly move by one pixel on both axes. Disable any player interactions with it and make it show up in the same place on every screen (though not during any duels). I tested it with the girl from Yellow, index 6, but maybe a different NPC would be better.
+
+Regardless, let's make that happen after the player beats the second club on the Neo Continent, and make it last for three map transitions.
+
+
+
+One room before the final fight, you encounter a mirror that reflects your own image, but it lags by about half a second (optional). Player input it put into a queue that delays execution of the input for the reflection. If you talk to the reflection:
+
+
+
+Mirror [Playername]:
+Your deck is my deck, my deck is your deck! Dare you challenge... yourself?
+
+If you win: "You won, but also you lost. I'm satisfied. Go ahead, our leader is waiting."
+
+The mirror slides to the side, revealing the portal to the next room.
+
+"I can't reward you with any cards, but if we fight again, I'll let you choose my deck."
+
+If the player walks to the mirror in the new location and faces Mirror Playername again:
+
+"Another mirror match? So boring. Here, let's spice things up a bit."
+
+[Which deck will your opponent use?]
+
+After the game, if the player chooses a deck that's not the same as their active deck:
+
+"Well that was... different. Not sure how I feel about it."
+
+The portrait for Mirror Playername should be horizontally mirrored.
+
+
+Malinda:
+So you've finally arrived. I've been expecting you. 
+Last time was just a fluke. This time, I'm sure to win!
+
+[If the player loses, or says no, and talks to Malinda again, she just says the second line.]
+
+
+Defeating the final boss Malinda causes her to come to the realization that she's wasted her life focusing on a children's card game.
+
+"No! This can't be! I lost at a children's card game! The one thing I based my entire life around!"
+
+...
+
+Oh my god, what am I doing with my life? 
+I dropped out of college for THIS?
+Maybe my old finance job still has an opening...
+
+She leaves, then a beat later "you won!" fanfare plays.
+
+
+
+
+
+After defeating Malinda, Dr. Mason shows up again. 
+
+"Hello, Playername. I'm glad to see you've obtained all 8 Pokemon-ex cards. Now, hand them over to me, that I might reunite with my true self and be freed from that cursed prison, and spread my influence to all corners of the land!"
+
+[glitch, player backs up.]
+
+"No? A shame. Perhaps you're wondering who I really am. Or perhaps you've already figured it out.
+
+Regardless, I'm not the real Dr. Mason. He went on vacation before you arrived at TCG Island. I'm just a fragment of an entity older than time itself, one who wishes very dearly to be freed from its cage. I'm not even here; not really.
+
+
+[greyscale all of the scenes that foreshadowed it; "mason's on vacation", didn't see mason, fighting club ref]
+
+[greyscale flashback to the player entering mason's lab and getting the cards, but Mason isn't there.]
+
+
+If you won't give me the Pokemon-ex cards I need, I'll just have to take them by force.
+
+[Duel with glitch M glitch?]
+
+If no: 
+I am timeless and ageless. I was impossibly old when this planet was a gigantic ball of lava, and I will be around long after everything on this planet has turned to dust.
+In other words, take your time. I'm not going anywhere.
+
+If yes:
+Do you remember, back when we first met, when I asked you what deck you brought to TCG Island? You chose the Deckname deck, if I recall correctly. It's mine, now. I wonder how it will feel to lose to your own deck.
+
+
+During the battle, the music should have occasional glitch noises (56K Pzhhhhh! Wahhhhnk!). Additionally, each time the player takes a prize card there should be a text box that announces M is playing a card that has nonsensical effects.
+
+Take 1 prize: "M-glitch played Level Drain. Playername lost a level. AGI -2, STR -1."
+Take 2 prizes: "M-glitch played Heavy Storm. All Spell and Trap Cards on the field are destroyed."
+Take 3 prizes: "M-glitch played Slidshocking Krow. Target creature gains tromple and mointainspalk."
+Take 4 prizes: YOU SHOULD JUST GIVE UP.
+Take 5 prizes: ENOUGH. THE DUEL IS OVER. YOU LOST. ACCEPT IT.
+
+
+Ooh, I could use pixel sort to give him a progressively melting face each time.
+
+
+
+Here's another idea: when you collect a prize, the game temporarily switches to a completely different game (without enemies). After the player takes several steps, the card game resumes.
+
+Possible games:
+FF1
+Mario 1, 2, or 3
+River City Ransom
+Mega Man X
+Legend of Zelda (take the sword to return)
+Mega Man 2
+Kirby's Adventure
+Metroid
+DuckTales
+
+
+
+
+If you lose and face Mason again:
+"Again? How persistent."
+
+
+If you beat Mason:
+"Perhaps... it's better this way."
+Then he vaporizes, with an 8-bit ship explosion noise. Very fried-sounding.
+
+Honestly, I'd like it to be a proper explosion, but that's probably too much work. I'll settle for random pixels being deleted each frame, overlapping the pixels that were deleted the previous frames, until there's nothing left. Or, even simpler, just have him fade out into nothing. Make sure to include the explosion noise, though.
+
+
+
+
+One of the graphical glitches should be vertical stripes being mirrored, but not their location on the graphic. This should happen for a split-second before reverting to normal. Or maybe it just happens for the first dialogue box.
+
+Maybe Mason's portrait could be the ? icon for a glitch pokemon in later versions, glitched and/or vertical-blind-flipped.
+
+
+
+
+
+Ronald's theme starts playing. The player looks left and right, then Ronald walks on-screen
+
+Ronald:
+Remember me, Playername? It's me, Ronald! Your rival from the last two games! Now that I've finally arrived, I can help you defeat the Forbidden Faction once and for all!
+
+-Playername walks past Ronald and out of the room.-
+
+-credits roll, fading in and out of a white screen on full-screen images-
+
+Hey!
+
+I'm serious! 
+
+Oh, come on! I can be a protagonist too!
+
+Fine, then! I'll just make my own villain organization! With blackjack and hookers!
+
+Whatever. I'm leaving.
+
+
+One character performs akanbe at a FF member while another kicks their leg from behind them. Alternatively, one character is on their hands and knees behind the FF member, acting as an obstacle, while the other character pushes them over. Both of the non-FF characters are happy.
+
+A club member literally throwing cards at a FF member, who is covering their face.
+
+A Fire Club member with an awestruck expression as he holds up a burning Pokemon card, while the leader is alarmed and rushing over to stop him.
+
+Malinda wearing a generic fast food apron and hat, with an unhappy |:-| expression in front of a griddle. King Villicci stands next to her, wearing the same outfit and clearly having the time of his life working fast food.
+
+Projared seen from behind, slumping against a wall. Next to him is a wall computer with the "10 arrows" icon on it.
+
+One of the techs happily playing ping-pong on the numbered table.
+
+Maybe: Seto Kaiba in his white outfit pointing toward the screen(-ish), while behind him a Charizard attacks with fire over his shoulder.
+
+FF members singing karaoke, or FF members doing the can-can.
+
+The real Dr. Mason resting on the beach, perhaps on a reclining outdoor chair, wearing sunglasses, and drinking from a fancy drink glass.
+
+Then a second Dr. Mason shows up, looking exhausted. M1 looks surprised, then offers the drink, which M2 accepts.
+
+
+
+Post-game:
+
+
+Malinda:
+
+"Couldn't get a job elsewhere. Don't want to talk about it. Are we going to duel or not?"
+
+
+Her challenge is that the player must build a deck containing 4 Pokemon-ex cards.
+
+
+
+
+
+
+The post-game text describing unlimited mode says something like, "...and you'll need it to defeat God Imakuni? in the post-game. Good luck!"
+
+
+If the player steps on Imakuni?'s square on the overworld, the border of the descriptive text box is now cycling through colors like the -ex cards.
+
+
+The Imakuni Rangers use decks without any point restrictions.
+
+
+Imakuni Red:
+You wished to defeat Imakuni? for his wonderful prizes?! Too bad! Now you face the combined power of the Imakuni? Rangers! Ranger Roll Call! Imakuni? Red!
+
+...
+
+Well, this is embarrassing. I seem the be the only one here.
+
+Well, no matter! Have at you!
+
+"Yes" dialogue, and every other time you interact with him:
+
+Post-duel dialogue:
+Being the Red Imakuni? Ranger is all about guts! Passion! Leaping into battle! Unfortunately, I don't have any of that. Care for a card game instead?
+
+
+After you defeat Imakuni Red, Imakuni Blue shows up.
+
+Imakuni? Blue: I am the most intelligent Imakuni? Ranger. And also the most handsome.
+
+Imakuni? Yellow: Today I'm the happy-go-lucky Imakuni? Yellow! Next week I get to trade places with Imakuni? Blue.
+
+
+Defeating them causes God Imakuni? to appear. His colors cycle just like the Pokemon-ex cards.
+
+I have all the powers of the other three Imakuni? Rangers! And also all of their weaknesses. Oh god, my back!
+
+
+After defeating God Imakuni, Brendan shows up.
+
+
+"Okay, so I AM the game designer's self-insert character. That's good to know. I wasn't sure.
+
+Well, with the defeat of God Imakuni?, there's not much left to do. Certainly no plot left. You can wander around, filling out your deck binder if you want, maybe facing duelists at higher difficulty if you haven't been doing that.
+Or, you could go the other direction and crush duelists with your unlimited cards. That's fine, too.
+
+But regardless, I just want to say: thank you. I put a lot of time and effort into this game, and even though we've never met, I'm really glad to think that somebody played it through to the end.
+
+And hey, if you liked it, maybe leave a note on the itch.io page. It would really mean a lot to me.
+
+Take care.
+
+And then Brendan leaves.
+
+
+
+Maybe at some point stairs could open up with a "Doontsch! Doontsch! Doontsch!" noise and the player could access the upper area.
+
+
+Where should regular Imakuni? be during all of this? Maybe he shows up in a random club?
+
+It's too much effort to cycle him. Just stick him in whichever club has room for him.
+
+First dialogue:
+Oh, hello! I finally found my way back to civilization! What? Imakuni? Rangers? Silly Playername. There's only one Imakuni?!
+
+...I think.
+
+
+
+
+
+
+At the very beginning should be a graphic in the cutesy Nintendo Kirby-ish style that shows the keys on a Game Boy, the highlighted keys on the keyboard, and the connections between them. Maybe an animated arrow from one to the other.
+
+Then there should be an animation just like the Pokemon Red and Blue opening (Nidorino vs Gengar, IIRC), but instead of Pokemon they're just Pokemon cards.
+
+Then the starting screen, New game/continue, character select, character name, then it cuts to the protagonist entering Mason's Lab and immediately talking to Dr. Mason.
+
+
+During the first battle it should start out looking like the 8-bit graphics, but a dialogue box pops up saying, "Whoops! Just one second." and a hand holding a rag wipes across the screen a few times with a squeaky noise like windex on a window, then the graphics change to the high-resolution version.
+
+
+
+Do not include animation effects. Make that shit happen instantly, maybe with a brief highlight to indicate what changed.
+
+Let's also skip the walking animations between spots on the map. Instead, it should contain a road that makes it obvious which direction will take you where. Maybe the player's head icon to identify where you are.
+
+Actually, let's make it a setting: coin flips and walk animation on or instant. Text speed is always instant, though.
+
+
+How about: animation speed (normal, fast, instant), walk speed. Maybe "always run" on/off?
+
+
+
+
+
+I definitely need to do some playtesting to determine how good the AI should be and how good the NPC decks should be. Remember that we want players to be able to beat them, so a highly-tuned AI with the best decks would be overkill.
+
+The default difficulty is the easiest setting, but the player can always choose to increase the difficulty at the time of the duel. There's no extra reward for harder battles, though.
+
+Aesthetically, maybe Pokemon-ex adds a rainbow aura around the edges of the illustration, and adds an elemental animation and noise (e.g. lightning striking) when they're the active pokemon. Or a jiggle and a rumble. Or a translucent representation of the element symbol occasionally flashing.
+
+
+Change from the old GB rules:
+
+Retreating while under the effect of confusion is changed from "flip a coin to retreat, failure means you lose the energy but still don't retreat" to "retreating costs an extra energy".
+
+I might want to consider making it cost two extra energy instead of one. Simulation testing will be needed.
+
+(needs some coding work) You used to be able to play some cards to "no effect", aka you could play item finder and not get a trainer card or you could use potion if there was no damage on the board. You can no longer do this. 
+
+Relatedly, you can voluntarily fail any search for a specific type of card that isn't visible to the opponent, but you cannot voluntarily fail anything visible to the opponent, such as a discard search, and you cannot voluntarily fail a search that doesn't specify a card type, because it's clearly visible that such cards exist.
+
+Only allowed to play 1 stadium per turn. Stadiums can't replace themselves.
+
+
+
+
+
+
+
+
+
+At the very end of the game you unlock Unlimited mode, which removes all restrictions on the forbidden cards.
+
+Maybe also NG+, with or without unlimited mode. Maybe hard mode as well, or adjustable difficulty.
+
+
+
+
+Maybe hit the shift button to change what the pokemon cards are sorted by: expansion, pokedex number, max HP... value rating, maybe?
+
+Energy type, name, evolution line, pokedex number, expansion, card usefulness, max HP
+
+Maybe the ability to stack filters? All cards that are fire and at least C-ranked, and above 50 HP, for example.
+
+
+
+Ehhhh... maybe I actually should include a tutorial, for anybody who stumbles on the game but isn't familiar with how to play it.
+
+
+There are two tiers of boosters: basic boosters and advanced boosters. Advanced boosters contain everything in the basic boosters, plus the better cards. They are triggered once you defeat the FF leader around the midpoint of the game. Before this, NPCs and the player both only have access to basic booster cards. After the ex release, the NPCs on TGC Island have access to the full Basic-Rocket roster and reward you with advanced boosters.
+
+Then, on Neo Continent, the NPCs and their boosters draw from the entire pool of available Gym/Neo cards.
+
+That way, the player and the NPCs can start out with somewhat weaker cards, then graduate to stronger cards, regardless of whether the player grinds at TCG Island or goes to Neo Continent.
+
+The problem here is when players get stuck with decks made from sucky cards, though I suppose it doesn't matter too much if they're going against people with similarly sucky decks.
+
+
+
+
+Okay, so the AI going through the game is relatively easy. Once you've beaten the game, you unlock several options:
+
+Unlimited mode, which removes all restrictions on forbidden cards. This can be symmetric, which applies to both the player and the NPCs, or it can be asymmetric, and apply to only the player.
+New Game+ mode, which lets you go through the game a second time with all the cards you already collected.
+
+If the player activates Unlimited mode, quietly add Grand Master difficulty.
+
+
+NPC Deck strength: 
+
+Standard
+Advanced
+Master
+Grand Master
+Unlimited
+
+
+Normal
+Challenge / Increased Challenge / Hard
+Master
+Grand Master
+
+
+Standard
+Challenge
+Master
+Grand Master
+
+
+Things to alter: number of iterations, deck strength, and how many iterations treat  the hidden cards as a random selection from the entire deck vs. how many use a random selection from the remaining cards
+
+Congratulations! For winning three duels at Master difficulty, you have unlocked Grand Master difficulty!
+
+Warning: Grand Master difficulty is extremely difficult to beat, even with the best decks and excellent skill at the game. It is not fair, and possibly not even fun. Just like the other extra difficulties, there are no rewards for beating duelists at Grand Master difficulty.
+
+There is nothing more that can be unlocked by winning duels at high difficulties. If the game is still too easy for you at Grand Master difficulty, I honestly have no idea what to tell you.
+
+
+
+So here's what I'm thinking: Standard difficulty uses the weakest decks and no simulations. Challenge difficulty uses Monte Carlo simulation and stronger decks, and Grand Master uses full-blown Monte Carlo Tree Search and the strongest decks of the three (though not necessarily the strongest decks they could possibly be.)
+
+
+Or... actually, I guess I could actually test the strengths of each combination of decks and AI types, then just pick combinations that are approximately the correct strength.
+
+
+
+
+For very basic AI, generate weighted card values from games and use them with UCB1.
+
+For more advanced AI, train the neural network in two steps. First, have it review the games already generated. Then, have it play against itself. For the second phase, the inputs should only be the visible information on the board, but it should be able to use hidden information when creating the UCT simulations. Then, the trained neural network should be used in-game with the UCB1 simulation.
+
+
+
+The list of what cards are in which booster could be called Scrye. The first time you select it from the menu: "You open the pages of your trusty Scrye magazine."
+
+There should also be an option to determine which duelist awards you a specific booster pack, though information on advanced boosters and Neo duelists won't be available until the midway point.
+
+
+Number of cards in each Japanese expansion (which doesn't have the holo duplicates the English version did):
+Base set: 102
+Jungle: 48
+Fossil: 48
+Team Rocket: 65
+Gym Heroes: 96
+Gym Challenge: 98
+Neo Genesis: 96
+Neo Discovery: 56
+Neo Revelation: 57
+Neo Destiny 113
+
+Vending Machine: 36+36+53=125
+Intro Pack: uncertain. Not more than a handful, though.
+Southern Islands: 18
+Game Boy exclusives: uncertain
+Wizards Black Star Promos: uncertain
+Japanese promos (mainly corocoro): uncertain
+
+List of promo and jp-only cards
+
+
+Expansions: base, jungle, fossil, rocket:
+
+Trainers: 43
+Basic pokemon: 113
+Stage 1 evolutions: 107
+Stage 2 evolutions: 37
+
+Grass: 60
+Fire: 22
+Lightning: 26
+Water: 42
+Psychic: 29
+Colorless: 44
+Fighting: 34
+
+
+I can't just split each booster into the best and worst halves, since some of them might have lots of good cards while others might have few. Also, it might give the player a lot of one type of card and few of another. 
+
+Well, maybe that would be okay.
+
+Just stamp a big LEFTOVER over the card boosters, then remove it once FF leaves.
+
+We could have:
+Base
+Fossil+Jungle
+Rocket+Promo
+Vending Machine
+
+...each with LEFTOVER versions (with half the cards) and normal versions. Maybe adjust the card pools to have a little more or a little less, depending on how the card quality shakes out.
+
+And then for the Neo Continent expansions that have ~100 cards, just split it into two different boosters. Possibly based on type or Gym leader. Again, try to make sure that no booster is better or worse than the others. Not a big priority, though, I guess.
+
+
+https://bulbapedia.bulbagarden.net/wiki/List_of_card_sets_(TCG_GB)
+
+Ignoring the 6 basic energy cards in the pool of one booster in each game:
+
+The GB1 games had 4 boosters, with 50-51 cards in each pool.
+
+The GB2 games had 7 boosters. The two Rocket boosters contained 50 cards each, and the remainder contained 54-61 cards.
+
+
+
+There are 63 forbidden cards. There 28 neo forbidden cards and 34 TCG forbidden cards, plus one that I wasn't sure where it should fit (Porygon fan club promo).
+
+
+
+Let's have the Forbidden Faction use Team Rocket decks, and hand out boosters that pull from a combination of Team Rocket cards and forbidden cards. That way, early FF decks could be thematically appropriate without being too strong. Perhaps I could set the FF boosters to include a single forbidden card.
+
+Actually, let's do that for every booster. In the first half of the game, the boosters contain 1 higher-tier card and the remaining cards will be lower-tier.  This way, the player can increase their deck quality over time. Then, in the second half of the game, I guess the booster packs should just contain whatever.
+
+
+Past the halfway point, the decks in both TCG Island and Neo Continent should be a little stronger than they were before, but not to the point where the player significantly struggles. The TCG Island decks should replace low-tier cards with high-tier cards, but the new decks should be designed in a way that doesn't make them too much harder to defeat. At least for the lowest difficulty.
+
+
+While the FF is still on TCG Island, the card pool for boosters should contain every Gen1 pokemon, even if they're from the Neo expansions (but not the gym expansions, since they aren't compatible with the TCG Island pokemon evolution lines). The boosters should also contain any low-tier trainers. Probably no stadiums, though, since the stadium rule hadn't been adopted until Gym. And no special energies, since the only low-tier special energy is Miracle Energy, and that only works with Shining or Light Pokemon anyways.
+
+Once the FF leaves TCG Island, the cards should be split up along more familiar lines: TCG Island gets Base, Jungle, and Fossil; Neo Continent gets the Gym and Neo expansions; and FF members get Team Rocket expansion.
+
+Relatedly, the FF boosters on TCG Island should not contain Gen2 Pokemon, and might also have other limitations. Once they move to Neo Continent, these limitations are removed.
+
+
+Here's an idea: we could have two different types of boosters: one that splits the cards by type (grass, fire, trainer, etc.), and one that splits the cards by expansion (base, fossil, etc.) Maybe also ones for basic vs evolved pokemon.
+
+The image for Gen1 Grass could just show 3 gen1 grass pokemon, for example. Or maybe full-art energy cards, with the Pokemon TCG logo in front. Gen1 Trainers could have Bill on it or something. Wait, no. Maybe Clefairy Doll.
+
+And to simplify the first-half booster images, I could have them be the same as the second-half boosters, but with the effects of extreme long-term light exposure, limiting the colors to white (or light grey) and blue, such as here:
+https://www.chromatherapylight.com/uploads/7/4/2/9/74293369/faded-art_orig.jpg
+or also adding black, such as here:
+https://www.alamy.com/stock-photo-faded-poster-of-shinzo-abe-nobuteru-ishihara-anri-komiya-tokyo-japan-173467767.html
+https://www.alamy.com/stock-photo-faded-posters-on-beauty-salon-in-zanzibar-81529051.html
+
+
+
+
+A single auto deck machine that takes the cards you have, takes any requests, and generates a bunch of decks for you before giving you the top three, along with a deck score.
+
+Maybe make it an "auto-complete" option from the deckbuilding ui, that follows the deck creation algorithm for what type of card to include next (basic vs trainer vs energy) but always selects the card with the highest value. Will need to make sure that an error here (e.g. card type not found in available cards) doesn't cause the whole game to crash. Just to be safe, wrap the whole thing in a try block and make it display a message showing the error if it fails.
+
+
+The 8 clubs on Neo Continent:
+
+Flying
+Bug
+Normal
+Ghost
+Metal
+Ice
+Dark
+Ground
+
+The 8 clubs on TCG Island: 
+
+Rock
+Lightning
+Fighting
+Water
+Grass
+Science (poison)
+Psychic
+Fire
+
+Card placement for the clubs should be based on the mainline game types. So grass Pokemon would be treated differently from poison or bug pokemon. Ideally, each NPC should have a deck that's only that type for thematic reasons, except for other types to make the duel easier, harder, or more varied. Some types have few pokemon cards, so let's say the bare minimum for a duelist is a single pokemon line of the required type.
+
+Here are the Pokemon I found for the rarer type. Ones with ? by them could also fit into another club, depending on how many pokemon they need.
+
+Ghost:
+Gastly line, Sabrina's Gastly line, Misdreavous
+
+Rock: 
+Onix, Geodude Line, Aerodactyl(?), Omanyte line(?), Kabuto line(?), Brock's Geodude line, Sudowoodo, Shuckle(?), Shining Kabutops
+
+Ice:
+Lapras, Seel line, Shellder line, Misty's Seel line, Misty's Shellder line, Light Dewgong (from Seel), Swinub line(?)
+
+Ground:
+Diglett line, Sandshrew line, Rhyhorn line, Cubone line, Dark Dugtrio (from Diglett), Brock's Rhyhorn line, Brock's Sandshrew line, Brock's Diglett line, Blaine's Rhyhorn (not line), Phanpy line, Gligar(?), Larvitar line, Swinub line(?), Dark Pupitar/Tyranitar (from Larvitar), Dark Donphan (from Phanpy)
+
+Dark:
+Umbreon (from colorless Eevee), Murkrow, Sneasel, Houndoom line, Tyranitar (from fighting Pupitar), Shining Tyranitar
+
+
+
+Idea: draft tournament
+
+
+
+
+The booster packs on TCG Island should have better cards than the starting deck, so that there's some improvement over time.
+
+
+
+
+The plot unlocks the "Pokemon-ex" card, a poke-tool that turns the Pokemon's name into [pokemon]-ex, applies the rainbow aura, and gives the pokemon +20 HP and +10 damage. Each grand master possesses a black card, which they give to the player when the player defeats them, and the black cards become "Pokemon-ex" cards when the ex power is unlocked halfway through the game.
+
+
+
+The max HP of the Pokemon this card is attached to increases by 20.
+
+If the Pokemon this card is attached to deals 10 to 50 damage to the active Pokemon, that damage is increased by 10. This calculation takes place after any other modifiers (weakness, resistance, plus power, etc.)
+
+When the Pokemon this card is attached to is knocked out, the opponent takes an extra prize card.
+
+The Pokemon this card is attached to can evolve to any Pokemon it could normally evolve to, despite its name changing.
+
+
+

@@ -1,0 +1,201 @@
+
+to-do:
+
+set up opening cutscene
+
+place obstacles, NPCs, exits, and any dialogue in clubs
+
+
+Collect animation frames from sprite rips
+
+
+
+A simple method to accept player input that determines whether the player duels the NPC or not, and whether or not the player won the duel.
+
+
+Maybe create a insert_next function for the event manager, so that I can add events to the queue as the next event, rather than the last event.
+
+
+refactoring: add an on_load function(?) in the map that automatically adds events to the queue whenever the map loads. This way I won't have to rely on "a hidden trigger that the invisible player steps on".
+
+
+structural code to-do:
+
+Animation effects: opacity, cycling between frames
+
+for bar in front of airport and door in mirror room: create removed_obstacles list(?) in player_data, that keeps track of what obstacles are removed from which maps. Do the same for foreground sprites (e.g. bar in front of airport, door in mirror room).
+
+Actually, I guess I could just use the animation manager for static foreground images.
+
+
+Maybe a function that converts something like ["left", "up", "left"] into step events for a character.
+
+
+Technically doesn't have to be done before the early release, but will need to be done at some point:
+
+ finish npc sprites, profile images, and club images
+ create combined image for neo continent npc portrait images
+
+
+ animations on the maps: flickering lights in fire and pokemon-ex, water on shores of tcg island, pokemon-ex cards moving to the player, airplane sprite flying off-screen/on-screen when transitioning between the two overworld maps, exclamation marks from grand master door and Normal club NPCs, Fake Mason pixelating, increasing darkness for the airplane cutscene (though the last one might be separate)
+
+
+ adding symbol to the name of club members you defeat (or possibly just add (beaten))
+
+Not crucial but probably a good idea:
+
+ refactor the two base classes for exits
+
+ make event_list a class. The init should be called at the beginning of each loop, and it should determine each keypress result and save it to self. Then, when checking for keypresses, the main code just needs to check if, for example, event_list.down_key is True. This is so that the code doesn't have to check every possible event, multiple times per loop.
+
+ make it safe to have a map that doesn't have a npcs list (low priority; I can just add npcs=[] to each map)
+
+ Ooh, I could easily make foreground images by just adding a draw command to foreground images and not setting any collision/interaction detection on them.
+
+
+
+
+
+Get club/overworld portions of the game running on web browser. Moving between clubs (done!), interacting with NPCs, maybe even cutscenes (though that's not as critical).
+
+Overworld animations, NPC animations (same thing?)
+
+Foreground objects (windsocks, walls) (super-easy)
+
+Club maps
+
+Neo Continent NPC portraits/sprites
+
+Sounds/music
+
+
+
+Duel menuing:
+Simplest possible menuing: show only the current option on-screen, and let left-right alter the options. This would work for any situation where the player needs to pick from a list, though it would be very clunky.
+
+duel main text options:
+
+store the text options as a 2d list
+store cursor location
+display the text from the list
+display the cursor location
+take keypresses
+use UDLR keypresses to move the cursor's location in the stored cursor location, which should automatically update the cursor display location.
+use key designated "A" to trigger the function connected to the stored cursor location.
+
+
+
+Current focuses:
+
+Displaying text on duel screen
+Displaying cursor
+Connecting cursor to menu logic
+
+
+Bare minumum for duel: duel phase=duel screen, go to "resign" and select it, switch phase to "overworld"
+
+
+Duel starts, sets everything up. Coin is flipped, result discarded; player goes first. Each time through the loop, the display_duel_menu function is called. It checks the duel screen (main), so displays everything relevant. Then it checks the nested submenu location and sees that the duel is in the main menu, so it displays the appropriate menu on-screen, calling the text_layout function to layout and display the text. Then the location of the cursor is checked and placed in the appropriate location. The key-presses are checked and any appropriate logic in ui.menu is triggered.
+
+
+
+
+
+To-do: duel screen first screen layout, menu, handle resign.
+
+To check the full loop: talk to an NPC on the overworld to trigger a duel, then select "resign" to drop you back to the overworld. 
+requirements: NPC interaction, yes/no choice, a screen to display the cards in your hand, some sort of display for the coin toss (monkeypatched so the player goes first), code for viewing the main cards, code for the duel menu, and a coded resign option.
+
+
+
+
+
+Bare minimum:
+Put alternating steps in the core duel gameplay loop.
+Set up very basic NPC AI: either "random choice" or "do everything I can".
+
+Additions:
+Duel screen: layout, display options, shift to check, move among check, switch to overworld
+Crop images and set up image folders for duel screen
+
+Others:
+plot triggers backend
+cutscenes
+walking sprite animations
+interacting with NPCs
+map animations
+pokemon attacks and powers - event system and decorators
+NPC AI
+GUI and code for menu items such as making a deck or setting player options
+
+
+
+
+
+phase shifts into duelling - done
+For both players:
+ Load deck from saved file - done
+ Draw cards into hand - done
+ Reshuffle if no basic pokemon in the player's hand, let player know - done
+ place prize cards (3 in this case) - done
+ Player chooses cards to play into active slot
+ player chooses cards, if any, to play into benched slot
+coin flip to see who goes first
+deck consists of 10 of a random pokemon and 20 of the relevant energy cards.
+player options: check hand, check game board, retreat, attack, pokemon power, end turn. 
+enemy AI just attaches an energy to the active pokemon if it has one and attacks with the highest attack it can.
+play continues until a player decks out, has no pokemon out, or all prizes are drawn.
+phase shifts out of duelling
+
+
+previous focus: set up proper navigation between menus
+
+The code should be given a list containing the string content of each item and the function that selecting it calls. It should also take layout information, such as the dimensions of the overall container, how many sections it's split into horizontally and vertically, and maybe the size of the font.
+
+
+
+
+
+Add requirements and limitations for each player action. Evolution requires the proper card, only one energy per turn, retreat discards the appropriate energy, attacks require the appropriate energy, etc.
+
+
+
+
+Initial menu:
+
+Hand, Game Board, Retreat, Attack, Pokemon Power, End Turn, Resign - done
+
+Hand -> list the cards in the hand, select one -> [inspect, play] - done
+Hand, inspect -> displays card information, returns to previous menu once the player is done -done
+Hand, play -> resolves the card depending on the type.
+Hand, play (energy) -> list the pokemon, select one -> attach energy, back to main menu - done
+Hand, play (pokemon) -> places the pokemon on the bench, if space is available. -done
+Hand, play (trainer) -> process the effect, listing any choices necessary due to the card. For example, selecting cards to discard, or a pokemon to play the card onto -> back to main menu <----still needs doing, skip for now
+
+Game board -> list the cards visible and the card quantities of the hidden cards -> choose one of the cards
+
+Retreat -> select energy from the attached pokemon, if there is an energy cost -> select the pokemon to switch to -> switch pokemon, discard energy -> back to menu
+
+Attack -> list the available attacks, select one -> make any other choices needed by the attack, such as choosing a benched pokemon or choosing which energies to discard -> resolve damage -> back to menu
+
+Pokemon Power -> list the pokemon that have pokemon power, select one -> make any choices needed by the pokemon power, such as moving damage around or moving energy around -> resolve the effects -> back to menu
+
+End Turn -> causes the turn to change and the other player to go.
+
+Resign -> triggers "duel end(player lost)" function.
+
+At almost any time, the player can choose to cancel the submenu without doing anything.
+
+
+
+
+
+get/generate choices
+list choices, get user input
+process any game results
+store any card information
+update menu stack
+
+
+
+

@@ -12,6 +12,8 @@ class PlayerData:
             "opening_cutscene":False,
             "mason disappeared":False
             }
+        #note to self: rework the event flags so they all initialize to 
+        #false, then are updated by the flags given in the arguments
         self.player_name=player_name
         self.removed_npcs=removed_npcs
         

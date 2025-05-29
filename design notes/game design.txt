@@ -1,0 +1,568 @@
+Don't forget to check the cards against the mistakes in the Pokemon->Mistranslations folder of my bookmarks
+
+
+When the player walks on a club in the overworld, and the program displays the location text, the text box should start with the medal symbol if the player has obtained the medal from the club already.
+
+
+The coin flip could also be used, but horizontally, when the player obtains a medal.
+
+Optional: let the player turn a card image into a coin.
+
+
+In general, I think I need to implement a function where the player can press and hold an arrow key with a pause before the game recognizes that the player wants to repeatedly enter the button.
+
+It might just be pygame.key.set_repeat(). I'm not 100% sure about that, though, because it means the equivalent of the A button would also be holdable, and I don't want that.
+
+At the start of the game the player is told to choose their avatar. Mark is the first one, but the player cycles left or right between options. Somewhere on the screen there should be a text box that says "Source: [source]". The player cycles through Pokemon TCG2 sprites, then Pokemon Crystal sprites, then Pokemon Yellow sprites.
+
+If we're feeling up for it, we could code a box surrounding the current sprite, then a row of sprites to the left and the right of it.
+
+And then maybe, if there are too many sprites for quick navigation, the player could move the cursor to the source and switch between the three.
+
+
+Once an avatar is selected, the player has the opportunity to choose custom colors. Either from a predetermined set of color options, or the advanced color selection that uses sliders.
+
+I could also reuse the color selection options (existing palette, sliders) to let the player customize the text box border color from the menu.
+
+The advanced color selector should show the swatches of the colors, along with what the animated walking sprite would look like. There should also be a rectangle surrounding each swatch indicating which color is being changed. Once all 4 colors are selected, there should be a "Confirm these settings?" textbox.
+
+Holding ctrl adds a delay to the movement of the slider, holding alt makes the slider move more at a time. There should also be a note to that effect on the screen. Though, that does mean I can't just use ctrl to move to the next color. Maybe the arrow keys, then, moving down from the sliders and onto the swatches, then ctrl and alt, and the left-right keys, to move between swatches.
+
+If you select custom colors, the game should remember them and apply them to each sprite you look at. There should also be a "reset colors" option.
+
+There should also be a game menu option "alter the player avatar" option that takes you back to the sprite selection screen.
+
+
+There should be an option to set control inputs before the game even starts, so a streamer using a controller (cough projared) doesn't need to mess with the settings on-stream.
+
+
+
+At the beginning of the game the player character didn't bring his deck to TCG Island, so he gets a crappy loaner deck.
+
+To create a sense of progression I'm going to sort the cards from Base to Rocket by value. (Actually, the program will do that for me, as a side-effect of how I'm coding the AI.) Until the Forbidden Faction is expelled from TCG Island around the halfway mark of the game, the booster packs will only contain cards that are in the lower half of the power/utility ranking. This will be justified in-game by the card printers not wanting to operate while there is terrorist activity on the island.
+
+The trainers will only have decks that pull from the same card pool, so there should still be fair battles.
+
+Forbidden cards can be obtained by defeating the Forbidden Faction members that are scattered about the island. These tend to be on the high end of the power scale. Each forbidden card has a point value from 1 to 8, and you cannot make a deck that is worth more than 8 points.
+
+Normal trainers will not use forbidden cards in their decks, but the FF members will.
+
+Once you defeat a trainer you unlock the ability to increase the strength of their AI. This is not rewarded in any way, it's only if the player wants a self-imposed challenge.
+
+You also unlock optional challenges that reward you with extra booster packs if you win the duel. Examples:
+
+The only energy cards your deck can contain are basic energy cards, of the same type that the trainer has.
+You must include 4 of a specific basic Pokemon that the trainer has.
+You must include 5 Pokemon with Dark in their name
+You must include 5 (gym leader name) Pokemon
+You must include N cards from a certain expansion
+Your deck cannot contain forbidden cards.
+Your deck cannot include trainer cards.
+Except for basic energy, the player's deck can only contain cards from Neo Continent.
+Max HP limit (50 or 60)
+Your deck must contain at least 30 energy cards, including both Basic and Special energy.
+Singleton Format: only one card of the same name per deck, regardless of expansion (except basic energy). You could not run an Eevee (Jungle) and an Eevee (Rocket) in the same deck. You could, however, run a Gyarados, a Dark Gyarados, and a Giovanni's Gyarados, because they all have different names.
+Semi-Singleton format: only one of each named card from each expansion (except basic energy). You could run an Eevee (Jungle) and an Eevee (Rocket) in the same deck.
+Black hole: All discarded cards are instead removed from play
+Recycle Energy: all energy cards that would get sent to the discard pile are instead returned to the player's hand
+"Attack the Horn!": Resistance for all Pokemon is reduced from -30 to -10
+No Weakness: All Pokemon weaknesses are ignored
+Broken Ground: +1 to all retreat costs
+Peek-a-boo: -1 to all retreat costs
+Unlimited Power!: There is no limit on the number of energy cards that can be played a turn.
+Unlimited [energy type] Power!: There is no limit on the number of [energy type] energy cards that can be played a turn.
+Super Energy Transfer: You may move energy from one Pokemon to another as often as you like during your turn.
+Supermon: All Stage 1 and Stage 2 Pokemon can be played directly from the hand as Basic Pokemon, or evolved as normal.
+Semisupermon: All Stage 1 and Stage 2 Pokemon can be played directly from the hand as Basic Pokemon, but no Pokemon can evolve.
+Ya Basic!: No Stage 1 or Stage 2 Pokemon are allowed in the deck. 
+Stealth Rock: Every Pokemon takes 10 damage whenever it becomes the new active Pokemon.
+Toxic Spikes: Same, but poison status.
+Sleepwalking: Same, but sleep status.
+It Hurt Itself!: Same, but confusion.
+Can't Move: Same, but paralysis.
+Elemental Mayhem: At the start of each player's turn, all Pokemon of a random type become -ex Pokemon until the end of the turn.
+Last Stand: Whenever a player has only one prize card left, all of their Pokemon become -ex Pokemon
+X-ray Vision: Both players play with their hands and prize-cards face-up.
+Double-sized decks: each player's deck is made of 2 60-card decks
+Randomized weakness/resistance: "weakness/resistance on a Pokemon is randomized whenever it is played to the bench"
+Heads, I Win; Tails, You Lose: the first coin flip of every attack or effect is always heads.
+Gambling Damage: deal 10 damage to your opponent's pokemon whenever you flip a coin. A single attack only deals an extra 10 damage, no matter how often you flip the coin for the attack.
+
+The goal is not to provide a challenge, but to encourage the player to try different decks and to add variety to the player's game experience.
+
+The NPC decks should also adhere to the challenge requirements.
+
+
+
+After the first time you face the Forbidden Faction leader, around the midway point of the game, several things happen: 
+
+* You obtain 4 "-ex Pokemon" trainer cards
+
+"-ex Pokemon" card text:
+> The max HP of the Pokemon this card is attached to increases by 20.
+> 
+> If the attached Pokemon's attack deals 10 to 50 damage to the opponent's active Pokemon, that damage is increased by 10. This calculation takes place after any other modifiers (weakness, resistance, plus power, etc.)
+> 
+> When the Pokemon this card is attached to is knocked out, the opponent takes an extra prize card.
+> 
+> The Pokemon this card is attached to evolves as if it were not an -ex Pokemon, despite its name changing.
+
+* You unlock advanced booster packs, so the player can travel around TCG Island and get better cards. You also unlock the airport, so you can travel to Neo Continent, home of the Gym and Neo expansions and collect cards there.
+
+* The FF members disappear from the TCG Island clubs and new ones appear in the Neo Continent clubs, with the cloak color matching the club type.
+
+
+
+With the inclusion of dark and steel type in the TCG, there are just enough types for each club on the Neo Continent to be unique. Though, finding enough Pokemon to fully stock them might be an issue.
+
+The 8 clubs on TCG Island: 
+
+Rock
+Lightning
+Fighting
+Water
+Grass
+Science (poison)
+Psychic
+Fire
+
+The 8 clubs on Neo Continent:
+
+Flying
+Bug
+Normal
+Ghost
+Steel
+Ice
+Dark
+Ground
+
+Here are the Pokemon I found for the rarer type. Ones with ? by them could also fit into another club, depending on how many pokemon they need.
+
+Ghost:
+Gastly line, Sabrina's Gastly line, Misdreavous
+
+Rock: 
+Onix, Geodude Line, Aerodactyl(?), Omanyte line(?), Kabuto line(?), Brock's Geodude line, Sudowoodo, Shuckle(?), Shining Kabutops
+
+Ice:
+Lapras, Seel line, Shellder line, Misty's Seel line, Misty's Shellder line, Light Dewgong (from Seel), Swinub line(?)
+
+Ground:
+Diglett line, Sandshrew line, Rhyhorn line, Cubone line, Dark Dugtrio (from Diglett), Brock's Rhyhorn line, Brock's Sandshrew line, Brock's Diglett line, Blaine's Rhyhorn (not line), Phanpy line, Gligar(?), Larvitar line, Swinub line(?), Dark Pupitar/Tyranitar (from Larvitar), Dark Donphan (from Phanpy)
+
+Dark:
+Umbreon (from colorless Eevee), Murkrow, Sneasel, Houndoom line, Tyranitar (from fighting Pupitar), Shining Tyranitar
+
+
+Which cards are contained in which booster pack, or if there should even be multiple booster packs on each map, is an open question.
+
+If there are multiple boosters, the list of what cards are in which booster could be called Scrye. The first time you select it from the menu: "You open the pages of your trusty Scrye magazine."
+
+Unlike the Game Boy games, the player can have the same instance of a card in multiple decks. Also, the player starts the game with 20 of each energy.
+
+If a player has 4 or more of a specific card, the odds of it showing up in a booster are drastically reduced, so that it never actually shows up unless the player already has 4 of every card in the pool.
+
+Booster packs should not have doubles. This is partly to ensure slightly more diversity, but also so that there won't be 10 of the same card in a booster if that's the only card the player doesn't have 4 of.
+
+When the player beats the game they unlock Unlimited mode, which is a config setting that removes restrictions on forbidden cards and removes the waiting period between trades at the trading post.
+
+
+
+
+When the booster packs are "opened", maybe display the card images to menu between, instead of the card names. Or, OG text plus also images. Dunno, needs design testing.
+
+
+
+
+Optional game modes (once the game is fully coded):
+Booster draft tournament
+Randomizer (be sure to make the 10 arrows icon visible with the Zelda "item get" noise when this is selected)
+Reverse mode, where you start on Neo Continent.
+Free play mode, where the player has all cards and can cause any NPC to have any challenge.
+
+
+Possible extra rewards for defeating trainers:
+coins for beating the club leaders
+custom card backs for beating somebody enough times
+
+
+
+
+
+
+
+Actually, I think the boosters should be broken up, for two reasons. First, it will allow the player to drill in on a specific card they want to obtain. Second, it helps keep a player from finding a degenerate strategy to defeat one specific NPC and just grinding them indefinitely.
+
+The booster should be large enough to keep the cards sufficiently random, and to keep players from maxing out their deck contents before the end of the storyline. But they should be small enough that a player should have decent odds of getting any specific card relatively quickly. The Pokemon GB games seem to put this between 50 and 60 cards per booster. No idea if this is an optimal number, but let's go with it.
+
+
+
+
+When running battles to update the card values, make half of the decks use random deck generation with rules, and half pick from the weighted values.
+
+
+A member of FF is located in each gym, wearing robes of their energy color. They're the only ones on TCG Island who use forbidden cards, and they reward you with boosters of forbidden cards when you defeat them.
+
+When you pass the midway point the eight FF members that were at TCG Island move into the FF castle lobby, with better decks that draw from all expansions. 
+
+In order for the player to be able to access FF boosters, the FF members need to be accessible to the player. So the castle will be the only map that uses a central location, the main path forward, and a lobby to the left (either a large room or two connected rooms).
+
+Going forward requires all 8 Neo Continent medals. Having them unlocks the door. Past that is an empty room with a mirror at the far end. Defeat your reflection and you gain access to Malinda. Defeat her and Glitch-Mason shows up. Defeat him and the game ends.
+
+
+From a programming perspective, the mirrored NPC should be a separate class from the player or NPCs, but it should still take player input. The mirror should be wide and let the player interact with it along any point. The NPC shouldn't have any obstacle collision, but the mirror should. Once you beat the NPC, a black doorway should appear, a foreground object that covers up the mirror, and the obstacle rect that was there should be removed.
+
+
+
+To speed the process of deckbuilding, there should be an auto-fill option to complete a partial deck, or an empty one, using the cards the player owns with the best scores.
+
+Alternatively, I could have Sam offer to make a deck for the player based on the cards they have, possibly with an energy and/or card requirement.
+Ooh, I could have him offer decks based around specific challenges.
+
+
+
+
+The game should have a dark mode option that switches the background color and the text color.
+
+
+
+
+
+
+The game should have a "set controls" menu option, where it goes through the controls and has you press buttons on the keyboard to set them.
+
+The game should accept mouse clicks and double-clicks on the duel screens.
+
+Don't forget to include support for a game controller.
+
+Let's include Basic Metal Energy and Basic Darkness Energy cards. Then rename the special energy cards to "Special Metal Energy" and "Special Darkness Energy".
+
+
+When obtaining a TCG Island card before FF is defeated, the music should drop in tone as it goes on, possibly wavering as it does, like it's losing energy and kind of disappointing.
+
+The packs should also have tears/stains/water damage on them.
+Ooh, maybe I could rotate the pokemon image a lot, so it's clipping off the edges of the back and almost illegible as the pokemon. More horizontal than vertical.
+
+Maybe shifted to the right or left as well. Maybe include the Pokemon logo in the right spot, but not the Pokemon.
+
+Maybe just shift it horizontally and wrap it around, as if it got cut off in the wrong place.
+
+Maybe add a grimy background.
+
+Goldeen floating upside down with Xs in its eyes
+
+
+
+
+
+Let's have the AI use an extremely crude version of Damage Swap and Energy Trans:
+
+Move damage/energy from the selected Pokemon to the Pokemon with the largest space for it (damage space is "remaining HP-10", energy space is "energy still needed to fuel the heaviest attack"). It can only do this once per turn.
+
+This should limit the possible outcomes to 6, one for each selected Pokemon. That way I won't have to worry about the combinatoric explosion caused by splitting or concentrating damage among multiple Pokemon.
+
+
+In addition to "transfer (1:1)", there could also be "spread (1:many)" and "concentrate (many:1)" that automatically use all the Pokemon above a specific threshold for the "many". This would have the disadvantage of tripling the number of options, but it might improve the gameplay enough to be worth the extra processing cost.
+
+Another option is to only use transfers and limit each individual Pokemon to transferring energy or damage once a turn. In the worst case, this would make the first transfer 6 options, then 5, then 4, etc. It would, however, cause a noticeable lag for the player as the AI calculates anew each time. Either that or do them all in the same action, but that would greatly increase the branching factor.
+
+
+
+Honestly, I'm leaning towards transfer/concentrate/spread. A worst-case scenario of 18 options isn't great, but it gives the AI a lot more to work with.
+
+
+
+
+
+
+The Grand Masters and Neo Grand Masters should each give out 1 legendary Pokemon, selected randomly from a pool that includes all of their specific chosen card, excluding any forbidden cards or cards with that they wouldn't have access to (for TCG Grand Masters). That means no Rocket's Zapdos, Rocket Moltres, or Blaine's Moltres, and possibly no Dark Dragonite for thematic reasons.
+
+I *might* include a pseudo-booster cover, just to indicate that it's a randomized result. Yeah, it could have an image of the Grand Master on the front. Maybe gold foil.
+
+card pool:
+
+Fossil Articuno
+Vending A
+Promo A
+
+Base Z
+Fossil Z
+Vending Z
+Promo Z
+
+Fossil M
+Vending M
+Promo M
+
+Fossil Dragonite
+ANA Promo D
+GB Promo
+*Maybe* Dark Dragonite
+
+How about we lump all of them together and use them for a booster pack that contains fewer than the usual number of cards in it. Say, 3.
+
+...maybe not. I dunno.
+
+
+Ooh, I got it. Each grand master has their own pool. Their booster pack is guaranteed to contain at least one card from their pool, and each card in the deck has a 50/50 chance to pull from a normal booster or their pool.
+
+
+
+
+Don't forget to include "juice", sine waves and lerps (linear interpolations), in the menu and the duel screens.
+
+
+Maybe include gold-colored outlines to indicate cards that are above the cut-off point for the shitty boosters, so maybe S-B/C.
+
+
+
+On the world map, make it so that if the player walks into one of the locations, they stop moving and have to hit an arrow button again to move.
+
+
+
+To avoid epilepsy problems, the glitch effect should be on for a full second, off for a full second, then on/off for half a second. Let's use a snippet from the tail end of 56k modem noises, at 2x speed, for the sound.
+
+Also, screen transitions in general shouldn't be white.
+
+Come to think of it, I should make it so that each game text can't load any faster than 1/3rd of a second. This also has the happy side-effect of making it so that most players will will have enough time to react before accidentally choosing a dialogue option.
+
+When making a yes/no choice, neither should be selected until the player selects left or right with their cursor. This is to prevent the player from accidentally making a choice they didn't mean to.
+
+
+Idea for something that might be nice to have, but isn't a priority: an undo option
+
+
+
+Selection algorithm: epsilon greedy, UCB. Both start with no information and update with new information to refine the selection. Meant to converge on an optimal result. Epsilon-greedy is computationally cheaper than UCB, but I'm not sure if UCB would be more effective.
+
+Making epsilon-greedy faster:
+https://medium.com/@gridflowai/part-2-in-depth-exploration-on-epsilon-greedy-algorithm-2b19e59bbe22
+
+Try initializing the selection algorithms with very weak starting information, see if that improves performance.
+
+Simulation function: random choice, weighted random choice (direct probability matching, temp-scaled softmax, ranking(?)). Works from static, not dynamic, weights. Has larger variance than selection algorithm.
+
+AI:
+Initialize weights to zero.
+Use a selection algorithm to choose between initial options. Then use a simulation function to simulate the rest of each rollout.
+Increment weights of cards that won. Possibly decrement weights of cards that lost.
+
+Adding trees:
+Add the tree structure and the expansion and backpropagation steps from selection/expansion/simulation/backpropagation. (Selection and simulation are already accounted for.)
+
+
+
+
+Menu option "always run" inverts walk and run.
+
+
+Menu option to change the default duel difficulty.
+
+
+"Speedrun mode" that toggles off dialogue and cutscenes, toggles on an in-game timer, and toggles on "run by default".
+
+
+
+
+
+Benchmark AI: 
+
+A deck using generic Pokemon cards and energy cards and nothing else.
+
+Generic pokemon (no weakness, no resistance):
+
+Basic
+HP: 50
+Retreat Cost: 1
+10 dmg for 1 energy
+20 dmg for 2 energy
+
+Stage 1
+HP: 70
+Retreat Cost: 1
+40 dmg for 3 energy
+
+Stage 2
+HP: 90
+Retreat Cost: 2
+40 dmg for 3 energy
+50 dmg for 4 energy
+
+
+12 Basic Pokemon: 4 A, 4 B, 4 C
+8 Stage 1: 4 A, 4 B
+8 Stage 2: 4 A, 4 B
+32 Energy cards
+
+
+The core AI strategy is simple: bring out basic pokemon to stall while building up the powerful pokemon in the back. Once a powerful Pokemon is evolved and fully-charged, bring it out. Other logic can cover more specific situations. If no logic  covers the current situation, randomly choose between the available options.
+
+
+Note that some cards and strategies that would work in a real game will fail against the benchmark deck/AI, such as penalties for trainer cards (the deck has none) or energy removal (the deck has far too many energy). Conversely, its algorithms might be weak to a certain type of attack, such as gust of wind (if the stage 2 had a higher retreat cost).
+
+For this reason, it should be treated as a rough, somewhat unreliable estimate of the opponent deck/AI strength, and other, more sophisticated tools should be used to get more accurate results.
+
+
+The main uses of the benchmark deck/AI are tracking the opponent AI improvement over time and seeing how long it takes to plateau, and comparing the relative strength of different opponent AI. These measurements will be most accurate if the opponent AI/decks are not trained against the benchmark deck/AI, not even indirectly. Neither the benchmark AI not the results of the benchmark tests should be used to guide opponent AI training.
+
+
+I could use two copies of the benchmark deck to compare the benchmark AI against other AIs (random gameplay, rollout, rollouts with trees, and then all of those but incorporating starting information about the card values).
+
+
+
+
+When building a tree, when building the first node each iteration, the AI should be able to see all cards clearly, even if they're hidden. Additionally, it should always know what the end result of a shuffled deck will be. 
+
+However, that's just for the initial nodes. When performing rollouts, the amount of information the AI has might be dependent on the challenge level. From lowest to highest:
+
+The AI thinks the opponent deck is made of random cards. (maybe too shitty?)
+The AI thinks the opponent deck is built using the same algorithms it does, and generates a new one each rollout.
+The AI knows what cards are in the opponent's hidden cards, but not what locations.
+The AI knows the cards and the locations.
+
+Note that all but the last option adds processing overhead, so it might be preferable to just give the AI perfect knowledge regardless of the difficulty level. It really depends on how obvious it is to the player that the AI is cheating.
+
+Note that a single coin flip doesn't mess with the branching factor too badly, so the AI should NOT be able to predict the outcome of a coin flip. Otherwise, it may become too obvious when the AI never flips when the result would be tails.
+
+
+
+
+Would you like to duel this trainer? yes/no
+
+Options:
+Difficulty: Standard
+Challenge: None
+Start the duel
+
+Difficulty:
+Standard (current)
+Advanced
+Master
+Grand Master
+Unlimited (either greyed out or non-existent until post-game)
+
+Challenge:
+Challenge information
+Challenge on
+Challenge off (current)
+
+
+
+Ooh, for the extra booster pack, it could be a combination of the previous two. The graphic could be something like:
+
+--------
+|  B1  |
+|   __/|
+|__/   |
+|  B2  |
+|------|
+
+...where B1 and B2 are the booster packs. (The diagonal line splitting the two is supposed to be straight.)
+
+Actually, it would probably be easier to code if the dividing line is straight across.
+
+
+Not just pokemon cards, but also player choices should be stored in the weights and adjusted per game.
+
+
+Auto-save whenever a flag changes or the player's deck changes, and print a message to the console when it does so that I can make sure it's not constantly auto-saving.
+
+
+If the player attempts to face the club leader first, the game should tell them that they have to defeat all club members first. Also, the club members should have a mark next to their name telling you if you've defeated them or not.
+
+
+
+
+For dialogue/text, need to process Playername, energy symbols, chip-m-chip name and beat/not beat icon (empty circle vs checkmark in circle?).
+
+
+
+When starting the AI training, I should test different approaches to the training. Epsilon greedy? UCB? Initializing the selection algorithms with very weak starting information? How much should the network change each time a player wins or loses?
+
+How to tell if the program has gotten stronger?
+
+Check network entropy
+Check how different the weights are from the Japanese list
+Check winrate against generic opponent
+
+
+Once I have a feel for how long it takes the network to become strong:
+When training the Pokemon AI network, the program should select a specific card each iteration and include 4 of it in the deck, and guarantee that at least 1 copy of the card will show up in the player's opening hand. Do this for each card. Lock the network in place until the program has run through all of the cards once, then apply the changed values all at once.
+
+
+And, of course, there's the question of how to determine if a card could be considered good or bad in the context of the game. If it was played to the bench but never used, did it affect the results? I guess if the player used the trainer or special energy it counts, and if the pokemon was ever in the active position, used a pokemon power, or took any bench damage it counts.
+
+
+
+When testing AI, if using initialization, be sure to put it in a situation where the highest value card is completely the wrong play, like an Oak with only 6 cards left, and see how many iterations it takes to realize that.
+
+
+Maybe add a card catalog or card binder, to show the player all the cards they have at least one of collected, and with gaps for cards the player doesn't have yet. Cards obtained from the Trading Post will not go into the binder.
+
+If the player does complete the binder, they get a message from the game developer, thanking them for putting so much time and effort into the game, and asking them to leave a message on the itch.io webpage, so that they know somebody out there is enjoying their work.
+
+
+
+
+Congratulations! You've collected every last card in the game. I don't have any rewards for you, but I just wanted to say... thank you. From the bottom of my heart, thank you. You've clearly spent a lot of time and effort playing this game, and that's all I could hope for when I was making it.
+
+If it's not too much to ask, could you do me a favor and leave a message on the itch.io page? I spent a lot of time and effort building this game, and it would mean a lot to me to know that somebody out there is enjoying my work.
+
+Regardless, again, thank you.
+-Brendan
+
+
+
+Make jumbo cards that appear larger on the screen. Make the screen shake whenever they bring a jumbo card onto the active position or whenever they play a card onto the table.
+
+
+
+Deckbuilding GUI:
+
+Things to be able to do in the deck editor:
+
+move between cards
+move between pages
+move between categories
+change the card sort
+search for a specific word
+add a filter
+remove the last filter
+get card information
+move card into or out of a deck
+cancel out of the deck editor
+
+Ways to convey the controls:
+
+dialogue that pops up the first time, or at the beginning of each time
+text that lingers on the screens
+
+
+Maybe a "display deck" option that fits all of the deck's cards onto the screen.
+
+"Deck Display Mode" (or "Deck Display")
+
+
+Add a debug option to just give the player all of the cards currently available to them, or just all the cards total.
+
+
+
+
+For the club leaders, at the start of the game, they should all be placed in the set player.player_data.removed_npcs, which prevents them from appearing on the map. Then, when the FF members are defeated, the program should add the FF member to the set and remove the respective club leader from the set.
+
+
+
+Make the FF doors close behind you when you leave
+
+
+
+
+For any boss encounters (club leaders, Mason, possibly FF, possibly Grand Masters): In the combination of the club leader's opening seven-card hand and the next six cards in the deck they are guaranteed to have at least four basic pokemon and four energy.
+
+
+
+
+Make sure to let the player skip the flight cutscene.
+
+
