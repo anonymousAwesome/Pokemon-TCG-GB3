@@ -61,9 +61,7 @@ class TcgIsland:
             pygame.Rect(576, 64, 64, 64),
             pygame.Rect(64, 192, 64, 64),
             pygame.Rect(64, 384, 64, 64)]
-        self.obstacles=[]
         self.step_triggers=[
-            OpeningCutsceneTrigger,
             MasonsLabOverworldEntrance,
             FightingClubOverworldEntrance,
             FireClubOverworldEntrance,
@@ -82,26 +80,43 @@ class TcgIsland:
         self.npcs=[]
 
 
-class OpeningCutsceneTrigger:
-    def __init__(self):
-        self.rect=pygame.Rect(-2, -2, 1, 1) #disabled
-        
-        #self.rect=pygame.Rect(0, 0, 64, 64)
+def opening_cutscene_events(inner_context):
+    text1=f"""{inner_context.player_data.player_name} is just crazy about card collecting and duelling! They faced each club leader on TCG Island and defeated the Grand Masters, obtaining the Legendary Pokemon cards. But then, disaster struck! Team Great Rocket stole everybody's cards and took over TCG Island! After duelling their way through the ranks, {inner_context.player_data.player_name} defeated their leader, King Villicci, causing him to have a change of heart and give up his evil ways. Peace returned to TCG Island."""
+    
+    text2="""Until one day..."""
 
-    def step_on(self, inner_context):
+    inner_context.event_manager.add_event(inner_context.player_character.toggle_visibility)
 
-        text1=f"""{inner_context.player_data.player_name} is just crazy about card collecting and duelling! They faced each club leader on TCG Island and defeated the Grand Masters, obtaining the Legendary Pokemon cards. But then, disaster struck! Team Great Rocket stole everybody's cards and took over TCG Island! After duelling their way through the ranks, {inner_context.player_data.player_name} defeated their leader, King Villicci, causing him to have a change of heart and give up his evil ways. Peace returned to TCG Island."""
-        
-        text2="""Until one day..."""
+    inner_context.event_manager.add_event(inner_context.current_dialogue.__init__,[inner_context.screen,text1])
+    inner_context.event_manager.add_event(inner_context.current_dialogue.render,[inner_context.event_list],persistent_condition=inner_context.current_dialogue.check_remaining_text)
+    inner_context.event_manager.add_event(inner_context.current_dialogue.__init__,[inner_context.screen,text2])
+    inner_context.event_manager.add_event(inner_context.current_dialogue.render,[inner_context.event_list],persistent_condition=inner_context.current_dialogue.check_remaining_text)
+    inner_context.event_manager.add_event(map_helpers.reload_map,[inner_context,CutsceneFfEntrance])
+    inner_context.event_manager.add_event(inner_context.disable_prevent_step_trigger)
+    inner_context.prevent_step_trigger = True
+    inner_context.map_input_lock.lock()
 
-        inner_context.event_manager.add_event(inner_context.current_dialogue.__init__,[inner_context.screen,text1])
-        inner_context.event_manager.add_event(inner_context.current_dialogue.render,[inner_context.event_list],persistent_condition=inner_context.current_dialogue.check_remaining_text)
-        inner_context.event_manager.add_event(inner_context.current_dialogue.__init__,[inner_context.screen,text2])
-        inner_context.event_manager.add_event(inner_context.current_dialogue.render,[inner_context.event_list],persistent_condition=inner_context.current_dialogue.check_remaining_text)
-        inner_context.event_manager.add_event(map_helpers.reload_map,[inner_context,CutsceneFfEntrance])
-        inner_context.event_manager.add_event(inner_context.disable_prevent_step_trigger)
-        inner_context.prevent_step_trigger = True
-        inner_context.map_input_lock.lock()
+    temp=map_helpers.FFCutsceneHelpers(inner_context)
+    inner_context.event_manager.add_event(temp.group_move,[inner_context,3],persistent_condition=temp.check_bottom,condition_kwargs={"y_coord":960})
+
+    inner_context.event_manager.add_event(empty_event.__init__,[60])
+    inner_context.event_manager.add_event(empty_event.decrement_loops,persistent_condition=empty_event.check_still_looping)
+
+    inner_context.event_manager.add_event(temp.group_move,[inner_context,8],persistent_condition=temp.check_bottom,condition_kwargs={"y_coord":1600})
+    
+    inner_context.event_manager.add_event(empty_event.__init__,[60])
+    inner_context.event_manager.add_event(empty_event.decrement_loops,persistent_condition=empty_event.check_still_looping)
+    
+    inner_context.event_manager.add_event(map_helpers.reload_map,[inner_context,CutsceneWaterClub])
+    
+    inner_context.prevent_step_trigger = True
+    inner_context.event_manager.add_event(inner_context.map_input_lock.unlock)
+    #inner_context.event_manager.add_event(inner_context.disable_prevent_step_trigger)
+    inner_context.event_manager.add_event(inner_context.player_character.toggle_visibility)
+
+    inner_context.map_input_lock.lock()
+
+
 
 class CutsceneFfEntrance:
     def __init__(self):
@@ -124,33 +139,7 @@ class CutsceneFfEntrance:
         map_npcs.OpeningCutsceneNormal
         ]
 
-        self.step_triggers=[
-        FfEntranceCutsceneTrigger
-        ]
 
-
-class FfEntranceCutsceneTrigger:
-    def __init__(self):
-        self.rect=pygame.Rect(0, 0, 64, 64)
-
-    def step_on(self, inner_context):
-        temp=map_helpers.FFCutsceneHelpers(inner_context)
-        inner_context.event_manager.add_event(temp.group_move,[inner_context,3],persistent_condition=temp.check_bottom,condition_kwargs={"y_coord":960})
-
-        inner_context.event_manager.add_event(empty_event.__init__,[60])
-        inner_context.event_manager.add_event(empty_event.decrement_loops,persistent_condition=empty_event.check_still_looping)
-
-        inner_context.event_manager.add_event(temp.group_move,[inner_context,8],persistent_condition=temp.check_bottom,condition_kwargs={"y_coord":1600})
-        
-        inner_context.event_manager.add_event(empty_event.__init__,[60])
-        inner_context.event_manager.add_event(empty_event.decrement_loops,persistent_condition=empty_event.check_still_looping)
-        
-        inner_context.event_manager.add_event(map_helpers.reload_map,[inner_context,CutsceneWaterClub])
-        
-        inner_context.prevent_step_trigger = True
-        inner_context.event_manager.add_event(inner_context.map_input_lock.unlock)
-        #inner_context.event_manager.add_event(inner_context.disable_prevent_step_trigger)
-        inner_context.map_input_lock.lock()
         
 class CutsceneWaterClub:
     def __init__(self):

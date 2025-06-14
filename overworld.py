@@ -124,7 +124,7 @@ class Camera:
 class Context:
     def __init__(self,screen,phase_handler):
 
-        self.player_data=player.PlayerData(current_map_class=mapinfo.MasonCenter)
+        self.player_data=player.PlayerData(current_map_class=mapinfo.TcgIsland)
         #self.player_data=player.PlayerData(current_map_class=mapinfo.TestMap)
 
         self.screen=screen
@@ -133,8 +133,8 @@ class Context:
 
         self.pc_sprite = characters.load_sprites_from_sheet(characters.spritesheet_tcg2,0)
 
-        self.player_character=characters.Player(448,640+192, self.pc_sprite,"up")
-        #self.player_character=characters.Player(320,320+128, self.pc_sprite,"up")
+        #self.player_character=characters.Player(448,640+192, self.pc_sprite,"up")
+        self.player_character=characters.Player(320,320+128, self.pc_sprite,"up")
 
         self.map_holder=map_managers.CurrentMapContainer(self.starting_map_class)
 
@@ -160,6 +160,10 @@ class Context:
 
         if self.player_data.currently_greyscale:
             self.map_holder.current_map.bg_image.blit(self.inner_context.perceptual_greyscale(self.map_holder.current_map.bg_image),(0,0))
+
+        if not self.player_data.event_flags["opening_cutscene"]:
+            mapinfo.opening_cutscene_events(self.inner_context)
+            self.player_data.event_flags["opening_cutscene"]=True
 
     def update(self,event_list):
         self.event_list[:]=event_list
