@@ -1,10 +1,10 @@
-
 to-do:
 
 set up opening cutscene
 
-place obstacles, NPCs, exits, and any dialogue in clubs
+	make sure the player is in the correct position and facing when coming out of a cutscene.
 
+place obstacles, NPCs, exits, and any dialogue in clubs
 
 Collect animation frames from sprite rips
 

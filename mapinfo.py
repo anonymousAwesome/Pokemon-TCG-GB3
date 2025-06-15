@@ -6,10 +6,6 @@ import map_objects
 import map_npcs
 import animation
 
-glitch_effect=map_helpers.GlitchEffect()
-empty_event=map_helpers.EmptyEvent(0)
-
-
 
 class BaseExitClass:
     
@@ -78,43 +74,6 @@ class TcgIsland:
         ]
         self.interact_self_triggers=self.step_triggers
         self.npcs=[]
-
-
-def opening_cutscene_events(inner_context):
-    text1=f"""{inner_context.player_data.player_name} is just crazy about card collecting and duelling! They faced each club leader on TCG Island and defeated the Grand Masters, obtaining the Legendary Pokemon cards. But then, disaster struck! Team Great Rocket stole everybody's cards and took over TCG Island! After duelling their way through the ranks, {inner_context.player_data.player_name} defeated their leader, King Villicci, causing him to have a change of heart and give up his evil ways. Peace returned to TCG Island."""
-    
-    text2="""Until one day..."""
-
-    inner_context.event_manager.add_event(inner_context.player_character.toggle_visibility)
-
-    inner_context.event_manager.add_event(inner_context.current_dialogue.__init__,[inner_context.screen,text1])
-    inner_context.event_manager.add_event(inner_context.current_dialogue.render,[inner_context.event_list],persistent_condition=inner_context.current_dialogue.check_remaining_text)
-    inner_context.event_manager.add_event(inner_context.current_dialogue.__init__,[inner_context.screen,text2])
-    inner_context.event_manager.add_event(inner_context.current_dialogue.render,[inner_context.event_list],persistent_condition=inner_context.current_dialogue.check_remaining_text)
-    inner_context.event_manager.add_event(map_helpers.reload_map,[inner_context,CutsceneFfEntrance])
-    inner_context.event_manager.add_event(inner_context.disable_prevent_step_trigger)
-    inner_context.prevent_step_trigger = True
-    inner_context.map_input_lock.lock()
-
-    temp=map_helpers.FFCutsceneHelpers(inner_context)
-    inner_context.event_manager.add_event(temp.group_move,[inner_context,3],persistent_condition=temp.check_bottom,condition_kwargs={"y_coord":960})
-
-    inner_context.event_manager.add_event(empty_event.__init__,[60])
-    inner_context.event_manager.add_event(empty_event.decrement_loops,persistent_condition=empty_event.check_still_looping)
-
-    inner_context.event_manager.add_event(temp.group_move,[inner_context,8],persistent_condition=temp.check_bottom,condition_kwargs={"y_coord":1600})
-    
-    inner_context.event_manager.add_event(empty_event.__init__,[60])
-    inner_context.event_manager.add_event(empty_event.decrement_loops,persistent_condition=empty_event.check_still_looping)
-    
-    inner_context.event_manager.add_event(map_helpers.reload_map,[inner_context,CutsceneWaterClub])
-    
-    inner_context.prevent_step_trigger = True
-    inner_context.event_manager.add_event(inner_context.map_input_lock.unlock)
-    #inner_context.event_manager.add_event(inner_context.disable_prevent_step_trigger)
-    inner_context.event_manager.add_event(inner_context.player_character.toggle_visibility)
-
-    inner_context.map_input_lock.lock()
 
 
 
@@ -271,7 +230,7 @@ class IshiharasHouseOverworldEntrance(BaseOverworldClubClass):
 class PokemonDomeOverworldEntrance(BaseOverworldClubClass):
     def __init__(self):    
         self.rect=pygame.Rect(256, 256, 64, 64)
-        self.new_x=448
+        self.new_x=256
         self.new_y=448
         self.replacement_map=PokemonDomeEntrance
         self.facing_direction="up"
@@ -871,8 +830,8 @@ class AirportTcgBottomExit(BaseExitClass):
 
 class AirportTcgRightExit(BaseExitClass):
     def __init__(self):
-        self.new_x = 0
-        self.new_y = 0
+        self.new_x = 320
+        self.new_y = 448
         self.replacement_map = TcgIsland
         self.rect=pygame.Rect(704, 384, 64, 128)
 
@@ -978,17 +937,16 @@ class PokemonDomeEntrance:
         self.bg_image=pygame.transform.scale(self.bg_image, (self.bg_image.get_width() * 4, self.bg_image.get_height() * 4))
 
         self.obstacles=[
-            pygame.Rect(0, 0, 704, 64),
-            pygame.Rect(960, 0, 64, 576),
-            pygame.Rect(0, 64, 64, 512),
-            pygame.Rect(64, 448, 384, 64),
-            pygame.Rect(64, 512, 384, 64),
-            pygame.Rect(576, 448, 384, 64),
-            pygame.Rect(576, 512, 384, 64),
-            pygame.Rect(64, 256, 192, 64),
-            pygame.Rect(64, 64, 192, 64),
-            pygame.Rect(832, 0, 128, 64),
+            pygame.Rect(0, 0, 64, 576),
+            pygame.Rect(576, 0, 64, 576),
+            pygame.Rect(64, 448, 192, 64),
+            pygame.Rect(64, 512, 192, 64),
+            pygame.Rect(64, 0, 192, 64),
+            pygame.Rect(384, 0, 192, 64),
+            pygame.Rect(384, 448, 192, 64),
+            pygame.Rect(384, 512, 192, 64),
         ]
+
 
         
         self.interact_object_triggers=[
@@ -1009,14 +967,14 @@ class PokemonDomeEntranceBottomExit(BaseExitClass):
         self.new_x = 256
         self.new_y = 256
         self.replacement_map = TcgIsland
-        self.rect=pygame.Rect(448, 512, 128, 64)
+        self.rect=pygame.Rect(256, 512, 128, 64)
 
 class PokemonDomeEntranceTopLeftExit(BaseExitClass):
     def __init__(self):
         self.new_x = 448
         self.new_y = 896
         self.replacement_map = PokemonDomeInterior
-        self.rect=pygame.Rect(704, 0, 64, 64)
+        self.rect=pygame.Rect(256, 0, 64, 64)
 
 
 class PokemonDomeEntranceTopRightExit(BaseExitClass):
@@ -1024,7 +982,7 @@ class PokemonDomeEntranceTopRightExit(BaseExitClass):
         self.new_x = 448+64
         self.new_y = 896
         self.replacement_map = PokemonDomeInterior
-        self.rect=pygame.Rect(704+64, 0, 64, 64)
+        self.rect=pygame.Rect(256+64, 0, 64, 64)
 
 
 
@@ -1073,14 +1031,14 @@ class PokemonDomeInterior:
 
 class PokemonDomeInteriorExitLeft(BaseExitClass):
     def __init__(self):
-        self.new_x = 704
+        self.new_x = 256
         self.new_y = 64
         self.replacement_map = PokemonDomeEntrance
         self.rect=pygame.Rect(448, 960, 64, 64)
 
 class PokemonDomeInteriorExitRight(BaseExitClass):
     def __init__(self):
-        self.new_x = 704+64
+        self.new_x = 256+64
         self.new_y = 64
         self.replacement_map = PokemonDomeEntrance
         self.rect=pygame.Rect(448+64, 960, 64, 64)

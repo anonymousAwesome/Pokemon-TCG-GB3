@@ -11,6 +11,7 @@ spritesheet_crystal_path = os.path.join("assets","npc sprites","pokemon crystal 
 spritesheet_tcg2_path = os.path.join("assets","npc sprites","pokemon tcg2 sprites.png")
 spritesheet_gb3_path = os.path.join("assets","npc sprites","GB3 sprites.png")
 portrait_sheet_GB2_path=os.path.join("assets","duellists","GB2 profiles.png")
+portrait_sheet_GB3_path=os.path.join("assets","duellists","gb3 profile images.png")
 
 spritesheet_yellow=pygame.image.load(spritesheet_yellow_path).convert_alpha()
 spritesheet_crystal=pygame.image.load(spritesheet_crystal_path).convert_alpha()
@@ -18,10 +19,42 @@ spritesheet_tcg2=pygame.image.load(spritesheet_tcg2_path).convert_alpha()
 spritesheet_gb3=pygame.image.load(spritesheet_gb3_path).convert_alpha()
 
 portrait_sheet_GB2=pygame.image.load(portrait_sheet_GB2_path).convert()
+portrait_sheet_GB3=pygame.image.load(portrait_sheet_GB3_path).convert()
 
 def load_portrait_from_sheet(portrait_sheet,row,column,max_width=48,max_height=48,image_width=48,image_height=48):
     portrait=portrait_sheet.subsurface(pygame.Rect(row*max_width, column*max_height, image_width, image_height))
     portrait=pygame.transform.scale(portrait, (image_width*4, image_height*4))
+    return portrait
+
+def load_portrait_from_sheet_GB3(row, column, max_width=60, max_height=60):
+    start_x = row * max_width
+    start_y = column * max_height
+    temp_surface = portrait_sheet_GB3.subsurface(pygame.Rect(start_x, start_y, max_width, max_height))
+    temp_surface = temp_surface.convert()
+    actual_width = max_width
+    for x in range(max_width - 1, -1, -1):
+        column_has_content = False
+        for y in range(max_height):
+            pixel = temp_surface.get_at((x, y))
+            if pixel != (255, 0, 255, 255):
+                column_has_content = True
+                break
+        if column_has_content:
+            actual_width = x + 1
+            break
+    actual_height = max_height
+    for y in range(max_height - 1, -1, -1):
+        row_has_content = False
+        for x in range(actual_width):
+            pixel = temp_surface.get_at((x, y))
+            if pixel != (255, 0, 255, 255):
+                row_has_content = True
+                break
+        if row_has_content:
+            actual_height = y + 1
+            break
+    portrait = portrait_sheet_GB3.subsurface(pygame.Rect(start_x, start_y, actual_width, actual_height))
+    portrait = pygame.transform.scale(portrait, (actual_width * 4, actual_height * 4))
     return portrait
 
 def load_sprites_from_sheet(spritesheet, row):
@@ -120,6 +153,11 @@ class Character(pygame.sprite.Sprite):
         elif self.right_command:
             self.facing_direction="right"
             self.image=self.facing_right
+
+    def change_location(self,x,y,facing="down"):
+        self.facing_direction=facing
+        self.map_exit_change_facing()
+        self.rect.x,self.rect.y = x, y
 
     def start_walking(self,move_speed):
         self.change_facing()

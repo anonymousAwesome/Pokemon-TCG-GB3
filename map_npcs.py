@@ -79,7 +79,7 @@ class DrMason():
         self.sprite=characters.NPC(448,192, self.loaded_sprites,"down")
         self.rect=self.sprite.rect
         self.portrait=characters.load_portrait_from_sheet(characters.portrait_sheet_GB2,2,0)
-        self.text="Welcome! I'm Dr. Mason, with a PhD in Pokemon cardology!"
+        self.text="Good luck! We're all counting on you!"
 
     def interact_object(self,inner_context):
         map_helpers.dialogue_duel(self,inner_context,self.text,name_text="Dr. Mason",profile_image=self.portrait,duel=False)
@@ -156,7 +156,7 @@ class LabTechRightBottom():
 class LabTechLeftTop():
     def __init__(self):
         self.loaded_sprites=characters.load_sprites_from_sheet(characters.spritesheet_tcg2,4)
-        self.sprite=characters.NPC(1*64,2*64, self.loaded_sprites,"left")
+        self.sprite=characters.NPC(2*64,4*64, self.loaded_sprites,"left")
         self.rect=self.sprite.rect
         self.text1="Shhh! Don't tell anyone; I'm taking a break."
         self.text2="The air has a pungent odor..."

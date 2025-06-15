@@ -15,6 +15,7 @@ import mapinfo
 import player
 import numpy as np
 import animation
+import cutscenes
 
 class TempExitList():
     '''called when the player moves into a new map, so I'm not 
@@ -162,7 +163,7 @@ class Context:
             self.map_holder.current_map.bg_image.blit(self.inner_context.perceptual_greyscale(self.map_holder.current_map.bg_image),(0,0))
 
         if not self.player_data.event_flags["opening_cutscene"]:
-            mapinfo.opening_cutscene_events(self.inner_context)
+            cutscenes.opening_cutscene_events(self.inner_context)
             self.player_data.event_flags["opening_cutscene"]=True
 
     def update(self,event_list):

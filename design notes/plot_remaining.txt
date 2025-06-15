@@ -230,7 +230,7 @@ Oh, hello, playername! Are you here to challenge my promotional card deck?
 Optional challenge: include 6 promotional cards in your deck
 
 The bookshelves, like all bookshelves, say the same thing, but the book on his desk says:
-"How to Pick Up Women by Playing Pokemon Cards." The book is quite dog-eared.
+"How to Pick Up Women by Playing Pokemon Cards." The book is quite dog-eared. You flip to a random page. The chapter heading is, "I Turn On The Charm'and'er Pants Come Off." You're not sure which is worse: the casual misogyny or the bad pun.
 
 
 Since my placement of the Neo Continent club leaders might not be obvious, put "Club Leader" at the beginning of each club leader's name. So it's not Gene, it's Club Leader Gene.
@@ -498,7 +498,7 @@ I am Malinda, the former apprentice of King Villicci! I-
 
 King Villicci was the leader of Team Great Rocket, he abducted club leaders... it was a whole thing.
 
-But he was too weak and gave up his evil ways when you defeated him. But I never gave up! And now, I have surpassed my former master!
+He was too weak and gave up his evil ways when you defeated him. But I never gave up! And now, I have surpassed my former master!
 
 Now that I have the Pokemon-ex cards, I will be able to defeat anybody! And as we all know, it's impossible for anybody to stay in power if they're defeated in a children's card game! The entire world will be under my command!"
 
@@ -662,7 +662,7 @@ After the player has checked both directions, the white noise gets louder and ev
 Dr. Mason: "Whoa! Easy, there. You were having a bad dream. Come on, we just landed."
 Dr. Mason leaves.
 If the player interacts with the window (daytime):
-The sun shines brightly on the landing strip.
+The sun shines brightly on the runway.
 
 
 When you arrive the first time:
@@ -736,6 +736,9 @@ RedVelvetNite
 It would be really funny if you let me win. 
 
 [include Rhydon, Donphan, Teddiursa, maybe Dratini.]
+
+After you win:
+Drat!
 
 
 A.J.
@@ -965,7 +968,7 @@ Hah! No, I'm just kidding. Could you imagine?
 
 It would never work out; she's a grass type and I'm a fire type.
 
-The game is Texas Hold 'Em, one-eyed jacks are wild, and no betting limit. Also, I don't actually know how to play poker, so let's play Pokemon instead.
+The game is Texas Hold 'Em, one-eyed jacks are wild, and no betting limit. Also, I don't actually know how to play poker, so let's play Pokemon TCG instead.
 
 Ninth FF member, standing:
 This is where we take our legally mandated breaks. Malinda may be evil, but her health plan is awesome.
@@ -1105,8 +1108,13 @@ Defeating the final boss Malinda causes her to come to the realization that she'
 ...
 
 Oh my god, what am I doing with my life? 
+
 I dropped out of college for THIS?
+
+Here, take the stupid Pokemon-ex cards.
+
 Maybe my old finance job still has an opening...
+
 
 She leaves, then a beat later "you won!" fanfare plays.
 
