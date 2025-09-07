@@ -209,7 +209,7 @@ Lightning club: Ground, can also have fighting and rock
 Rock club: Poison FF member (can also have grass)
 Fighting club: Flying FF member (can also have ghost)
 Poison club: Psychic FF member
-Psychic club: Normal FF member
+Psychic club: Colorless FF member
 
 
 First time you defeat a duelist:
@@ -608,7 +608,7 @@ Each booster is guaranteed to contain at least one legendary bird, and each card
 
 Flying map - done
 Bug map - done
-Normal map - done
+Colorless map - done
 Ghost map - done 
 Metal map - complete
 Ice map - mostly complete (maybe shrink it vertically, even adjust the ice tiles if I'm feeling particularly energetic)
@@ -862,7 +862,7 @@ After winning:
 Hmm. Results inconclusive.
 
 After losing:
-I must have forgotten to turn god mode on. :(
+I lost? Crap, where's the rewind button?
 
 
 Giselle:
@@ -1021,7 +1021,7 @@ The black wind howls... Can you withstand the coming storm?
 Booster packs are handled just like the other grand masters.
 
 
-Normal:
+Colorless:
 
 Gary (club leader):
 You're going to face the Forbidden Faction? Forget it! You probably don't have any medals!
@@ -1045,7 +1045,7 @@ Are you dissing TEAM ROCKET?
 
 
 NPC (man standing at the entrance):
-Yo! Champ in the making! Don't be fooled by the club name; the club leader Gary uses an Eeveelution deck with multiple Pokemon types.
+Yo! Champ in the making! This is the Colorless Club, where Pokemon cards can be of any type. But I'm sure you've got this. Fight on!
 
 (the club layout should be directly lifted from a Pokemon game. Let's say Pewter Gym.)
 
@@ -1143,7 +1143,7 @@ If you won't give me the Pokemon-ex cards I need, I'll just have to take them by
 [Duel with glitch M glitch?]
 
 If no: 
-I am timeless and ageless. I was impossibly old when this planet was a gigantic ball of lava, and I will be around long after everything on this planet has turned to dust.
+That's fine. I am timeless and ageless. I was impossibly old when this planet was a gigantic ball of lava, and I will be around long after everything on this planet has turned to dust.
 In other words, take your time. I'm not going anywhere.
 
 If yes:
@@ -1572,7 +1572,7 @@ The 8 clubs on Neo Continent:
 
 Flying
 Bug
-Normal
+Colorless
 Ghost
 Metal
 Ice

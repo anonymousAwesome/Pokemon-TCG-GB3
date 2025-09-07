@@ -1,0 +1,100 @@
+Attacks:
+(Note that all attack effects, and all special conditions (paralysis, sleep, poison, and confusion) that have been placed on a Pokemon are removed when that Pokemon is benched.)
+Agility: During your opponent’s next turn, prevent all effects of attacks, including damage, done to Raichu.
+Leer: The Defending Pokémon can’t attack Rhyhorn during your opponent’s next turn. (Benching either Pokémon ends this effect.)
+Destiny Bond: If a Pokémon Knocks Out Gastly during your opponent’s next turn, Knock Out that Pokémon.
+Tongue Wrap: The Defending Pokémon is now Paralyzed.
+Swift: 20 damage, and "This attack’s damage isn’t affected by Weakness, Resistance, Pokémon Powers, or any other effects on the Defending Pokémon."
+
+Pokemon Powers:
+Transparency: Whenever an attack does anything to Haunter, prevent all effects of that attack, including damage, done to Haunter. This power stops working while Haunter is Asleep, Confused, or Paralyzed.
+Retreat Aid: As long as Dodrio is Benched, pay 1 less energy to retreat your Active Pokémon.
+Hay Fever: No Trainer cards can be played. This power stops working while Dark Vileplume is Asleep, Confused, or Paralyzed.
+Prehistoric Power: No more Evolution cards can be played. This power stops working while Aerodactyl is Asleep, Confused, or Paralyzed.
+Neutral Damage: ignore all weakness and resistance
+
+Trainers:
+Pluspower: Attach PlusPower to your Active Pokémon. At the end of your turn, discard PlusPower. If this Pokémon’s attack does damage to the Defending Pokémon (after applying Weakness and Resistance), the attack does 10 more damage to the Defending Pokémon.
+
+
+
+Main checks:
+
+Skipping effects and cancelling an attack entirely. For example, Swift and Transparency
+Stacked effects that disable pokemon effects. For example, Paralysis on Toxic Gas on Retreat Aid.
+Effects that prevent cards from moving around. For example, Pokemon Tower and Unown K.
+
+
+
+
+
+
+The solution I came up with was to break each action (anything that triggers and resolves at the same time, usually player-triggered) down into what I call "atomic actions", such as "move a card from one location to another" or "deal a specific amount of damage". (This is not to be confused with the more common programming definition of "atomic", which has to do with thread safety.) Before an atomic action actually executes, information about the function name and its inputs are passed to the different effects (anything that persists on the game board) to see if any of them trigger. If none of them do, the atomic action executes as normal. If one of more of the effects trigger, they can do things like change variables in the code and skip effects, actions, and phases.
+
+So Dragonair uses the Hyper Beam attack, which deals damage and moves an energy from a pokemon to the discard pile. But a custom stadium card in play explicitly prevents energy removal effects. During the attack phase Dragonair attacks, triggering two actions: "damage(20)" and "move(target=selected energy card, from=defending pokemon, to=discard)". The first atomic action, damage(20), causes all active effects to check the function name and inputs. No effects trigger at this, so control moves to the energy removal action. Again, the effects check the function name and inputs. This time, the stadium card effect recognizes that the information matches the trigger it has, so it tells the event manager to skip past the energy removal action, nullifying it.
+
+This does mean that a second event manager (or a separate section of the first event manager) will probably need to be used to handle the effects separately from the actions, which are in turn separate from the phases.
+
+...I think. I'm not entirely sure how separate "phases" and "actions" are or should be.
+
+I haven't given it a lot of thought, but the effects themselves will probably also need to check to see if they trigger other effects.
+
+I also had a plan for using node graphs to handle pokemon powers that disable or are disabled by other effects, potentially causing cascading effects (e.g. paralysis on Toxic Gas Muk, on Dodrio's Retreat Aid), but I would want to figure out how such pokemon powers interact with the adjusted structure before I worry about that.
+
+
+
+Swift contains an action and an effect. The action is "deal damage", and the effect is "skip to the end of the effects".
+
+
+
+Okay, so we use decorators on the atomic actions to check the effects. Specifically, I write a function that replaces every function in a class, module, and/or list with a wrapped function that checks the possible effects.
+
+
+How do we handle "discard energy to use this attack"? It's a player choice, presumably cancellable, but cancelling it shouldn't use up the attack for the turn.
+
+Maybe there should be some sort of flag (or something else) that says, basically, don't use up this action for the turn. 
+
+
+How do we handle fire spin with DCE?
+
+
+
+I also need code to do the following:
+
+Remove a player-facing option (which is different from skipping past the action/effect)
+Require one or more discarded energies to trigger the attack
+Allow a pokemon power to trigger an unlimited number of times (might not need extra code?)
+Effects that can be cancelled from the player-facing option (e.g. Switch, but cancelled before a Pokemon is selected)
+Code that distinguishes between an energy and an energy card(?)
+
+No single attack from Base to Gym requires more than one energy type. Neo Genesis Lugia requires three energy, but it's a shitty card. Shining Gyarados from Neo Revelation requires two types of energy for each attack, and all 8 Shining Pokemon in Neo Destiny have two energy types. This is relevant to how I handle rainbow energy.
+
+If Shining Pokemon/Lugia didn't exist, I'd have the Rainbow energy just act as whatever color is needed for the attack. Since they do exist, I'll need to have the Rainbow energy(ies) sit in for each energy type in turn to make sure that at least one configuration allows the player to use the attack.
+
+The energy cost for an attack should be put into a list, then each required energy should be checked against a list of the energy available to the pokemon. On the requirements side, check the specific energies first, then the "any" energy. On the attached side, for each required energy check the specific energy, then the rainbow energy, sorting it by list size to put crystal energy first, then rainbow. As soon as the list of required energy is exhausted, it returns with the "this attack is an option" result. If the available energy list is exhausted before the required energy is, it doesn't return the "this attack is available" result.
+
+A rainbow energy should generate a list of every energy type that it provides. Then each type for each rainbow energy is checked to see if the attack succeeds. As long as a single permutation succeeds, the attack succeeds. A possible optimization is to limit the rainbow energy list to the types required for the attack before stepping through all the options, though I'd need to run some tests to see which was faster.
+
+
+
+For cards like Clefairy Doll, where it's a trainer, then a pokemon, there should be an effect that patches into check_type() that replaces the result with the temporary change. Same thing for Charizard's pokemon power that turns all energy cards into fire cards.
+
+
+Sabrina's Gengar adds damage counters, which is treated different from the effects of an attack. I'll probably need to make a separate action for that, that doesn't trigger the normal "deal damage from an attack" effects, such as Defender, weakness and resistance.
+
+
+
+
+"Combo" system: the game keeps track of which pairs of cards work well together, measured by if they were played in a winning game. Each primary card is every card on the field when the secondary card is played.
+
+(optional?) An anti-combo is the reverse: a card that was in the player's hand but was never played, and it subtracts from the value of the combo.
+
+Once the pairs are generated they are used when building a deck or during the game, adding value to the secondary card choices based on the existing primary cards already in the deck, for deckbuilding, or visible to the player (hand or field) when playing the game.
+
+When using the values, I'm not sure if each secondary card should only be affected once, no matter how many primary cards trigger it, or if the secondary card should be boosted every time the primary card is counted on the field or in the deck.
+
+When deckbuilding, perhaps the code should use the primary:secondary values AND the swapped secondary:primary values, because the order of the cards doesn't matter and they could be drawn in any order. Contrast this with in-game, where the current state of the board will affect what cards are played in the next state, but not the other way around.
+
+
+
+To generate recommended cards and decks against specific NPC decks, the game could keep track of which cards did well against each card during training. This could be stored ase a dict of cards and values, which is stored with the information of each card.

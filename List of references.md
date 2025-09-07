@@ -23,10 +23,10 @@ Ghost Club: NPCs are from Danny Phantom
 Ghost Club: The map layout is based on the Colorless Altar location from GB2. Not exactly a reference, just laziness.
 Ice Club: the map layout is literally just the Mahogany Gym from Pokemon GSC. Again, just lazy.
 Normal Club: The club layout, characters, and dialogue are all taken from different places in Pokemon Red/Blue.
+Trading Post: The map layout was loosely based on a Gen1 Pokemon Center.
 Trading Post: Charity uses a sprite only found in one place in Pokemon GSC. In Fuchsia City, the Pokemon Center lady inexplicably has green hair.
 Trading Post: Charity's portrait is based loosely on some very old Ken Sugimori Pokemon Nurse artwork: https://imgur.com/a/FZagZBs
 Trading Post: Jumbo Steve's portrait is the Hiker class from Ruby/Sapphire
-Trading Post: The map layout was loosely based on a Gen1 Pokemon Center.
 Forbidden Faction lounge: Energy-taking NPC from Pokemon GB
 Forbidden Faction lounge: Real-life musicians Sara Bareilles, Cher, Chamillionaire, and Phil Lynott
 Neo Continent Grandmaster Stadium: Crono, Lucca, Marle, and Magus are all characters from Chrono Trigger

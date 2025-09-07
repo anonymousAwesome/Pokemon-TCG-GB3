@@ -1,0 +1,120 @@
+Update: since Haymaker decks aren't very good in the context of a base-neo card pool, I'm just taking the last two ratings and averaging them, rounding down, instead of averaging all four ratings.
+
+
+Calculation: take the 4 ratings for each pokemon here:
+
+https://blog-livedoor-jp.translate.goog/aqwsderft/archives/55467691.html?_x_tr_sch=http&_x_tr_sl=ja&_x_tr_tl=en&_x_tr_hl=en&_x_tr_pto=wapp
+
+...and average them, rounding up at .5. Any card banned by some formats should calculate the result using only the remaining formats.
+
+___'s Pikachu/Birthday Pikachu (promo) and ___'s Chansey (Jap-only, Challenge from the Darkness expansion) have been removed from the list because I don't like the idea of naming them after a gym leader for tricks, and they don't deserve to be on the list without it.
+
+Dark Vileplume 8
+GR Team's Mewtwo 6
+Sneasel (Neo Genesis) 6
+Aerodactyl (Fossil) 6
+Erika's Jigglypuff 6
+Mr. Mime (Expansion sheet 1, blue) 1
+Muk (Fossil) 5
+Chaos Gym 4
+Super Energy Removal 4
+Clefable (Jungle) 4
+Chansey (Base) 4
+Snorlax (Expansion sheet 1, blue) 4
+The Rocket's Trap 4
+Itemfinder 3
+Imposter Oak's Revenge 3
+Blastoise (Base) 3
+Wigglytuff (Jungle) 1
+Rocket's Zapdos 1
+Feraligatr (Neo Genesis) 3
+Focus Band 3
+Elekid (Neo Genesis) 2
+Cleffa (Neo Genesis) 2
+Tyrogue (Neo Discovery) 2
+Double Colorless Energy 1
+Porygon (Fan Club promo) 3
+Lass 3
+Mr Mime (Jungle) 3
+Gastly (Expansion sheet 3, green) 2
+Electrode (base) 2
+Pichu (Neo Genesis) 2
+Energy Removal 2
+Gust of Wind 2
+Computer Search 2
+Magby (Neo Genesis) 1
+Recycle Energy 1
+Gold Berry 1
+Hungry Snorlax (promo) 0
+Scyther (Jungle) 0
+Electabuzz (base) 0
+Cleffa ((Wizards) promo) 0
+Psyduck (Fossil) 1
+Double Gust 1
+Rocket's Sneak Attack 1
+Igglybuff ((Wizards) promo) 1
+Macargo (Neo Revelation) 1
+Ho-oh (Neo Revelation) 1
+Misty's Wrath 1
+Steel Energy 1
+Koffing (Expansion Sheet 2, Red) 0
+Misty's Staryu (Gym Challenge) 0
+Meganium (Neo Genesis) 0
+Typhlosion (Neo Genesis) 0
+Smoochum (Corocoro Promo) 0
+Magmar (Fossil) 0
+Igglybuff (Neo Discovery) 0
+Hitmonchan (Base) 0
+Lugia (Promo) 1
+Omanyte (Expansion sheet 3, green) 4
+Shiny Raichu 2
+Tickling Machine 2
+Alakazam (base) 2
+Murkrow (Neo Genesis) 1 - bump it up to 2 now that basic darkness energy is available to the players
+Unown U (Neo Discovery) 3
+Misty 1
+Unown Q (Neo Destiny) 1
+
+53 non-0 cards
+
+
+Game boy Legendary Birds costs:
+
+Zapdos 4-5
+Articuno 0-2
+Moltres 1
+
+Higher costs are for a context with free scoop ups.
+
+@ZeroChaos
+[regarding GB birds in Base-Neo]:
+Zapdos gets better with Super Scoop Up.  Moltres is probably still cracked, and it juices things like Sabrina's Gaze, Secret Mission, or Mary.  Articuno is pretty fucked in stall/loop decks. [4/1/1 is] probably fine for PvE.
+
+
+
+The Base-Fossil cards that also exist on the Base-Neo list are all within a point of their counterparts, with the exception of Chansey, which was raised from 1 point to 4 points.
+
+Several cards cost points in Base-Fossil that don't in Base-Neo:
+
+2-points:
+Lickitung
+Pokemon Center
+
+1 point:
+Venusaur
+Arcanine
+Dodrio
+Slowbro
+Chansey: from 4 to 1
+Scyther
+Tentacool
+Pluspower
+Scoop Up
+
+...although it won't be an issue unless I change my game design plan, since, with the possible exception of Scyther (B if pointless, D if 1 point), all of the extra cards in the Base-Fossil list are at least B-ranked in Base-Neo.
+
+
+Double-basic energy cards, with no drawback, should be 2, possibly 3 points. Electrode (2 points) does something similar, but it costs a prize card (con), requires an evolution (con), and can be used for any energy type on use (pro).
+
+
+Hmm. What if I made double-basic energy cards deal 10 damage to the pokemon it's attached to, like rainbow energy? Then it might be worth 1-2 points instead of 2-3.

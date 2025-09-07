@@ -10,11 +10,11 @@ The program uses the Pygame module for gameplay and pygbag to export the game to
 
 * Over 64 duellists, each with their own unique deck.
 
-* Two maps: TCG Island and Neo Continent, each containing their own card clubs and rewarding the player with different cards.
+* Two maps: TCG Island and Neo Continent, each containing their own card clubs and rewards.
 
-* A villainous organization, the Forbidden Faction, who use powerful forbidden cards.
+* A villainous organization, the Forbidden Faction, who use powerful forbidden cards such as Energy Removal and Computer Search.
 
-* Extra duel challenges to spice up the gameplay.
+* Optional challenges to spice up the duels.
 
 ## Current status:
 

@@ -9,7 +9,7 @@ class PlayerData:
         self.card_pool=[]
         if not event_flags:
             self.event_flags={
-            "opening_cutscene":False,
+            "opening_cutscene":True,
             "mason disappeared":False
             }
         #note to self: rework the event flags so they all initialize to 

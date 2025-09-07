@@ -8,6 +8,8 @@ place obstacles, NPCs, exits, and any dialogue in clubs
 
 Collect animation frames from sprite rips
 
+Add down-facing triangle to dialogue box to indicate "more".
+
 
 
 A simple method to accept player input that determines whether the player duels the NPC or not, and whether or not the player won the duel.

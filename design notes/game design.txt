@@ -56,9 +56,11 @@ You must include 4 of a specific basic Pokemon that the trainer has.
 You must include 5 Pokemon with Dark in their name
 You must include 5 (gym leader name) Pokemon
 You must include N cards from a certain expansion
+All [type] Pokemon attacks do an extra 10 damage.
 Your deck cannot contain forbidden cards.
 Your deck cannot include trainer cards.
 Except for basic energy, the player's deck can only contain cards from Neo Continent.
+Pauper: Your deck cannot contain any cards above... let's say C-rank.
 Max HP limit (50 or 60)
 Your deck must contain at least 30 energy cards, including both Basic and Special energy.
 Singleton Format: only one card of the same name per deck, regardless of expansion (except basic energy). You could not run an Eevee (Jungle) and an Eevee (Rocket) in the same deck. You could, however, run a Gyarados, a Dark Gyarados, and a Giovanni's Gyarados, because they all have different names.
@@ -83,10 +85,13 @@ Can't Move: Same, but paralysis.
 Elemental Mayhem: At the start of each player's turn, all Pokemon of a random type become -ex Pokemon until the end of the turn.
 Last Stand: Whenever a player has only one prize card left, all of their Pokemon become -ex Pokemon
 X-ray Vision: Both players play with their hands and prize-cards face-up.
-Double-sized decks: each player's deck is made of 2 60-card decks
+Big deck energy: each player's deck is made of 2 60-card decks
 Randomized weakness/resistance: "weakness/resistance on a Pokemon is randomized whenever it is played to the bench"
 Heads, I Win; Tails, You Lose: the first coin flip of every attack or effect is always heads.
 Gambling Damage: deal 10 damage to your opponent's pokemon whenever you flip a coin. A single attack only deals an extra 10 damage, no matter how often you flip the coin for the attack.
+Reversed Prizes: losing a Pokemon gets you a prize card. Taking all your prize cards costs you the game.
+0-point deck: No Forbidden cards allowed in the deck.
+4-point deck: Only 4 points of Forbidden cards are allowed.
 
 The goal is not to provide a challenge, but to encourage the player to try different decks and to add variety to the player's game experience.
 
@@ -109,8 +114,9 @@ After the first time you face the Forbidden Faction leader, around the midway po
 
 * You unlock advanced booster packs, so the player can travel around TCG Island and get better cards. You also unlock the airport, so you can travel to Neo Continent, home of the Gym and Neo expansions and collect cards there.
 
-* The FF members disappear from the TCG Island clubs and new ones appear in the Neo Continent clubs, with the cloak color matching the club type.
+The first time you defeat a FF member on TCG Island you get a Forbidden booster pack and at least one Rocket booster pack. Every time afterwards, you only get a Rocket booster pack from that FF member. This is because it's easier than coding "NPC 1 leaves, NPC 2 arrives", and also because I don't mind if the player grinds for cards, as long as they don't become OP due to the forbidden cards.
 
+Maybe they say something on rematch like, "I'm out of Forbidden boosters, but you can still duel me for Rocket boosters."
 
 
 With the inclusion of dark and steel type in the TCG, there are just enough types for each club on the Neo Continent to be unique. Though, finding enough Pokemon to fully stock them might be an issue.
@@ -503,13 +509,14 @@ Maybe add a card catalog or card binder, to show the player all the cards they h
 If the player does complete the binder, they get a message from the game developer, thanking them for putting so much time and effort into the game, and asking them to leave a message on the itch.io webpage, so that they know somebody out there is enjoying their work.
 
 
+Also include an option to show off any of the player's decks, possibly along with the decklist. That way, the user can just printscreen and share.
+
 
 
 Congratulations! You've collected every last card in the game. I don't have any rewards for you, but I just wanted to say... thank you. From the bottom of my heart, thank you. You've clearly spent a lot of time and effort playing this game, and that's all I could hope for when I was making it.
 
-If it's not too much to ask, could you do me a favor and leave a message on the itch.io page? I spent a lot of time and effort building this game, and it would mean a lot to me to know that somebody out there is enjoying my work.
+If it's not too much to ask, could you do me a favor and leave a message on the itch.io page? I spent a lot of time and effort building this game, and it would mean a lot to me to know that somebody out there enjoyed my work.
 
-Regardless, again, thank you.
 -Brendan
 
 
