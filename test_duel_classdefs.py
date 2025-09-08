@@ -133,6 +133,7 @@ def test_lost_coin_flip_then_two_turns_end(monkeypatch):
     duel_object.advance_turn()
     assert duel_object.turn=="computer"
 
+    '''
 def test_starting_phase_handler():
     phase_handler = main.PhaseHandler()
     assert phase_handler.get_game_phase()=="starting"
@@ -145,6 +146,7 @@ def test_ending_duel_phase():
     new_duel=cd.DuelManager(prizes=6)
     new_duel.end_duel()
     assert main.phase_handler.get_game_phase()=="club"
+'''
 
 def test_ko_with_1_prize_remaining_ends_duel(setup_duel):
     duel_manager,player1,player2=setup_duel

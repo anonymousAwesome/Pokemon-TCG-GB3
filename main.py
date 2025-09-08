@@ -38,6 +38,10 @@ class PhaseHandler:
             #    print(f"{self.player_deck=},{self.opponent_deck=},{self.background_image=}")
             #    self.game_phase = "overworld"
 
+    def get_game_phase(self):
+        #really only used for testing
+        return self.game_phase
+
 phase_handler = PhaseHandler()
 
 
