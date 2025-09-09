@@ -1,5 +1,8 @@
 Don't forget to check the cards against the mistakes in the Pokemon->Mistranslations folder of my bookmarks
 
+Also stumbled on this:
+https://pkmncards.com/card/pineco-neo-discovery-n2-61/
+
 
 When the player walks on a club in the overworld, and the program displays the location text, the text box should start with the medal symbol if the player has obtained the medal from the club already.
 

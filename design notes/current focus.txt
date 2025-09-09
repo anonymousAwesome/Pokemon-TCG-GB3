@@ -1,3 +1,21 @@
+Menus
+
+The current "cluster" of options (e.g. looking at my hand, from the duel menu, showing three energy cards and a trainer) could be defined either by stacks or by nodes. I currently have stack-based code for it, but... eh, I'm not sure how happy I am with it.
+
+Within that cluster, the options could be presented as a 2d list for simple grid-based design, or by a graph of nodes for movement around the playmat.
+
+first menus to build:
+duel menu (grid)
+duel playmat (node)
+pause menu (grid)
+duel? y/n (grid)
+
+First step: 
+Create a "temporary input" box that accepts player input, shifts between selections with the arrow key (but doesn't change anything visibly) and prints the current selection to the console whenever the player presses the "A" button.
+
+
+
+
 to-do:
 
 set up opening cutscene
