@@ -50,9 +50,9 @@ Forbidden cards can be obtained by defeating the Forbidden Faction members that 
 
 Normal trainers will not use forbidden cards in their decks, but the FF members will.
 
-Once you defeat a trainer you unlock the ability to increase the strength of their AI. This is not rewarded in any way, it's only if the player wants a self-imposed challenge.
+When challenging a trainer you have the option to increase the difficulty. This does not affect the reward in any way.
 
-You also unlock optional challenges that reward you with extra booster packs if you win the duel. Examples:
+You may also select a daily challenge, which gives you one chance per day per opponent to get an extra booster pack. Losing the battle still locks you out until the next day.
 
 The only energy cards your deck can contain are basic energy cards, of the same type that the trainer has.
 You must include 4 of a specific basic Pokemon that the trainer has.
@@ -70,10 +70,10 @@ Singleton Format: only one card of the same name per deck, regardless of expansi
 Semi-Singleton format: only one of each named card from each expansion (except basic energy). You could run an Eevee (Jungle) and an Eevee (Rocket) in the same deck.
 Black hole: All discarded cards are instead removed from play
 Recycle Energy: all energy cards that would get sent to the discard pile are instead returned to the player's hand
-"Attack the Horn!": Resistance for all Pokemon is reduced from -30 to -10
+Reduced Resistances: Resistance for all Pokemon is reduced from -30 to -10
 No Weakness: All Pokemon weaknesses are ignored
-Broken Ground: +1 to all retreat costs
-Peek-a-boo: -1 to all retreat costs
+Expensive retreat: +1 to all retreat costs
+Cheap retreat: -1 to all retreat costs
 Unlimited Power!: There is no limit on the number of energy cards that can be played a turn.
 Unlimited [energy type] Power!: There is no limit on the number of [energy type] energy cards that can be played a turn.
 Super Energy Transfer: You may move energy from one Pokemon to another as often as you like during your turn.
@@ -90,11 +90,13 @@ Last Stand: Whenever a player has only one prize card left, all of their Pokemon
 X-ray Vision: Both players play with their hands and prize-cards face-up.
 Big deck energy: each player's deck is made of 2 60-card decks
 Randomized weakness/resistance: "weakness/resistance on a Pokemon is randomized whenever it is played to the bench"
-Heads, I Win; Tails, You Lose: the first coin flip of every attack or effect is always heads.
+Rigged coin: the first coin flip of every attack or effect is always heads.
 Gambling Damage: deal 10 damage to your opponent's pokemon whenever you flip a coin. A single attack only deals an extra 10 damage, no matter how often you flip the coin for the attack.
 Reversed Prizes: losing a Pokemon gets you a prize card. Taking all your prize cards costs you the game.
 0-point deck: No Forbidden cards allowed in the deck.
 4-point deck: Only 4 points of Forbidden cards are allowed.
+No Trainers Allowed: No trainers allowed.
+Boosted evolutions: Stage 1 Pokemon get +10 HP; Stage 2 Pokemon get +20 HP.
 
 The goal is not to provide a challenge, but to encourage the player to try different decks and to add variety to the player's game experience.
 
@@ -174,7 +176,7 @@ If a player has 4 or more of a specific card, the odds of it showing up in a boo
 
 Booster packs should not have doubles. This is partly to ensure slightly more diversity, but also so that there won't be 10 of the same card in a booster if that's the only card the player doesn't have 4 of.
 
-When the player beats the game they unlock Unlimited mode, which is a config setting that removes restrictions on forbidden cards and removes the waiting period between trades at the trading post.
+When the player beats the game they unlock Unlimited mode, which is a config setting that removes restrictions on forbidden cards, removes the waiting period between trades at the trading post, and removes the restrictions on daily challenges.
 
 
 
@@ -430,6 +432,8 @@ The AI thinks the opponent deck is built using the same algorithms it does, and 
 The AI knows what cards are in the opponent's hidden cards, but not what locations.
 The AI knows the cards and the locations.
 
+If using the last option, then when the AI selects a prize card it should be randomized.
+
 Note that all but the last option adds processing overhead, so it might be preferable to just give the AI perfect knowledge regardless of the difficulty level. It really depends on how obvious it is to the player that the AI is cheating.
 
 Note that a single coin flip doesn't mess with the branching factor too badly, so the AI should NOT be able to predict the outcome of a coin flip. Otherwise, it may become too obvious when the AI never flips when the result would be tails.
@@ -485,6 +489,8 @@ If the player attempts to face the club leader first, the game should tell them 
 
 For dialogue/text, need to process Playername, energy symbols, chip-m-chip name and beat/not beat icon (empty circle vs checkmark in circle?).
 
+Maybe add Zalgo text to the image for m-chip's name.
+
 
 
 When starting the AI training, I should test different approaches to the training. Epsilon greedy? UCB? Initializing the selection algorithms with very weak starting information? How much should the network change each time a player wins or loses?
@@ -516,7 +522,7 @@ Also include an option to show off any of the player's decks, possibly along wit
 
 
 
-Congratulations! You've collected every last card in the game. I don't have any rewards for you, but I just wanted to say... thank you. From the bottom of my heart, thank you. You've clearly spent a lot of time and effort playing this game, and that's all I could hope for when I was making it.
+Congratulations! You've collected every last card in the game. I don't have any rewards for you, but I just wanted to say: thank you. From the bottom of my heart, thank you. You've clearly spent a lot of time and effort playing this game, and that's all I could hope for when I was making it.
 
 If it's not too much to ask, could you do me a favor and leave a message on the itch.io page? I spent a lot of time and effort building this game, and it would mean a lot to me to know that somebody out there enjoyed my work.
 

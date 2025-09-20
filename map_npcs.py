@@ -1,6 +1,7 @@
 import characters
 import map_helpers
 import pygame
+import ui
 
 
 
@@ -71,7 +72,6 @@ class OpeningCutsceneLightning():
 #Mason's Lab
 
 
-    
 
 class DrMason():
     def __init__(self):
@@ -81,9 +81,32 @@ class DrMason():
         self.portrait=characters.load_portrait_from_sheet(characters.portrait_sheet_GB2,2,0)
         self.text="Good luck! We're all counting on you!"
 
-    def interact_object(self,inner_context):
+    '''def interact_object(self,inner_context):
         map_helpers.dialogue_duel(self,inner_context,self.text,name_text="Dr. Mason",profile_image=self.portrait,duel=False)
+       ''' 
+    
+    def interact_object(self,inner_context):
+        #this re-initializes the object every time Mason is interacted
+        #with. Naughty. Bad. Oh, well. It's just a quick and dirty prototype.
+        #DON'T FORGET TO REFACTOR IT.
+        choice_options=ui.ChoiceOptions(inner_context)
+
+        inner_context.event_manager.add_event(choice_options.__init__,[inner_context])
+
+        inner_context.event_manager.add_event(choice_options.display_choices,persistent_condition=choice_options.check_still_active)
         
+        inner_context.event_manager.add_event(inner_context.map_input_lock.unlock)
+        inner_context.map_input_lock.lock()
+    
+    '''
+    def interact_object(self,inner_context):
+
+        inner_context.event_manager.add_event(ui.ChoiceOptions.__init__,[inner_context.screen])
+        inner_context.event_manager.add_event(ui.ChoiceOptions.display_choices,[inner_context],persistent_condition=ui.ChoiceOptions.check_still_active)
+
+        #inner_context.event_manager.add_event(inner_context.map_input_lock.unlock)
+        #inner_context.map_input_lock.lock()
+'''
 
 class Sam():
     def __init__(self):

@@ -1,3 +1,16 @@
+persistent objects in event queue; when triggered, displays magenta box; loops until end; takes directional input and prints options and current option to console when A button pressed; ends loop when B button pressed.
+
+
+Open a new file for ui objects, create primitive UI object, connect to main game loop. add to event queue on start button and interacting with object.
+
+
+Created very rudimentary ui.ChoiceOptions class and hooked it up to Professor Mason's object interaction code.
+
+Next step: create a list of options and handle input (udlr, A, B)
+
+
+
+
 Menus
 
 The current "cluster" of options (e.g. looking at my hand, from the duel menu, showing three energy cards and a trainer) could be defined either by stacks or by nodes. I currently have stack-based code for it, but... eh, I'm not sure how happy I am with it.
