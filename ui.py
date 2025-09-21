@@ -30,8 +30,11 @@ class ChoiceOptions:
     def check_still_active(self):
         return self.still_active
     
-    def display_choices(self):
+    
+    def render_ui(self):
         pygame.draw.rect(self.inner_context.screen, (255, 0, 255), (20,20,100,100))
+        
+    def process_input(self):
         for event in self.inner_context.event_list:
             if event.type==pygame.KEYDOWN:
                 if event.key==key_mappings.up_key:
@@ -47,6 +50,11 @@ class ChoiceOptions:
                 if event.key==key_mappings.cancel_key:
                     self.still_active=False
 
+    
+    def display_choices(self):
+        self.render_ui()
+        self.process_input()
+        
     
 
 
