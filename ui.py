@@ -103,7 +103,7 @@ class Dialogue:
         return len(self.remaining_text)>0
 
     def display_text(self):
-        self.bg_box(self.screen,box_x,box_y,box_width,box_height)
+        bg_box(self.screen,box_x,box_y,box_width,box_height,greyscale=False)
 
         if self.profile_image:
             if self.name_text:
@@ -192,14 +192,14 @@ class Dialogue:
                     self.process_current_window()
 
 
-    def bg_box(self,screen,box_x,box_y,box_width,box_height):
-        pygame.draw.rect(screen, (255, 255, 255), (box_x + 4, box_y + 4, box_width - 8, box_height - 8))  # White background
-        if self.greyscale:
-            pygame.draw.rect(screen, (70,70,70), (box_x, box_y, box_width, box_height), width=6)  # grey border
-            pygame.draw.rect(screen, (150,150,150), (box_x+2, box_y+2, box_width-4, box_height-4), width=2)  # lighter grey middle
-        else:
-            pygame.draw.rect(screen, (0,0,200), (box_x, box_y, box_width, box_height), width=6)  # Blue border
-            pygame.draw.rect(screen, (125,125,255), (box_x+2, box_y+2, box_width-4, box_height-4), width=2)  # light blue middle
+def bg_box(screen,box_x,box_y,box_width,box_height,greyscale=False):
+    pygame.draw.rect(screen, (255, 255, 255), (box_x + 4, box_y + 4, box_width - 8, box_height - 8))  # White background
+    if greyscale:
+        pygame.draw.rect(screen, (70,70,70), (box_x, box_y, box_width, box_height), width=6)  # grey border
+        pygame.draw.rect(screen, (150,150,150), (box_x+2, box_y+2, box_width-4, box_height-4), width=2)  # lighter grey middle
+    else:
+        pygame.draw.rect(screen, (0,0,200), (box_x, box_y, box_width, box_height), width=6)  # Blue border
+        pygame.draw.rect(screen, (125,125,255), (box_x+2, box_y+2, box_width-4, box_height-4), width=2)  # light blue middle
 
 
 def club_name_render(screen, text):

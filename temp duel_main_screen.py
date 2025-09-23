@@ -1,11 +1,13 @@
 import pygame
+
+pygame.init()
 import ui
 
 
-pygame.init()
+
 screen = pygame.display.set_mode((640,576))
 clock = pygame.time.Clock()
-background=pygame.image.load("./assets/bg3.jpg").convert()
+background=pygame.image.load("./assets/duel backgrounds/bg3.jpg").convert()
 background=pygame.transform.scale(background, (640,576))
 
 font = pygame.font.Font("./assets/pokemon-emerald.otf", 40)
@@ -32,9 +34,6 @@ COLOR_BLACK = (0,0,0)
 # Calculated box position
 BOX_X = (SCREEN_WIDTH - BOX_WIDTH) // 2
 BOX_Y = SCREEN_HEIGHT - BOX_HEIGHT - BOX_MARGIN_BOTTOM
-
-background=pygame.image.load("./assets/bg3.jpg").convert()
-background=pygame.transform.scale(background, (640,576))
 
 
 def render():
