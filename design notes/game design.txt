@@ -1,3 +1,7 @@
+When collecting a booster pack or individual card (but not one from the trading post or debug menu), the player is also given the opportunity to go to their card catalog/binder. The cards that were newly-obtained should be blinking.
+
+
+
 Don't forget to check the cards against the mistakes in the Pokemon->Mistranslations folder of my bookmarks
 
 Also stumbled on this:
