@@ -21,41 +21,83 @@ box_y = 576 - box_height - 20
 
 
 class ChoiceOptions:
-    def __init__(self,inner_context):
-        self.inner_context=inner_context
-        self.still_active=True
-        self.temp_choices=["choice 1", "choice 2", "choice 3"]
-        self.current_index=0
-      
+    def __init__(self, inner_context):
+        self.inner_context = inner_context
+        self.still_active = True
+        self.option_manager = OptionManager(["choice 1", "choice 2", "choice 3"])
+        self.input_processor = InputProcessor()
+    
     def check_still_active(self):
         return self.still_active
     
-    
     def render_ui(self):
-        pygame.draw.rect(self.inner_context.screen, (255, 0, 255), (20,20,100,100))
-        
+        pygame.draw.rect(self.inner_context.screen, (255, 0, 255), (20, 20, 100, 100))
+        current_choice = self.option_manager.get_current()
+        print(f"Current: {current_choice}")
+    
     def process_input(self):
-        for event in self.inner_context.event_list:
-            if event.type==pygame.KEYDOWN:
-                if event.key==key_mappings.up_key:
-                    if self.current_index>0:
-                        self.current_index-=1
-                    print(f"index {self.current_index}:  {self.temp_choices[self.current_index]}")
-                if event.key==key_mappings.down_key:
-                    if self.current_index+1<len(self.temp_choices):
-                        self.current_index+=1
-                    print(f"index {self.current_index}:  {self.temp_choices[self.current_index]}")
-                if event.key==key_mappings.affirm_key:
-                    print(f"index {self.current_index}:  {self.temp_choices[self.current_index]}")
-                if event.key==key_mappings.cancel_key:
-                    self.still_active=False
-
+        actions = self.input_processor.process_events(
+            self.inner_context.event_list, 
+            self.option_manager.current_index
+        )
+        
+        for action in actions:
+            if action == "move_up":
+                self.option_manager.move_up()
+                print(f"index {self.option_manager.current_index}: {self.option_manager.get_current()}")
+            elif action == "move_down":
+                self.option_manager.move_down()
+                print(f"index {self.option_manager.current_index}: {self.option_manager.get_current()}")
+            elif action == "select":
+                print(f"Selected: {self.option_manager.get_current()}")
+            elif action == "cancel":
+                self.still_active = False
     
     def display_choices(self):
         self.render_ui()
         self.process_input()
-        
+
+
+class InputProcessor:
     
+    def process_events(self, event_list, current_state):
+        """Process events and return actions"""
+        actions = []
+        for event in event_list:
+            if event.type == pygame.KEYDOWN:
+                if event.key == key_mappings.up_key:
+                    actions.append("move_up")
+                elif event.key == key_mappings.down_key:
+                    actions.append("move_down")
+                elif event.key == key_mappings.affirm_key:
+                    actions.append("select")
+                elif event.key == key_mappings.cancel_key:
+                    actions.append("cancel")
+        return actions
+
+class OptionManager:
+    def __init__(self, options):
+        self.options = options
+        self.current_index = 0
+    
+    def move_up(self):
+        if self.current_index > 0:
+            self.current_index -= 1
+            return True
+        return False
+    
+    def move_down(self):
+        if self.current_index + 1 < len(self.options):
+            self.current_index += 1
+            return True
+        return False
+    
+    def get_current(self):
+        return self.options[self.current_index]
+    
+    def get_all_options(self):
+        return self.options
+
 
 
 class Dialogue:
