@@ -23,8 +23,42 @@ Playername is just crazy about card collecting and duelling! They faced each clu
 
 Until one day...
 
+---
 
-Cutscenes:
+FF interior, darkened.
+
+???, shadowed silhouette: King Villicci was a fool. He had all of Team Great Rocket under his control, but he lost to a mere child!
+
+???: We, the Forbidden Faction, won't make the same mistake! We-
+
+FF Yellow:
+Hey, what are you doing?
+
+???: I'm monologuing! Now shut up!
+
+???: Where was I...
+
+FF Yellow: Yeah, but, like, it's dark in here. You want me to turn the lights on for you?
+
+???: No! 
+
+???: ...
+
+???: Once I obtain the Pokemon ex cards, not even-
+
+-click-
+
+Malinda: Augh! Dick!
+
+FF Yellow: See? Much better!
+
+Malinda: Fucking... whatever. Come on, let's go take over TCG Island.
+
+FF Yellow: Oh. Did you want to do some more monologuing first? 
+
+Malinda: No. You ruined it. Let's go.
+
+-----
 
 The cult members leaving the fort
 
@@ -778,7 +812,7 @@ What should you call somebody who plays the Pokemon TCG? We don't actually train
 
 [if you choose to duel them, just before the duel starts:]
 
-"It's time to d-d-d-d-don't finish that sentence!"
+"It's time to d-d-d-d-don't finish that sentence! Copyright infringement is serious business!"
 
 
 Cassandra: 
@@ -803,9 +837,12 @@ They say the Bug Club is full of a bunch of weirdos. And they're not wrong! But 
 Ground:
 
 RedVelvetNite
-It would be really funny if you let me win. 
+It would be really funny if you let me win!
 
 [include Rhydon, Donphan, Teddiursa, maybe Dratini.]
+
+After you win:
+Drat!
 
 
 A.J.
@@ -819,8 +856,7 @@ Is it just me, or is it a little cramped in here?
 
 
 Anthony:
-The Ground Club meets outdoors so that we can really get a feel for the dirt, be one with the land. And also because it's WAY cheaper.
-
+The Ground Club meets outdoors so that we can really get a feel for the dirt. You know? Really be one with the land. (And also because it's WAY cheaper for me.)
 
 
 
@@ -1302,6 +1338,25 @@ Then a second Dr. Mason shows up, looking exhausted. M1 looks surprised, then of
 
 
 
+After/during the credits, Brendan shows up. Walks on-screen onto a black background from the right, then faces down and addresses the IRL player.
+
+
+"Okay, so I AM the game designer's self-insert character. That's good to know. I wasn't sure.
+
+Well, from here, there's not much left to do. You could take on God Imakuni?, but beyond that there's not really any plot left. You could rematch with duellists, collecting more cards if you want, maybe facing trainers at higher difficulty if you haven't been doing that.
+Or, you could go the other direction and crush duellists with your newly-unlocked unlimited decks, that's fine, too.
+
+But regardless, I just want to say: thank you. I put a lot of time and effort into this game, and even though we've never met, I'm really happy to think that somebody played it through to the end.
+
+And hey, if you liked it, maybe leave a note on the itch.io page. It would really mean a lot to me.
+
+Take care.
+
+
+
+
+
+
 Post-game:
 
 
@@ -1351,23 +1406,6 @@ Imakuni? Yellow: Today I'm the happy-go-lucky Imakuni? Ranger! Next week I get t
 Defeating them causes God Imakuni? to appear.
 
 I have all the powers of the other three Imakuni? Rangers! And also all of their weaknesses. Oh god, my back!
-
-
-After defeating God Imakuni, Brendan shows up.
-
-
-"Okay, so I AM the game designer's self-insert character. That's good to know. I wasn't sure.
-
-Well, with the defeat of God Imakuni?, there's not much left to do. Certainly no plot left. You can wander around, filling out your deck binder if you want, maybe facing trainers at higher difficulty if you haven't been doing that.
-Or, you could go the other direction and crush duellists with your unlimited cards, that's fine, too.
-
-But regardless, I just want to say: thank you. I put a lot of time and effort into this game, and even though we've never met, I'm really glad to think that somebody played it through to the end.
-
-And hey, if you liked it, maybe leave a note on the itch.io page. It would really mean a lot to me.
-
-Take care.
-
-And then Brendan leaves.
 
 
 

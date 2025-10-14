@@ -62,19 +62,21 @@ The only energy cards your deck can contain are basic energy cards, of the same 
 You must include 4 of a specific basic Pokemon that the trainer has.
 You must include 5 Pokemon with Dark in their name
 You must include 5 (gym leader name) Pokemon
+At least half your Pokemon must be [type, expansion, etc.]
 You must include N cards from a certain expansion
 All [type] Pokemon attacks do an extra 10 damage.
 Your deck cannot contain forbidden cards.
 Your deck cannot include trainer cards.
 Except for basic energy, the player's deck can only contain cards from Neo Continent.
-Pauper: Your deck cannot contain any cards above... let's say C-rank.
+Player's decks can only contain cards from certain formats. For example, Rocket-Neo.
+Max rank: [S-E]: Your deck cannot contain any cards above the specified rank.
 Max HP limit (50 or 60)
 Your deck must contain at least 30 energy cards, including both Basic and Special energy.
 Singleton Format: only one card of the same name per deck, regardless of expansion (except basic energy). You could not run an Eevee (Jungle) and an Eevee (Rocket) in the same deck. You could, however, run a Gyarados, a Dark Gyarados, and a Giovanni's Gyarados, because they all have different names.
 Semi-Singleton format: only one of each named card from each expansion (except basic energy). You could run an Eevee (Jungle) and an Eevee (Rocket) in the same deck.
 Black hole: All discarded cards are instead removed from play
-Recycle Energy: all energy cards that would get sent to the discard pile are instead returned to the player's hand
-Reduced Resistances: Resistance for all Pokemon is reduced from -30 to -10
+Recycle all Energies: all energy cards that would get sent to the discard pile are instead returned to the player's hand
+No Resistances: All Pokemon resistances are ignored
 No Weakness: All Pokemon weaknesses are ignored
 Expensive retreat: +1 to all retreat costs
 Cheap retreat: -1 to all retreat costs
@@ -101,11 +103,33 @@ Reversed Prizes: losing a Pokemon gets you a prize card. Taking all your prize c
 4-point deck: Only 4 points of Forbidden cards are allowed.
 No Trainers Allowed: No trainers allowed.
 Boosted evolutions: Stage 1 Pokemon get +10 HP; Stage 2 Pokemon get +20 HP.
+No draw trainers: Deck cannot include any trainers that put cards directly from the deck into your hand. Bill, Bill's Teleporter, Computer Error, Professor Oak, Computer Search, Pokeball, etc.
+Boosted [energy type]: The attacks of [energy type] pokemon that deal 10-50 damage do an extra 10 damage.
+Energy Slog: Players must discard a card from their hand to attach an Energy from their hand.
+
+
 
 The goal is not to provide a challenge, but to encourage the player to try different decks and to add variety to the player's game experience.
 
 The NPC decks should also adhere to the challenge requirements.
 
+
+
+
+I could create a “Chaos Mode” where the opponent selects the challenge(s?) instead.
+
+
+
+
+
+
+Established TCG formats:
+
+Base-Fossil (Base, Jungle, Fossil)
+Base-Rocket
+Base-Gym
+Base-Neo
+Rocket-on
 
 
 After the first time you face the Forbidden Faction leader, around the midway point of the game, several things happen: 
@@ -181,6 +205,8 @@ If a player has 4 or more of a specific card, the odds of it showing up in a boo
 Booster packs should not have doubles. This is partly to ensure slightly more diversity, but also so that there won't be 10 of the same card in a booster if that's the only card the player doesn't have 4 of.
 
 When the player beats the game they unlock Unlimited mode, which is a config setting that removes restrictions on forbidden cards, removes the waiting period between trades at the trading post, and removes the restrictions on daily challenges.
+
+Oh, and it allows the player to use more than one duel modifier/challenge on a single duel.
 
 
 

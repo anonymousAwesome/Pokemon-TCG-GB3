@@ -1,0 +1,147 @@
+I want to like the club, but the DJ keeps playing these really old songs nobody's ever heard of.
+
+
+DJ:
+"I wanna be, the very best! Like no one ever was!"
+
+
+
+
+Unlimited energy cards
+
+Make all non-hall and non-dome fights be 3 prizes, sans leaders and rival
+
+
+Here you go! An infinite amount of Dark and Metal basic energy cards!
+
+What, no, I don't know how that makes any sense. Don't question it, okay?
+
+
+
+
+
+Starting deck: solid, competitive, but not a meta-deck. Good, not great.
+
+Currency: card tokens, which can be used to purchase specific cards and theme decks at considerably lower prices.
+
+The player obtains several random boosters and some card tokens for defeating an opponent the first time.
+The times after that, they obtain fewer boosters and card tokens. This is to incentivize players to keep focusing on new enemies.
+
+Whenever a booster pack contains a fifth+card, it gets converted to card tokens automatically.
+
+A player may add a self-imposed challenge to any duel, but this does not reward the player in any way.
+
+
+
+After collecting 8 of the Ex-Cards, the final boss demands them from you. Unfortunately...
+
+
+WHAT DO YOU MEAN, YOU CONVERTED THE EXTRAS INTO CARD TOKENS?!
+
+IT WAS A KEY ITEM! YOU WEREN'T SUPPOSED TO JUST FUCKING SELL IT!
+
+I AM SO! FUCKING! PISSED OFF!!!
+
+
+
+
+Obtained 4 -ex cards!
+
+Extra cards converted to card tokens!
+
+...
+
+That's probably fine, right?
+
+
+
+
+
+Energy cards, and later the forbidden points, could use - to represent an unlimited amount of them, instead of the infinity symbol.
+
+
+
+Trainer challenges become something you can collect. You can apply any combination of them to duels, as a self-imposed challenge. The AI will create a deck of the appropriate strength ("Generating opponent deck..."), and will let you know if it calculates that no deck with that combination of challenges can be created. It will also have a default "timed out making the deck!" message as a backup if it hangs and doesn't catch it.
+
+One of the challenges can be to change the number of prizes for the duel.
+
+
+The hard part will be determining the strength of the generated deck in the new context without too many simulated games. Alternatively, I could just disable deck strength checking for challenge matches, though that feels like it short-changes the player.
+
+Maybe I could just add the value of each card and all the synergies, and use that as a rough proxy of the deck's strength. Hell, if it works I could even use that as a way to guide the deck creation when choosing between multiple possible cards.
+
+
+Perhaps beating the game unlocks the unlimited challenges option.
+
+
+Maybe talking to an NPC gives you stats about your game. E.g. which Pokemon of yours has got the most knockouts, which trainer of yours has been used the most, etc.
+
+
+
+When you face the other Projared he'll say "Miss it. Miss it. Miss it." the first time you flip a coin in a duel, but only once per saved game. Then, depending on the coin flip, he'll either say "Yes!" or "Damn!"
+
+
+Instead of icons for effects, maybe I could include a small piece of text.
+
+
+In the post-game, Professor Mason and his clone show up in Mason's Lab. Professor Mason uses the original sprite, whereas his clone uses the updated one.
+
+
+Player assistance settings:
+
+Improved player opening hand: ensures your initial draw always contains a decent balance of trainers, energy cards, and basic/Stage 1 Pokemon.
+
+Heads every time (single flip)
+
+4 of every card
+
+Unlock every challenge
+
+Remove Forbidden Points limit
+
+Story Mode (automatic wins)
+
+Unlock all cards/packs in shop
+
+All card token purchases are free
+
+Extra card packs per win
+
+
+Projared
+
+Win quote: "Never not had it!"
+
+Lose quote: "We go... again."
+
+If the player plays a Vaporeon:
+"Oh, no. No, no, no."
+
+If the player plays a Slugma:
+"Slugma what, dude? Slugma balls."
+
+
+
+
+Gym Heroes and Gym Challenge boosters are dropped by the club leaders.
+
+You are given a Gym starter deck once you defeat your first Gym leader.
+
+You are given a Neo starter deck once you arrive at Neo Continent.
+
+
+
+
+Mason NPC: The blackboard on the far wall has some important information for you. -snicker-
+
+
+
+
+
+Card draft: custom format using a seed comprising of two words (adjective noun). It randomly pulls cards and trainers from the entire card pool, though it makes sure there are no stage 2 or 3 evolutions that can't be evolved to.
+
+The player hands over their current decklist and either has access to the entire custom format decklist or enters a tournament with other drafters.
+
+The player can manually enter whatever seed they want.
+
+Perhaps a daily or weekly seed.

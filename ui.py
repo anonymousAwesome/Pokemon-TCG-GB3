@@ -33,7 +33,7 @@ class ChoiceOptions:
     def render_ui(self):
         pygame.draw.rect(self.inner_context.screen, (255, 0, 255), (20, 20, 100, 100))
         current_choice = self.option_manager.get_current()
-        print(f"Current: {current_choice}")
+        #print(f"Current: {current_choice}")
     
     def process_input(self):
         actions = self.input_processor.process_events(

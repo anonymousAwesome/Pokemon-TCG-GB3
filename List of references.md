@@ -17,7 +17,7 @@ Flying Club: Hippie delivers a line from Pokemon Vietnamese Crystal
 Dark Club: Transcendental Cha Cha Cha by Tom Cardy
 Dark Club: Teen Titans
 Dark Club: https://knowyourmeme.com/memes/card-games-on-motorcycles
-Dark Club: Map layout based on the club from Everhood
+Dark Club: Map layout loosely based on the club from Everhood
 (Note that the Dark Club NPCs and the Ghost club NPCs are not references to the Pokemon anime, unlike most of the other Neo Continent club NPCs.)
 Ghost Club: NPCs are from Danny Phantom
 Ghost Club: The map layout is based on the Colorless Altar location from GB2. Not exactly a reference, just laziness.
@@ -29,10 +29,12 @@ Trading Post: Charity's portrait is based loosely on some very old Ken Sugimori 
 Trading Post: Jumbo Steve's portrait is the Hiker class from Ruby/Sapphire
 Forbidden Faction lounge: Energy-taking NPC from Pokemon GB
 Forbidden Faction lounge: Real-life musicians Sara Bareilles, Cher, Chamillionaire, and Phil Lynott
-Neo Continent Grandmaster Stadium: Crono, Lucca, Marle, and Magus are all characters from Chrono Trigger
+Neo Continent Grandmaster Stadium: Crono, Lucca, Marle, and Magus are all characters from the Super Nintendo game Chrono Trigger
 Neo Continent Grandmaster Stadium: Lucca's deck contains Entei and Unown, a weak reference to the third Pokemon movie
 Final duel: Yu-gi-oh (Heavy Storm card)
 Final duel: [AI-generated Magic: The Gathering cards](https://www.mtgsalvation.com/forums/magic-fundamentals/custom-card-creation/612057-generating-magic-cards-using-deep-recurrent-neural) (Slidshocking Krow with Tromple and Mointainspalk). Note that those cards were generated several years before AI became frighteningly competent; at the time, state of the art was still hilariously bad.
 Ronald's dialogue: Futurama (Bender: "Yeah, well... I'm gonna go build my own theme park! With blackjack! And hookers! In fact, forget the park!")
 
-The design of the Forbidden Faction cultist robes are not an intentional reference to the Konosuba game "Love for these Clothes of Desire"; I'm just too lazy to come up with my own design. Which, arguably, fits the theme of Konosuba.
+The design of the Forbidden Faction cultist robes are not an intentional reference to the Konosuba game "Love for these Clothes of Desire"; I'm just too lazy to come up with my own design. 
+
+...which, arguably, fits the theme of Konosuba.

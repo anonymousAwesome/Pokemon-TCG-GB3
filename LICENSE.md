@@ -1,3 +1,3 @@
-I give you permission to use any of the material in this project that I hold the copyright to (code, mostly) for any reason, without limitation. You may do whatever you want with it, I don't care. Credit (BrendanRGB) and a link back to the itch.io page (https://brendanrgb.itch.io/pokemon-gb3) would be preferred, but is not required.
+I give you permission to use any of the material in this project that I DO hold the copyright to (code, mostly) for any reason, without limitation. You may do whatever you want with it, I don't care. Credit (BrendanRGB) and a link back to the itch.io page (https://brendanrgb.itch.io/pokemon-gb3) would be preferred, but is not required.
 
-I cannot give you permission to use any material that I do not hold the copyright to, including but not limited to Pokemon names, card images and text, NPC names and sprites, background images and background music.
+I cannot give you permission to use any material that I DO NOT hold the copyright to, including but not limited to Pokemon names, card images and text, NPC names and sprites, background images and background music.
